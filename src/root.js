@@ -37,7 +37,7 @@ class Root extends Component {
           </View>
           <View name="search">
             <View>
-              <Text>icon</Text>
+              <Text>i</Text>
             </View>
             <View>
               <Text>检索</Text>
