@@ -5,10 +5,7 @@ import {changeTab} from './actions/root'
 import Tabs from './shared/tabs'
 
 class Root extends Component {
-
-  handleChangeTab({props: {
-      name
-    }}) {
+  handleChangeTab(name) {
     const {selectedTab, dispatch} = this.props
     if (selectedTab === name) {
       return
@@ -17,46 +14,40 @@ class Root extends Component {
   }
 
   render() {
+    const selected = this.props.selectedTab
     return (
       <View style={styles.container}>
-        <Tabs selected={this.props.selectedTab} style={{
-          backgroundColor: 'white'
-        }} selectedStyle={{
-          color: '#00a6ca'
-        }} selectedIconStyle={{
-          borderTopWidth: 2,
-          borderTopColor: '#00a6ca'
-        }} onSelect={this.handleChangeTab.bind(this)}>
+        <Tabs selected={selected} selectedStyle={{borderColor: '#00a6ca'}} onSelect={this.handleChangeTab.bind(this)}>
           <View name="recommend">
             <View>
-              <Text>icon</Text>
+              <Text style={[styles.tabIcon, selected === 'recommend' ? styles.tabTextSelected : '']}>&#xe511;</Text>
             </View>
             <View>
-              <Text>智能推荐</Text>
+              <Text style={[styles.tabText, selected === 'recommend' ? styles.tabTextSelected : '']}>智能推荐</Text>
             </View>
           </View>
           <View name="search">
             <View>
-              <Text>i</Text>
+              <Text style={[styles.tabIcon, selected === 'search' ? styles.tabTextSelected : '']}>&#xe508;</Text>
             </View>
             <View>
-              <Text>检索</Text>
+              <Text style={[styles.tabText, selected === 'search' ? styles.tabTextSelected : '']}>检索</Text>
             </View>
           </View>
           <View name="my">
             <View>
-              <Text>icon</Text>
+              <Text style={[styles.tabIcon, selected === 'my' ? styles.tabTextSelected : '']}>&#xe50a;</Text>
             </View>
             <View>
-              <Text>我的</Text>
+              <Text style={[styles.tabText, selected === 'my' ? styles.tabTextSelected : '']}>我的</Text>
             </View>
           </View>
         </Tabs>
         <Text>
           Welcome to React Native
         </Text>
-        <Text style={styles.instructions}>
-          Selected page: {this.props.selectedTab}
+        <Text>
+          Selected page: {selected}
         </Text>
       </View>
     )
@@ -70,10 +61,22 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F5FCFF'
   },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5
+  tabIcon: {
+    fontFamily:'iconfont',
+    color: '#999',
+    fontSize: 25,
+    textAlign: 'center'
+  },
+  tabText: {
+    color: '#999'
+  },
+  tabSelected: {
+    borderStyle: 'solid',
+    borderColor: '#00a6ca',
+    borderTopWidth: 2
+  },
+  tabTextSelected: {
+    color: '#00a6ca'
   }
 })
 

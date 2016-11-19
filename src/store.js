@@ -6,12 +6,12 @@ import reducers from './reducers'
 
 const logger = store => next => action => {
 	if (typeof action === 'function') {
-    console.log('dispatching a function')
+    // console.log('dispatching a function')
   } else {
-    console.log('dispatching', action)
+    // console.log('dispatching', action)
   }
 	const result = next(action)
-	console.log('next state', store.getState())
+	// console.log('next state', store.getState())
 	return result
 }
 

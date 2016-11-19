@@ -3,30 +3,20 @@ import React, {Component} from 'react'
 import {StyleSheet, View, TouchableOpacity} from 'react-native'
 
 class Tabs extends Component {
-  constructor() {
-    super()
-    this.state = {
-      selected: null
-    }
-  }
-
   handleSelected(child) {
     if (!this.props.onSelect) {
       return
     }
-    const {selected} = this.state
-    if (selected === null || selected !== child) {
-      this.setState({selected: child})
-      this.props.onSelect(child)
-    }
+    this.props.onSelect(child.props.name)
   }
 
   render() {
+    const {selected} = this.props
     return (
       <View style={[styles.tabbarView, this.props.style]}>
         {this.props.children.map((child) => {
           return (
-            <TouchableOpacity key={child.props.name + 'touch'} style={styles.tabView} onPress={this.handleSelected.bind(this, child)} onLongPress={this.handleSelected.bind(this, child)}>
+            <TouchableOpacity key={child.props.name + 'touch'} style={[styles.tabView, child.props.name === selected ? this.props.selectedStyle : '']} onPress={this.handleSelected.bind(this, child)} onLongPress={this.handleSelected.bind(this, child)}>
               {child}
             </TouchableOpacity>
           )
@@ -35,7 +25,8 @@ class Tabs extends Component {
     )
   }
 }
-var styles = StyleSheet.create({
+
+const styles = StyleSheet.create({
   tabbarView: {
     position: 'absolute',
     bottom: 0,
@@ -46,13 +37,17 @@ var styles = StyleSheet.create({
     backgroundColor: 'transparent',
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    backgroundColor: 'white'
   },
   tabView: {
     flex: 1,
     height: 50,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    borderStyle: 'solid',
+    borderColor: '#fff',
+    borderTopWidth: 2
   }
 })
 

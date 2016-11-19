@@ -6,8 +6,7 @@ const initialState = {
 }
 
 export default root  = (state = initialState, action) => {
-
-  console.log(action, state)
+  // console.log(action, state)
   switch (action.type) {
     case rootRd.CHANGE_TAB:
       return {...state, selectedTab: action.selectedTab}
