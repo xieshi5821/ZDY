@@ -38,7 +38,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'white'
+    backgroundColor: 'white',
+    zIndex: 100
   },
   tabView: {
     flex: 1,

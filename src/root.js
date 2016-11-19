@@ -28,9 +28,8 @@ class Root extends Component {
 
   render() {
     const {selectedTab} = this.props
-
     const mainPage = this.getMainPage(selectedTab)
-    console.log(mainPage)
+    
     return (
       <View style={styles.container}>
         <Tabs selected={selectedTab} selectedStyle={{borderColor: '#00a6ca'}} onSelect={this.handleChangeTab.bind(this)}>
@@ -71,9 +70,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: 25,
-    // justifyContent: 'center',
-    // alignItems: 'center',
-    // backgroundColor: ''
+    paddingBottom: 52
   },
   tabIcon: {
     fontFamily:'iconfont',
