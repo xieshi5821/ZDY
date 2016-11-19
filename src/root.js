@@ -1,8 +1,11 @@
-import React, {Component} from 'react';
+import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {StyleSheet, View, Text} from 'react-native'
+import {StyleSheet, View, Text, ScrollView} from 'react-native'
 import {changeTab} from './actions/root'
 import Tabs from './shared/tabs'
+import RecommendPage from './pages/recommendPage'
+import SearchPage from './pages/searchPage'
+import MyPage from './pages/myPage'
 
 class Root extends Component {
   handleChangeTab(name) {
@@ -13,42 +16,52 @@ class Root extends Component {
     dispatch(changeTab(name))
   }
 
+  getMainPage(selectedTab) {
+    if ('search' === selectedTab) {
+      return (<SearchPage/>)
+    } else if ('my' === selectedTab) {
+      return (<MyPage/>)
+    } else {
+      return (<RecommendPage/>)
+    }
+  }
+
   render() {
-    const selected = this.props.selectedTab
+    const {selectedTab} = this.props
+
+    const mainPage = this.getMainPage(selectedTab)
+    console.log(mainPage)
     return (
       <View style={styles.container}>
-        <Tabs selected={selected} selectedStyle={{borderColor: '#00a6ca'}} onSelect={this.handleChangeTab.bind(this)}>
+        <Tabs selected={selectedTab} selectedStyle={{borderColor: '#00a6ca'}} onSelect={this.handleChangeTab.bind(this)}>
           <View name="recommend">
             <View>
-              <Text style={[styles.tabIcon, selected === 'recommend' ? styles.tabTextSelected : '']}>&#xe511;</Text>
+              <Text style={[styles.tabIcon, selectedTab === 'recommend' ? styles.tabTextSelected : '']}>&#xe511;</Text>
             </View>
             <View>
-              <Text style={[styles.tabText, selected === 'recommend' ? styles.tabTextSelected : '']}>智能推荐</Text>
+              <Text style={[styles.tabText, selectedTab === 'recommend' ? styles.tabTextSelected : '']}>智能推荐</Text>
             </View>
           </View>
           <View name="search">
             <View>
-              <Text style={[styles.tabIcon, selected === 'search' ? styles.tabTextSelected : '']}>&#xe508;</Text>
+              <Text style={[styles.tabIcon, selectedTab === 'search' ? styles.tabTextSelected : '']}>&#xe508;</Text>
             </View>
             <View>
-              <Text style={[styles.tabText, selected === 'search' ? styles.tabTextSelected : '']}>检索</Text>
+              <Text style={[styles.tabText, selectedTab === 'search' ? styles.tabTextSelected : '']}>检索</Text>
             </View>
           </View>
           <View name="my">
             <View>
-              <Text style={[styles.tabIcon, selected === 'my' ? styles.tabTextSelected : '']}>&#xe50a;</Text>
+              <Text style={[styles.tabIcon, selectedTab === 'my' ? styles.tabTextSelected : '']}>&#xe50a;</Text>
             </View>
             <View>
-              <Text style={[styles.tabText, selected === 'my' ? styles.tabTextSelected : '']}>我的</Text>
+              <Text style={[styles.tabText, selectedTab === 'my' ? styles.tabTextSelected : '']}>我的</Text>
             </View>
           </View>
         </Tabs>
-        <Text>
-          Welcome to React Native
-        </Text>
-        <Text>
-          Selected page: {selected}
-        </Text>
+        <View>
+          {mainPage}
+        </View>
       </View>
     )
   }
@@ -57,9 +70,10 @@ class Root extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF'
+    marginTop: 25,
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    // backgroundColor: ''
   },
   tabIcon: {
     fontFamily:'iconfont',

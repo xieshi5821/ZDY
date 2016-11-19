@@ -1,10 +1,10 @@
 import React, {Component} from 'react'
 import {StyleSheet, View, Text} from 'react-native'
 
-export default class RecommendPage extends Component {
+export default class SearchPage extends Component {
   render() {
     return (
-      <Text>2</Text>
+      <Text>3</Text>  
     )
   }
 }

@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 
 import {StyleSheet, View, TouchableOpacity} from 'react-native'
 
-class Tabs extends Component {
+export default class Tabs extends Component {
   handleSelected(child) {
     if (!this.props.onSelect) {
       return
@@ -50,5 +50,3 @@ const styles = StyleSheet.create({
     borderTopWidth: 2
   }
 })
-
-module.exports = Tabs
