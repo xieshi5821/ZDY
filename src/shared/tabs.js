@@ -16,7 +16,7 @@ export default class Tabs extends Component {
       <View style={[styles.tabbarView, this.props.style]}>
         {this.props.children.map((child) => {
           return (
-            <TouchableOpacity key={child.props.name + 'touch'} style={[styles.tabView, child.props.name === selected ? this.props.selectedStyle : '']} onPress={this.handleSelected.bind(this, child)} onLongPress={this.handleSelected.bind(this, child)}>
+            <TouchableOpacity key={child.props.name + 'touch'} style={[styles.tabView, child.props.name === selected ? this.props.selectedStyle : '']} onPress={this.handleSelected.bind(this, child)}>
               {child}
             </TouchableOpacity>
           )
