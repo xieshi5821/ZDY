@@ -69,8 +69,7 @@ class Root extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 25,
-    paddingBottom: 52
+    marginTop: 20
   },
   tabIcon: {
     fontFamily:'iconfont',
