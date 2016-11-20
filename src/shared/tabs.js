@@ -33,12 +33,10 @@ const styles = StyleSheet.create({
     right: 0,
     left: 0,
     height: 50,
-    opacity: 1,
     backgroundColor: 'transparent',
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'white',
     zIndex: 100
   },
   tabView: {
@@ -48,6 +46,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderStyle: 'solid',
     borderColor: '#fff',
-    borderTopWidth: 2
+    borderTopWidth: 1
   }
 })

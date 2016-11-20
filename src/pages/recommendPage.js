@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {StyleSheet, View, Text, ScrollView} from 'react-native'
-
+// import ViewPager from 'react-native-viewpager'
+// console.log(ViewPager)
 export default class RecommendPage extends Component {
   render() {
     return (

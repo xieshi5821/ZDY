@@ -29,10 +29,10 @@ class Root extends Component {
   render() {
     const {selectedTab} = this.props
     const mainPage = this.getMainPage(selectedTab)
-    
+
     return (
       <View style={styles.container}>
-        <Tabs selected={selectedTab} selectedStyle={{borderColor: '#00a6ca'}} onSelect={this.handleChangeTab.bind(this)}>
+        <Tabs selected={selectedTab} style={{backgroundColor: '#f4f4f4'}} selectedStyle={{borderColor: '#00a6ca'}} onSelect={this.handleChangeTab.bind(this)}>
           <View name="recommend">
             <View>
               <Text style={[styles.tabIcon, selectedTab === 'recommend' ? styles.tabTextSelected : '']}>&#xe511;</Text>
@@ -58,7 +58,7 @@ class Root extends Component {
             </View>
           </View>
         </Tabs>
-        <View>
+        <View style={styles.mainView}>
           {mainPage}
         </View>
       </View>
@@ -88,6 +88,14 @@ const styles = StyleSheet.create({
   },
   tabTextSelected: {
     color: '#00a6ca'
+  },
+  mainView: {
+    backgroundColor: '#f0f1f5',
+    position: 'absolute',
+    top: 0,
+    bottom: 50,
+    right: 0,
+    left: 0
   }
 })
 
