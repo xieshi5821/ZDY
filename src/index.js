@@ -4,7 +4,7 @@ import configureStore from './store'
 import Root from './root'
 
 const store = configureStore()
-console.log(store)
+// console.log(store)
 
 export default class App extends Component {
   render() {

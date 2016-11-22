@@ -1,5 +1,5 @@
 // 定义分模块的Reducers
-const defModuleReducer = (moduleName, children = []) => {
+const createModuleReducer = (moduleName, children = []) => {
   const reducer = {}
   children.forEach((defName) => {
     reducer[defName] = moduleName + ':' + defName
@@ -8,7 +8,7 @@ const defModuleReducer = (moduleName, children = []) => {
 }
 
 // 应用根首页
-export const rootRd = defModuleReducer('rootRd', ['CHANGE_TAB'])
+export const rootTypes = createModuleReducer('rootTypes', ['CHANGE_TAB'])
 
 // 推荐首页
-export const recommendRd = defModuleReducer('recommendRd', ['LOAD_SLIDES', 'LOAD_PLACEHOLDER', 'LOAD_STATEMENT'])
+export const recommendtypes = createModuleReducer('recommendTypes', ['LOAD_SLIDES', 'LOAD_PLACEHOLDER', 'LOAD_STATEMENT'])

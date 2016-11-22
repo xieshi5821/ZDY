@@ -1,8 +1,9 @@
-import {recommendRd} from '../reducer-types'
+import { recommendTypes } from '../reducer-types'
 const initialState = {
 
 }
 
-export default recommend  = (state = initialState, action) => {
-  return {...state}
+export default recommend = (state = initialState, action) => {
+  return {...state
+  }
 }

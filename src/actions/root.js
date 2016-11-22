@@ -1,7 +1,7 @@
-import {rootRd} from '../reducer-types'
+import { rootTypes } from '../reducer-types'
 
 export function changeTab(selectedTab) {
   return (dispatch) => {
-    dispatch({type: rootRd.CHANGE_TAB, selectedTab})
+    dispatch({ type: rootTypes.CHANGE_TAB, selectedTab })
   }
 }
