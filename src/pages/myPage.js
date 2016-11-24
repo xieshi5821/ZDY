@@ -1,14 +1,80 @@
-import React, {Component} from 'react'
+import React, {Component, PropTypes} from 'react'
 import {StyleSheet, View, Text, ScrollView, TouchableOpacity} from 'react-native'
+import {connect} from 'react-redux'
 
-export default class MyPage extends Component {
+class MyPage extends Component {
+  static contextTypes = {
+    routes: PropTypes.object.isRequired,
+  }
+
   handleClick(link) {
-    console.log(link)
+    const {routes} = this.context
+    routes.tab1_2()
   }
 
   render() {
     return (
       <ScrollView style={styles.container}>
+        <TouchableOpacity onPress={this.handleClick.bind(this, 'wdsc')} style={[styles.item, styles.noBorder]}>
+            <Text style={[styles.tabIcon, {color: '#58d1d8'}]}>&#xe50f;</Text>
+            <Text style={[styles.link]}>我的收藏</Text>
+            <Text style={[styles.tabIcon, styles.tabArrow]}>&#xe50c;</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={this.handleClick.bind(this, 'wdsc')} style={[styles.item, styles.noBorder]}>
+            <Text style={[styles.tabIcon, {color: '#58d1d8'}]}>&#xe50f;</Text>
+            <Text style={[styles.link]}>我的收藏</Text>
+            <Text style={[styles.tabIcon, styles.tabArrow]}>&#xe50c;</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={this.handleClick.bind(this, 'wdsc')} style={[styles.item, styles.noBorder]}>
+            <Text style={[styles.tabIcon, {color: '#58d1d8'}]}>&#xe50f;</Text>
+            <Text style={[styles.link]}>我的收藏</Text>
+            <Text style={[styles.tabIcon, styles.tabArrow]}>&#xe50c;</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={this.handleClick.bind(this, 'wdsc')} style={[styles.item, styles.noBorder]}>
+            <Text style={[styles.tabIcon, {color: '#58d1d8'}]}>&#xe50f;</Text>
+            <Text style={[styles.link]}>我的收藏</Text>
+            <Text style={[styles.tabIcon, styles.tabArrow]}>&#xe50c;</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={this.handleClick.bind(this, 'wdsc')} style={[styles.item, styles.noBorder]}>
+            <Text style={[styles.tabIcon, {color: '#58d1d8'}]}>&#xe50f;</Text>
+            <Text style={[styles.link]}>我的收藏</Text>
+            <Text style={[styles.tabIcon, styles.tabArrow]}>&#xe50c;</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={this.handleClick.bind(this, 'wdsc')} style={[styles.item, styles.noBorder]}>
+            <Text style={[styles.tabIcon, {color: '#58d1d8'}]}>&#xe50f;</Text>
+            <Text style={[styles.link]}>我的收藏</Text>
+            <Text style={[styles.tabIcon, styles.tabArrow]}>&#xe50c;</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={this.handleClick.bind(this, 'wdsc')} style={[styles.item, styles.noBorder]}>
+            <Text style={[styles.tabIcon, {color: '#58d1d8'}]}>&#xe50f;</Text>
+            <Text style={[styles.link]}>我的收藏</Text>
+            <Text style={[styles.tabIcon, styles.tabArrow]}>&#xe50c;</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={this.handleClick.bind(this, 'wdsc')} style={[styles.item, styles.noBorder]}>
+            <Text style={[styles.tabIcon, {color: '#58d1d8'}]}>&#xe50f;</Text>
+            <Text style={[styles.link]}>我的收藏</Text>
+            <Text style={[styles.tabIcon, styles.tabArrow]}>&#xe50c;</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={this.handleClick.bind(this, 'wdsc')} style={[styles.item, styles.noBorder]}>
+            <Text style={[styles.tabIcon, {color: '#58d1d8'}]}>&#xe50f;</Text>
+            <Text style={[styles.link]}>我的收藏</Text>
+            <Text style={[styles.tabIcon, styles.tabArrow]}>&#xe50c;</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={this.handleClick.bind(this, 'wdsc')} style={[styles.item, styles.noBorder]}>
+            <Text style={[styles.tabIcon, {color: '#58d1d8'}]}>&#xe50f;</Text>
+            <Text style={[styles.link]}>我的收藏</Text>
+            <Text style={[styles.tabIcon, styles.tabArrow]}>&#xe50c;</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={this.handleClick.bind(this, 'wdsc')} style={[styles.item, styles.noBorder]}>
+            <Text style={[styles.tabIcon, {color: '#58d1d8'}]}>&#xe50f;</Text>
+            <Text style={[styles.link]}>我的收藏</Text>
+            <Text style={[styles.tabIcon, styles.tabArrow]}>&#xe50c;</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={this.handleClick.bind(this, 'wdsc')} style={[styles.item, styles.noBorder]}>
+            <Text style={[styles.tabIcon, {color: '#58d1d8'}]}>&#xe50f;</Text>
+            <Text style={[styles.link]}>我的收藏</Text>
+            <Text style={[styles.tabIcon, styles.tabArrow]}>&#xe50c;</Text>
+        </TouchableOpacity>
         <TouchableOpacity onPress={this.handleClick.bind(this, 'wdsc')} style={[styles.item, styles.noBorder]}>
             <Text style={[styles.tabIcon, {color: '#58d1d8'}]}>&#xe50f;</Text>
             <Text style={[styles.link]}>我的收藏</Text>
@@ -73,3 +139,7 @@ const styles = StyleSheet.create({
     fontSize: 15
   }
 })
+
+// export default connect(({routes}) => ({routes}))(MyPage)
+// export default connect((store) => ({selectedTab: store.root.selectedTab}))(MyPage)
+export default connect((store) => ({selectedTab: store.root.selectedTab}))(MyPage)
