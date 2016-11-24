@@ -17,7 +17,7 @@ const reducerCreate = (params) => {
 const RouterWithRedux = connect()(Router)
 
 export default function configRoutes() {
-  return (<RouterWithRedux createReducer={reducerCreate} leftButtonTextStyle={{color: '#f33'}} sceneStyle={styles.sceneStyle} titleStyle={styles.titleStyle} navigationBarStyle={styles.navigationBarStyle}>
+  return (<RouterWithRedux createReducer={reducerCreate} sceneStyle={styles.sceneStyle} titleStyle={styles.titleStyle} navigationBarStyle={styles.navigationBarStyle}>
     <Scene key="index">
       <Scene key="tabbar" tabs={true} tabBarIconContainerStyle={styles.tabBarIconContainerStyle} >
           <Scene key="recommend" component={RecommendPage}  initial={true} title="找对药" icon={TabIcon} sceneStyle={styles.sceneContentStyle}></Scene>
