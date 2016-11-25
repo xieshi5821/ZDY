@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
+import {connect} from 'react-redux'
 import {StyleSheet, View, Text, ScrollView} from 'react-native'
 
-export default class SearchPage extends Component {
+class SearchPage extends Component {
   render() {
     return (
       <ScrollView>
@@ -10,3 +11,5 @@ export default class SearchPage extends Component {
     )
   }
 }
+
+export default connect((store) => ({selectedTab: store.root.selectedTab}))(SearchPage)

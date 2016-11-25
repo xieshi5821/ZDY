@@ -1,10 +1,10 @@
 import React, {Component, PropTypes} from 'react'
-import {StyleSheet, View, Text, ScrollView, TouchableOpacity} from 'react-native'
 import {connect} from 'react-redux'
+import {StyleSheet, View, Text, ScrollView, TouchableOpacity} from 'react-native'
 
 class MyPage extends Component {
   static contextTypes = {
-    routes: PropTypes.object.isRequired,
+    routes: PropTypes.object.isRequired
   }
 
   handleClick(link) {
@@ -80,6 +80,4 @@ const styles = StyleSheet.create({
   }
 })
 
-// export default connect(({routes}) => ({routes}))(MyPage)
-// export default connect((store) => ({selectedTab: store.root.selectedTab}))(MyPage)
 export default connect((store) => ({selectedTab: store.root.selectedTab}))(MyPage)

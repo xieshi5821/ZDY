@@ -1,9 +1,12 @@
 import React, {Component} from 'react'
+import {connect} from 'react-redux'
 import {StyleSheet, View, Text, ScrollView} from 'react-native'
-// import ViewPager from 'react-native-viewpager'
-// console.log(ViewPager)
-export default class RecommendPage extends Component {
+import ViewPager from 'react-native-viewpager'
+
+class RecommendPage extends Component {
   render() {
+    const {bannerList} = this.props
+    console.log(bannerList)
     return (
       <ScrollView>
         <View>
@@ -121,3 +124,7 @@ export default class RecommendPage extends Component {
     )
   }
 }
+
+export default connect((store) => ({
+  bannerList: store.recommend.bannerList
+}))(RecommendPage)
