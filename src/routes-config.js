@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     borderTopWidth: 1
   },
   sceneContentStyle: {
-    paddingTop: 65,
+    paddingTop: 64,
     paddingBottom: 50
   }
 })
