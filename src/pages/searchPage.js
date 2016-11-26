@@ -6,7 +6,7 @@ class SearchPage extends Component {
   render() {
     return (
       <ScrollView>
-        <Text>3</Text>
+        <Text>search page</Text>
       </ScrollView>
     )
   }

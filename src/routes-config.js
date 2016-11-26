@@ -24,7 +24,7 @@ export default function configRoutes() {
           <Scene key="search" component={SearchPage}  title="检索" icon={TabIcon} sceneStyle={styles.sceneContentStyle}></Scene>
           <Scene key="my" icon={TabIcon} title="我的">
             <Scene key="my1" component={MyPage} title="我的" sceneStyle={styles.sceneContentStyle}/>
-            <Scene key="tab1_2" component={Te} title="Tab #1_2"/>
+            <Scene key="tab1_2" component={Te} title="WebView"/>
           </Scene>
       </Scene>
     </Scene>
@@ -43,12 +43,12 @@ const styles = StyleSheet.create({
   },
   tabBarIconContainerStyle: {
     backgroundColor:'#f5f5f5',
-    borderStyle: 'solid',
     borderColor: '#ccc',
-    borderTopWidth: 1
+    borderTopWidth: .5
   },
   sceneContentStyle: {
     paddingTop: 64,
-    paddingBottom: 50
+    paddingBottom: 50,
+    backgroundColor: '#f0f1f4'
   }
 })

@@ -53,8 +53,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     padding: 10,
     borderColor: '#eee',
-    borderStyle: 'solid',
-    borderTopWidth: 1,
+    borderTopWidth: .5,
     backgroundColor: '#fff'
   },
   noBorder: {
