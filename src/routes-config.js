@@ -8,7 +8,7 @@ import TabIcon from './shared/tabIcon'
 import RecommendPage from './pages/recommendPage'
 import SearchPage from './pages/searchPage'
 import MyPage from './pages/myPage'
-import Te from './pages/Te'
+import WebInnerView from './pages/WebInnerView'
 
 const reducerCreate = (params) => {
   const defaultReducer = Reducer(params)
@@ -27,7 +27,7 @@ export default function configRoutes() {
             <Scene key="search" component={SearchPage}  title="检索" icon={TabIcon} sceneStyle={styles.sceneContentStyle}></Scene>
             <Scene key="my" icon={TabIcon} title="我的">
               <Scene key="my1" component={MyPage} title="我的" sceneStyle={styles.sceneContentStyle}/>
-              <Scene key="tab1_2" component={Te} title="WebView"/>
+              <Scene key="webInnerView" component={WebInnerView} title="WebView..." sceneStyle={styles.sceneContentStyle}/>
             </Scene>
         </Scene>
       </Scene>
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#eff1f4'
   },
   navigationBarStyle: {
-    backgroundColor: '#00a5ca'
+    backgroundColor: '#00a5ca',
   },
   titleStyle: {
     color: '#fff'

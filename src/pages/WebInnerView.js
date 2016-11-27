@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
-import {StyleSheet, View, Text, ScrollView, TouchableOpacity} from 'react-native'
+import {StyleSheet, View, Text, ScrollView, WebView} from 'react-native'
 
-export default class MyPage extends Component {
+export default class WebInnerView extends Component {
   handleClick(link) {
     const {routes} = this.context
     console.log(routes, link)
@@ -10,7 +10,7 @@ export default class MyPage extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Te</Text>
+        <WebView style={styles.webView} source={{uri: 'http://www.baidu.com/'}}> </WebView>
       </View>
     )
   }
@@ -19,8 +19,8 @@ export default class MyPage extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'transparent',
+  },
+  webView: {
+    flex: 1
   }
 })

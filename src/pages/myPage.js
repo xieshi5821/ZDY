@@ -9,7 +9,7 @@ class MyPage extends Component {
 
   handleClick(link) {
     const {routes} = this.context
-    routes.tab1_2()
+    routes.webInnerView()
   }
 
   render() {
@@ -80,5 +80,5 @@ const styles = StyleSheet.create({
 })
 
 export default connect((store) => ({
-  
+
 }))(MyPage)

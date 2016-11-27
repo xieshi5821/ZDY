@@ -48,7 +48,7 @@ class RecommendPage extends Component {
         </View>
         <View style={styles.inputForm}>
           <View style={styles.inputContainer}>
-            <TextInput multiline={false} placeholder="请描述您有什么不舒服.." style={styles.input} onChangeText={this.handleChangeInput.bind(this)} value={this.props.inputText}></TextInput>
+            <TextInput multiline={true} placeholder="请描述您有什么不舒服.." style={styles.input} onChangeText={this.handleChangeInput.bind(this)} value={this.props.inputText}></TextInput>
             <TouchableOpacity style={styles.voiceContainer}>
               <Text style={styles.voice}>&#xe512;</Text>
             </TouchableOpacity>
@@ -90,7 +90,8 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
     borderWidth: .5,
     flex: 1,
-    padding: 5
+    padding: 5,
+    fontSize: 16
   },
   voiceContainer: {
     width: 50,
