@@ -2,6 +2,8 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {StyleSheet, View, Text, ScrollView, Image, TouchableOpacity, TextInput} from 'react-native'
 import ViewPager from 'react-native-viewpager'
+import Toast from 'react-native-easy-toast'
+
 
 class RecommendPage extends Component {
   constructor(props) {
@@ -13,6 +15,11 @@ class RecommendPage extends Component {
 
   handleBanner(data) {
     console.log('click url=' + data)
+    this.refs.toast.show('image click')
+  }
+
+  handleSubmit() {
+    this.refs.toast.show('submit')
   }
 
   renderPage(data, pageID) {
@@ -28,19 +35,20 @@ class RecommendPage extends Component {
   render() {
     return (
       <ScrollView>
+        <Toast ref="toast"/>
         <View>
           <ViewPager dataSource={this.state.dataSource} renderPage={this.renderPage.bind(this)} isLoop={true} autoPlay={true}/>
         </View>
         <View style={styles.inputForm}>
           <View style={styles.inputContainer}>
-            <TextInput multiline={false} placeholder="请描述您有什么不舒服" style={styles.input}></TextInput>
+            <TextInput multiline={false} placeholder="请描述您有什么不舒服.." style={styles.input}></TextInput>
             <TouchableOpacity style={styles.voiceContainer}>
               <Text style={styles.voice}>&#xe512;</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.submitContainer}>
             <TouchableOpacity>
-              <Text style={styles.submit}>提交您的信息</Text>
+              <Text style={styles.submit} onPress={this.handleSubmit.bind(this)}>提交您的信息</Text>
             </TouchableOpacity>
           </View>
         </View>
