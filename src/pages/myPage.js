@@ -79,4 +79,6 @@ const styles = StyleSheet.create({
   }
 })
 
-export default connect((store) => ({selectedTab: store.root.selectedTab}))(MyPage)
+export default connect((store) => ({
+  
+}))(MyPage)

@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {StyleSheet, View, Text, ScrollView, Image, TouchableOpacity, TextInput} from 'react-native'
 import ViewPager from 'react-native-viewpager'
 import Toast from 'react-native-easy-toast'
-
+import {updateInputText} from '../actions/recommend'
 
 class RecommendPage extends Component {
   constructor(props) {
@@ -13,19 +13,26 @@ class RecommendPage extends Component {
     }
   }
 
-  handleBanner(data) {
-    console.log('click url=' + data)
+  handleClickBanner(data) {
     this.refs.toast.show('image click')
   }
 
+  handleChangeInput(text) {
+    this.props.dispatch(updateInputText(text))
+  }
+
   handleSubmit() {
-    this.refs.toast.show('submit')
+    const {inputText} = this.props
+    if (inputText.length === 0) {
+      this.refs.toast.show('请输入关键字...')
+      return
+    }
   }
 
   renderPage(data, pageID) {
     return (
       <View style={styles.imageContainer}>
-        <TouchableOpacity onPress={this.handleBanner.bind(this, data)} activeOpacity={1}>
+        <TouchableOpacity onPress={this.handleClickBanner.bind(this, data)} activeOpacity={1}>
           <Image resizeMode="stretch" style={styles.imagePage} source={{uri: data}}/>
         </TouchableOpacity>
       </View>
@@ -41,7 +48,7 @@ class RecommendPage extends Component {
         </View>
         <View style={styles.inputForm}>
           <View style={styles.inputContainer}>
-            <TextInput multiline={false} placeholder="请描述您有什么不舒服.." style={styles.input}></TextInput>
+            <TextInput multiline={false} placeholder="请描述您有什么不舒服.." style={styles.input} onChangeText={this.handleChangeInput.bind(this)} value={this.props.inputText}></TextInput>
             <TouchableOpacity style={styles.voiceContainer}>
               <Text style={styles.voice}>&#xe512;</Text>
             </TouchableOpacity>
@@ -117,5 +124,6 @@ const styles = StyleSheet.create({
 })
 
 export default connect((store) => ({
-  bannerList: store.recommend.bannerList
+  bannerList: store.recommend.bannerList,
+  inputText: store.recommend.inputText
 }))(RecommendPage)

@@ -12,4 +12,6 @@ class SearchPage extends Component {
   }
 }
 
-export default connect((store) => ({selectedTab: store.root.selectedTab}))(SearchPage)
+export default connect((store) => ({
+  
+}))(SearchPage)
