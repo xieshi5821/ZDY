@@ -44,7 +44,7 @@ class RecommendPage extends Component {
     return (
       <ScrollView>
         <Toast ref="toast"/>
-        <View>
+        <View style={styles.pagerContainer}>
           <ViewPager dataSource={this.state.dataSource} renderPage={this.renderPage.bind(this)} isLoop={true} autoPlay={true}/>
         </View>
         <View style={styles.inputForm}>
@@ -71,8 +71,11 @@ class RecommendPage extends Component {
 }
 
 const styles = StyleSheet.create({
+  pagerContainer: {
+    height: 160
+  },
   imageContainer: {
-    flex: 1
+    flex: 1,
   },
   imagePage: {
     height: 160
