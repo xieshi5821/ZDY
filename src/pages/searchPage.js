@@ -1,11 +1,16 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {StyleSheet, View, Text, ScrollView, TextInput} from 'react-native'
-// import { CheckBox } from 'react-native-elements'
+import {StyleSheet, View, Text, ScrollView, TextInput, TouchableOpacity} from 'react-native'
+import { CheckBox } from 'react-native-elements'
+import commonStyles from '../styles/common'
 
 class SearchPage extends Component {
 
   handleChangeInput(text) {
+
+  }
+
+  handleSubmit() {
 
   }
 
@@ -19,26 +24,50 @@ class SearchPage extends Component {
           <View>
             <View style={styles.checkGroupContainer}>
               <View style={styles.checkContainer}>
-                <Text>药瓶名称</Text>
+                <CheckBox title='药瓶名称' center={true} containerStyle={styles.check}/>
               </View>
               <View style={styles.checkContainer}>
-                <Text>症状名称</Text>
+                <CheckBox title='症状名称' center={true} containerStyle={styles.check}/>
               </View>
               <View style={styles.checkContainer}>
-                <Text>功效名称</Text>
+                <CheckBox title='功效名称' center={true} containerStyle={styles.check}/>
               </View>
             </View>
             <View style={styles.checkGroupContainer}>
               <View style={styles.checkContainer}>
-                <Text>疾病名称</Text>
+                <CheckBox title='疾病名称' center={true} containerStyle={styles.check}/>
               </View>
               <View style={styles.checkContainer}>
-                <Text>证型名称</Text>
+                <CheckBox title='证型名称' center={true} containerStyle={styles.check}/>
               </View>
               <View style={styles.checkContainer}>
-                <Text>中药名称</Text>
+                <CheckBox title='中药名称' center={true} containerStyle={styles.check}/>
               </View>
             </View>
+          </View>
+          <View>
+            <View style={commonStyles.submitContainer}>
+              <TouchableOpacity>
+                <Text style={commonStyles.submit} onPress={this.handleSubmit.bind(this)}>提交您的信息</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+        <View style={styles.hisContainer}>
+          <View>
+            <TouchableOpacity>
+              <Text style={styles.hisTitle}>检索历史</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.hisItem}>
+            <TouchableOpacity>
+              <Text style={styles.hisItemText}>胃溃疡</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.hisItem}>
+            <TouchableOpacity>
+              <Text style={styles.hisItemText}>胃溃疡</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </ScrollView>
@@ -65,6 +94,26 @@ const styles = StyleSheet.create({
   },
   checkContainer: {
     flex: 1
+  },
+  check: {
+    backgroundColor: 'transparent',
+    borderWidth: 0
+  },
+  hisContainer: {
+    padding: 10,
+    paddingTop: 20
+  },
+  hisTitle: {
+    fontSize: 18,
+    color: '#666'
+  },
+  hisItem: {
+    paddingTop: 10,
+    paddingBottom: 10
+  },
+  hisItemText: {
+    fontSize: 16,
+    color: '#00a5ca'
   }
 })
 

@@ -4,6 +4,7 @@ import {StyleSheet, View, Text, ScrollView, Image, TouchableOpacity, TextInput} 
 import ViewPager from 'react-native-viewpager'
 import Toast from 'react-native-easy-toast'
 import {updateInputText} from '../actions/recommend'
+import commonStyles from '../styles/common'
 
 class RecommendPage extends Component {
   constructor(props) {
@@ -53,9 +54,9 @@ class RecommendPage extends Component {
               <Text style={styles.voice}>&#xe512;</Text>
             </TouchableOpacity>
           </View>
-          <View style={styles.submitContainer}>
+          <View style={commonStyles.submitContainer}>
             <TouchableOpacity>
-              <Text style={styles.submit} onPress={this.handleSubmit.bind(this)}>提交您的信息</Text>
+              <Text style={commonStyles.submit} onPress={this.handleSubmit.bind(this)}>提交您的信息</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -103,16 +104,6 @@ const styles = StyleSheet.create({
     color: '#58d1d8',
     fontSize: 50,
     lineHeight: 50
-  },
-  submitContainer: {
-    borderColor: '#58d1d8',
-    borderWidth: .5,
-  },
-  submit: {
-    textAlign: 'center',
-    fontSize: 20,
-    padding: 10,
-    color: '#58d1d8'
   },
   noticeDesc: {
     padding: 10,
