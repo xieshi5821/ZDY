@@ -5,9 +5,10 @@ import {View} from 'react-native'
 import {Router, Scene, Reducer } from 'react-native-router-flux'
 import TabIcon from './shared/tabIcon'
 
-import RecommendPage from './pages/recommendPage'
-import SearchPage from './pages/searchPage'
-import MyPage from './pages/myPage'
+import Recommend from './pages/recommend/'
+import Search from './pages/search/'
+import SearchResult from './pages/search/SearchResult'
+import My from './pages/my/'
 import WebInnerView from './pages/WebInnerView'
 
 const reducerCreate = (params) => {
@@ -23,11 +24,14 @@ export default function configRoutes() {
       <RouterWithRedux createReducer={reducerCreate} sceneStyle={styles.sceneStyle} titleStyle={styles.titleStyle} navigationBarStyle={styles.navigationBarStyle}>
       <Scene key="index">
         <Scene key="tabbar" tabs={true} tabBarIconContainerStyle={styles.tabBarIconContainerStyle} >
-            <Scene key="recommend" component={RecommendPage}  initial={true} title="找对药" icon={TabIcon} sceneStyle={styles.sceneContentStyle}></Scene>
-            <Scene key="search" component={SearchPage}  title="检索" icon={TabIcon} sceneStyle={styles.sceneContentStyle}></Scene>
+            <Scene key="recommend" component={Recommend}  initial={true} title="找对药" icon={TabIcon} sceneStyle={styles.sceneContentStyle}></Scene>
+            <Scene key="search" icon={TabIcon} title="检索">
+              <Scene key="searchPage" component={Search} title="检索" sceneStyle={styles.sceneContentStyle}/>
+              <Scene key="searchResult" component={SearchResult} leftTitle="检索" onLeft={()=>alert("Left button!")} hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
+            </Scene>
             <Scene key="my" icon={TabIcon} title="我的">
-              <Scene key="my1" component={MyPage} title="我的" sceneStyle={styles.sceneContentStyle}/>
-              <Scene key="webInnerView" component={WebInnerView} title="WebView..." sceneStyle={styles.sceneContentStyle}/>
+              <Scene key="myPage" component={My} title="我的" sceneStyle={styles.sceneContentStyle}/>
+              <Scene key="webInnerView" component={WebInnerView} title="WebView..." hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
             </Scene>
         </Scene>
       </Scene>
@@ -57,5 +61,8 @@ const styles = StyleSheet.create({
     paddingTop: 64,
     paddingBottom: 50,
     backgroundColor: '#f0f1f4'
+  },
+  noTabBar: {
+    paddingBottom: 0
   }
 })

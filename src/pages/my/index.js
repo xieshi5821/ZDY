@@ -2,14 +2,13 @@ import React, {Component, PropTypes} from 'react'
 import {connect} from 'react-redux'
 import {StyleSheet, View, Text, ScrollView, TouchableOpacity} from 'react-native'
 
-class MyPage extends Component {
+class My extends Component {
   static contextTypes = {
     routes: PropTypes.object.isRequired
   }
 
   handleClick(link) {
-    const {routes} = this.context
-    routes.webInnerView()
+    this.context.routes.webInnerView()
   }
 
   render() {
@@ -81,4 +80,4 @@ const styles = StyleSheet.create({
 
 export default connect((store) => ({
 
-}))(MyPage)
+}))(My)

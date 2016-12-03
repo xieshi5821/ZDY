@@ -3,10 +3,10 @@ import {connect} from 'react-redux'
 import {StyleSheet, View, Text, ScrollView, Image, TouchableOpacity, TextInput} from 'react-native'
 import ViewPager from 'react-native-viewpager'
 import Toast from 'react-native-easy-toast'
-import {updateInputText} from '../actions/recommend'
-import commonStyles from '../styles/common'
+import {updateInputText} from '../../actions/recommend'
+import commonStyles from '../../styles/common'
 
-class RecommendPage extends Component {
+class Recommend extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -121,4 +121,4 @@ const styles = StyleSheet.create({
 export default connect((store) => ({
   bannerList: store.recommend.bannerList,
   inputText: store.recommend.inputText
-}))(RecommendPage)
+}))(Recommend)

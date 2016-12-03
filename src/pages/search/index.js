@@ -1,17 +1,21 @@
-import React, {Component} from 'react'
+import React, {Component, PropTypes} from 'react'
 import {connect} from 'react-redux'
 import {StyleSheet, View, Text, ScrollView, TextInput, TouchableOpacity} from 'react-native'
 import { CheckBox } from 'react-native-elements'
-import commonStyles from '../styles/common'
+import commonStyles from '../../styles/common'
 
-class SearchPage extends Component {
+class Search extends Component {
+
+  static contextTypes = {
+    routes: PropTypes.object.isRequired
+  }
 
   handleChangeInput(text) {
 
   }
 
   handleSubmit() {
-
+    this.context.routes.searchResult()
   }
 
   render() {
@@ -119,4 +123,4 @@ const styles = StyleSheet.create({
 
 export default connect((store) => ({
 
-}))(SearchPage)
+}))(Search)

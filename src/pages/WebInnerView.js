@@ -2,11 +2,6 @@ import React, {Component} from 'react'
 import {StyleSheet, View, Text, ScrollView, WebView} from 'react-native'
 
 export default class WebInnerView extends Component {
-  handleClick(link) {
-    const {routes} = this.context
-    console.log(routes, link)
-  }
-
   render() {
     return (
       <View style={styles.container}>
