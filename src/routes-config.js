@@ -16,6 +16,11 @@ const reducerCreate = (params) => {
   return (state, action) => defaultReducer(state, action)
 }
 
+const handleLeftButton = () => {
+  console.log(1)
+  return '1'
+}
+
 const RouterWithRedux = connect()(Router)
 
 export default function configRoutes() {
@@ -27,7 +32,7 @@ export default function configRoutes() {
             <Scene key="recommend" component={Recommend}  initial={true} title="找对药" icon={TabIcon} sceneStyle={styles.sceneContentStyle}></Scene>
             <Scene key="search" icon={TabIcon} title="检索">
               <Scene key="searchPage" component={Search} title="检索" sceneStyle={styles.sceneContentStyle}/>
-              <Scene key="searchResult" component={SearchResult} leftTitle="检索" onLeft={()=>alert("Left button!")} hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
+              <Scene key="searchResult" component={SearchResult} getLeftTitle={handleLeftButton} renderLeftButton={handleLeftButton} rightTitle="筛选" rightButtonTextStyle={styles.titleStyle} onRight={()=>alert("筛选")} hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
             </Scene>
             <Scene key="my" icon={TabIcon} title="我的">
               <Scene key="myPage" component={My} title="我的" sceneStyle={styles.sceneContentStyle}/>
