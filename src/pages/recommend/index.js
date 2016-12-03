@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {Component, PropTypes} from 'react'
 import {connect} from 'react-redux'
 import {StyleSheet, View, Text, ScrollView, Image, TouchableOpacity, TextInput} from 'react-native'
 import ViewPager from 'react-native-viewpager'
@@ -7,6 +7,11 @@ import {updateInputText} from '../../actions/recommend'
 import commonStyles from '../../styles/common'
 
 class Recommend extends Component {
+
+  static contextTypes = {
+    routes: PropTypes.object.isRequired
+  }
+
   constructor(props) {
     super(props)
     this.state = {
@@ -23,11 +28,12 @@ class Recommend extends Component {
   }
 
   handleSubmit() {
-    const {inputText} = this.props
-    if (inputText.length === 0) {
-      this.refs.toast.show('请输入关键字...')
-      return
-    }
+    // const {inputText} = this.props
+    // if (inputText.length === 0) {
+    //   this.refs.toast.show('请输入关键字...')
+    //   return
+    // }
+    this.context.routes.recommendResult()
   }
 
   renderPage(data, pageID) {
