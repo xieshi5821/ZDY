@@ -23,29 +23,29 @@ class Search extends Component {
       <ScrollView>
         <View style={styles.inputForm}>
           <View>
-            <TextInput multiline={true} placeholder="请输入药平名称，症状名称，功效名称，中药名称。" style={styles.input} onChangeText={this.handleChangeInput.bind(this)} value={this.props.inputText}></TextInput>
+            <TextInput multiline placeholder="请输入药平名称，症状名称，功效名称，中药名称。" style={styles.input} onChangeText={this.handleChangeInput.bind(this)} value={this.props.inputText}></TextInput>
           </View>
           <View>
             <View style={styles.checkGroupContainer}>
-              <View style={styles.checkContainer}>
-                <CheckBox title='药瓶名称' center={true} containerStyle={styles.check}/>
+              <View style={commonStyles.flex}>
+                <CheckBox title='药瓶名称' center containerStyle={styles.check}/>
               </View>
-              <View style={styles.checkContainer}>
-                <CheckBox title='症状名称' center={true} containerStyle={styles.check}/>
+              <View style={commonStyles.flex}>
+                <CheckBox title='症状名称' center containerStyle={styles.check}/>
               </View>
-              <View style={styles.checkContainer}>
-                <CheckBox title='功效名称' center={true} containerStyle={styles.check}/>
+              <View style={commonStyles.flex}>
+                <CheckBox title='功效名称' center containerStyle={styles.check}/>
               </View>
             </View>
             <View style={styles.checkGroupContainer}>
-              <View style={styles.checkContainer}>
-                <CheckBox title='疾病名称' center={true} containerStyle={styles.check}/>
+              <View style={commonStyles.flex}>
+                <CheckBox title='疾病名称' center containerStyle={styles.check}/>
               </View>
-              <View style={styles.checkContainer}>
-                <CheckBox title='证型名称' center={true} containerStyle={styles.check}/>
+              <View style={commonStyles.flex}>
+                <CheckBox title='证型名称' center containerStyle={styles.check}/>
               </View>
-              <View style={styles.checkContainer}>
-                <CheckBox title='中药名称' center={true} containerStyle={styles.check}/>
+              <View style={commonStyles.flex}>
+                <CheckBox title='中药名称' center containerStyle={styles.check}/>
               </View>
             </View>
           </View>
@@ -95,9 +95,6 @@ const styles = StyleSheet.create({
   },
   checkGroupContainer: {
     flexDirection: 'row',
-  },
-  checkContainer: {
-    flex: 1
   },
   check: {
     backgroundColor: 'transparent',

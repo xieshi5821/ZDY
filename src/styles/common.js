@@ -36,5 +36,8 @@ export default styles = StyleSheet.create({
   },
   contentRowTitle: {
     color: '#999'
+  },
+  flex: {
+    flex: 1
   }
 })

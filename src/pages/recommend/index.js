@@ -38,7 +38,7 @@ class Recommend extends Component {
 
   renderPage(data, pageID) {
     return (
-      <View style={styles.imageContainer}>
+      <View style={commonStyles.flex}>
         <TouchableOpacity onPress={this.handleClickBanner.bind(this, data)} activeOpacity={1}>
           <Image resizeMode="stretch" style={styles.imagePage} source={{uri: data}}/>
         </TouchableOpacity>
@@ -51,11 +51,11 @@ class Recommend extends Component {
       <ScrollView>
         <Toast ref="toast"/>
         <View style={styles.pagerContainer}>
-          <ViewPager dataSource={this.state.dataSource} renderPage={this.renderPage.bind(this)} isLoop={true} autoPlay={true}/>
+          <ViewPager dataSource={this.state.dataSource} renderPage={this.renderPage.bind(this)} isLoop autoPlay/>
         </View>
         <View style={styles.inputForm}>
           <View style={styles.inputContainer}>
-            <TextInput multiline={true} placeholder="请描述您有什么不舒服.." style={styles.input} onChangeText={this.handleChangeInput.bind(this)} value={this.props.inputText}></TextInput>
+            <TextInput multiline placeholder="请描述您有什么不舒服.." style={styles.input} onChangeText={this.handleChangeInput.bind(this)} value={this.props.inputText}></TextInput>
             <TouchableOpacity style={styles.voiceContainer}>
               <Text style={styles.voice}>&#xe512;</Text>
             </TouchableOpacity>
@@ -79,9 +79,6 @@ class Recommend extends Component {
 const styles = StyleSheet.create({
   pagerContainer: {
     height: 160
-  },
-  imageContainer: {
-    flex: 1,
   },
   imagePage: {
     height: 160

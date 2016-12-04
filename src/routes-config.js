@@ -7,6 +7,9 @@ import TabIcon from './shared/tabIcon'
 
 import Recommend from './pages/recommend/'
 import RecommendResult from './pages/recommend/RecommendResult'
+import RecommendResultFilter from './pages/recommend/RecommendResultFilter'
+import {gotoRecommendResultFilter} from './pages/recommend/RecommendResult'
+
 import Search from './pages/search/'
 import SearchResult from './pages/search/SearchResult'
 import My from './pages/my/'
@@ -17,6 +20,7 @@ const reducerCreate = (params) => {
   return (state, action) => defaultReducer(state, action)
 }
 
+console.log(gotoRecommendResultFilter)
 const RouterWithRedux = connect()(Router)
 
 export default function configRoutes() {
@@ -27,7 +31,8 @@ export default function configRoutes() {
         <Scene key="tabbar" tabs={true} tabBarIconContainerStyle={styles.tabBarIconContainerStyle} >
             <Scene key="recommend" initial={true} title="找对药" icon={TabIcon}>
               <Scene key="recommendPage" component={Recommend} title="找对药" sceneStyle={styles.sceneContentStyle}/>
-              <Scene key="recommendResult" component={RecommendResult} rightTitle="筛选" rightButtonTextStyle={styles.titleStyle} onRight={()=>alert("筛选")} hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
+              <Scene key="recommendResult" component={RecommendResult} rightTitle="筛选" rightButtonTextStyle={styles.titleStyle} onRight={() => gotoRecommendResultFilter()} hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
+              <Scene key="recommendResultFilter" component={RecommendResultFilter} title="筛选" hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
             </Scene>
             <Scene key="search" icon={TabIcon} title="检索">
               <Scene key="searchPage" component={Search} title="检索" sceneStyle={styles.sceneContentStyle}/>
