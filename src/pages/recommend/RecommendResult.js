@@ -14,6 +14,11 @@ class RecommendResult extends Component {
     goRecommendResultFilter = this.context.routes.recommendResultFilter
   }
 
+  handleDetail(durgId) {
+    console.log(durgId)
+    this.context.routes.durg()
+  }
+
   getListData() {
     const list = [{
       id: 1,
@@ -35,12 +40,12 @@ class RecommendResult extends Component {
       tjxx: '85%'
     }]
     return list.map(item => (
-        <View key={item.id} style={[commonStyles.tr, commonStyles.contentTr]}>
+        <TouchableOpacity key={item.id} onPress={this.handleDetail.bind(this, item.id)} style={[commonStyles.tr, commonStyles.contentTr]}>
           <View style={commonStyles.td}><Text style={[commonStyles.rowTitle, commonStyles.contentRowTitle, commonStyles.ym]}>{item.name}</Text></View>
           <View style={commonStyles.td}><Text style={[commonStyles.rowTitle, commonStyles.contentRowTitle]}>{item.yb}</Text></View>
           <View style={commonStyles.td}><Text style={[commonStyles.rowTitle, commonStyles.contentRowTitle]}>{item.jj}</Text></View>
           <View style={commonStyles.td}><Text style={[commonStyles.rowTitle, commonStyles.contentRowTitle]}>{item.tjxx}</Text></View>
-        </View>
+        </TouchableOpacity>
       )
     )
   }

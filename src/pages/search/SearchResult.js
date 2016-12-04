@@ -13,6 +13,11 @@ class SearchResult extends Component {
     goSearchResultFilter = this.context.routes.searchResultFilter
   }
 
+  handleDetail(durgId) {
+    console.log(durgId)
+    this.context.routes.durg()
+  }
+
   getListData() {
     const list = [{
       id: 1,
@@ -31,11 +36,11 @@ class SearchResult extends Component {
       jj: '妇女禁用'
     }]
     return list.map(item => (
-        <View key={item.id} style={[commonStyles.tr, commonStyles.contentTr]}>
+        <TouchableOpacity key={item.id} onPress={this.handleDetail.bind(this, item.id)} style={[commonStyles.tr, commonStyles.contentTr]}>
           <View style={commonStyles.td}><Text style={[commonStyles.rowTitle, commonStyles.contentRowTitle, commonStyles.ym]}>{item.name}</Text></View>
           <View style={commonStyles.td}><Text style={[commonStyles.rowTitle, commonStyles.contentRowTitle]}>{item.yb}</Text></View>
           <View style={commonStyles.td}><Text style={[commonStyles.rowTitle, commonStyles.contentRowTitle]}>{item.jj}</Text></View>
-        </View>
+        </TouchableOpacity>
       )
     )
   }
@@ -52,8 +57,6 @@ class SearchResult extends Component {
           </View>
           {itemList}
         </View>
-
-
       </ScrollView>
     )
   }
