@@ -13,7 +13,7 @@ class My extends Component {
 
   render() {
     return (
-      <ScrollView style={styles.container}>
+      <View style={styles.container}>
         <TouchableOpacity onPress={this.handleClick.bind(this, 'wdsc')} style={[styles.item, styles.noBorder]}>
             <Text style={[styles.tabIcon, {color: '#58d1d8'}]}>&#xe50f;</Text>
             <Text style={[styles.link]}>我的收藏</Text>
@@ -39,7 +39,7 @@ class My extends Component {
           <Text style={[styles.link]}>关于我们</Text>
           <Text style={[styles.tabIcon, styles.tabArrow]}>&#xe50c;</Text>
         </TouchableOpacity>
-      </ScrollView>
+      </View>
     )
   }
 }

@@ -14,7 +14,7 @@ class SearchResultFilter extends Component {
   }
   render() {
     return (
-      <ScrollView style={styles.wrap}>
+      <View style={styles.wrap}>
           <View style={styles.form}>
             <View style={styles.labelWrap}>
               <View style={commonStyles.flex}><Text style={styles.labelText}>医保性质</Text></View>
@@ -65,28 +65,36 @@ class SearchResultFilter extends Component {
               </View>
             </View>
           </View>
-          <View style={styles.buttonGroup}>
-            <TouchableOpacity style={[styles.buttonWrap, styles.resetWrap]}><Text style={[styles.buttonText, styles.reset]}>重置</Text></TouchableOpacity>
-            <TouchableOpacity onPress={this.handleSure.bind(this)} style={[styles.buttonWrap, styles.sureWrap]}><Text style={[styles.buttonText, styles.sure]}>确定</Text></TouchableOpacity>
+          <View style={styles.bottomWrap}>
+            <View style={styles.buttonGroup}>
+              <TouchableOpacity style={[styles.buttonWrap, styles.resetWrap]}><Text style={[styles.buttonText, styles.reset]}>重置</Text></TouchableOpacity>
+              <TouchableOpacity onPress={this.handleSure.bind(this)} style={[styles.buttonWrap, styles.sureWrap]}><Text style={[styles.buttonText, styles.sure]}>确定</Text></TouchableOpacity>
+            </View>
           </View>
-      </ScrollView>
+      </View>
     )
   }
 }
 
 const styles = StyleSheet.create({
   wrap: {
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
+    flex: 1,
   },
   form: {
-    padding: 10
+    padding: 10,
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    right: 0,
   },
   labelWrap: {
     flexDirection: 'row',
     flex: 1,
     borderBottomColor: '#ccc',
     borderBottomWidth: .5,
-    paddingTop: 10
+    paddingTop: 10,
+    // height: 40
   },
   labelText: {
     fontSize: 18,
@@ -98,7 +106,8 @@ const styles = StyleSheet.create({
     textAlign: 'right'
   },
   checkGtoupWrap: {
-    paddingTop: 10
+    paddingTop: 10,
+    // height: 40
   },
   checkWrap: {
     flex: 1,
@@ -135,6 +144,12 @@ const styles = StyleSheet.create({
   },
   sure: {
     color: '#fff'
+  },
+  bottomWrap: {
+    position: 'absolute',
+    left: 0,
+    bottom: 0,
+    right: 0,
   }
 })
 
