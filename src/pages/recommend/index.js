@@ -60,11 +60,9 @@ class Recommend extends Component {
               <Text style={styles.voice}>&#xe512;</Text>
             </TouchableOpacity>
           </View>
-          <View style={commonStyles.submitContainer}>
-            <TouchableOpacity>
-              <Text style={commonStyles.submit} onPress={this.handleSubmit.bind(this)}>提交您的信息</Text>
-            </TouchableOpacity>
-          </View>
+          <TouchableOpacity style={commonStyles.submitContainer}>
+            <Text style={commonStyles.submit} onPress={this.handleSubmit.bind(this)}>提交您的信息</Text>
+          </TouchableOpacity>
         </View>
         <View style={styles.noticeDesc}>
           <View><Text style={styles.noticeText}>使用说明：</Text></View>

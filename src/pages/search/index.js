@@ -50,11 +50,9 @@ class Search extends Component {
             </View>
           </View>
           <View>
-            <View style={commonStyles.submitContainer}>
-              <TouchableOpacity>
-                <Text style={commonStyles.submit} onPress={this.handleSubmit.bind(this)}>提交您的信息</Text>
-              </TouchableOpacity>
-            </View>
+            <TouchableOpacity style={commonStyles.submitContainer}>
+              <Text style={commonStyles.submit} onPress={this.handleSubmit.bind(this)}>提交您的信息</Text>
+            </TouchableOpacity>
           </View>
         </View>
         <View style={styles.hisContainer}>

@@ -1,13 +1,13 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {StyleSheet, View, Text, ScrollView, TextInput, TouchableOpacity} from 'react-native'
-import { CheckBox } from 'react-native-elements'
+import { CheckBox, Button } from 'react-native-elements'
 import commonStyles from '../../styles/common'
 
 class RecommendResultFilter extends Component {
   render() {
     return (
-      <ScrollView style={{backgroundColor: '#fff'}}>
+      <ScrollView style={styles.wrap}>
           <View style={styles.form}>
             <View style={styles.labelWrap}>
               <View style={commonStyles.flex}><Text style={styles.labelText}>医保性质</Text></View>
@@ -58,12 +58,19 @@ class RecommendResultFilter extends Component {
               </View>
             </View>
           </View>
+          <View style={styles.buttonGroup}>
+            <TouchableOpacity style={[styles.buttonWrap, styles.resetWrap]}><Text style={[styles.buttonText, styles.reset]}>重置</Text></TouchableOpacity>
+            <TouchableOpacity style={[styles.buttonWrap, styles.sureWrap]}><Text style={[styles.buttonText, styles.sure]}>确定</Text></TouchableOpacity>
+          </View>
       </ScrollView>
     )
   }
 }
 
 const styles = StyleSheet.create({
+  wrap: {
+    backgroundColor: '#fff'
+  },
   form: {
     padding: 10
   },
@@ -96,6 +103,35 @@ const styles = StyleSheet.create({
   },
   checkText: {
     fontSize: 14
+  },
+  buttonGroup: {
+    flex: 1,
+    flexDirection: 'row',
+    paddingTop: 10
+    // position: 'absolute',
+    // bottom: 0,
+    // left: 0,
+    // right: 0,
+  },
+  buttonWrap: {
+    padding: 10,
+    flex: 1,
+  },
+  buttonText: {
+    textAlign: 'center',
+    fontSize: 18
+  },
+  resetWrap: {
+    backgroundColor: '#cbcbcb'
+  },
+  sureWrap: {
+    backgroundColor: '#007bc9'
+  },
+  reset: {
+    color: '#666'
+  },
+  sure: {
+    color: '#fff'
   }
 })
 
