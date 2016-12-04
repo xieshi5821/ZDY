@@ -4,14 +4,14 @@ import {StyleSheet, View, Text, ScrollView, TextInput, TouchableOpacity} from 'r
 import commonStyles from '../../styles/common'
 import { CheckBox } from 'react-native-elements'
 import RecommendResultFilter from './RecommendResultFilter'
-export let gotoRecommendResultFilter = null
+export let goRecommendResultFilter = null
 class RecommendResult extends Component {
   static contextTypes = {
     routes: PropTypes.object.isRequired
   }
 
   componentWillMount() {
-    gotoRecommendResultFilter = this.context.routes.recommendResultFilter
+    goRecommendResultFilter = this.context.routes.recommendResultFilter
   }
 
   getListData() {

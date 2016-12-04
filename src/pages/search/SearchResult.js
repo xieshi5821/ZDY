@@ -1,10 +1,17 @@
-import React, {Component} from 'react'
+import React, {Component, PropTypes} from 'react'
 import {connect} from 'react-redux'
 import {StyleSheet, View, Text, ScrollView, TextInput, TouchableOpacity} from 'react-native'
 import { CheckBox } from 'react-native-elements'
 import commonStyles from '../../styles/common'
-
+export let goSearchResultFilter = null
 class SearchResult extends Component {
+  static contextTypes = {
+    routes: PropTypes.object.isRequired
+  }
+
+  componentWillMount() {
+    goSearchResultFilter = this.context.routes.searchResultFilter
+  }
 
   getListData() {
     const list = [{

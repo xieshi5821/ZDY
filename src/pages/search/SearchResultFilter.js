@@ -4,13 +4,12 @@ import {StyleSheet, View, Text, ScrollView, TextInput, TouchableOpacity} from 'r
 import { CheckBox, Button } from 'react-native-elements'
 import commonStyles from '../../styles/common'
 
-class RecommendResultFilter extends Component {
+class SearchResultFilter extends Component {
   static contextTypes = {
     routes: PropTypes.object.isRequired
   }
 
   handleSure() {
-    console.log(this.context.routes)
     this.context.routes.pop()
   }
   render() {
@@ -116,10 +115,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     paddingTop: 10
-    // position: 'absolute',
-    // bottom: 0,
-    // left: 0,
-    // right: 0,
   },
   buttonWrap: {
     padding: 10,
@@ -145,4 +140,4 @@ const styles = StyleSheet.create({
 
 export default connect((store) => ({
 
-}))(RecommendResultFilter)
+}))(SearchResultFilter)
