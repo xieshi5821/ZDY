@@ -19,5 +19,6 @@ export const recommendTypes = createModuleReducer('recommendTypes', [
 export const searchTypes = createModuleReducer('searchTypes', [
   'REVEIVE_RANGE_LIST',
   'REVEIVE_PLACEHOLDER',
-  'UPDATE_INPUT_TEXT'
+  'UPDATE_INPUT_TEXT',
+  'TOGGLE_CHECK'
 ])

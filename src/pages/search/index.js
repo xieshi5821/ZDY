@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {StyleSheet, View, Text, ScrollView, TextInput, TouchableOpacity} from 'react-native'
 import { CheckBox } from 'react-native-elements'
 import commonStyles from '../../styles/common'
-import {updateInputText, receiveRangeList, receivePlaceholder} from '../../actions/search'
+import {updateInputText, receiveRangeList, receivePlaceholder, toggleCheck} from '../../actions/search'
 import {callSearchHome} from '../../api/request'
 import Spinner from 'react-native-loading-spinner-overlay'
 
@@ -23,20 +23,47 @@ class Search extends Component {
   componentWillMount() {
     callSearchHome().then(({rangelist, placeholder}) => {
       this.props.dispatch(receivePlaceholder(placeholder))
-      this.props.dispatch(receiveRangeList(rangelist))
+      this.props.dispatch(receiveRangeList(rangelist.map(range => {
+        range.checked = false
+        return range
+      })))
       this.setState({visible: false})
     })
   }
 
   handleChangeInput(text) {
-
+    this.props.dispatch(updateInputText(text))
   }
 
   handleSubmit() {
     this.context.routes.searchResult()
   }
 
+  handleCheck(index) {
+    this.props.dispatch(toggleCheck(index))
+  }
+
+  renderCheck() {
+    const checkGroup = []
+    let index = 0
+    this.props.rangeList.forEach((range, i) => {
+      if (i && i % 3 == 0) {
+        index ++
+      }
+      if (!checkGroup[index]) {
+        checkGroup[index] = []
+      }
+      checkGroup[index]['push'](
+        <TouchableOpacity key={i} style={commonStyles.flex}>
+          <CheckBox title={range.rangeName} center checked={range.checked} onPress={this.handleCheck.bind(this, i)} containerStyle={styles.check}/>
+        </TouchableOpacity>
+      )
+    })
+    return checkGroup.map((group, i) => (<View key={i} style={styles.checkGroupContainer}>{group}</View>))
+  }
+
   render() {
+    const check = this.renderCheck()
     return (
       <ScrollView>
         <Spinner visible={this.state.visible} color="black"/>
@@ -45,28 +72,7 @@ class Search extends Component {
             <TextInput multiline placeholder={this.props.placeholder} style={styles.input} onChangeText={this.handleChangeInput.bind(this)} value={this.props.inputText}></TextInput>
           </View>
           <View>
-            <View style={styles.checkGroupContainer}>
-              <View style={commonStyles.flex}>
-                <CheckBox title='药瓶名称' center containerStyle={styles.check}/>
-              </View>
-              <View style={commonStyles.flex}>
-                <CheckBox title='症状名称' center containerStyle={styles.check}/>
-              </View>
-              <View style={commonStyles.flex}>
-                <CheckBox title='功效名称' center containerStyle={styles.check}/>
-              </View>
-            </View>
-            <View style={styles.checkGroupContainer}>
-              <View style={commonStyles.flex}>
-                <CheckBox title='疾病名称' center containerStyle={styles.check}/>
-              </View>
-              <View style={commonStyles.flex}>
-                <CheckBox title='证型名称' center containerStyle={styles.check}/>
-              </View>
-              <View style={commonStyles.flex}>
-                <CheckBox title='中药名称' center containerStyle={styles.check}/>
-              </View>
-            </View>
+            {check}
           </View>
           <View>
             <TouchableOpacity style={commonStyles.submitContainer}>
