@@ -68,6 +68,6 @@ const styles = StyleSheet.create({
   }
 })
 
-export default connect((store) => ({
+export default connect(store => ({
 
 }))(SearchResult)

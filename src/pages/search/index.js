@@ -3,11 +3,29 @@ import {connect} from 'react-redux'
 import {StyleSheet, View, Text, ScrollView, TextInput, TouchableOpacity} from 'react-native'
 import { CheckBox } from 'react-native-elements'
 import commonStyles from '../../styles/common'
+import {updateInputText, receiveRangeList, receivePlaceholder} from '../../actions/search'
+import {callSearchHome} from '../../api/request'
+import Spinner from 'react-native-loading-spinner-overlay'
 
 class Search extends Component {
 
   static contextTypes = {
     routes: PropTypes.object.isRequired
+  }
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      visible: true
+    }
+  }
+
+  componentWillMount() {
+    callSearchHome().then(({rangelist, placeholder}) => {
+      this.props.dispatch(receivePlaceholder(placeholder))
+      this.props.dispatch(receiveRangeList(rangelist))
+      this.setState({visible: false})
+    })
   }
 
   handleChangeInput(text) {
@@ -21,9 +39,10 @@ class Search extends Component {
   render() {
     return (
       <ScrollView>
+        <Spinner visible={this.state.visible} color="black"/>
         <View style={styles.inputForm}>
           <View>
-            <TextInput multiline placeholder="请输入药平名称，症状名称，功效名称，中药名称。" style={styles.input} onChangeText={this.handleChangeInput.bind(this)} value={this.props.inputText}></TextInput>
+            <TextInput multiline placeholder={this.props.placeholder} style={styles.input} onChangeText={this.handleChangeInput.bind(this)} value={this.props.inputText}></TextInput>
           </View>
           <View>
             <View style={styles.checkGroupContainer}>
@@ -116,6 +135,8 @@ const styles = StyleSheet.create({
   }
 })
 
-export default connect((store) => ({
-
+export default connect(store => ({
+  inputText: store.search.inputText,
+  rangeList: store.search.rangeList,
+  placeholder: store.search.placeholder
 }))(Search)

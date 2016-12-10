@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {StyleSheet, View, Text, ScrollView, Image, TouchableOpacity, TextInput} from 'react-native'
 import ViewPager from 'react-native-viewpager'
 import Toast from 'react-native-easy-toast'
-import {updateInputText, receiveBannerList ,receivePlaceholder, receiveExplainList} from '../../actions/recommend'
+import {updateInputText, receiveBannerList, receivePlaceholder, receiveExplainList} from '../../actions/recommend'
 import commonStyles from '../../styles/common'
 import {callRecommendHome} from '../../api/request'
 import Spinner from 'react-native-loading-spinner-overlay'
@@ -70,7 +70,7 @@ class Recommend extends Component {
   }
 
   rederNoticeDesc() {
-    return this.props.explainList.map(((explain, index) => (<View key={index}><Text style={styles.noticeText}>{index}，{explain}</Text></View>)))
+    return this.props.explainList.map(((explain, index) => (<View key={index}><Text style={styles.noticeText}>{explain}</Text></View>)))
   }
 
   render() {
@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
   }
 })
 
-export default connect((store) => ({
+export default connect(store => ({
   bannerList: store.recommend.bannerList,
   inputText: store.recommend.inputText,
   explainList: store.recommend.explainList,

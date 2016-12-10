@@ -23,3 +23,8 @@ const ajax = (url) => {
 export const callRecommendHome = () => {
   return ajax('recommend/home')
 }
+
+
+export const callSearchHome = () => {
+  return ajax('search/home')
+}
