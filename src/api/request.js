@@ -1,15 +1,28 @@
+import DeviceInfo from 'react-native-device-info'
+const uniqueId = DeviceInfo.getUniqueID().toUpperCase()
 const API_URL = 'http://119.29.97.107:8080/api/'
 
-const ajax = (url) => {
+let pid = ''
+const toQueryString = (params) => {
+  const querys = []
+  for (let p in params) {
+    querys.push(`${p}=${params[p]}`)
+  }
+  return querys.join('&')
+}
+
+const ajax = (url, params = {}) => {
   return new Promise((resolve, reject) => {
     fetch(`${API_URL}${url}`, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'token': 'test'
-      }}).then((resp) => resp.json()).then(({errorCode, data}) => {
-        console.log(data)
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'token': pid
+        },
+        body: toQueryString(params)
+      }).then((resp) => resp.json()).then(({errorCode = '100', errorMsg, data}) => {
+        console.log(errorCode, errorMsg, data)
         if (errorCode === '100') {
           resolve(data || {})
           return
@@ -20,11 +33,27 @@ const ajax = (url) => {
   })
 }
 
+export const callRegister = () => {
+  return new Promise((resolve, reject) => {
+    if (pid) {
+      resolve()
+    } else {
+      ajax('center/login', {unique: uniqueId}).then(({token}) => {
+        pid = token
+        resolve()
+      })
+    }
+  })
+}
+
 export const callRecommendHome = () => {
   return ajax('recommend/home')
 }
 
-
 export const callSearchHome = () => {
   return ajax('search/home')
+}
+
+export const callSearchList = (params) => {
+  return ajax('search/list', params)
 }

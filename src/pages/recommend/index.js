@@ -5,7 +5,7 @@ import ViewPager from 'react-native-viewpager'
 import Toast from 'react-native-easy-toast'
 import {updateInputText, receiveBannerList, receivePlaceholder, receiveExplainList} from '../../actions/recommend'
 import commonStyles from '../../styles/common'
-import {callRecommendHome} from '../../api/request'
+import {setToken, callRegister, callRecommendHome} from '../../api/request'
 import Spinner from 'react-native-loading-spinner-overlay'
 
 
@@ -25,11 +25,13 @@ class Recommend extends Component {
   }
 
   componentWillMount() {
-    callRecommendHome().then(({homeBannerlist, homeExplainlist, homePlaceholder}) => {
-      this.props.dispatch(receiveBannerList(homeBannerlist))
-      this.props.dispatch(receivePlaceholder(homePlaceholder))
-      this.props.dispatch(receiveExplainList(homeExplainlist))
-      this.setState({visible: false})
+    callRegister().then(() => {
+      callRecommendHome().then(({homeBannerlist, homeExplainlist, homePlaceholder}) => {
+        this.props.dispatch(receiveBannerList(homeBannerlist))
+        this.props.dispatch(receivePlaceholder(homePlaceholder))
+        this.props.dispatch(receiveExplainList(homeExplainlist))
+        this.setState({visible: false})
+      })
     })
   }
 

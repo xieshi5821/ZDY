@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react'
 import {connect} from 'react-redux'
-import {StyleSheet, View, Text, ScrollView, TextInput, TouchableOpacity} from 'react-native'
+import {Alert, StyleSheet, View, Text, ScrollView, TextInput, TouchableOpacity} from 'react-native'
 import { CheckBox } from 'react-native-elements'
 import commonStyles from '../../styles/common'
 import {updateInputText, receiveRangeList, receivePlaceholder, toggleCheck} from '../../actions/search'
@@ -24,7 +24,7 @@ class Search extends Component {
     callSearchHome().then(({rangelist, placeholder}) => {
       this.props.dispatch(receivePlaceholder(placeholder))
       this.props.dispatch(receiveRangeList(rangelist.map(range => {
-        range.checked = false
+        range.checked = true
         return range
       })))
       this.setState({visible: false})
@@ -36,6 +36,11 @@ class Search extends Component {
   }
 
   handleSubmit() {
+    const {inputText} = this.props
+    if (!inputText.length) {
+      Alert.alert('提示', '请输入搜索词')
+      return
+    }
     this.context.routes.searchResult()
   }
 

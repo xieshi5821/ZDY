@@ -1,8 +1,9 @@
 import { searchTypes } from '../reducer-types'
 const initialState = {
-  inputText: '',
+  inputText: '感冒',
   rangeList: [],
-  placeholder: ''
+  placeholder: '',
+  resultList: []
 }
 
 export default search = (state = initialState, action) => {
@@ -18,6 +19,8 @@ export default search = (state = initialState, action) => {
       const range = rangeList[action.index]
       range.checked = !range.checked
       return {...state, rangeList}
+    case searchTypes.RECEIVE_RESULT_LIST:
+      return {...state, resultList: action.resultList}
   }
   return state
 }

@@ -9,6 +9,7 @@
   "dependencies": {
     "react": "15.3.2",
     "react-native": "0.36.1",
+    "react-native-device-info": "^0.9.7",
     "react-native-easy-toast": "^1.0.3",
     "react-native-elements": "^0.7.0",
     "react-native-loading-spinner-overlay": "^0.4.1",
