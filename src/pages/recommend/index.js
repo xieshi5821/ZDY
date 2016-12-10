@@ -3,19 +3,42 @@ import {connect} from 'react-redux'
 import {StyleSheet, View, Text, ScrollView, Image, TouchableOpacity, TextInput} from 'react-native'
 import ViewPager from 'react-native-viewpager'
 import Toast from 'react-native-easy-toast'
-import {updateInputText} from '../../actions/recommend'
+import {updateInputText, receiveBannerList ,receivePlaceholder, receiveExplainList} from '../../actions/recommend'
 import commonStyles from '../../styles/common'
+import {callRecommendHome} from '../../api/request'
+import Spinner from 'react-native-loading-spinner-overlay'
+
 
 class Recommend extends Component {
 
   static contextTypes = {
-    routes: PropTypes.object.isRequired
+    routes: PropTypes.object.isRequired,
+    store: PropTypes.object.isRequired
   }
 
   constructor(props) {
     super(props)
     this.state = {
-      dataSource: new ViewPager.DataSource({pageHasChanged: (p1, p2) => p1 !== p2}).cloneWithPages(props.bannerList)
+      visible: true,
+      dataSource: null
+    }
+  }
+
+  componentWillMount() {
+    callRecommendHome().then(({homeBannerlist, homeExplainlist, homePlaceholder}) => {
+      this.props.dispatch(receiveBannerList(homeBannerlist))
+      this.props.dispatch(receivePlaceholder(homePlaceholder))
+      this.props.dispatch(receiveExplainList(homeExplainlist))
+      this.setState({visible: false})
+    })
+  }
+
+  componentWillReceiveProps(props) {
+    const {dataSource} = this.state
+    if (dataSource === null) {
+      this.setState({
+        dataSource: new ViewPager.DataSource({pageHasChanged: (p1, p2) => p1 !== p2}).cloneWithPages(props.bannerList.map(banner => banner.bannerPicUrl))
+      })
     }
   }
 
@@ -46,16 +69,24 @@ class Recommend extends Component {
     )
   }
 
+  rederNoticeDesc() {
+    return this.props.explainList.map(((explain, index) => (<View key={index}><Text style={styles.noticeText}>{index}，{explain}</Text></View>)))
+  }
+
   render() {
+    const {visible, dataSource} = this.state
+    const pager = dataSource ? (<ViewPager dataSource={this.state.dataSource} renderPage={this.renderPage.bind(this)} isLoop autoPlay/>): null
+    const explains = this.rederNoticeDesc();
     return (
       <ScrollView>
+        <Spinner visible={this.state.visible} color="black"/>
         <Toast ref="toast"/>
         <View style={styles.pagerContainer}>
-          <ViewPager dataSource={this.state.dataSource} renderPage={this.renderPage.bind(this)} isLoop autoPlay/>
+          {pager}
         </View>
         <View style={styles.inputForm}>
           <View style={styles.inputContainer}>
-            <TextInput multiline placeholder="请描述您有什么不舒服.." style={styles.input} onChangeText={this.handleChangeInput.bind(this)} value={this.props.inputText}></TextInput>
+            <TextInput multiline placeholder={this.props.placeholder} style={styles.input} onChangeText={this.handleChangeInput.bind(this)} value={this.props.inputText}></TextInput>
             <TouchableOpacity style={styles.voiceContainer}>
               <Text style={styles.voice}>&#xe512;</Text>
             </TouchableOpacity>
@@ -66,8 +97,7 @@ class Recommend extends Component {
         </View>
         <View style={styles.noticeDesc}>
           <View><Text style={styles.noticeText}>使用说明：</Text></View>
-          <View><Text style={styles.noticeText}>1，您可以输入疾病名称或症状，系统为您智能推荐适用的非处方中成药。</Text></View>
-          <View><Text style={styles.noticeText}>2，您可以使用手工输入或语音输入，语音输入请按住麦克风图标。</Text></View>
+          {explains}
         </View>
       </ScrollView>
     )
@@ -121,5 +151,7 @@ const styles = StyleSheet.create({
 
 export default connect((store) => ({
   bannerList: store.recommend.bannerList,
-  inputText: store.recommend.inputText
+  inputText: store.recommend.inputText,
+  explainList: store.recommend.explainList,
+  placeholder: store.recommend.placeholder
 }))(Recommend)

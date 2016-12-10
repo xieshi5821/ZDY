@@ -9,8 +9,8 @@ const createModuleReducer = (moduleName, children = []) => {
 
 // 推荐首页
 export const recommendTypes = createModuleReducer('recommendTypes', [
-'LOAD_SLIDES',
-'LOAD_PLACEHOLDER',
-'LOAD_STATEMENT',
-'UPDATE_INPUT_TEXT'
+  'REVEIVE_BANNER_LIST',
+  'REVEIVE_PLACEHOLDER',
+  'REVEIVE_EXPLAIN_LIST',
+  'UPDATE_INPUT_TEXT'
 ])
