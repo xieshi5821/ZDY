@@ -1,58 +1,77 @@
-import React, { Component, PropTypes } from 'react'
-import {connect} from 'react-redux'
 import { StyleSheet, Text, View, Dimensions, ListView, TouchableOpacity } from 'react-native'
 import { SwRefreshListView } from 'react-native-swRefresh'
-import Spinner from 'react-native-loading-spinner-overlay'
 import {callSearchList} from '../../api/request'
-import {receiveResultList} from '../../actions/search'
+import {connect} from 'react-redux'
+import {receiveResultList, receiveContraindicationWords} from '../../actions/searchResult'
 import commonStyles from '../../styles/common'
+import Empty from '../../shared/empty'
+import React, { Component, PropTypes } from 'react'
+import Spinner from 'react-native-loading-spinner-overlay'
+
 export let goSearchResultFilter = null
 class SearchResult extends Component {
   static contextTypes = {
     routes: PropTypes.object.isRequired
   }
 
-  _page=0
   _dataSource = new ListView.DataSource({rowHasChanged:(row1, row2) => row1 !== row2})
 
   constructor(props) {
     super(props)
     this.state = {
-      visible: true,
       dataSource: null
     }
   }
 
   componentWillMount() {
     goSearchResultFilter = this.context.routes.searchResultFilter
-    this.querySearch()
+    this.renderDataSource()
+  }
+
+  renderDataSource() {
+    const {resultList} = this.props
+    this.setState({
+      dataSource: resultList.length ? this._dataSource.cloneWithRows(resultList) : null
+    })
   }
 
   querySearch() {
     return new Promise((resolve, reject) => {
-      const {rows, page, inputText, rangeList} = this.props
+      const {rows, page, inputText, rangeList, star, medicinalIsInsurance, medicinalContraindication, contraindicationWords} = this.props
       const rangeFields = []
       rangeList.forEach(({checked, rangeField}) => {
         if (checked && rangeFields.indexOf(rangeField) === -1) {
           rangeFields.push(rangeField)
         }
       })
-      callSearchList({text: inputText, rangeField: rangeFields.join('~~'), rows, page}).then(({contraindicationWrods, resultlist}) => {
+      const words = []
+      contraindicationWords.forEach(({checked, name}) => {
+        if (checked && words.indexOf(name) === -1) {
+          words.push(name)
+        }
+      })
+      callSearchList({text: inputText, rangeField: rangeFields.join('~~'), rows, page, evaluateStar: star.join('~~'), medicinalIsInsurance: medicinalIsInsurance.join('~~'), medicinalContraindication: words.join('~~')}).then(({contraindicationWrods, resultlist}) => {
         this.props.dispatch(receiveResultList(resultlist))
-        this.setState({visible: false})
+        this.props.dispatch(receiveContraindicationWords(contraindicationWrods.map(contraindication => {
+          return {
+            name: contraindication,
+            checked: false
+          }
+        })))
         resolve()
       })
     })
   }
 
-  componentWillReceiveProps(props) {
-    const {dataSource} = this.state
-    const {resultList} = props
-    // if (resultList.length && dataSource === null) {
+  componentWillReceiveProps(nextProps) {
+    const resultList = this.props.resultList
+    const nextResultList = nextProps.resultList
+
+    if (resultList.length !== nextResultList.length) {
       this.setState({
-        dataSource: this._dataSource.cloneWithRows(resultList)
+        dataSource: nextResultList.length ? this._dataSource.cloneWithRows(nextResultList) : null
       })
-    // }
+    }
   }
 
   handleDetail(durgId) {
@@ -69,39 +88,28 @@ class SearchResult extends Component {
         </View>) : null}
         <TouchableOpacity key={rowData.medicinalId} onPress={this.handleDetail.bind(this, rowData.medicinalId)} style={[commonStyles.tr, commonStyles.contentTr]}>
           <View style={commonStyles.td}><Text style={[commonStyles.rowTitle, commonStyles.contentRowTitle, commonStyles.ym]}>{rowData.medicinalName}</Text></View>
-          <View style={commonStyles.td}><Text style={[commonStyles.rowTitle, commonStyles.contentRowTitle]}>{rowData.medicinalName}</Text></View>
-          <View style={commonStyles.td}><Text style={[commonStyles.rowTitle, commonStyles.contentRowTitle]}>{rowData.medicinalName}</Text></View>
+          <View style={commonStyles.td}><Text style={[commonStyles.rowTitle, commonStyles.contentRowTitle]}>{rowData.medicinalIsInsurance}</Text></View>
+          <View style={commonStyles.td}><Text style={[commonStyles.rowTitle, commonStyles.contentRowTitle]}>{rowData.medicinalContraindication}</Text></View>
         </TouchableOpacity>
       </View>
     )
   }
 
   onLoadMore(end){
-    console.log(123)
     this.querySearch().then(() => {
       end()
     })
-    // let timer = setTimeout(() => {
-    //   clearTimeout(timer)
-    //   this._page++
-    //   let data = []
-    //   for (let i = 0;i<(this._page+1) * 10; i++){
-    //     data.push(i)
-    //   }
-    //   this.setState({
-    //     dataSource:this._dataSource.cloneWithRows(data)
-    //   })
-    //   //end(this._page > 2)//加载成功后需要调用end结束刷新 假设加载4页后数据全部加载完毕
-    //   this.refs.listView.endLoadMore(this._page > 2)
-    // }, 2000)
   }
 
   render(){
     const {dataSource} = this.state
-    const list = dataSource ? <SwRefreshListView dataSource={this.state.dataSource} ref="listView" isShowLoadMore={true} loadingTitle="加载中..." renderRow={this.renderRow.bind(this)} onLoadMore={this.onLoadMore.bind(this)}/> : null
+    const {page, resultList} = this.props
+    let list = dataSource ? <SwRefreshListView dataSource={this.state.dataSource} ref="listView" isShowLoadMore={true} loadingTitle="加载中..." renderRow={this.renderRow.bind(this)} onLoadMore={this.onLoadMore.bind(this)}/> : null
+    if (list === null && page === 2) {
+      list = <Empty/>
+    }
     return (
       <View>
-        <Spinner visible={this.state.visible} color="black"/>
         {list}
       </View>
     )
@@ -131,9 +139,12 @@ const styles=StyleSheet.create({
 })
 
 export default connect(store => ({
-  rows: store.search.rows,
-  page: store.search.page,
   inputText: store.search.inputText,
   rangeList: store.search.rangeList,
-  resultList: store.search.resultList
+  rows: store.searchResult.rows,
+  page: store.searchResult.page,
+  resultList: store.searchResult.resultList,
+  contraindicationWords: store.searchResult.contraindicationWords,
+  star: store.searchResult.star,
+  medicinalIsInsurance: store.searchResult.medicinalIsInsurance
 }))(SearchResult)

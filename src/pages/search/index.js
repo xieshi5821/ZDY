@@ -1,10 +1,13 @@
-import React, {Component, PropTypes} from 'react'
-import {connect} from 'react-redux'
-import {Alert, StyleSheet, View, Text, ScrollView, TextInput, TouchableOpacity} from 'react-native'
 import { CheckBox } from 'react-native-elements'
-import commonStyles from '../../styles/common'
-import {updateInputText, resetResultList, receiveRangeList, receivePlaceholder, toggleCheck} from '../../actions/search'
+import {Alert, StyleSheet, View, Text, ScrollView, TextInput, TouchableOpacity} from 'react-native'
 import {callSearchHome} from '../../api/request'
+import {callSearchList} from '../../api/request'
+import {connect} from 'react-redux'
+import {receiveResultList, receiveContraindicationWords} from '../../actions/searchResult'
+import {resetResultList, resetFilter} from '../../actions/searchResult'
+import {updateInputText, receiveRangeList, receivePlaceholder, toggleCheck} from '../../actions/search'
+import commonStyles from '../../styles/common'
+import React, {Component, PropTypes} from 'react'
 import Spinner from 'react-native-loading-spinner-overlay'
 
 class Search extends Component {
@@ -36,13 +39,32 @@ class Search extends Component {
   }
 
   handleSubmit() {
-    const {inputText} = this.props
+    const {inputText, rangeList, rows, page} = this.props
     if (!inputText.length) {
       Alert.alert('提示', '请输入搜索词')
       return
     }
+    this.setState({visible: true})
     this.props.dispatch(resetResultList())
-    this.context.routes.searchResult()
+    this.props.dispatch(resetFilter())
+
+    const rangeFields = []
+    rangeList.forEach(({checked, rangeField}) => {
+      if (checked && rangeFields.indexOf(rangeField) === -1) {
+        rangeFields.push(rangeField)
+      }
+    })
+    callSearchList({text: inputText, rangeField: rangeFields.join('~~'), rows, page: 1}).then(({contraindicationWrods, resultlist}) => {
+      this.props.dispatch(receiveResultList(resultlist))
+      this.props.dispatch(receiveContraindicationWords(contraindicationWrods.map(contraindication => {
+        return {
+          name: contraindication,
+          checked: false
+        }
+      })))
+      this.context.routes.searchResult()
+      this.setState({visible: false})
+    })
   }
 
   handleCheck(index) {
@@ -150,5 +172,7 @@ const styles = StyleSheet.create({
 export default connect(store => ({
   inputText: store.search.inputText,
   rangeList: store.search.rangeList,
-  placeholder: store.search.placeholder
+  placeholder: store.search.placeholder,
+  rows: store.searchResult.rows,
+  page: store.searchResult.page
 }))(Search)

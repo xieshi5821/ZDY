@@ -6,14 +6,12 @@ import {Router, Scene, Reducer } from 'react-native-router-flux'
 import TabIcon from './shared/tabIcon'
 
 import Recommend from './pages/recommend/'
-import RecommendResult from './pages/recommend/RecommendResult'
+import RecommendResult, {goRecommendResultFilter} from './pages/recommend/RecommendResult'
 import RecommendResultFilter from './pages/recommend/RecommendResultFilter'
-import {goRecommendResultFilter} from './pages/recommend/RecommendResult'
 
 import Search from './pages/search/'
-import SearchResult from './pages/search/SearchResult'
-import SearchResultFilter from './pages/search/SearchResultFilter'
-import {goSearchResultFilter} from './pages/search/SearchResult'
+import SearchResult, {goSearchResultFilter} from './pages/search/SearchResult'
+import SearchResultFilter, {goSearchResult} from './pages/search/SearchResultFilter'
 
 import Durg from './pages/drug/'
 
@@ -42,7 +40,7 @@ export default function configRoutes() {
             <Scene key="search" icon={TabIcon} title="检索">
               <Scene key="searchPage" component={Search} title="检索" sceneStyle={styles.sceneContentStyle}/>
               <Scene key="searchResult" component={SearchResult} backTitle="检索" backButtonTextStyle={styles.backButtonTextStyle} rightTitle="筛选" rightButtonTextStyle={styles.titleStyle} onRight={() => goSearchResultFilter()} hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
-              <Scene key="searchResultFilter" component={SearchResultFilter} title="筛选" hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
+              <Scene key="searchResultFilter" component={SearchResultFilter} title="筛选" onBack={() => goSearchResult()} hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
           </Scene>
             <Scene key="my" icon={TabIcon} title="我的">
               <Scene key="myPage" component={My} title="我的" sceneStyle={styles.sceneContentStyle}/>

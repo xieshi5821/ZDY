@@ -15,11 +15,3 @@ export const receivePlaceholder = (placeholder) => (dispatch) => {
 export const toggleCheck = (index) => (dispatch) => {
   dispatch({type: searchTypes.TOGGLE_CHECK, index})
 }
-
-export const resetResultList = () => (dispatch) => {
-  dispatch({type: searchTypes.RESET_RESULT_LIST})
-}
-
-export const receiveResultList = (resultList) => (dispatch) => {
-  dispatch({type: searchTypes.RECEIVE_RESULT_LIST, resultList})
-}

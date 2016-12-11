@@ -1,74 +1,132 @@
-import React, {Component, PropTypes} from 'react'
-import {connect} from 'react-redux'
-import {StyleSheet, View, Text, ScrollView, TextInput, TouchableOpacity} from 'react-native'
 import { CheckBox, Button } from 'react-native-elements'
+import {callSearchList} from '../../api/request'
+import {connect} from 'react-redux'
+import {receiveResultList, receiveContraindicationWords} from '../../actions/searchResult'
+import {StyleSheet, View, Text, ScrollView, TextInput, TouchableOpacity} from 'react-native'
+import {toggleContraindicationCheck, toggleMedicinalIsInsuranceCheck, resetFilter, checkStar, toggleStarCheck, resetResultList} from '../../actions/searchResult'
 import commonStyles from '../../styles/common'
+import Icon from 'react-native-vector-icons/FontAwesome'
+import React, {Component, PropTypes} from 'react'
+import Spinner from 'react-native-loading-spinner-overlay'
+
+export let goSearchResult = null
 
 class SearchResultFilter extends Component {
   static contextTypes = {
     routes: PropTypes.object.isRequired
   }
 
-  handleSure() {
-    this.context.routes.pop()
+  constructor(props) {
+    super(props)
+    this.state = {
+      visible: false
+    }
+    goSearchResult = this.querySearch
   }
+
+  handleReset() {
+    this.props.dispatch(resetFilter())
+  }
+
+  querySearch() {
+    this.props.dispatch(resetResultList())
+    const {rows, page, inputText, rangeList, star, medicinalIsInsurance, medicinalContraindication, contraindicationWords} = this.props
+    const rangeFields = []
+    rangeList.forEach(({checked, rangeField}) => {
+      if (checked && rangeFields.indexOf(rangeField) === -1) {
+        rangeFields.push(rangeField)
+      }
+    })
+    const words = []
+    contraindicationWords.forEach(({checked, name}) => {
+      if (checked && words.indexOf(name) === -1) {
+        words.push(name)
+      }
+    })
+    callSearchList({text: inputText, rangeField: rangeFields.join('~~'), rows, page, evaluateStar: star.join('~~'), medicinalIsInsurance: medicinalIsInsurance.join('~~'), medicinalContraindication: words.join('~~')}).then(({contraindicationWrods, resultlist}) => {
+      this.props.dispatch(receiveResultList(resultlist))
+      this.props.dispatch(receiveContraindicationWords(contraindicationWrods.map(contraindication => {
+        return {
+          name: contraindication,
+          checked: false
+        }
+      })))
+      this.context.routes.pop()
+    })
+  }
+
+  handleContraindicationCheck(index) {
+    this.props.dispatch(toggleContraindicationCheck(index))
+  }
+
+  handleStarCheck(level) {
+    this.props.dispatch(toggleStarCheck(level))
+  }
+
+  handleMedicinalIsInsuranceCheck(name) {
+    this.props.dispatch(toggleMedicinalIsInsuranceCheck(name))
+  }
+
+  renderContraindicationWords() {
+      return this.props.contraindicationWords.map(({name, checked}, index) => (
+        <View key={'contraindication_' + index} style={commonStyles.flex}>
+          <CheckBox title={name} containerStyle={styles.check} textStyle={styles.checkText} onPress={this.handleContraindicationCheck.bind(this, index)} checked={checked} center/>
+        </View>
+      ))
+  }
+
   render() {
+    const contraindicationWords = this.renderContraindicationWords()
+    const {medicinalIsInsurance, star} = this.props
     return (
       <View style={styles.wrap}>
+        <Spinner visible={this.state.visible} color="black"/>
           <View style={styles.form}>
             <View style={styles.labelWrap}>
               <View style={commonStyles.flex}><Text style={styles.labelText}>医保性质</Text></View>
-              <View style={commonStyles.flex}><Text style={styles.labelButton}>la</Text></View>
+              <View style={commonStyles.flex}><Text style={styles.labelButton}><Icon name="caret-down" size={22} color="#ccc"/></Text></View>
             </View>
             <View style={styles.checkGtoupWrap}>
               <View style={styles.checkWrap}>
                 <View style={commonStyles.flex}>
-                  <CheckBox title='头痛' containerStyle={styles.check} textStyle={styles.checkText} checked center />
+                  <CheckBox title='医保' containerStyle={styles.check} textStyle={styles.checkText} onPress={this.handleMedicinalIsInsuranceCheck.bind(this, '医保')} checked={medicinalIsInsurance.indexOf('医保') !== -1}  center/>
                 </View>
                 <View style={commonStyles.flex}>
-                  <CheckBox title='头痛' containerStyle={styles.check} textStyle={styles.checkText} checked={false} center />
-                </View>
-                <View style={commonStyles.flex}>
-                  <CheckBox title='头痛' containerStyle={styles.check} textStyle={styles.checkText} checked center />
+                  <CheckBox title='非医保' containerStyle={styles.check} textStyle={styles.checkText} onPress={this.handleMedicinalIsInsuranceCheck.bind(this, '非医保')} checked={medicinalIsInsurance.indexOf('非医保') !== -1}  center/>
                 </View>
               </View>
             </View>
             <View style={styles.labelWrap}>
               <View style={commonStyles.flex}><Text style={styles.labelText}>用户评价</Text></View>
-              <View style={commonStyles.flex}><Text style={styles.labelButton}>la</Text></View>
+              <View style={commonStyles.flex}><Text style={styles.labelButton}><Icon name="caret-down" size={22} color="#ccc"/></Text></View>
             </View>
             <View style={styles.checkGtoupWrap}>
               <View style={styles.checkWrap}>
                 <View style={commonStyles.flex}>
-                  <CheckBox title='5-4星' containerStyle={styles.check} textStyle={styles.checkText} checked center />
+                  <CheckBox title='5星' containerStyle={styles.check} textStyle={styles.checkText} onPress={this.handleStarCheck.bind(this, 5)} checked={star.indexOf(5) !== -1} center/>
                 </View>
                 <View style={commonStyles.flex}>
-                  <CheckBox title='4-3星' containerStyle={styles.check} textStyle={styles.checkText} checked={false} center />
+                  <CheckBox title='4星' containerStyle={styles.check} textStyle={styles.checkText} onPress={this.handleStarCheck.bind(this, 4)} checked={star.indexOf(4) !== -1} center/>
                 </View>
                 <View style={commonStyles.flex}>
-                  <CheckBox title='3星以下' containerStyle={styles.check} textStyle={styles.checkText} checked center />
+                  <CheckBox title='3星' containerStyle={styles.check} textStyle={styles.checkText} onPress={this.handleStarCheck.bind(this, 3)} checked={star.indexOf(3) !== -1} center/>
                 </View>
               </View>
             </View>
             <View style={styles.labelWrap}>
               <View style={commonStyles.flex}><Text style={styles.labelText}>用药禁忌</Text></View>
-              <View style={commonStyles.flex}><Text style={styles.labelButton}>la</Text></View>
+              <View style={commonStyles.flex}><Text style={styles.labelButton}><Icon name="caret-down" size={22} color="#ccc"/></Text></View>
             </View>
             <View style={styles.checkGtoupWrap}>
               <View style={styles.checkWrap}>
-                <View style={commonStyles.flex}>
-                  <CheckBox title='妇女禁用' containerStyle={styles.check} textStyle={styles.checkText} checked center />
-                </View>
-                <View style={commonStyles.flex}>
-                  <CheckBox title='儿童禁用' containerStyle={styles.check} textStyle={styles.checkText} checked={false} center />
-                </View>
+                {contraindicationWords}
               </View>
             </View>
           </View>
           <View style={styles.bottomWrap}>
             <View style={styles.buttonGroup}>
-              <TouchableOpacity style={[styles.buttonWrap, styles.resetWrap]}><Text style={[styles.buttonText, styles.reset]}>重置</Text></TouchableOpacity>
-              <TouchableOpacity onPress={this.handleSure.bind(this)} style={[styles.buttonWrap, styles.sureWrap]}><Text style={[styles.buttonText, styles.sure]}>确定</Text></TouchableOpacity>
+              <TouchableOpacity onPress={this.handleReset.bind(this)} style={[styles.buttonWrap, styles.resetWrap]}><Text style={[styles.buttonText, styles.reset]}>重置</Text></TouchableOpacity>
+              <TouchableOpacity onPress={this.querySearch.bind(this)} style={[styles.buttonWrap, styles.sureWrap]}><Text style={[styles.buttonText, styles.sure]}>确定</Text></TouchableOpacity>
             </View>
           </View>
       </View>
@@ -154,5 +212,12 @@ const styles = StyleSheet.create({
 })
 
 export default connect(store => ({
-
+  inputText: store.search.inputText,
+  rangeList: store.search.rangeList,
+  rows: store.searchResult.rows,
+  page: store.searchResult.page,
+  resultList: store.searchResult.resultList,
+  contraindicationWords: store.searchResult.contraindicationWords,
+  star: store.searchResult.star,
+  medicinalIsInsurance: store.searchResult.medicinalIsInsurance
 }))(SearchResultFilter)
