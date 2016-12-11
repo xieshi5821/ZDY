@@ -1,9 +1,12 @@
 import { searchTypes } from '../reducer-types'
 const initialState = {
+  rows: 20,
+  page: 1,
   inputText: '感冒',
   rangeList: [],
   placeholder: '',
-  resultList: []
+  resultList: [],
+  hasMore: true
 }
 
 export default search = (state = initialState, action) => {
@@ -20,7 +23,13 @@ export default search = (state = initialState, action) => {
       range.checked = !range.checked
       return {...state, rangeList}
     case searchTypes.RECEIVE_RESULT_LIST:
-      return {...state, resultList: action.resultList}
+      const {gridModel, page, total} = action.resultList
+      const resultList = Object.assign([], state.resultList)
+      let index = resultList.length
+      gridModel.forEach(res => {
+        resultList.push({...res, seq: index++})
+      })
+      return {...state, resultList, hasMore: parseInt(page) < parseInt(total)}
   }
   return state
 }

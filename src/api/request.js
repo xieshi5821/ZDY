@@ -22,7 +22,7 @@ const ajax = (url, params = {}) => {
         },
         body: toQueryString(params)
       }).then((resp) => resp.json()).then(({errorCode = '100', errorMsg, data}) => {
-        console.log(errorCode, errorMsg, data)
+        console.log(params, errorCode, errorMsg, data)
         if (errorCode === '100') {
           resolve(data || {})
           return

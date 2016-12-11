@@ -24,7 +24,11 @@ export default styles = StyleSheet.create({
     borderTopWidth: .5,
   },
   td: {
-    flex: 1
+    flex: 1,
+    paddingTop: 2,
+    paddingBottom: 2,
+    paddingLeft: 5,
+    paddingRight: 5
   },
   rowTitle: {
     // textAlign: 'center',
