@@ -75,7 +75,8 @@ class SearchResult extends Component {
   }
 
   handleDetail(durgId) {
-    this.context.routes.durg()
+    console.log(this.context.routes)
+    this.context.routes.searchDurg()
   }
 
   renderRow(rowData) {
@@ -87,9 +88,9 @@ class SearchResult extends Component {
           <View style={commonStyles.td}><Text style={commonStyles.rowTitle}>用药禁忌</Text></View>
         </View>) : null}
         <TouchableOpacity key={rowData.medicinalId} onPress={this.handleDetail.bind(this, rowData.medicinalId)} style={[commonStyles.tr, commonStyles.contentTr]}>
-          <View style={commonStyles.td}><Text style={[commonStyles.rowTitle, commonStyles.contentRowTitle, commonStyles.ym]}>{rowData.medicinalName}</Text></View>
-          <View style={commonStyles.td}><Text style={[commonStyles.rowTitle, commonStyles.contentRowTitle]}>{rowData.medicinalIsInsurance}</Text></View>
-          <View style={commonStyles.td}><Text style={[commonStyles.rowTitle, commonStyles.contentRowTitle]}>{rowData.medicinalContraindication}</Text></View>
+          <View style={commonStyles.td}><Text numberOfLines={1} style={[commonStyles.rowTitle, commonStyles.contentRowTitle, commonStyles.ym]}>{rowData.medicinalName}</Text></View>
+          <View style={commonStyles.td}><Text numberOfLines={1} style={[commonStyles.rowTitle, commonStyles.contentRowTitle]}>{rowData.medicinalIsInsurance}</Text></View>
+          <View style={commonStyles.td}><Text numberOfLines={1} style={[commonStyles.rowTitle, commonStyles.contentRowTitle]}>{rowData.medicinalContraindication}</Text></View>
         </TouchableOpacity>
       </View>
     )
