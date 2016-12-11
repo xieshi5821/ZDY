@@ -1,13 +1,11 @@
-import React, {Component, PropTypes} from 'react'
 import {connect} from 'react-redux'
-import {StyleSheet, View, Text, ScrollView, Image, TouchableOpacity, TextInput} from 'react-native'
-import ViewPager from 'react-native-viewpager'
-import Toast from 'react-native-easy-toast'
+import {setToken, callRegister, callRecommendHome} from '../../api/request'
+import {Alert, StyleSheet, View, Text, ScrollView, Image, TouchableOpacity, TextInput} from 'react-native'
 import {updateInputText, receiveBannerList, receivePlaceholder, receiveExplainList} from '../../actions/recommend'
 import commonStyles from '../../styles/common'
-import {setToken, callRegister, callRecommendHome} from '../../api/request'
+import React, {Component, PropTypes} from 'react'
 import Spinner from 'react-native-loading-spinner-overlay'
-
+import ViewPager from 'react-native-viewpager'
 
 class Recommend extends Component {
 
@@ -53,11 +51,11 @@ class Recommend extends Component {
   }
 
   handleSubmit() {
-    // const {inputText} = this.props
-    // if (inputText.length === 0) {
-    //   this.refs.toast.show('请输入关键字...')
-    //   return
-    // }
+    const {inputText} = this.props
+    if (!inputText.length) {
+      Alert.alert('提示', '请输入您的症状')
+      return
+    }
     this.context.routes.recommendResult()
   }
 
@@ -78,11 +76,10 @@ class Recommend extends Component {
   render() {
     const {visible, dataSource} = this.state
     const pager = dataSource ? (<ViewPager dataSource={this.state.dataSource} renderPage={this.renderPage.bind(this)} isLoop autoPlay/>): null
-    const explains = this.rederNoticeDesc();
+    const explains = this.rederNoticeDesc()
     return (
       <ScrollView>
         <Spinner visible={this.state.visible} color="black"/>
-        <Toast ref="toast"/>
         <View style={styles.pagerContainer}>
           {pager}
         </View>

@@ -15,8 +15,7 @@ class RecommendResult extends Component {
   }
 
   handleDetail(durgId) {
-    console.log(durgId)
-    this.context.routes.durg()
+    this.context.routes.recommendDurg()
   }
 
   getListData() {

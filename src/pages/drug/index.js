@@ -14,7 +14,7 @@ class Drug extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>123</Text>
+        <Text>药品</Text>
       </View>
     )
   }

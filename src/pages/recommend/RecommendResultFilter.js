@@ -1,8 +1,10 @@
-import React, {Component, PropTypes} from 'react'
+import { CheckBox, Button } from 'react-native-elements'
 import {connect} from 'react-redux'
 import {StyleSheet, View, Text, ScrollView, TextInput, TouchableOpacity} from 'react-native'
-import { CheckBox, Button } from 'react-native-elements'
 import commonStyles from '../../styles/common'
+import Icon from 'react-native-vector-icons/FontAwesome'
+import React, {Component, PropTypes} from 'react'
+import Spinner from 'react-native-loading-spinner-overlay'
 
 class RecommendResultFilter extends Component {
   static contextTypes = {
@@ -18,7 +20,7 @@ class RecommendResultFilter extends Component {
           <View style={styles.form}>
             <View style={styles.labelWrap}>
               <View style={commonStyles.flex}><Text style={styles.labelText}>医保性质</Text></View>
-              <View style={commonStyles.flex}><Text style={styles.labelButton}>la</Text></View>
+              <View style={commonStyles.flex}><Text style={styles.labelButton}><Icon name="caret-down" size={22} color="#ccc"/></Text></View>
             </View>
             <View style={styles.checkGtoupWrap}>
               <View style={styles.checkWrap}>
@@ -35,7 +37,7 @@ class RecommendResultFilter extends Component {
             </View>
             <View style={styles.labelWrap}>
               <View style={commonStyles.flex}><Text style={styles.labelText}>用户评价</Text></View>
-              <View style={commonStyles.flex}><Text style={styles.labelButton}>la</Text></View>
+              <View style={commonStyles.flex}><Text style={styles.labelButton}><Icon name="caret-down" size={22} color="#ccc"/></Text></View>
             </View>
             <View style={styles.checkGtoupWrap}>
               <View style={styles.checkWrap}>
@@ -52,7 +54,7 @@ class RecommendResultFilter extends Component {
             </View>
             <View style={styles.labelWrap}>
               <View style={commonStyles.flex}><Text style={styles.labelText}>用药禁忌</Text></View>
-              <View style={commonStyles.flex}><Text style={styles.labelButton}>la</Text></View>
+              <View style={commonStyles.flex}><Text style={styles.labelButton}><Icon name="caret-down" size={22} color="#ccc"/></Text></View>
             </View>
             <View style={styles.checkGtoupWrap}>
               <View style={styles.checkWrap}>
