@@ -19,7 +19,6 @@ class SearchResult extends Component {
     super(props)
     this.state = {
       visible: true,
-      // dataSource: this._dataSource.cloneWithRows([0,1,2,3,4,5,6,7,8,9])
       dataSource: null
     }
   }
@@ -30,27 +29,30 @@ class SearchResult extends Component {
   }
 
   querySearch() {
-    const {rows, page, inputText, rangeList} = this.props
-    const rangeFields = []
-    rangeList.forEach(({checked, rangeField}) => {
-      if (checked && rangeFields.indexOf(rangeField) === -1) {
-        rangeFields.push(rangeField)
-      }
-    })
-    callSearchList({text: inputText, rangeField: rangeFields.join('~~'), rows, page}).then(({contraindicationWrods, resultlist}) => {
-      this.props.dispatch(receiveResultList(resultlist))
-      this.setState({visible: false})
+    return new Promise((resolve, reject) => {
+      const {rows, page, inputText, rangeList} = this.props
+      const rangeFields = []
+      rangeList.forEach(({checked, rangeField}) => {
+        if (checked && rangeFields.indexOf(rangeField) === -1) {
+          rangeFields.push(rangeField)
+        }
+      })
+      callSearchList({text: inputText, rangeField: rangeFields.join('~~'), rows, page}).then(({contraindicationWrods, resultlist}) => {
+        this.props.dispatch(receiveResultList(resultlist))
+        this.setState({visible: false})
+        resolve()
+      })
     })
   }
 
   componentWillReceiveProps(props) {
     const {dataSource} = this.state
     const {resultList} = props
-    if (resultList.length && dataSource === null) {
+    // if (resultList.length && dataSource === null) {
       this.setState({
         dataSource: this._dataSource.cloneWithRows(resultList)
       })
-    }
+    // }
   }
 
   handleDetail(durgId) {
@@ -58,7 +60,6 @@ class SearchResult extends Component {
   }
 
   renderRow(rowData) {
-    // const header =
     return (
       <View>
         {rowData.seq === 0 ? (<View style={commonStyles.tr}>
@@ -76,19 +77,23 @@ class SearchResult extends Component {
   }
 
   onLoadMore(end){
-    let timer = setTimeout(() => {
-      clearTimeout(timer)
-      this._page++
-      let data = []
-      for (let i = 0;i<(this._page+1) * 10; i++){
-        data.push(i)
-      }
-      this.setState({
-        dataSource:this._dataSource.cloneWithRows(data)
-      })
-      //end(this._page > 2)//加载成功后需要调用end结束刷新 假设加载4页后数据全部加载完毕
-      this.refs.listView.endLoadMore(this._page > 2)
-    },2000)
+    console.log(123)
+    this.querySearch().then(() => {
+      end()
+    })
+    // let timer = setTimeout(() => {
+    //   clearTimeout(timer)
+    //   this._page++
+    //   let data = []
+    //   for (let i = 0;i<(this._page+1) * 10; i++){
+    //     data.push(i)
+    //   }
+    //   this.setState({
+    //     dataSource:this._dataSource.cloneWithRows(data)
+    //   })
+    //   //end(this._page > 2)//加载成功后需要调用end结束刷新 假设加载4页后数据全部加载完毕
+    //   this.refs.listView.endLoadMore(this._page > 2)
+    // }, 2000)
   }
 
   render(){

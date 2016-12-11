@@ -28,10 +28,10 @@ export default styles = StyleSheet.create({
     paddingTop: 2,
     paddingBottom: 2,
     paddingLeft: 5,
-    paddingRight: 5
+    paddingRight: 5,
+    backgroundColor: '#fff'
   },
   rowTitle: {
-    // textAlign: 'center',
     paddingTop: 10,
     paddingBottom: 10
   },

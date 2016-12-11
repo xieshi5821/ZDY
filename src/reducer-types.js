@@ -17,6 +17,7 @@ export const recommendTypes = createModuleReducer('recommendTypes', [
 
 // 搜索首页
 export const searchTypes = createModuleReducer('searchTypes', [
+  'RESET_RESULT_LIST',
   'REVEIVE_RANGE_LIST',
   'REVEIVE_PLACEHOLDER',
   'UPDATE_INPUT_TEXT',

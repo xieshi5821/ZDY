@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {Alert, StyleSheet, View, Text, ScrollView, TextInput, TouchableOpacity} from 'react-native'
 import { CheckBox } from 'react-native-elements'
 import commonStyles from '../../styles/common'
-import {updateInputText, receiveRangeList, receivePlaceholder, toggleCheck} from '../../actions/search'
+import {updateInputText, resetResultList, receiveRangeList, receivePlaceholder, toggleCheck} from '../../actions/search'
 import {callSearchHome} from '../../api/request'
 import Spinner from 'react-native-loading-spinner-overlay'
 
@@ -41,6 +41,7 @@ class Search extends Component {
       Alert.alert('提示', '请输入搜索词')
       return
     }
+    this.props.dispatch(resetResultList())
     this.context.routes.searchResult()
   }
 
