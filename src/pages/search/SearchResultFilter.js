@@ -9,8 +9,6 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import React, {Component, PropTypes} from 'react'
 import Spinner from 'react-native-loading-spinner-overlay'
 
-export let goSearchResult = null
-
 class SearchResultFilter extends Component {
   static contextTypes = {
     routes: PropTypes.object.isRequired
@@ -21,7 +19,6 @@ class SearchResultFilter extends Component {
     this.state = {
       visible: false
     }
-    goSearchResult = this.querySearch
   }
 
   handleReset() {
@@ -29,6 +26,9 @@ class SearchResultFilter extends Component {
   }
 
   querySearch() {
+    this.setState({
+      visible: true
+    })
     this.props.dispatch(resetResultList())
     const {rows, page, inputText, rangeList, star, medicinalIsInsurance, medicinalContraindication, contraindicationWords} = this.props
     const rangeFields = []
@@ -51,6 +51,9 @@ class SearchResultFilter extends Component {
           checked: false
         }
       })))
+      this.setState({
+        visible: false
+      })
       this.context.routes.pop()
     })
   }
@@ -152,10 +155,9 @@ const styles = StyleSheet.create({
     borderBottomColor: '#ccc',
     borderBottomWidth: .5,
     paddingTop: 10,
-    // height: 40
   },
   labelText: {
-    fontSize: 18,
+    fontSize: 16,
     color: '#007cca',
     padding: 5,
     paddingLeft: 0
@@ -165,7 +167,6 @@ const styles = StyleSheet.create({
   },
   checkGtoupWrap: {
     paddingTop: 10,
-    // height: 40
   },
   checkWrap: {
     flex: 1,

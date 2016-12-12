@@ -11,7 +11,7 @@ import RecommendResultFilter from './pages/recommend/RecommendResultFilter'
 
 import Search from './pages/search/'
 import SearchResult, {goSearchResultFilter} from './pages/search/SearchResult'
-import SearchResultFilter, {goSearchResult} from './pages/search/SearchResultFilter'
+import SearchResultFilter from './pages/search/SearchResultFilter'
 import Durg from './pages/drug/'
 
 import My from './pages/my/'
@@ -39,7 +39,7 @@ export default function configRoutes() {
             <Scene key="search" icon={TabIcon} title="检索">
               <Scene key="searchPage" component={Search} title="检索" sceneStyle={styles.sceneContentStyle}/>
               <Scene key="searchResult" component={SearchResult} backTitle="检索" backButtonTextStyle={styles.backButtonTextStyle} rightTitle="筛选" rightButtonTextStyle={styles.titleStyle} onRight={() => goSearchResultFilter()} hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
-              <Scene key="searchResultFilter" component={SearchResultFilter} title="筛选" onBack={() => goSearchResult()} hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
+              <Scene key="searchResultFilter" component={SearchResultFilter} title="筛选" hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
               <Scene key="searchDurg" component={Durg} title="药品详情" hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
           </Scene>
             <Scene key="my" icon={TabIcon} title="我的">

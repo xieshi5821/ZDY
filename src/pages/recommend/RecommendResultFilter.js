@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     // height: 40
   },
   labelText: {
-    fontSize: 18,
+    fontSize: 16,
     color: '#007cca',
     padding: 5,
     paddingLeft: 0
