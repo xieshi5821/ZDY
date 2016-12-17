@@ -58,6 +58,10 @@ export const callSearchList = (params) => {
   return ajax('search/list', params)
 }
 
+export const callMedicinalDetail = (params) => {
+  return ajax('medicinal/detail', params)
+}
+
 export const callRecommendList = (params) => {
   return ajax('recommend/submit', params)
 }

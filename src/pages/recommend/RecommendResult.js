@@ -3,21 +3,18 @@ import {connect} from 'react-redux'
 import {StyleSheet, View, Text, ScrollView, TextInput, TouchableOpacity} from 'react-native'
 import commonStyles from '../../styles/common'
 import { CheckBox } from 'react-native-elements'
-import RecommendResultFilter from './RecommendResultFilter'
-export let goRecommendResultFilter = null
+export let recommendResult = null
 class RecommendResult extends Component {
   static contextTypes = {
     routes: PropTypes.object.isRequired
   }
-
-  componentWillMount() {
-    goRecommendResultFilter = this.context.routes.recommendResultFilter
+  constructor(props) {
+    super(props)
+    recommendResult = this
   }
-
   handleDetail(durgId) {
     this.context.routes.recommendDurg()
   }
-
   getListData() {
     const list = [{
       id: 1,

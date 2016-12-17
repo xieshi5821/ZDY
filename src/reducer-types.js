@@ -33,3 +33,10 @@ export const searchResultTypes = createModuleReducer('searchResultTypes', [
   'RESET_FILTER',
   'TOGGLE_STAR_CHECK'
 ])
+
+// 药品主页
+export const drugTypes = createModuleReducer('drugTypes', [
+  'UPDATE_QUERY_ID',
+  'UPDATE_MEDICINAL',
+  'UPDATE_MEDICINAL_NAME'
+])

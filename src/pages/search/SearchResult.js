@@ -7,8 +7,9 @@ import commonStyles from '../../styles/common'
 import Empty from '../../shared/empty'
 import React, { Component, PropTypes } from 'react'
 import Spinner from 'react-native-loading-spinner-overlay'
+import {updateQueryId, updateMedicinalName} from '../../actions/drug'
 
-export let goSearchResultFilter = null
+export let searchResult = null
 class SearchResult extends Component {
   static contextTypes = {
     routes: PropTypes.object.isRequired
@@ -21,10 +22,10 @@ class SearchResult extends Component {
     this.state = {
       dataSource: null
     }
+    searchResult = this
   }
 
   componentWillMount() {
-    goSearchResultFilter = this.context.routes.searchResultFilter
     this.renderDataSource()
   }
 
@@ -74,8 +75,9 @@ class SearchResult extends Component {
     }
   }
 
-  handleDetail(durgId) {
-    console.log(this.context.routes)
+  handleDetail(durgId, medicinalName) {
+    this.props.dispatch(updateQueryId(durgId))
+    this.props.dispatch(updateMedicinalName(medicinalName))
     this.context.routes.searchDurg()
   }
 
@@ -87,7 +89,7 @@ class SearchResult extends Component {
           <View style={commonStyles.td}><Text style={commonStyles.rowTitle}>是否医保</Text></View>
           <View style={commonStyles.td}><Text style={commonStyles.rowTitle}>用药禁忌</Text></View>
         </View>) : null}
-        <TouchableOpacity key={rowData.medicinalId} onPress={this.handleDetail.bind(this, rowData.medicinalId)} style={[commonStyles.tr, commonStyles.contentTr]}>
+        <TouchableOpacity key={rowData.medicinalId} onPress={this.handleDetail.bind(this, rowData.medicinalId, rowData.medicinalName)} style={[commonStyles.tr, commonStyles.contentTr]}>
           <View style={commonStyles.td}><Text numberOfLines={1} style={[commonStyles.rowTitle, commonStyles.contentRowTitle, commonStyles.ym]}>{rowData.medicinalName}</Text></View>
           <View style={commonStyles.td}><Text numberOfLines={1} style={[commonStyles.rowTitle, commonStyles.contentRowTitle]}>{rowData.medicinalIsInsurance}</Text></View>
           <View style={commonStyles.td}><Text numberOfLines={1} style={[commonStyles.rowTitle, commonStyles.contentRowTitle]}>{rowData.medicinalContraindication}</Text></View>
