@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
     marginBottom: 10
   },
   voice: {
-    fontFamily:'iconfont',
+    fontFamily: 'iconfont',
     color: '#58d1d8',
     fontSize: 50,
     lineHeight: 50

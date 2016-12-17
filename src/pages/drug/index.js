@@ -30,14 +30,13 @@ class Drug extends Component {
   }
 
   handleChangeTab(tab) {
-    console.log(tab)
     this.setState({
       currentTab: tab
     })
   }
 
   handleEvaluate() {
-
+    this.context.routes.searchEvaluate()
   }
 
   renderTabContent() {

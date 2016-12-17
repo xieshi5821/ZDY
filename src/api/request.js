@@ -65,3 +65,11 @@ export const callMedicinalDetail = (params) => {
 export const callRecommendList = (params) => {
   return ajax('recommend/submit', params)
 }
+
+export const callEvaluatePage = () => {
+  return ajax('evaluate/page')
+}
+
+export const callEvaluateAdd = (params) => {
+  return ajax('evaluate/add', params)
+}

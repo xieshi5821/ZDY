@@ -46,7 +46,7 @@ export default function configRoutes() {
               <Scene key="searchResult" component={SearchResult} backTitle="检索" backButtonTextStyle={styles.backButtonTextStyle} rightTitle="筛选" rightButtonTextStyle={styles.titleStyle} onRight={() => searchResult.context.routes.searchResultFilter()} hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
               <Scene key="searchResultFilter" component={SearchResultFilter} title="筛选" hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
               <Scene key="searchDurg" component={Durg} getTitle={getSearchDrugTitle} hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
-              <Scene key="searchEvaluate" component={Evaluate} title="药品点评" hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
+              <Scene key="searchEvaluate" component={Evaluate} title="药品点评" direction="vertical" hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
           </Scene>
             <Scene key="my" icon={TabIcon} title="我的">
               <Scene key="myPage" component={My} title="我的" sceneStyle={styles.sceneContentStyle}/>
