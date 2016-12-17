@@ -15,7 +15,7 @@ import SearchResultFilter from './pages/search/SearchResultFilter'
 import Durg, {drug} from './pages/drug/'
 import Evaluate from './pages/drug/Evaluate'
 import My from './pages/my/'
-import WebInnerView from './pages/WebInnerView'
+import XWebView, {xWebView} from './pages/XWebView'
 
 const reducerCreate = (params) => {
   const defaultReducer = Reducer(params)
@@ -25,6 +25,11 @@ const reducerCreate = (params) => {
 const getSearchDrugTitle = () => {
   return drug ? drug.props.medicinalName : ''
 }
+
+const getRecommendWebViewTitle = () => {
+  return xWebView ? xWebView.props.uriName : ''
+}
+
 
 const RouterWithRedux = connect()(Router)
 
@@ -40,6 +45,7 @@ export default function configRoutes() {
               <Scene key="recommendResultFilter" component={RecommendResultFilter} title="筛选" hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
               <Scene key="recommendDurg" component={Durg} title="药品详情" hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
               <Scene key="recommendEvaluate" component={Evaluate} title="药品点评" hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
+              <Scene key="recommendWebView" component={XWebView} getTitle={getRecommendWebViewTitle} hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
             </Scene>
             <Scene key="search" icon={TabIcon} title="检索">
               <Scene key="searchPage" component={Search} title="检索" sceneStyle={styles.sceneContentStyle}/>
@@ -50,7 +56,6 @@ export default function configRoutes() {
           </Scene>
             <Scene key="my" icon={TabIcon} title="我的">
               <Scene key="myPage" component={My} title="我的" sceneStyle={styles.sceneContentStyle}/>
-              <Scene key="webInnerView" component={WebInnerView} title="WebView..." hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
             </Scene>
         </Scene>
       </Scene>

@@ -82,7 +82,6 @@ class Evaluate extends Component {
       return
     }
     const tags = evaluateTags.map(evaluate => evaluate.tagid).join(',')
-    console.log(tags)
     this.setState({visible: true})
     callEvaluateAdd({
       medicinalId: this.props.queryId,

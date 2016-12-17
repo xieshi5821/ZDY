@@ -40,3 +40,9 @@ export const drugTypes = createModuleReducer('drugTypes', [
   'UPDATE_MEDICINAL',
   'UPDATE_MEDICINAL_NAME'
 ])
+
+// webview
+export const xWebViewTypes = createModuleReducer('xWebViewTypes', [
+  'UPDATE_URI',
+  'UPDATE_URI_NAME'
+])

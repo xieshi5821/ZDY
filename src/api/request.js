@@ -73,3 +73,7 @@ export const callEvaluatePage = () => {
 export const callEvaluateAdd = (params) => {
   return ajax('evaluate/add', params)
 }
+
+export const callEvaluateList = (params) => {
+  return ajax('evaluate/list', params)
+}

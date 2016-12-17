@@ -2,6 +2,7 @@ import {connect} from 'react-redux'
 import {setToken, callRegister, callRecommendHome} from '../../api/request'
 import {Alert, StyleSheet, View, Text, ScrollView, Image, TouchableOpacity, TextInput} from 'react-native'
 import {updateInputText, receiveBannerList, receivePlaceholder, receiveExplainList} from '../../actions/recommend'
+import {updateUri, updateUriName} from '../../actions/xWebView'
 import commonStyles from '../../styles/common'
 import React, {Component, PropTypes} from 'react'
 import Spinner from 'react-native-loading-spinner-overlay'
@@ -37,13 +38,19 @@ class Recommend extends Component {
     const {dataSource} = this.state
     if (dataSource === null) {
       this.setState({
-        dataSource: new ViewPager.DataSource({pageHasChanged: (p1, p2) => p1 !== p2}).cloneWithPages(props.bannerList.map(banner => banner.bannerPicUrl))
+        // dataSource: new ViewPager.DataSource({pageHasChanged: (p1, p2) => p1 !== p2}).cloneWithPages(props.bannerList.map(banner => banner.bannerPicUrl))
+          dataSource: new ViewPager.DataSource({pageHasChanged: (p1, p2) => p1 !== p2}).cloneWithPages(props.bannerList)
+
       })
     }
   }
 
-  handleClickBanner(data) {
-    this.refs.toast.show('image click')
+  handleClickBanner({bannerVisitType, bannerVisitUrl, bannerName = ''}) {
+    if (bannerVisitUrl && bannerVisitType === '1') { // 链接
+      this.props.dispatch(updateUriName(bannerName))
+      this.props.dispatch(updateUri(bannerVisitUrl))
+      this.context.routes.recommendWebView()
+    }
   }
 
   handleChangeInput(text) {
@@ -59,11 +66,11 @@ class Recommend extends Component {
     this.context.routes.recommendResult()
   }
 
-  renderPage(data, pageID) {
+  renderPage(banner, pageID) {
     return (
       <View style={commonStyles.flex}>
-        <TouchableOpacity onPress={this.handleClickBanner.bind(this, data)} activeOpacity={1}>
-          <Image resizeMode="stretch" style={styles.imagePage} source={{uri: data}}/>
+        <TouchableOpacity onPress={this.handleClickBanner.bind(this, banner)} activeOpacity={1}>
+          <Image resizeMode="stretch" style={styles.imagePage} source={{uri: banner.bannerPicUrl}}/>
         </TouchableOpacity>
       </View>
     )

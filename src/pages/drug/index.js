@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {StyleSheet, View, Text, ScrollView, TouchableOpacity} from 'react-native'
 import Spinner from 'react-native-loading-spinner-overlay'
 import Icon from 'react-native-vector-icons/FontAwesome'
-import {callMedicinalDetail} from '../../api/request'
+import {callMedicinalDetail, callEvaluateList} from '../../api/request'
 import {updateMedicinal} from '../../actions/drug'
 
 export let drug = null
@@ -33,6 +33,15 @@ class Drug extends Component {
     this.setState({
       currentTab: tab
     })
+    if (tab === 'evaluate') {
+      this.handleGetEvaluateList()
+    }
+  }
+
+  handleGetEvaluateList() {
+    this.setState({visible: true})
+    const {queryId} = this.props
+    // callEvaluateList({medicinalId: queryId}).then()
   }
 
   handleEvaluate() {
@@ -108,7 +117,7 @@ class Drug extends Component {
           <TouchableOpacity style={[styles.tab, currentTab === 'detail' ? styles.active : null]} onPress={this.handleChangeTab.bind(this, 'detail')}>
             <Text style={styles.tabText}>药品说明书</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={[styles.tab, currentTab === 'commend' ? styles.active : null]} onPress={this.handleChangeTab.bind(this, 'commend')}>
+          <TouchableOpacity style={[styles.tab, currentTab === 'evaluate' ? styles.active : null]} onPress={this.handleChangeTab.bind(this, 'evaluate')}>
             <Text style={styles.tabText}>用户点评</Text>
           </TouchableOpacity>
         </View>
