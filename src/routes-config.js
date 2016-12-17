@@ -17,6 +17,12 @@ import Evaluate from './pages/drug/Evaluate'
 import My from './pages/my/'
 import XWebView, {xWebView} from './pages/XWebView'
 
+import AboutUs from './pages/my/AboutUs'
+import Favorites from './pages/my/Favorites'
+import FeedBack from './pages/my/FeedBack'
+import FriendshipLink from './pages/my/FriendshipLink'
+import Product from './pages/my/Product'
+
 const reducerCreate = (params) => {
   const defaultReducer = Reducer(params)
   return (state, action) => defaultReducer(state, action)
@@ -56,6 +62,11 @@ export default function configRoutes() {
           </Scene>
             <Scene key="my" icon={TabIcon} title="我的">
               <Scene key="myPage" component={My} title="我的" sceneStyle={styles.sceneContentStyle}/>
+              <Scene key="myAboutUs" component={AboutUs} title="关于我们" hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
+              <Scene key="myFavorites" component={Favorites} title="我的收藏" hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
+              <Scene key="myFeedBack" component={FeedBack} title="问题反馈" hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
+              <Scene key="myFriendshipLink" component={FriendshipLink} title="友情链接" hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
+              <Scene key="myProduct" component={Product} title="产品推荐" hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
             </Scene>
         </Scene>
       </Scene>
