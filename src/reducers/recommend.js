@@ -1,7 +1,7 @@
 import { recommendTypes } from '../reducer-types'
 const initialState = {
   bannerList: [],
-  inputText: '',
+  inputText: '咳嗽咽痛',
   explainList: [],
   placeholder: ''
 }

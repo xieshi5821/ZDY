@@ -106,8 +106,8 @@ class SearchResult extends Component {
 
   render(){
     const {dataSource} = this.state
-    const {page, resultList} = this.props
-    let list = dataSource ? <SwRefreshListView dataSource={this.state.dataSource} ref="listView" isShowLoadMore={true} loadingTitle="加载中..." renderRow={this.renderRow.bind(this)} onLoadMore={this.onLoadMore.bind(this)}/> : null
+    const {page} = this.props
+    let list = dataSource ? <SwRefreshListView dataSource={dataSource} ref="listView" isShowLoadMore={true} loadingTitle="加载中..." renderRow={this.renderRow.bind(this)} onLoadMore={this.onLoadMore.bind(this)}/> : null
     if (list === null && page === 2) {
       list = <Empty/>
     }

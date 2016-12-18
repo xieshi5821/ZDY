@@ -15,6 +15,19 @@ export const recommendTypes = createModuleReducer('recommendTypes', [
   'UPDATE_INPUT_TEXT'
 ])
 
+// 推荐结果
+export const recommendResultTypes = createModuleReducer('recommendResultTypes', [
+  'RESET_RESULT_LIST',
+  'RECEIVE_RESULT_LIST',
+  'RECEIVE_RECOMMED_WORDS',
+  'RECEIVE_SUBMIT_WORDS',
+  'RECEIVE_CONTRAINDICATION_WORDS',
+  'TOGGLE_CONTRAINDICATION_CHECK',
+  'TOGGLE_MEDICINALISINSURANCE_CHECK',
+  'RESET_FILTER',
+  'TOGGLE_STAR_CHECK'
+])
+
 // 搜索首页
 export const searchTypes = createModuleReducer('searchTypes', [
   'REVEIVE_RANGE_LIST',

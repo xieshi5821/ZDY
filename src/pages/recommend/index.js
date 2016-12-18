@@ -1,5 +1,5 @@
 import {connect} from 'react-redux'
-import {setToken, callRegister, callRecommendHome} from '../../api/request'
+import {setToken, callRegister, callRecommendHome, callRecommendSubmit} from '../../api/request'
 import {Alert, StyleSheet, View, Text, ScrollView, Image, TouchableOpacity, TextInput} from 'react-native'
 import {updateInputText, receiveBannerList, receivePlaceholder, receiveExplainList} from '../../actions/recommend'
 import {updateUri, updateUriName} from '../../actions/xWebView'
@@ -7,6 +7,7 @@ import commonStyles from '../../styles/common'
 import React, {Component, PropTypes} from 'react'
 import Spinner from 'react-native-loading-spinner-overlay'
 import ViewPager from 'react-native-viewpager'
+import {receiveResultList, receiveContraindicationWords, resetResultList, resetFilter, receiveSubmitWords, receiveRecommedWords} from '../../actions/recommendResult'
 
 class Recommend extends Component {
 
@@ -38,9 +39,7 @@ class Recommend extends Component {
     const {dataSource} = this.state
     if (dataSource === null) {
       this.setState({
-        // dataSource: new ViewPager.DataSource({pageHasChanged: (p1, p2) => p1 !== p2}).cloneWithPages(props.bannerList.map(banner => banner.bannerPicUrl))
           dataSource: new ViewPager.DataSource({pageHasChanged: (p1, p2) => p1 !== p2}).cloneWithPages(props.bannerList)
-
       })
     }
   }
@@ -63,7 +62,29 @@ class Recommend extends Component {
       Alert.alert('提示', '请输入您的症状')
       return
     }
-    this.context.routes.recommendResult()
+
+    this.setState({visible: true})
+    this.props.dispatch(resetResultList())
+    this.props.dispatch(resetFilter())
+
+    callRecommendSubmit({text: inputText}).then(({recommedWords, contraindicationWrods, submitWords, resultlist}) => {
+      this.props.dispatch(receiveRecommedWords(recommedWords.map(recommed => {
+        return {
+          name: recommed,
+          checked: false
+        }
+      })))
+      this.props.dispatch(receiveSubmitWords(submitWords))
+      this.props.dispatch(receiveResultList(resultlist))
+      this.props.dispatch(receiveContraindicationWords(contraindicationWrods.map(contraindication => {
+        return {
+          name: contraindication,
+          checked: false
+        }
+      })))
+      this.setState({visible: false})
+      this.context.routes.recommendResult()
+    })
   }
 
   renderPage(banner, pageID) {
