@@ -8,6 +8,7 @@ import React, {Component, PropTypes} from 'react'
 import Spinner from 'react-native-loading-spinner-overlay'
 import ViewPager from 'react-native-viewpager'
 import {receiveResultList, receiveContraindicationWords, resetResultList, resetFilter, receiveSubmitWords, receiveRecommedWords, updatePage} from '../../actions/recommendResult'
+import Toast from 'react-native-root-toast'
 
 class Recommend extends Component {
 
@@ -88,6 +89,10 @@ class Recommend extends Component {
     })
   }
 
+  handleVoice() {
+    Toast.show('正在调试中...')
+  }
+
   renderPage(banner, pageID) {
     const url = fillUrl(banner.bannerPicUrl)
     return (
@@ -116,7 +121,7 @@ class Recommend extends Component {
         <View style={styles.inputForm}>
           <View style={styles.inputContainer}>
             <TextInput multiline placeholder={this.props.placeholder} style={styles.input} onChangeText={this.handleChangeInput.bind(this)} value={this.props.inputText}></TextInput>
-            <TouchableOpacity style={styles.voiceContainer}>
+            <TouchableOpacity onPress={this.handleVoice.bind(this)} style={styles.voiceContainer}>
               <Text style={styles.voice}>&#xe512;</Text>
             </TouchableOpacity>
           </View>
