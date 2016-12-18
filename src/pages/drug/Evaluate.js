@@ -6,7 +6,7 @@ import {callEvaluatePage, callEvaluateAdd} from '../../api/request'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { CheckBox } from 'react-native-elements'
 import Toast from 'react-native-root-toast'
-
+import {drug} from './index'
 class Evaluate extends Component {
   static contextTypes = {
     routes: PropTypes.object.isRequired
@@ -92,6 +92,7 @@ class Evaluate extends Component {
       this.setState({visible: false})
       Toast.show('提交评论成功')
       this.context.routes.pop()
+      drug.handleGetEvaluateList()
     })
   }
 

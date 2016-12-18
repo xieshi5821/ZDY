@@ -6,7 +6,7 @@ class Favorites extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>收藏夹</Text>
+        <Text>待开发...</Text>
       </View>
     )
   }
