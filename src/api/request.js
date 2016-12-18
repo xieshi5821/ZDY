@@ -111,3 +111,7 @@ export const callCollectCancel = (params) => {
 export const callFirendList = () => {
   return ajax('/api/center/friend/link/list')
 }
+
+export const callFeedbackAdd = (params) => {
+  return ajax('/api/center/feedback/add', params)
+}

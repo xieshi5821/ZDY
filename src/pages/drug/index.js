@@ -52,7 +52,6 @@ class Drug extends Component {
         this.setState({visible: false})
       })
     }
-    console.log(123)
   }
 
   handleChangeTab(tab) {
@@ -65,7 +64,7 @@ class Drug extends Component {
   }
 
   handleGetEvaluateList() {
-    this.setState({visible: true})
+    // this.setState({visible: true})
     const {queryId} = this.props
     // callEvaluateList({medicinalId: queryId}).then()
   }
