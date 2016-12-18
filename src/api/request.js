@@ -83,3 +83,7 @@ export const callEvaluateList = (params) => {
 export const callAboutUs = () => {
   return ajax('center/about/us')
 }
+
+export const callProductList = () => {
+  return ajax('center/recommend/product/list')
+}

@@ -30,13 +30,13 @@ class AboutUs extends Component {
       return null
     }
     return (
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <Spinner visible={this.state.visible} color="black"/>
         <Image source={{uri: 'https://img13.360buyimg.com/n1/s450x450_jfs/t3751/279/1864217108/170619/d1a6ad51/58343dc1Nbb3d4722.jpg'}} style={styles.image} />
         <View style={styles.textWrap}>
           <Text style={styles.text}>{aboutus.descContent}</Text>
         </View>
-      </View>
+      </ScrollView>
     )
   }
 }
