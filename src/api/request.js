@@ -21,7 +21,9 @@ const ajax = (url, params = {}) => {
           'token': pid
         },
         body: toQueryString(params)
-      }).then((resp) => resp.json()).then(({errorCode = '100', errorMsg, data}) => {
+      }).then((resp) => {
+        return resp.json()
+      }).then(({errorCode = '100', errorMsg, data}) => {
         console.log(params, errorCode, errorMsg, data)
         if (errorCode === '100') {
           resolve(data || {})
@@ -76,4 +78,8 @@ export const callEvaluateAdd = (params) => {
 
 export const callEvaluateList = (params) => {
   return ajax('evaluate/list', params)
+}
+
+export const callAboutUs = () => {
+  return ajax('center/about/us')
 }
