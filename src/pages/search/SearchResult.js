@@ -106,8 +106,8 @@ class SearchResult extends Component {
 
   render(){
     const {dataSource} = this.state
-    const {page} = this.props
-    let list = dataSource ? <SwRefreshListView dataSource={dataSource} ref="listView" isShowLoadMore={true} loadingTitle="加载中..." renderRow={this.renderRow.bind(this)} onLoadMore={this.onLoadMore.bind(this)}/> : null
+    const {page, hasMore} = this.props
+    let list = dataSource ? <SwRefreshListView dataSource={dataSource} ref="listView" isShowLoadMore={hasMore} loadingTitle="加载中..." renderRow={this.renderRow.bind(this)} onLoadMore={this.onLoadMore.bind(this)}/> : null
     if (list === null && page === 2) {
       list = <Empty/>
     }
@@ -146,6 +146,7 @@ export default connect(store => ({
   rangeList: store.search.rangeList,
   rows: store.searchResult.rows,
   page: store.searchResult.page,
+  hasMore: store.searchResult.hasMore,
   resultList: store.searchResult.resultList,
   contraindicationWords: store.searchResult.contraindicationWords,
   star: store.searchResult.star,

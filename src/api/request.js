@@ -89,3 +89,7 @@ export const callProductList = () => {
 export const callRecommendSubmit = (params) => {
   return ajax('recommend/submit', params)
 }
+
+export const callRecommendFilter = (params) => {
+  return ajax('recommend/filter', params)
+}

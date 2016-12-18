@@ -13,12 +13,17 @@ const initialState = {
 
 export default search = (state = initialState, action) => {
   switch (action.type) {
+    case recommendResultTypes.UPDATE_PAGE:
+      return {...state, page: action.page}
     case recommendResultTypes.RESET_RESULT_LIST:
       return {...state, resultList: [], page: 1, hasMore: true}
-
+    case recommendResultTypes.TOGGLE_RECOMMEND_CHECK:
+      const recommedWords = Object.assign([], state.recommedWords)
+      const word = recommedWords[action.index]
+      word.checked = !word.checked
+      return {...state, recommedWords}
     case recommendResultTypes.RECEIVE_RESULT_LIST:
       const {gridModel, page, total} = action.resultList
-      console.log(action.resultList)
       const resultList = Object.assign([], state.resultList)
       let index = resultList.length
       gridModel.forEach(res => {

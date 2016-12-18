@@ -1,11 +1,14 @@
 import React, {Component, PropTypes} from 'react'
 import {connect} from 'react-redux'
-import { StyleSheet, Text, View, Dimensions, ListView, TouchableOpacity, ScrollView } from 'react-native'
+import {callRecommendFilter} from '../../api/request'
+import { Alert, StyleSheet, Text, View, Dimensions, ListView, TouchableOpacity, ScrollView } from 'react-native'
 import { SwRefreshListView } from 'react-native-swRefresh'
 import Empty from '../../shared/empty'
 import Spinner from 'react-native-loading-spinner-overlay'
 import commonStyles from '../../styles/common'
 import { CheckBox } from 'react-native-elements'
+import {receiveSubmitWords, receiveResultList, toggleRecommendCheck, resetResultList} from '../../actions/recommendResult'
+
 export let recommendResult = null
 class RecommendResult extends Component {
   static contextTypes = {
@@ -31,7 +34,6 @@ class RecommendResult extends Component {
     })
   }
   componentWillReceiveProps(nextProps) {
-    console.log('nextProps', nextProps)
     const resultList = this.props.resultList
     const nextResultList = nextProps.resultList
 
@@ -45,11 +47,46 @@ class RecommendResult extends Component {
     this.context.routes.recommendDurg()
   }
 
+  querySearch() {
+    return new Promise((resolve, reject) => {
+      const {rows, page, star, submitWords, recommedWords, medicinalIsInsurance, medicinalContraindication, contraindicationWords} = this.props
+      const words = []
+      contraindicationWords.forEach(({checked, name}) => {
+        if (checked && words.indexOf(name) === -1) {
+          words.push(name)
+        }
+      })
+
+      const symptom = recommedWords.filter(word => word.checked).map(word => word.name).concat(submitWords)
+      if (!symptom.length) {
+        Alert.alert('提示', '请选择您的症状')
+        return
+      }
+      callRecommendFilter({symptomWords: symptom.join('~~'), rows, page, evaluateStar: star.join('~~'), medicinalIsInsurance: medicinalIsInsurance.join('~~'), medicinalContraindication: words.join('~~')}).then(({resultlist}) => {
+        this.props.dispatch(receiveResultList(resultlist))
+        resolve()
+      })
+    })
+  }
+
+  handleCancelSubmitWord(word) {
+    const submitWords = Object.assign([], this.props.submitWords).filter(submit => submit !== word)
+    this.props.dispatch(receiveSubmitWords(submitWords))
+    this.props.dispatch(resetResultList())
+    this.querySearch()
+  }
+
+  handleCheckRecommedWord(index) {
+    this.props.dispatch(toggleRecommendCheck(index))
+    this.props.dispatch(resetResultList())
+    this.querySearch()
+  }
+
   renderSubmitWords() {
     const {submitWords} = this.props
     return submitWords.map(word => {
       return (
-        <CheckBox key={word} center title={word} containerStyle={styles.check} textStyle={styles.checkText} iconRight iconType='material' checkedIcon='clear' uncheckedIcon='clear' checkedColor='red' checked/>
+        <CheckBox key={word} center title={word} containerStyle={styles.check} textStyle={styles.checkText} iconRight iconType='material' checkedIcon='clear' uncheckedIcon='clear' checkedColor='red' checked onPress={this.handleCancelSubmitWord.bind(this, word)}/>
       )
     })
   }
@@ -73,7 +110,7 @@ class RecommendResult extends Component {
       }
       checkGroup[index]['push'](
         <View key={i} style={commonStyles.flex}>
-          {word.empty ? null : (<CheckBox title={word.name} containerStyle={styles.check} textStyle={styles.checkText} checked={word.checked} left />)}
+          {word.empty ? null : (<CheckBox title={word.name} containerStyle={styles.check} textStyle={styles.checkText} checked={word.checked} left onPress={this.handleCheckRecommedWord.bind(this, i)}/>)}
         </View>
       )
     })
@@ -100,22 +137,22 @@ class RecommendResult extends Component {
   }
 
   onLoadMore(end){
-    // this.querySearch().then(() => {
-    //   end()
-    // })
+    this.querySearch().then(() => {
+      end()
+    })
   }
 
   render() {
     const {dataSource} = this.state
-    const {page} = this.props
+    const {page, hasMore} = this.props
     const submitWords = this.renderSubmitWords()
     const recommedWords = this.renderRecommedWords()
-    let list = dataSource ? <SwRefreshListView dataSource={dataSource} ref="listView" isShowLoadMore={true} loadingTitle="加载中..." renderRow={this.renderRow.bind(this)} onLoadMore={this.onLoadMore.bind(this)}/> : null
+    let list = dataSource ? <SwRefreshListView dataSource={dataSource} ref="listView" isShowLoadMore={hasMore} loadingTitle="加载中..." renderRow={this.renderRow.bind(this)} onLoadMore={this.onLoadMore.bind(this)}/> : null
     if (list === null && page === 2) {
       list = <Empty center={false}/>
     }
     return (
-      <ScrollView>
+      <View style={styles.warp}>
         <View style={styles.inputWrap}>
           <View style={styles.inputLabelWrap}><Text style={styles.inputLabel}>已输入信息:</Text></View>
           <View style={styles.submitWordsWrap}>
@@ -126,18 +163,24 @@ class RecommendResult extends Component {
           <Text style={styles.blockTitle}>请选择您可能有的其他症状</Text>
         </View>
         <View>
-          {recommedWords}
+          <ScrollView>
+            {recommedWords}
+          </ScrollView>
         </View>
         <View style={styles.blockHeader}>
           <Text style={styles.blockTitle}>推荐结果</Text>
         </View>
-        {list}
-      </ScrollView>
+        <View>
+          {list}
+        </View>
+      </View>
     )
   }
 }
 
 const styles = StyleSheet.create({
+  warp: {
+  },
   inputWrap: {
     padding: 10,
     paddingBottom: 0,
@@ -180,10 +223,9 @@ const styles = StyleSheet.create({
 })
 
 export default connect(store => ({
-  inputText: store.recommend.inputText,
-  rangeList: store.recommend.rangeList,
   rows: store.recommendResult.rows,
   page: store.recommendResult.page,
+  hasMore: store.recommendResult.hasMore,
   resultList: store.recommendResult.resultList,
   contraindicationWords: store.recommendResult.contraindicationWords,
   submitWords: store.recommendResult.submitWords,

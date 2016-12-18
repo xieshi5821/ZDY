@@ -96,7 +96,7 @@ class Evaluate extends Component {
   }
 
   render() {
-    const {star, starName, count, evaluateTags, content} = this.state
+    const {star, starName, count, evaluateTags, content, medicinal} = this.state
     const checkGroup = evaluateTags.map((check, index) => {
       return (<CheckBox key={check.tagid} title={check.tagContent} onPress={this.handleChangeCheck.bind(this, index)} checkedColor="red" containerStyle={styles.check} checked={check.checked}/>)
     })
@@ -105,7 +105,7 @@ class Evaluate extends Component {
         <Spinner visible={this.state.visible} color="black"/>
         <View style={styles.header}>
           <View style={styles.imgWrap}>
-            <Image source={{uri: 'https://img13.360buyimg.com/n1/s450x450_jfs/t3751/279/1864217108/170619/d1a6ad51/58343dc1Nbb3d4722.jpg'}} style={styles.image} />
+            <Image source={{uri: medicinal ? medicinal.medicinalImageUrl : ''}} style={styles.image} />
           </View>
           <View style={styles.formWrap}>
             <View style={styles.labelWrap}>
@@ -227,5 +227,6 @@ const styles = StyleSheet.create({
 })
 
 export default connect(store => ({
-  queryId: store.drug.queryId
+  queryId: store.drug.queryId,
+  medicinal: store.drug.medicinalImageUrl
 }))(Evaluate)

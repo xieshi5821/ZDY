@@ -25,7 +25,9 @@ export const recommendResultTypes = createModuleReducer('recommendResultTypes', 
   'TOGGLE_CONTRAINDICATION_CHECK',
   'TOGGLE_MEDICINALISINSURANCE_CHECK',
   'RESET_FILTER',
-  'TOGGLE_STAR_CHECK'
+  'TOGGLE_STAR_CHECK',
+  'TOGGLE_RECOMMEND_CHECK',
+  'UPDATE_PAGE'
 ])
 
 // 搜索首页

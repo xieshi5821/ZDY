@@ -54,9 +54,9 @@ class Drug extends Component {
     if (!medicinal) {
       return
     }
-    const mas = medicinal.medicinalAttentions.split(/\d+\./).filter(medicinal => !!medicinal).map((medicinal, index) => {
-      return (<View key={index}><Text style={styles.contentText}>{index + 1}.{medicinal}</Text></View>)
-    })
+    // const mas = medicinal.medicinalAttentions.split(/\d+\./).filter(medicinal => !!medicinal).map((medicinal, index) => {
+    //   return (<View key={index}><Text style={styles.contentText}>{index + 1}.{medicinal}</Text></View>)
+    // })
     console.log(medicinal.medicinalAttentions)
     return currentTab === 'detail' ? (
       <View style={styles.detailWrap}>
@@ -97,7 +97,7 @@ class Drug extends Component {
             <Text style={styles.labelText}>注意事项</Text>
           </View>
           <View style={styles.contentWrap}>
-            {mas}
+            <Text style={styles.contentText}>{medicinal.medicinalAttentions}</Text>
           </View>
         </View>
         <View style={styles.group}>

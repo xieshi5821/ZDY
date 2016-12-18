@@ -35,3 +35,11 @@ export const resetFilter = (index) => (dispatch) => {
 export const toggleStarCheck = (level) => (dispatch) => {
   dispatch({type: recommendResultTypes.TOGGLE_STAR_CHECK, level})
 }
+
+export const toggleRecommendCheck = (index) => (dispatch) => {
+  dispatch({type: recommendResultTypes.TOGGLE_RECOMMEND_CHECK, index})
+}
+
+export const updatePage = (page) => (dispatch) => {
+  dispatch({type: recommendResultTypes.UPDATE_PAGE, page})
+}

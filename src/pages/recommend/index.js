@@ -7,7 +7,7 @@ import commonStyles from '../../styles/common'
 import React, {Component, PropTypes} from 'react'
 import Spinner from 'react-native-loading-spinner-overlay'
 import ViewPager from 'react-native-viewpager'
-import {receiveResultList, receiveContraindicationWords, resetResultList, resetFilter, receiveSubmitWords, receiveRecommedWords} from '../../actions/recommendResult'
+import {receiveResultList, receiveContraindicationWords, resetResultList, resetFilter, receiveSubmitWords, receiveRecommedWords, updatePage} from '../../actions/recommendResult'
 
 class Recommend extends Component {
 
@@ -76,6 +76,7 @@ class Recommend extends Component {
       })))
       this.props.dispatch(receiveSubmitWords(submitWords))
       this.props.dispatch(receiveResultList(resultlist))
+      this.props.dispatch(updatePage(2))
       this.props.dispatch(receiveContraindicationWords(contraindicationWrods.map(contraindication => {
         return {
           name: contraindication,
