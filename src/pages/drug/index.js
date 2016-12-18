@@ -59,7 +59,10 @@ class Drug extends Component {
       currentTab: tab
     })
     if (tab === 'evaluate') {
-      this.handleGetEvaluateList()
+      const {evaluateList} = this.props
+      if (!evaluateList.length) {
+        this.handleGetEvaluateList()
+      }
     }
   }
 
