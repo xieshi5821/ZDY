@@ -11,3 +11,7 @@ export const updateMedicinalName = (medicinalName) => (dispatch) => {
 export const updateMedicinal = (medicinal) => (dispatch) => {
   dispatch({type: drugTypes.UPDATE_MEDICINAL, medicinal})
 }
+
+export const receiveEvaluateList = (evaluateList) => (dispatch) => {
+  dispatch({type: drugTypes.RECEIVE_EVALUATE_LIST, evaluateList})
+}

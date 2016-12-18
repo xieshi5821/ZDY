@@ -53,7 +53,8 @@ export const searchResultTypes = createModuleReducer('searchResultTypes', [
 export const drugTypes = createModuleReducer('drugTypes', [
   'UPDATE_QUERY_ID',
   'UPDATE_MEDICINAL',
-  'UPDATE_MEDICINAL_NAME'
+  'UPDATE_MEDICINAL_NAME',
+  'RECEIVE_EVALUATE_LIST'
 ])
 
 // webview

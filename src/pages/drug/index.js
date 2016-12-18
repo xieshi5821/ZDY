@@ -2,10 +2,10 @@ import React, {Component, PropTypes} from 'react'
 import {connect} from 'react-redux'
 import {StyleSheet, View, Text, ScrollView, TouchableOpacity} from 'react-native'
 import Spinner from 'react-native-loading-spinner-overlay'
-import Icon from 'react-native-vector-icons/FontAwesome'
 import {callMedicinalDetail, callEvaluateList, callCollectAdd, callCollectCancel} from '../../api/request'
-import {updateMedicinal} from '../../actions/drug'
-
+import {updateMedicinal, receiveEvaluateList} from '../../actions/drug'
+import Icon from 'react-native-vector-icons/FontAwesome'
+import {formatFullDate} from '../../libs/date'
 export let drug = null
 class Drug extends Component {
   static contextTypes = {
@@ -64,13 +64,98 @@ class Drug extends Component {
   }
 
   handleGetEvaluateList() {
-    // this.setState({visible: true})
+    this.setState({visible: true})
     const {queryId} = this.props
-    // callEvaluateList({medicinalId: queryId}).then()
+    callEvaluateList({medicinalId: queryId, rows: 100}).then(({evaluatelist}) => {
+      this.props.dispatch(receiveEvaluateList(evaluatelist))
+      this.setState({visible: false})
+    })
   }
 
   handleEvaluate() {
     this.context.routes.searchEvaluate()
+  }
+
+  renderDetail() {
+    const {medicinal} = this.props
+    return (<View style={styles.detailWrap}>
+      <View style={styles.group}>
+        <View style={styles.labelWrap}>
+          <Text style={styles.labelText}>功能主治</Text>
+        </View>
+        <View style={styles.contentWrap}>
+          <Text style={styles.contentText}>{medicinal.medicinalFunction}</Text>
+        </View>
+      </View>
+      <View style={styles.group}>
+        <View style={styles.labelWrap}>
+          <Text style={styles.labelText}>规格</Text>
+        </View>
+        <View style={styles.contentWrap}>
+          <Text style={styles.contentText}>{medicinal.medicinalSpecification}</Text>
+        </View>
+      </View>
+      <View style={styles.group}>
+        <View style={styles.labelWrap}>
+          <Text style={styles.labelText}>不良反应</Text>
+        </View>
+        <View style={styles.contentWrap}>
+          <Text style={styles.contentText}>{medicinal.medicinalAdverseReactions}</Text>
+        </View>
+      </View>
+      <View style={styles.group}>
+        <View style={styles.labelWrap}>
+          <Text style={styles.labelText}>禁忌</Text>
+        </View>
+        <View style={styles.contentWrap}>
+          <Text style={styles.contentText}>{medicinal.medicinalContraindication}</Text>
+        </View>
+      </View>
+      <View style={styles.group}>
+        <View style={styles.labelWrap}>
+          <Text style={styles.labelText}>注意事项</Text>
+        </View>
+        <View style={styles.contentWrap}>
+          <Text style={styles.contentText}>{medicinal.medicinalAttentions}</Text>
+        </View>
+      </View>
+      <View style={styles.group}>
+        <TouchableOpacity onPress={this.handleEvaluate.bind(this)} style={styles.buttonWrap}>
+          <Icon name="edit" size={22} color="#007cca"/><Text style={[styles.labelText, styles.ebutton]}>我要点评</Text>
+        </TouchableOpacity>
+      </View>
+    </View>)
+  }
+
+  renderEvaluateList() {
+    const {evaluateList} = this.props
+    const list = evaluateList.map((evaluate, index) => {
+      let stars = []
+      let star = parseInt(evaluate.evaluateStar)
+      while (star --) {
+        stars.push(<Icon key={star + evaluate.evaluateTime} name="star" size={26} color="#f93"/>)
+      }
+      return (
+        <View key={'item_' + index} style={styles.itemWrap}>
+          <View style={styles.starWarp}>{stars}</View>
+          <View style={styles.textWrap}><Text style={styles.text}>{evaluate.evaluateContent}</Text></View>
+          <View style={styles.timeWrap}><Text style={styles.time}>{formatFullDate(evaluate.evaluateTime)}</Text></View>
+        </View>
+      )
+    })
+
+    return (
+      <View>
+        <View>
+          {list}
+        </View>
+        <View style={styles.group}>
+          <TouchableOpacity onPress={this.handleEvaluate.bind(this)} style={styles.buttonWrap}>
+            <Icon name="edit" size={22} color="#007cca"/><Text style={[styles.labelText, styles.ebutton]}>我要点评</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    )
   }
 
   renderTabContent() {
@@ -79,58 +164,7 @@ class Drug extends Component {
     if (!medicinal) {
       return
     }
-
-    return currentTab === 'detail' ? (
-      <View style={styles.detailWrap}>
-        <View style={styles.group}>
-          <View style={styles.labelWrap}>
-            <Text style={styles.labelText}>功能主治</Text>
-          </View>
-          <View style={styles.contentWrap}>
-            <Text style={styles.contentText}>{medicinal.medicinalFunction}</Text>
-          </View>
-        </View>
-        <View style={styles.group}>
-          <View style={styles.labelWrap}>
-            <Text style={styles.labelText}>规格</Text>
-          </View>
-          <View style={styles.contentWrap}>
-            <Text style={styles.contentText}>{medicinal.medicinalSpecification}</Text>
-          </View>
-        </View>
-        <View style={styles.group}>
-          <View style={styles.labelWrap}>
-            <Text style={styles.labelText}>不良反应</Text>
-          </View>
-          <View style={styles.contentWrap}>
-            <Text style={styles.contentText}>{medicinal.medicinalAdverseReactions}</Text>
-          </View>
-        </View>
-        <View style={styles.group}>
-          <View style={styles.labelWrap}>
-            <Text style={styles.labelText}>禁忌</Text>
-          </View>
-          <View style={styles.contentWrap}>
-            <Text style={styles.contentText}>{medicinal.medicinalContraindication}</Text>
-          </View>
-        </View>
-        <View style={styles.group}>
-          <View style={styles.labelWrap}>
-            <Text style={styles.labelText}>注意事项</Text>
-          </View>
-          <View style={styles.contentWrap}>
-            <Text style={styles.contentText}>{medicinal.medicinalAttentions}</Text>
-          </View>
-        </View>
-        <View style={styles.group}>
-          <TouchableOpacity onPress={this.handleEvaluate.bind(this)} style={styles.buttonWrap}>
-            <Icon name="edit" size={22} color="#007cca"/><Text style={styles.labelText}>我要点评</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    ) : (
-      <Text>用户点评</Text>
-    )
+    return currentTab === 'detail' ? this.renderDetail() : this.renderEvaluateList()
   }
 
   render() {
@@ -202,11 +236,39 @@ const styles = StyleSheet.create({
   },
   contentText: {
     color: '#999'
+  },
+  starWarp: {
+    flexDirection: 'row'
+  },
+  itemWrap: {
+    marginTop: 5,
+    padding: 10,
+    backgroundColor: '#fff'
+  },
+  text: {
+    color: '#999'
+  },
+  textWrap: {
+    padding: 10,
+    paddingLeft: 0,
+    paddingRight: 0,
+    borderBottomWidth: .5,
+    borderColor: '#ccc'
+  },
+  timeWrap: {
+    paddingTop: 10
+  },
+  time: {
+    color: '#999'
+  },
+  ebutton: {
+    paddingLeft: 5
   }
 })
 
 export default connect(store => ({
   queryId: store.drug.queryId,
   medicinalName: store.drug.medicinalName,
-  medicinal: store.drug.medicinal
+  medicinal: store.drug.medicinal,
+  evaluateList: store.drug.evaluateList
 }))(Drug)

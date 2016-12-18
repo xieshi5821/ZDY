@@ -2,7 +2,8 @@ import { drugTypes } from '../reducer-types'
 const initialState = {
   queryId: '',
   medicinalName: '',
-  medicinal: null
+  medicinal: null,
+  evaluateList: []
 }
 
 export default drug = (state = initialState, action) => {
@@ -13,6 +14,8 @@ export default drug = (state = initialState, action) => {
       return {...state, medicinal: action.medicinal}
     case drugTypes.UPDATE_MEDICINAL_NAME:
       return {...state, medicinalName: action.medicinalName}
+    case drugTypes.RECEIVE_EVALUATE_LIST:
+      return {...state, evaluateList: action.evaluateList.gridModel}
   }
   return state
 }

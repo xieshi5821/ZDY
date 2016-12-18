@@ -113,13 +113,8 @@ class Search extends Component {
             </TouchableOpacity>
           </View>
           <View style={styles.hisItem}>
-            <TouchableOpacity>
-              <Text style={styles.hisItemText}>胃溃疡</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.hisItem}>
-            <TouchableOpacity>
-              <Text style={styles.hisItemText}>胃溃疡</Text>
+            <TouchableOpacity onPress={this.handleSubmit.bind(this)}>
+              <Text style={styles.hisItemText}>咳嗽咽痛</Text>
             </TouchableOpacity>
           </View>
         </View>
