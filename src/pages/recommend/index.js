@@ -1,5 +1,5 @@
 import {connect} from 'react-redux'
-import {setToken, callRegister, callRecommendHome, callRecommendSubmit} from '../../api/request'
+import {setToken, callRegister, callRecommendHome, callRecommendSubmit, fillUrl} from '../../api/request'
 import {Alert, StyleSheet, View, Text, ScrollView, Image, TouchableOpacity, TextInput} from 'react-native'
 import {updateInputText, receiveBannerList, receivePlaceholder, receiveExplainList} from '../../actions/recommend'
 import {updateUri, updateUriName} from '../../actions/xWebView'
@@ -89,10 +89,11 @@ class Recommend extends Component {
   }
 
   renderPage(banner, pageID) {
+    const url = fillUrl(banner.bannerPicUrl)
     return (
       <View style={commonStyles.flex}>
         <TouchableOpacity onPress={this.handleClickBanner.bind(this, banner)} activeOpacity={1}>
-          <Image resizeMode="stretch" style={styles.imagePage} source={{uri: banner.bannerPicUrl}}/>
+          <Image resizeMode="stretch" style={styles.imagePage} source={{uri: url}}/>
         </TouchableOpacity>
       </View>
     )
@@ -104,7 +105,7 @@ class Recommend extends Component {
 
   render() {
     const {visible, dataSource} = this.state
-    const pager = dataSource ? (<ViewPager dataSource={this.state.dataSource} renderPage={this.renderPage.bind(this)} isLoop autoPlay/>): null
+    const pager = dataSource ? (<ViewPager dataSource={this.state.dataSource} renderPage={this.renderPage.bind(this)} autoPlay/>): null
     const explains = this.rederNoticeDesc()
     return (
       <ScrollView>

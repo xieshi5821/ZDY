@@ -105,7 +105,7 @@ class Evaluate extends Component {
         <Spinner visible={this.state.visible} color="black"/>
         <View style={styles.header}>
           <View style={styles.imgWrap}>
-            <Image source={{uri: medicinal ? medicinal.medicinalImageUrl : ''}} style={styles.image} />
+            <Image resizeMode="stretch" source={{uri: medicinal ? medicinal.medicinalImageUrl : ''}} style={styles.image} />
           </View>
           <View style={styles.formWrap}>
             <View style={styles.labelWrap}>

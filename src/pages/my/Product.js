@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react'
 import {connect} from 'react-redux'
 import {StyleSheet, View, Text, ScrollView, TouchableOpacity, Image} from 'react-native'
-import {callProductList} from '../../api/request'
+import {callProductList, fillUrl} from '../../api/request'
 import Spinner from 'react-native-loading-spinner-overlay'
 
 class Product extends Component {
@@ -33,7 +33,7 @@ class Product extends Component {
           </View>
           <View style={styles.contentWrap}>
             <View style={styles.contentText}>
-              <Image source={{uri: 'https://img13.360buyimg.com/n1/s450x450_jfs/t3751/279/1864217108/170619/d1a6ad51/58343dc1Nbb3d4722.jpg'}} style={styles.image} />
+              <Image resizeMode="stretch" source={{uri: fillUrl(product.descImageUrl)}} style={styles.image} />
               <View style={styles.textWrap}>
                 <Text style={styles.text}>{product.descContent}</Text>
               </View>
@@ -86,17 +86,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     padding: 10
   },
-  textWrap: {
-    backgroundColor: '#fff',
-    padding: 10
-  },
   text: {
     backgroundColor: '#fff',
     fontSize: 16,
     color: '#aaa'
   },
   image: {
-    height: 80
+    height: 120
   },
 })
 

@@ -1,7 +1,13 @@
 import DeviceInfo from 'react-native-device-info'
 const uniqueId = DeviceInfo.getUniqueID().toUpperCase()
-const API_URL = 'http://119.29.97.107:8080/api/'
+export const API_URL = 'http://119.29.97.107:8080'
 
+export const fillUrl = (url = '') => {
+  if (!url.startsWith('http://')) {
+    url = API_URL + url
+  }
+  return url
+}
 let pid = ''
 const toQueryString = (params) => {
   const querys = []
@@ -38,7 +44,7 @@ export const callRegister = () => {
     if (pid) {
       resolve()
     } else {
-      ajax('center/login', {unique: uniqueId}).then(({token}) => {
+      ajax('/api/center/login', {unique: uniqueId}).then(({token}) => {
         pid = token
         resolve()
       })
@@ -47,49 +53,61 @@ export const callRegister = () => {
 }
 
 export const callRecommendHome = () => {
-  return ajax('recommend/home')
+  return ajax('/api/recommend/home')
 }
 
 export const callSearchHome = () => {
-  return ajax('search/home')
+  return ajax('/api/search/home')
 }
 
 export const callSearchList = (params) => {
-  return ajax('search/list', params)
+  return ajax('/api/search/list', params)
 }
 
 export const callMedicinalDetail = (params) => {
-  return ajax('medicinal/detail', params)
+  return ajax('/api/medicinal/detail', params)
 }
 
 export const callRecommendList = (params) => {
-  return ajax('recommend/submit', params)
+  return ajax('/api/recommend/submit', params)
 }
 
 export const callEvaluatePage = () => {
-  return ajax('evaluate/page')
+  return ajax('/api/evaluate/page')
 }
 
 export const callEvaluateAdd = (params) => {
-  return ajax('evaluate/add', params)
+  return ajax('/api/evaluate/add', params)
 }
 
 export const callEvaluateList = (params) => {
-  return ajax('evaluate/list', params)
+  return ajax('/api/evaluate/list', params)
 }
 
 export const callAboutUs = () => {
-  return ajax('center/about/us')
+  return ajax('/api/center/about/us')
 }
 
 export const callProductList = () => {
-  return ajax('center/recommend/product/list')
+  return ajax('/api/center/recommend/product/list')
 }
 
 export const callRecommendSubmit = (params) => {
-  return ajax('recommend/submit', params)
+  return ajax('/api/recommend/submit', params)
 }
 
 export const callRecommendFilter = (params) => {
-  return ajax('recommend/filter', params)
+  return ajax('/api/recommend/filter', params)
+}
+
+export const callCollectAdd = (params) => {
+  return ajax('/api/collect/add', params)
+}
+
+export const callCollectCancel = (params) => {
+  return ajax('/api/collect/cancel', params)
+}
+
+export const callFirendList = () => {
+  return ajax('/api/center/friend/link/list')
 }

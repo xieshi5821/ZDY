@@ -24,7 +24,7 @@ class XWebView extends Component {
     return (
       <View style={styles.container}>
         <Spinner visible={this.state.visible} color="black"/>
-        <WebView style={styles.webView} source={{uri}} onLoadEnd={this.handleLoadEnd.bind(this)}></WebView>
+        <WebView style={styles.webView} scalesPageToFit={true} source={{uri}} onLoadEnd={this.handleLoadEnd.bind(this)}></WebView>
       </View>
     )
   }

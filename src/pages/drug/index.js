@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {StyleSheet, View, Text, ScrollView, TouchableOpacity} from 'react-native'
 import Spinner from 'react-native-loading-spinner-overlay'
 import Icon from 'react-native-vector-icons/FontAwesome'
-import {callMedicinalDetail, callEvaluateList} from '../../api/request'
+import {callMedicinalDetail, callEvaluateList, callCollectAdd, callCollectCancel} from '../../api/request'
 import {updateMedicinal} from '../../actions/drug'
 
 export let drug = null
@@ -24,9 +24,35 @@ class Drug extends Component {
   componentWillMount() {
     const {queryId} = this.props
     callMedicinalDetail({medicinalId: queryId}).then(({medicinal}) => {
+      if (medicinal.medicinalCollect === '0') {
+        medicinal.collectName = '收藏'
+      } else {
+        medicinal.collectName = '取消收藏'
+      }
       this.props.dispatch(updateMedicinal(medicinal))
       this.setState({visible: false})
     })
+  }
+
+  handleRightButton() {
+    const medicinal = Object.assign({}, this.props.medicinal)
+    this.setState({visible: true})
+    if (medicinal.medicinalCollect === '0') {
+      callCollectAdd({medicinalId: queryId}).then(() => {
+        medicinal.medicinalCollect === '1'
+        medicinal.collectName === '取消收藏'
+        this.props.dispatch(updateMedicinal(medicinal))
+        this.setState({visible: false})
+      })
+    } else {
+      callCollectCancel({medicinalId: queryId}).then(() => {
+        medicinal.medicinalCollect === '0'
+        medicinal.collectName === '取藏'
+        this.props.dispatch(updateMedicinal(medicinal))
+        this.setState({visible: false})
+      })
+    }
+    console.log(123)
   }
 
   handleChangeTab(tab) {
@@ -54,10 +80,7 @@ class Drug extends Component {
     if (!medicinal) {
       return
     }
-    // const mas = medicinal.medicinalAttentions.split(/\d+\./).filter(medicinal => !!medicinal).map((medicinal, index) => {
-    //   return (<View key={index}><Text style={styles.contentText}>{index + 1}.{medicinal}</Text></View>)
-    // })
-    console.log(medicinal.medicinalAttentions)
+
     return currentTab === 'detail' ? (
       <View style={styles.detailWrap}>
         <View style={styles.group}>

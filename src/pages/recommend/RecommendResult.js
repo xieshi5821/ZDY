@@ -8,6 +8,7 @@ import Spinner from 'react-native-loading-spinner-overlay'
 import commonStyles from '../../styles/common'
 import { CheckBox } from 'react-native-elements'
 import {receiveSubmitWords, receiveResultList, toggleRecommendCheck, resetResultList} from '../../actions/recommendResult'
+import {updateQueryId, updateMedicinalName} from '../../actions/drug'
 
 export let recommendResult = null
 class RecommendResult extends Component {
@@ -43,7 +44,9 @@ class RecommendResult extends Component {
       })
     }
   }
-  handleDetail(durgId) {
+  handleDetail(durgId, medicinalName) {
+    this.props.dispatch(updateQueryId(durgId))
+    this.props.dispatch(updateMedicinalName(medicinalName))
     this.context.routes.recommendDurg()
   }
 
