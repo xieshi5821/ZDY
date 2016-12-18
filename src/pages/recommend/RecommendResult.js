@@ -150,7 +150,8 @@ const styles = StyleSheet.create({
     fontSize: 18
   },
   submitWordsWrap: {
-    flexDirection: 'row'
+    flexDirection: 'row',
+    flexWrap: 'wrap'
   },
   blockHeader: {
     marginTop: 10,
