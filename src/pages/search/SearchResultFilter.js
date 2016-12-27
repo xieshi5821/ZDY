@@ -33,9 +33,7 @@ class SearchResultFilter extends Component {
 
     this.props.dispatch(resetResultList())
     searchResult.querySearch().then(() => {
-      this.setState({
-        visible: false
-      })
+      this.setState({visible: false})
       this.context.routes.pop()
     })
   }

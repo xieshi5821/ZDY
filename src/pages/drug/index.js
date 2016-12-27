@@ -35,9 +35,7 @@ class Drug extends Component {
   }
 
   handleChangeTab(tab) {
-    this.setState({
-      currentTab: tab
-    })
+    this.setState({currentTab: tab})
     if (tab === 'evaluate') {
       const {evaluateList} = this.props
       if (!evaluateList.length) {

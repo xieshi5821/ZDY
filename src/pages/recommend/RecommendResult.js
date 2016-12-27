@@ -30,9 +30,7 @@ class RecommendResult extends Component {
   }
   renderDataSource() {
     const {resultList} = this.props
-    this.setState({
-      dataSource: resultList.length ? this._dataSource.cloneWithRows(resultList) : null
-    })
+    this.setState({dataSource: resultList.length ? this._dataSource.cloneWithRows(resultList) : null})
   }
   componentWillReceiveProps(nextProps) {
     const resultList = this.props.resultList
@@ -140,9 +138,7 @@ class RecommendResult extends Component {
   }
 
   onLoadMore(end){
-    this.querySearch().then(() => {
-      end()
-    })
+    this.querySearch().then(() => end())
   }
 
   render() {

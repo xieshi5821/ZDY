@@ -22,15 +22,10 @@ class RecommendResultFilter extends Component {
   }
 
   querySearch() {
-    this.setState({
-      visible: true
-    })
-
+    this.setState({visible: true})
     this.props.dispatch(resetResultList())
     recommendResult.querySearch().then(() => {
-      this.setState({
-        visible: false
-      })
+      this.setState({visible: false})
       this.context.routes.pop()
     })
   }
@@ -58,7 +53,6 @@ class RecommendResultFilter extends Component {
         </View>
       ))
   }
-
   handleSure() {
     this.context.routes.pop()
   }

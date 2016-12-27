@@ -31,9 +31,7 @@ class SearchResult extends Component {
 
   renderDataSource() {
     const {resultList} = this.props
-    this.setState({
-      dataSource: resultList.length ? this._dataSource.cloneWithRows(resultList) : null
-    })
+    this.setState({dataSource: resultList.length ? this._dataSource.cloneWithRows(resultList) : null})
   }
 
   querySearch() {
@@ -69,9 +67,7 @@ class SearchResult extends Component {
     const nextResultList = nextProps.resultList
 
     if (resultList.length !== nextResultList.length) {
-      this.setState({
-        dataSource: nextResultList.length ? this._dataSource.cloneWithRows(nextResultList) : null
-      })
+      this.setState({dataSource: nextResultList.length ? this._dataSource.cloneWithRows(nextResultList) : null})
     }
   }
 
@@ -99,9 +95,7 @@ class SearchResult extends Component {
   }
 
   onLoadMore(end){
-    this.querySearch().then(() => {
-      end()
-    })
+    this.querySearch().then(() => end())
   }
 
   render(){

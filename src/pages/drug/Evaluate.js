@@ -62,9 +62,7 @@ class Evaluate extends Component {
     const tags = Object.assign([], this.state.evaluateTags)
     const tag = tags[index]
     tag.checked = !tag.checked
-    this.setState({
-      evaluateTags: tags
-    })
+    this.setState({evaluateTags: tags})
   }
 
   handleChangeInput(content) {

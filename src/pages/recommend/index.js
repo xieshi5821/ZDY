@@ -39,9 +39,7 @@ class Recommend extends Component {
   componentWillReceiveProps(props) {
     const {dataSource} = this.state
     if (dataSource === null) {
-      this.setState({
-          dataSource: new ViewPager.DataSource({pageHasChanged: (p1, p2) => p1 !== p2}).cloneWithPages(props.bannerList)
-      })
+      this.setState({dataSource: new ViewPager.DataSource({pageHasChanged: (p1, p2) => p1 !== p2}).cloneWithPages(props.bannerList)})
     }
   }
 
