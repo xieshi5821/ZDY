@@ -22,36 +22,16 @@ class Drug extends Component {
   }
 
   componentWillMount() {
-    const {queryId} = this.props
-    callMedicinalDetail({medicinalId: queryId}).then(({medicinal}) => {
-      if (medicinal.medicinalCollect === '0') {
-        medicinal.collectName = '收藏'
-      } else {
-        medicinal.collectName = '取消收藏'
-      }
-      this.props.dispatch(updateMedicinal(medicinal))
-      this.setState({visible: false})
-    })
+    this.querySearch()
   }
 
-  handleRightButton() {
-    const medicinal = Object.assign({}, this.props.medicinal)
-    this.setState({visible: true})
-    if (medicinal.medicinalCollect === '0') {
-      callCollectAdd({medicinalId: queryId}).then(() => {
-        medicinal.medicinalCollect === '1'
-        medicinal.collectName === '取消收藏'
-        this.props.dispatch(updateMedicinal(medicinal))
-        this.setState({visible: false})
-      })
-    } else {
-      callCollectCancel({medicinalId: queryId}).then(() => {
-        medicinal.medicinalCollect === '0'
-        medicinal.collectName === '取藏'
-        this.props.dispatch(updateMedicinal(medicinal))
-        this.setState({visible: false})
-      })
-    }
+  querySearch() {
+    const {queryId} = this.props
+    callMedicinalDetail({medicinalId: queryId}).then(({medicinal}) => {
+      this.props.dispatch(updateMedicinal(medicinal))
+      this.context.routes.refresh()
+      this.setState({visible: false})
+    })
   }
 
   handleChangeTab(tab) {
@@ -63,6 +43,32 @@ class Drug extends Component {
       if (!evaluateList.length) {
         this.handleGetEvaluateList()
       }
+    }
+  }
+
+  getDrugTitle() {
+    return this.props.medicinalName
+  }
+
+  getCollectTitle() {
+    let title = '收藏'
+    if (this.props && this.props.medicinal) {
+      const {medicinalCollect} = this.props.medicinal
+      if (medicinalCollect !== '0') {
+        title = '取消收藏'
+      }
+    }
+    return title
+  }
+
+  handleCollect() {
+    this.setState({visible: true})
+    const {queryId} = this.props
+    const {medicinalCollect} = this.props.medicinal
+    if (medicinalCollect === '0') {
+      callCollectAdd({medicinalId: queryId}).then(() => this.querySearch())
+    } else {
+      callCollectCancel({medicinalId: queryId}).then(() => this.querySearch())
     }
   }
 

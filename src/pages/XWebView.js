@@ -15,6 +15,10 @@ class XWebView extends Component {
     xWebView = this
   }
 
+  getWebViewTitle() {
+    return this.props.uriName
+  }
+
   handleLoadEnd() {
     this.setState({visible: false})
   }
