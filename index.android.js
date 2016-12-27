@@ -17,7 +17,7 @@ export default class ZDY extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
-          Welcome to React Native!ZDY
+          Welcome to React Native!ZDY!
         </Text>
         <Text style={styles.instructions}>
           To get started, edit index.android.js
