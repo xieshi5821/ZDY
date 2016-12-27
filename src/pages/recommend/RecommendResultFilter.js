@@ -7,6 +7,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import React, {Component, PropTypes} from 'react'
 import Spinner from 'react-native-loading-spinner-overlay'
 import {receiveResultList, toggleContraindicationCheck, toggleMedicinalIsInsuranceCheck, resetFilter, checkStar, toggleStarCheck, resetResultList} from '../../actions/recommendResult'
+import {recommendResult} from './RecommendResult'
 
 class RecommendResultFilter extends Component {
   static contextTypes = {
@@ -21,21 +22,12 @@ class RecommendResultFilter extends Component {
   }
 
   querySearch() {
-
-    this.props.dispatch(resetResultList())
-    const {rows, page, star, submitWords, recommedWords, medicinalIsInsurance, medicinalContraindication, contraindicationWords} = this.props
-
-    const words = []
-    contraindicationWords.forEach(({checked, name}) => {
-      if (checked && words.indexOf(name) === -1) {
-        words.push(name)
-      }
+    this.setState({
+      visible: true
     })
 
-    const symptom = recommedWords.filter(word => word.checked).map(word => word.name).concat(submitWords)
-    this.setState({visible: true})
-    callRecommendFilter({symptomWords: symptom.join('~~'), rows, page, evaluateStar: star.join('~~'), medicinalIsInsurance: medicinalIsInsurance.join('~~'), medicinalContraindication: words.join('~~')}).then(({resultlist}) => {
-      this.props.dispatch(receiveResultList(resultlist))
+    this.props.dispatch(resetResultList())
+    recommendResult.querySearch().then(() => {
       this.setState({
         visible: false
       })
@@ -205,11 +197,6 @@ const styles = StyleSheet.create({
 })
 
 export default connect(store => ({
-  rows: store.recommendResult.rows,
-  page: store.recommendResult.page,
-  submitWords: store.recommendResult.submitWords,
-  recommedWords: store.recommendResult.recommedWords,
-  resultList: store.recommendResult.resultList,
   contraindicationWords: store.recommendResult.contraindicationWords,
   star: store.recommendResult.star,
   medicinalIsInsurance: store.recommendResult.medicinalIsInsurance

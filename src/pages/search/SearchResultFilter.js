@@ -8,6 +8,7 @@ import commonStyles from '../../styles/common'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import React, {Component, PropTypes} from 'react'
 import Spinner from 'react-native-loading-spinner-overlay'
+import {searchResult} from './SearchResult'
 
 class SearchResultFilter extends Component {
   static contextTypes = {
@@ -29,28 +30,9 @@ class SearchResultFilter extends Component {
     this.setState({
       visible: true
     })
+
     this.props.dispatch(resetResultList())
-    const {rows, page, inputText, rangeList, star, medicinalIsInsurance, medicinalContraindication, contraindicationWords} = this.props
-    const rangeFields = []
-    rangeList.forEach(({checked, rangeField}) => {
-      if (checked && rangeFields.indexOf(rangeField) === -1) {
-        rangeFields.push(rangeField)
-      }
-    })
-    const words = []
-    contraindicationWords.forEach(({checked, name}) => {
-      if (checked && words.indexOf(name) === -1) {
-        words.push(name)
-      }
-    })
-    callSearchList({text: inputText, rangeField: rangeFields.join('~~'), rows, page, evaluateStar: star.join('~~'), medicinalIsInsurance: medicinalIsInsurance.join('~~'), medicinalContraindication: words.join('~~')}).then(({contraindicationWrods, resultlist}) => {
-      this.props.dispatch(receiveResultList(resultlist))
-      this.props.dispatch(receiveContraindicationWords(contraindicationWrods.map(contraindication => {
-        return {
-          name: contraindication,
-          checked: false
-        }
-      })))
+    searchResult.querySearch().then(() => {
       this.setState({
         visible: false
       })
@@ -213,11 +195,6 @@ const styles = StyleSheet.create({
 })
 
 export default connect(store => ({
-  inputText: store.search.inputText,
-  rangeList: store.search.rangeList,
-  rows: store.searchResult.rows,
-  page: store.searchResult.page,
-  resultList: store.searchResult.resultList,
   contraindicationWords: store.searchResult.contraindicationWords,
   star: store.searchResult.star,
   medicinalIsInsurance: store.searchResult.medicinalIsInsurance
