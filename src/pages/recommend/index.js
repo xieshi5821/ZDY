@@ -1,6 +1,6 @@
 import {connect} from 'react-redux'
 import {callRegister, callRecommendHome, callRecommendSubmit, fillUrl} from '../../api/request'
-import {Alert, StyleSheet, View, Text, ScrollView, Image, TouchableOpacity, TextInput} from 'react-native'
+import {Alert, StyleSheet, View, Text, ScrollView, Image, TouchableOpacity, TextInput, Dimensions} from 'react-native'
 import {updateInputText, receiveBannerList, receivePlaceholder, receiveExplainList} from '../../actions/recommend'
 import {updateUri, updateUriName} from '../../actions/xWebView'
 import commonStyles from '../../styles/common'
@@ -102,7 +102,7 @@ class Recommend extends Component {
     return (
       <View style={commonStyles.flex}>
         <TouchableOpacity onPress={this.handleClickBanner.bind(this, banner)} activeOpacity={1}>
-          <Image resizeMode="stretch" style={styles.imagePage} source={{uri: url}}/>
+          <Image resizeMode="contain" style={styles.imagePage} source={{uri: url}}/>
         </TouchableOpacity>
       </View>
     )
@@ -141,13 +141,14 @@ class Recommend extends Component {
     )
   }
 }
-
+const width = Dimensions.get('window').width
 const styles = StyleSheet.create({
   pagerContainer: {
     height: 160
   },
   imagePage: {
-    height: 160
+    height: 160,
+    width: width
   },
   inputForm: {
     padding: 10,
