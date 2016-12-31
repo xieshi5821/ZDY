@@ -1,5 +1,5 @@
 import {connect} from 'react-redux'
-import {setToken, callRegister, callRecommendHome, callRecommendSubmit, fillUrl} from '../../api/request'
+import {callRegister, callRecommendHome, callRecommendSubmit, fillUrl} from '../../api/request'
 import {Alert, StyleSheet, View, Text, ScrollView, Image, TouchableOpacity, TextInput} from 'react-native'
 import {updateInputText, receiveBannerList, receivePlaceholder, receiveExplainList} from '../../actions/recommend'
 import {updateUri, updateUriName} from '../../actions/xWebView'
@@ -32,7 +32,11 @@ class Recommend extends Component {
         this.props.dispatch(receivePlaceholder(homePlaceholder))
         this.props.dispatch(receiveExplainList(homeExplainlist))
         this.setState({visible: false})
+      }, () => {
+        this.setState({visible: false})
       })
+    }, () => {
+      this.setState({visible: false})
     })
   }
 
@@ -84,6 +88,8 @@ class Recommend extends Component {
       })))
       this.setState({visible: false})
       this.context.routes.recommendResult()
+    }, () => {
+      this.setState({visible: false})
     })
   }
 

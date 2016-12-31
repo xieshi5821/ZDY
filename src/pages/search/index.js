@@ -1,5 +1,5 @@
 import { CheckBox } from 'react-native-elements'
-import {Alert, StyleSheet, View, Text, ScrollView, TextInput, TouchableOpacity} from 'react-native'
+import {Alert, StyleSheet, View, Text, ScrollView, TextInput, TouchableOpacity, AsyncStorage} from 'react-native'
 import {callSearchHome, callSearchList} from '../../api/request'
 import {connect} from 'react-redux'
 import {receiveResultList, receiveContraindicationWords, resetResultList, resetFilter} from '../../actions/searchResult'
@@ -28,6 +28,8 @@ class Search extends Component {
         range.checked = true
         return range
       })))
+      this.setState({visible: false})
+    }, () => {
       this.setState({visible: false})
     })
   }
@@ -61,6 +63,8 @@ class Search extends Component {
         }
       })))
       this.context.routes.searchResult()
+      this.setState({visible: false})
+    }, () => {
       this.setState({visible: false})
     })
   }

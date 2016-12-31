@@ -20,9 +20,12 @@ class FriendshipLink extends Component {
   componentWillMount() {
     this.setState({visible: true})
     callFirendList().then(({linklist}) => {
-      console.log(linklist)
       this.setState({
         linklist,
+        visible: false
+      })
+    }, () => {
+      this.setState({
         visible: false
       })
     })

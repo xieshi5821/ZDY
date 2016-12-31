@@ -32,6 +32,8 @@ class Drug extends Component {
       this.props.dispatch(updateMedicinal(medicinal))
       this.context.routes.refresh()
       this.setState({visible: false})
+    }, () => {
+      this.setState({visible: false})
     })
   }
 
@@ -81,6 +83,8 @@ class Drug extends Component {
     const {queryId} = this.props
     callEvaluateList({medicinalId: queryId, rows: 100}).then(({evaluatelist}) => {
       this.props.dispatch(receiveEvaluateList(evaluatelist))
+      this.setState({visible: false})
+    }, () => {
       this.setState({visible: false})
     })
   }

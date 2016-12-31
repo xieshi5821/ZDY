@@ -1,5 +1,4 @@
 import { CheckBox, Button } from 'react-native-elements'
-import {callSearchList} from '../../api/request'
 import {connect} from 'react-redux'
 import {receiveResultList, receiveContraindicationWords} from '../../actions/searchResult'
 import {StyleSheet, View, Text, ScrollView, TextInput, TouchableOpacity} from 'react-native'

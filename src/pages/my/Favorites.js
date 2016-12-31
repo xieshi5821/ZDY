@@ -56,6 +56,10 @@ class Favorites extends Component {
           hasMore: parseInt(page) < parseInt(total),
           dataSource: resultList.length ? this._dataSource.cloneWithRows(resultList) : null
         })
+      }, () => {
+        this.setState({
+          visible: false
+        })
       })
     })
   }

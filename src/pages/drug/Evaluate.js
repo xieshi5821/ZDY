@@ -33,6 +33,8 @@ class Evaluate extends Component {
         })
       })
       this.setState({visible: false})
+    }, () => {
+      this.setState({visible: false})
     })
   }
 
@@ -91,6 +93,8 @@ class Evaluate extends Component {
       Toast.show('提交评论成功')
       this.context.routes.pop()
       drug.handleGetEvaluateList()
+    }, () => {
+      this.setState({visible: false})
     })
   }
 

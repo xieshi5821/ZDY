@@ -16,9 +16,12 @@ class AboutUs extends Component {
   componentWillMount() {
     this.setState({visible: true})
     callAboutUs().then(({aboutus}) => {
-      console.log(aboutus)
       this.setState({
         aboutus,
+        visible: false
+      })
+    }, () => {
+      this.setState({
         visible: false
       })
     })

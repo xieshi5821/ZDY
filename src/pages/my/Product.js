@@ -20,6 +20,10 @@ class Product extends Component {
         productlist,
         visible: false
       })
+    }, () => {
+      this.setState({
+        visible: false
+      })
     })
   }
 

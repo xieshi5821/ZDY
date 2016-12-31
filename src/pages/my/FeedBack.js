@@ -50,8 +50,9 @@ class FeedBack extends Component {
       this.setState({visible: false})
       Toast.show('提交反馈成功')
       this.context.routes.pop()
+    }, () => {
+      this.setState({visible: false})
     })
-
   }
 
   render() {

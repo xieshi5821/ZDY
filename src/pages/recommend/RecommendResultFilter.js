@@ -1,6 +1,5 @@
 import { CheckBox, Button } from 'react-native-elements'
 import {connect} from 'react-redux'
-import {callRecommendFilter} from '../../api/request'
 import {StyleSheet, View, Text, ScrollView, TextInput, TouchableOpacity} from 'react-native'
 import commonStyles from '../../styles/common'
 import Icon from 'react-native-vector-icons/FontAwesome'
