@@ -104,6 +104,10 @@ export const callCollectAdd = (params) => {
   return ajax('/api/collect/add', params)
 }
 
+export const callCollectList = (params) => {
+  return ajax('/api/collect/list', params)
+}
+
 export const callCollectCancel = (params) => {
   return ajax('/api/collect/cancel', params)
 }

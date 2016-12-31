@@ -51,6 +51,7 @@ export const searchResultTypes = createModuleReducer('searchResultTypes', [
 
 // 药品主页
 export const drugTypes = createModuleReducer('drugTypes', [
+  'UPDATE_SOURCE',
   'UPDATE_QUERY_ID',
   'UPDATE_MEDICINAL',
   'UPDATE_MEDICINAL_NAME',
@@ -61,4 +62,10 @@ export const drugTypes = createModuleReducer('drugTypes', [
 export const xWebViewTypes = createModuleReducer('xWebViewTypes', [
   'UPDATE_URI',
   'UPDATE_URI_NAME'
+])
+
+// 收藏夹
+export const favoritesTypes = createModuleReducer('favoritesTypes', [
+  'RESET_RESULT_LIST',
+  'RECEIVE_RESULT_LIST'
 ])

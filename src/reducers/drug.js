@@ -3,11 +3,14 @@ const initialState = {
   queryId: '',
   medicinalName: '',
   medicinal: null,
-  evaluateList: []
+  evaluateList: [],
+  source: 'recommend'
 }
 
 export default drug = (state = initialState, action) => {
   switch (action.type) {
+    case drugTypes.UPDATE_SOURCE:
+      return {...state, source: action.source}
     case drugTypes.UPDATE_QUERY_ID:
       return {...state, queryId: action.queryId}
     case drugTypes.UPDATE_MEDICINAL:

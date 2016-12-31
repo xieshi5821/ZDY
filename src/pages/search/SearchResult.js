@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Dimensions, ListView, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, ListView, TouchableOpacity } from 'react-native'
 import { SwRefreshListView } from 'react-native-swRefresh'
 import {callSearchList} from '../../api/request'
 import {connect} from 'react-redux'
@@ -7,7 +7,7 @@ import commonStyles from '../../styles/common'
 import Empty from '../../shared/empty'
 import React, { Component, PropTypes } from 'react'
 import Spinner from 'react-native-loading-spinner-overlay'
-import {updateQueryId, updateMedicinalName} from '../../actions/drug'
+import {updateSource, updateQueryId, updateMedicinalName} from '../../actions/drug'
 
 export let searchResult = null
 class SearchResult extends Component {
@@ -72,6 +72,7 @@ class SearchResult extends Component {
   }
 
   handleDetail(durgId, medicinalName) {
+    this.props.dispatch(updateSource('search'))
     this.props.dispatch(updateQueryId(durgId))
     this.props.dispatch(updateMedicinalName(medicinalName))
     this.context.routes.searchDurg()
@@ -113,26 +114,10 @@ class SearchResult extends Component {
   }
 }
 
-const {width, height}=Dimensions.get('window')
-const styles=StyleSheet.create({
+const styles = StyleSheet.create({
   container:{
 
   },
-  content:{
-    width: width,
-    height: height,
-    backgroundColor: 'yellow',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  cell:{
-    height: 100,
-    backgroundColor: 'purple',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderBottomColor: '#ececec',
-    borderBottomWidth: .5
-  }
 })
 
 export default connect(store => ({

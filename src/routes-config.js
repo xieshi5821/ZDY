@@ -69,6 +69,8 @@ export default function configRoutes() {
               <Scene key="myFeedBack" component={FeedBack} title="问题反馈" hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
               <Scene key="myFriendshipLink" component={FriendshipLink} title="友情链接" hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
               <Scene key="myProduct" component={Product} title="产品推荐" hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
+              <Scene key="myDurg" component={Durg} getTitle={getDrugTitle} getRightTitle={getCollectTitle} onRight={() => drug.handleCollect()} rightButtonTextStyle={styles.titleStyle} hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
+              <Scene key="myEvaluate" component={Evaluate} title="药品点评" direction="vertical" hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
               <Scene key="myWebView" component={XWebView} getTitle={getWebViewTitle} hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
             </Scene>
         </Scene>

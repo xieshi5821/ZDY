@@ -9,7 +9,7 @@ export default class Empty extends Component {
 
   static defaultProps = {
     center: true,
-    msg: '没有找到结果'
+    msg: '结果为空'
   }
 
   constructor() {

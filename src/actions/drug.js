@@ -4,6 +4,10 @@ export const updateQueryId = (queryId) => (dispatch) => {
   dispatch({type: drugTypes.UPDATE_QUERY_ID, queryId})
 }
 
+export const updateSource = (source) => (dispatch) => {
+  dispatch({type: drugTypes.UPDATE_SOURCE, source})
+}
+
 export const updateMedicinalName = (medicinalName) => (dispatch) => {
   dispatch({type: drugTypes.UPDATE_MEDICINAL_NAME, medicinalName})
 }

@@ -95,5 +95,8 @@ const styles = StyleSheet.create({
 })
 
 export default connect(store => ({
-
+  rows: store.favorites.rows,
+  page: store.favorites.page,
+  hasMore: store.favorites.hasMore,
+  resultList: store.favorites.resultList
 }))(My)

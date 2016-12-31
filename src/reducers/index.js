@@ -5,6 +5,7 @@ import recommendResult from './recommendResult'
 import search from './search'
 import searchResult from './searchResult'
 import drug from './drug'
+import favorites from './favorites'
 import xWebView from './xWebView'
 
 export default combineReducers({
@@ -14,5 +15,6 @@ export default combineReducers({
   search,
   searchResult,
   drug,
+  favorites,
   xWebView
 })

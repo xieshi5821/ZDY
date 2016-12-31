@@ -6,6 +6,7 @@ import {callMedicinalDetail, callEvaluateList, callCollectAdd, callCollectCancel
 import {updateMedicinal, receiveEvaluateList} from '../../actions/drug'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import {formatFullDate} from '../../libs/date'
+import {favorites} from '../my/Favorites'
 export let drug = null
 class Drug extends Component {
   static contextTypes = {
@@ -61,12 +62,17 @@ class Drug extends Component {
 
   handleCollect() {
     this.setState({visible: true})
-    const {queryId} = this.props
+    const {queryId, source} = this.props
     const {medicinalCollect} = this.props.medicinal
     if (medicinalCollect === '0') {
       callCollectAdd({medicinalId: queryId}).then(() => this.querySearch())
     } else {
-      callCollectCancel({medicinalId: queryId}).then(() => this.querySearch())
+      callCollectCancel({medicinalId: queryId}).then(() => {
+        this.querySearch()
+        if (source === 'my') {
+          favorites.handleCancelCollect(queryId)
+        }
+      })
     }
   }
 
@@ -80,7 +86,18 @@ class Drug extends Component {
   }
 
   handleEvaluate() {
-    this.context.routes.searchEvaluate()
+    const {source} = this.props
+    switch (source) {
+      case 'recommend':
+        this.context.routes.recommendEvaluate()
+        break
+      case 'search':
+        this.context.routes.searchEvaluate()
+        break
+      case 'my':
+        this.context.routes.myEvaluate()
+        break
+    }
   }
 
   renderDetail() {
@@ -274,6 +291,7 @@ const styles = StyleSheet.create({
 })
 
 export default connect(store => ({
+  source: store.drug.source,
   queryId: store.drug.queryId,
   medicinalName: store.drug.medicinalName,
   medicinal: store.drug.medicinal,
