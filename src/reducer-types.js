@@ -35,7 +35,8 @@ export const searchTypes = createModuleReducer('searchTypes', [
   'REVEIVE_RANGE_LIST',
   'REVEIVE_PLACEHOLDER',
   'UPDATE_INPUT_TEXT',
-  'TOGGLE_CHECK'
+  'TOGGLE_CHECK',
+  'UPDATE_HIS_LIST'
 ])
 
 // 搜索结果首页

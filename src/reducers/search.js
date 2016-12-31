@@ -1,12 +1,16 @@
 import { searchTypes } from '../reducer-types'
 const initialState = {
-  inputText: '咳嗽咽痛',
+  inputText: null,
   rangeList: [],
-  placeholder: ''
+  placeholder: '',
+  hisList: []
 }
 
 export default search = (state = initialState, action) => {
   switch (action.type) {
+    case searchTypes.UPDATE_HIS_LIST:
+      return {...state, hisList: action.hisList}
+
     case searchTypes.UPDATE_INPUT_TEXT:
       return {...state, inputText: action.text}
 

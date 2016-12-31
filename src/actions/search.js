@@ -15,3 +15,7 @@ export const receivePlaceholder = (placeholder) => (dispatch) => {
 export const toggleCheck = (index) => (dispatch) => {
   dispatch({type: searchTypes.TOGGLE_CHECK, index})
 }
+
+export const updateHisList = (hisList) => (dispatch) => {
+  dispatch({type: searchTypes.UPDATE_HIS_LIST, hisList})
+}

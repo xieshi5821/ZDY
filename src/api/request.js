@@ -49,7 +49,7 @@ export const callRegister = () => {
       resolve()
     } else {
       AsyncStorage.getItem(PID, (error, text) => {
-        if (text === null){
+        if (text === null) {
           ajax('/api/center/login', {unique: uniqueId}).then(({token}) => {
             pid = token
             AsyncStorage.setItem(PID, pid, () => {
