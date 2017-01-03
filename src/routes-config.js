@@ -49,7 +49,7 @@ export default function configRoutes() {
       <RouterWithRedux createReducer={reducerCreate} backButtonImage={require('../assets/images/back_chevron.png')} sceneStyle={styles.sceneStyle} titleStyle={styles.titleStyle} navigationBarStyle={styles.navigationBarStyle}>
       <Scene key="index">
         <Scene key="welcome" component={Welcome} hideNavBar={true} initial={true}/>
-        <Scene key="tabbar" tabs={true} tabBarIconContainerStyle={styles.tabBarIconContainerStyle} >
+        <Scene key="tabbar" tabs={true} duration={0} tabBarIconContainerStyle={styles.tabBarIconContainerStyle} >
             <Scene key="recommend" title="找对药" icon={TabIcon}>
               <Scene key="recommendPage" hideBackImage="true" onBack={() => {}} component={Recommend} title="找对药" sceneStyle={styles.sceneContentStyle}/>
               <Scene key="recommendResult" component={RecommendResult} backTitle="智能推荐" backButtonTextStyle={styles.backButtonTextStyle} rightButtonImage={require('../assets/images/filter.png')} onRight={() => recommendResult.context.routes.recommendResultFilter()} hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>

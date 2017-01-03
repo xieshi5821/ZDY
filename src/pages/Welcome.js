@@ -32,7 +32,7 @@ class Welcome extends Component {
   componentWillMount() {
     AsyncStorage.getItem(WELCOME, (error, text) => {
       if (text === 'true') {
-        this.context.routes.tabbar({duration: 0})
+        this.context.routes.tabbar()
       } else {
         const {list} = this.state
         this.setState({
@@ -46,7 +46,7 @@ class Welcome extends Component {
 
   handleClickBanner() {
     AsyncStorage.setItem(WELCOME, 'true', () => {
-      this.context.routes.tabbar({duration: 0})
+      this.context.routes.tabbar()
     })
   }
 

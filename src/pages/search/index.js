@@ -81,7 +81,7 @@ class Search extends Component {
 
   handleSubmit() {
     const {inputText, rangeList, rows, page} = this.props
-    if (!inputText.length) {
+    if (!inputText) {
       Alert.alert('提示', '请输入搜索词')
       return
     }
