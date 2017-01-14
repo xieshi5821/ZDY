@@ -2,7 +2,7 @@ import { drugTypes } from '../reducer-types'
 const initialState = {
   queryId: '',
   medicinalName: '',
-  medicinal: null,
+  medicinal: {},
   evaluateList: [],
   source: 'recommend'
 }

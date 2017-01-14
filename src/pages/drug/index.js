@@ -1,12 +1,15 @@
 import React, {Component, PropTypes} from 'react'
 import {connect} from 'react-redux'
-import {StyleSheet, View, Text, ScrollView, TouchableOpacity} from 'react-native'
+import {StyleSheet, View, Text, ScrollView, TouchableOpacity, Dimensions} from 'react-native'
 import Spinner from 'react-native-loading-spinner-overlay'
+import Modal from 'react-native-modalbox'
 import {callMedicinalDetail, callEvaluateList, callCollectAdd, callCollectCancel} from '../../api/request'
 import {updateMedicinal, receiveEvaluateList} from '../../actions/drug'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import {formatFullDate} from '../../libs/date'
 import {favorites} from '../my/Favorites'
+import commonStyles from '../../styles/common'
+
 export let drug = null
 class Drug extends Component {
   static contextTypes = {
@@ -16,35 +19,14 @@ class Drug extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      currentTab: 'detail',
-      visible: true
+      visible: true,
+      showModal: true
     }
     drug = this
   }
 
   componentWillMount() {
     this.querySearch()
-  }
-
-  querySearch() {
-    const {queryId} = this.props
-    callMedicinalDetail({medicinalId: queryId}).then(({medicinal}) => {
-      this.props.dispatch(updateMedicinal(medicinal))
-      this.context.routes.refresh()
-      this.setState({visible: false})
-    }, () => {
-      this.setState({visible: false})
-    })
-  }
-
-  handleChangeTab(tab) {
-    this.setState({currentTab: tab})
-    if (tab === 'evaluate') {
-      const {evaluateList} = this.props
-      if (!evaluateList.length) {
-        this.handleGetEvaluateList()
-      }
-    }
   }
 
   getDrugTitle() {
@@ -67,10 +49,10 @@ class Drug extends Component {
     const {queryId, source} = this.props
     const {medicinalCollect} = this.props.medicinal
     if (medicinalCollect === '0') {
-      callCollectAdd({medicinalId: queryId}).then(() => this.querySearch())
+      callCollectAdd({medicinalId: queryId}).then(() => this.querySearch('detail'))
     } else {
       callCollectCancel({medicinalId: queryId}).then(() => {
-        this.querySearch()
+        this.querySearch('detail')
         if (source === 'my') {
           favorites.handleCancelCollect(queryId)
         }
@@ -78,15 +60,109 @@ class Drug extends Component {
     }
   }
 
-  handleGetEvaluateList() {
-    this.setState({visible: true})
+  querySearch(type = 'all') {
     const {queryId} = this.props
-    callEvaluateList({medicinalId: queryId, rows: 100}).then(({evaluatelist}) => {
-      this.props.dispatch(receiveEvaluateList(evaluatelist))
-      this.setState({visible: false})
-    }, () => {
-      this.setState({visible: false})
+    this.setState({visible: true})
+    if (type === 'all') {
+      Promise.all([callMedicinalDetail({medicinalId: queryId}), callEvaluateList({medicinalId: queryId, rows: 200})]).then(values => {
+        this.props.dispatch(updateMedicinal(values[0]['medicinal']))
+        this.props.dispatch(receiveEvaluateList(values[1]['evaluatelist']))
+        this.context.routes.refresh()
+        this.setState({visible: false})
+      }, () => {
+        this.setState({visible: false})
+      })
+    } else if (type === 'detail') {
+      callMedicinalDetail({medicinalId: queryId}).then(({medicinal}) => {
+        this.props.dispatch(updateMedicinal(medicinal))
+        this.context.routes.refresh()
+        this.setState({visible: false})
+      }, () => {
+        this.setState({visible: false})
+      })
+    } else if (type === 'evaluate') {
+      callEvaluateList({medicinalId: queryId, rows: 200}).then(({evaluatelist}) => {
+        this.props.dispatch(receiveEvaluateList(evaluatelist))
+        this.setState({visible: false})
+      }, () => {
+        this.setState({visible: false})
+      })
+    }
+  }
+
+  hideModal() {
+    this.refs.modal.close()
+    this.setState({
+      showModal: false
     })
+  }
+
+  renderModal() {
+    const {medicinal} = this.props
+    return (
+      <Modal style={styles.modal} backdrop={false} position={"top"} ref={"modal"}>
+        <ScrollView>
+          <View style={styles.modalTitleWrap}><Text style={styles.modalTitle}>温馨提示</Text></View>
+          <View style={styles.modalContent}>
+            <View style={styles.modalGroupWrap}>
+              <View style={styles.modalLabelWrap}><Text style={styles.modalLabel}>用药禁忌</Text></View>
+              <View style={styles.modalTextWrap}><Text style={styles.modalText}>{medicinal.medicinalContraindication || '无'}</Text></View>
+            </View>
+            <View style={styles.modalGroupWrap}>
+              <View style={styles.modalLabelWrap}><Text style={styles.modalLabel}>配伍禁忌</Text></View>
+              <View style={styles.modalTextWrap}><Text style={styles.modalText}>{medicinal.medicinalincompatibility || '无'}</Text></View>
+            </View>
+            <View style={styles.modalGroupWrap}>
+              <TouchableOpacity style={styles.modalButtonWrap} onPress={this.hideModal.bind(this)}>
+                <Text style={styles.modalButton}>我知道了</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </ScrollView>
+      </Modal>
+    )
+  }
+
+  renderDetail() {
+    const {medicinal} = this.props
+    if (medicinal.medicinalContraindication || medicinal.medicinalincompatibility) {
+      // 存在用药禁忌或者配伍禁忌，显示modal框
+      setTimeout(() => {
+        this.refs.modal && this.refs.modal.open()
+      }, 100)
+    }
+    return (
+      <View>
+        <View style={styles.titleWrap}>
+          <View><Text style={styles.titleText}>{medicinal.medicinalName}</Text></View>
+          <View><Text style={styles.companyText}>北京三九药业有限公司</Text></View>
+        </View>
+        <View style={styles.detailWrap}>
+          <View><Text style={styles.titleText}>功能主治</Text></View>
+          <View><Text style={styles.detailText}>{medicinal.medicinalFunction || '无'}</Text></View>
+        </View>
+        <View style={styles.detailWrap}>
+          <View><Text style={styles.titleText}>规格</Text></View>
+          <View><Text style={styles.detailText}>{medicinal.medicinalSpecification || '无'}</Text></View>
+        </View>
+        <View style={styles.detailWrap}>
+          <View><Text style={styles.titleText}>用法用量</Text></View>
+          <View><Text style={styles.detailText}>{medicinal.medicinalUsage || '无'}</Text></View>
+        </View>
+        <View style={styles.detailWrap}>
+          <View><Text style={styles.titleText}>不良反映</Text></View>
+          <View><Text style={styles.detailText}>{medicinal.medicinalAdverseReactions || '无'}</Text></View>
+        </View>
+        <View style={styles.detailWrap}>
+          <View><Text style={styles.titleText}>禁忌</Text></View>
+          <View><Text style={styles.detailText}>{medicinal.medicinalContraindication || '无'}</Text></View>
+        </View>
+        <View style={styles.detailWrap}>
+          <View><Text style={styles.titleText}>注意事项</Text></View>
+          <View><Text style={styles.detailText}>{medicinal.medicinalAttentions || '无'}</Text></View>
+        </View>
+      </View>
+    )
   }
 
   handleEvaluate() {
@@ -104,64 +180,13 @@ class Drug extends Component {
     }
   }
 
-  renderDetail() {
-    const {medicinal} = this.props
-    return (<View style={styles.detailWrap}>
-      <View style={styles.group}>
-        <View style={styles.labelWrap}>
-          <Text style={styles.labelText}>功能主治</Text>
-        </View>
-        <View style={styles.contentWrap}>
-          <Text style={styles.contentText}>{medicinal.medicinalFunction}</Text>
-        </View>
-      </View>
-      <View style={styles.group}>
-        <View style={styles.labelWrap}>
-          <Text style={styles.labelText}>规格</Text>
-        </View>
-        <View style={styles.contentWrap}>
-          <Text style={styles.contentText}>{medicinal.medicinalSpecification}</Text>
-        </View>
-      </View>
-      <View style={styles.group}>
-        <View style={styles.labelWrap}>
-          <Text style={styles.labelText}>不良反应</Text>
-        </View>
-        <View style={styles.contentWrap}>
-          <Text style={styles.contentText}>{medicinal.medicinalAdverseReactions}</Text>
-        </View>
-      </View>
-      <View style={styles.group}>
-        <View style={styles.labelWrap}>
-          <Text style={styles.labelText}>禁忌</Text>
-        </View>
-        <View style={styles.contentWrap}>
-          <Text style={styles.contentText}>{medicinal.medicinalContraindication}</Text>
-        </View>
-      </View>
-      <View style={styles.group}>
-        <View style={styles.labelWrap}>
-          <Text style={styles.labelText}>注意事项</Text>
-        </View>
-        <View style={styles.contentWrap}>
-          <Text style={styles.contentText}>{medicinal.medicinalAttentions}</Text>
-        </View>
-      </View>
-      <View style={styles.group}>
-        <TouchableOpacity onPress={this.handleEvaluate.bind(this)} style={styles.buttonWrap}>
-          <Icon name="edit" size={22} color="#007cca"/><Text style={[styles.labelText, styles.ebutton]}>我要点评</Text>
-        </TouchableOpacity>
-      </View>
-    </View>)
-  }
-
   renderEvaluateList() {
     const {evaluateList} = this.props
     const list = evaluateList.map((evaluate, index) => {
       let stars = []
       let star = parseInt(evaluate.evaluateStar)
       while (star --) {
-        stars.push(<Icon key={star + evaluate.evaluateTime} name="star" size={26} color="#f93"/>)
+        stars.push(<Icon key={star + evaluate.evaluateTime} name="star" size={22} color="#f93"/>)
       }
       return (
         <View key={'item_' + index} style={styles.itemWrap}>
@@ -173,108 +198,124 @@ class Drug extends Component {
     })
 
     return (
-      <View>
+      <View style={styles.evaluateWrap}>
+        <View style={styles.titleRowWrap}>
+          <Text style={[commonStyles.flex, styles.mainTextColor]}>用户点评({list.length})</Text>
+          <TouchableOpacity style={commonStyles.flex} onPress={this.handleEvaluate.bind(this)} style={styles.buttonWrap}>
+            <Icon name="edit" size={18} color="#007cca"/><Text style={[styles.labelText, styles.ebutton]}>我要点评</Text>
+          </TouchableOpacity>
+        </View>
         <View>
           {list}
-        </View>
-        <View style={styles.group}>
-          <TouchableOpacity onPress={this.handleEvaluate.bind(this)} style={styles.buttonWrap}>
-            <Icon name="edit" size={22} color="#007cca"/><Text style={[styles.labelText, styles.ebutton]}>我要点评</Text>
-          </TouchableOpacity>
         </View>
       </View>
     )
   }
 
-  renderTabContent() {
-    const {medicinal} = this.props
-    const { currentTab } = this.state
-    if (!medicinal) {
-      return
-    }
-    return currentTab === 'detail' ? this.renderDetail() : this.renderEvaluateList()
-  }
-
   render() {
-    const { currentTab } = this.state
-    const content = this.renderTabContent()
+    const {showModal} = this.state
+    const modal = this.renderModal()
+    const detail = this.renderDetail()
+    const evaluateList = this.renderEvaluateList()
     return (
       <ScrollView style={styles.container}>
         <Spinner visible={this.state.visible} color="black"/>
-        <View style={styles.tabs}>
-          <TouchableOpacity style={[styles.tab, currentTab === 'detail' ? styles.active : null]} onPress={this.handleChangeTab.bind(this, 'detail')}>
-            <Text style={styles.tabText}>药品说明书</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={[styles.tab, currentTab === 'evaluate' ? styles.active : null]} onPress={this.handleChangeTab.bind(this, 'evaluate')}>
-            <Text style={styles.tabText}>用户点评</Text>
-          </TouchableOpacity>
-        </View>
-        {content}
+        {detail}
+        {evaluateList}
+        {showModal ? modal : null}
       </ScrollView>
-    )
+    );
   }
 }
 
+const {height, width} = Dimensions.get('window')
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 1
   },
-  tabs: {
-    flexDirection: 'row'
-  },
-  tab: {
-    flex: 1,
-    backgroundColor: '#78c4d7'
-  },
-  active: {
-    backgroundColor: '#007594'
-  },
-  tabText: {
-    color: '#fff',
-    textAlign: 'center',
-    padding: 10,
-  },
-  detailWrap: {
-
-  },
-  group: {
-    marginTop: 5,
+  modal: {
+    height: height * .4,
+    width: width * .85,
+    marginTop: height * .15,
+    borderRadius: 4,
+    borderWidth: 1,
+    borderColor: '#ccc',
     backgroundColor: '#fff'
   },
-  labelWrap: {
-    flex: 1,
-    flexDirection: 'row',
-    borderBottomColor: '#ccc',
-    borderBottomWidth: .5,
-    borderLeftColor: '#00a5ca',
-    borderLeftWidth: 2,
-    padding: 5,
-    height: 30
+  modalTitleWrap: {
+    padding: 8,
+    backgroundColor: '#ddd',
   },
-  buttonWrap: {
-    padding: 5,
-    flexDirection: 'row',
+  modalTitle: {
+    fontSize: 18,
+    color: '#00a5ca',
+    textAlign: 'center'
   },
-  labelText: {
-    fontSize: 16,
-    color: '#007cca',
-  },
-  contentWrap: {
+  modalGroupWrap: {
     padding: 5
   },
-  contentText: {
-    color: '#999'
+  modalLabelWrap: {
+    borderBottomWidth: 1,
+    borderBottomColor: '#e8e8e8',
+    paddingTop: 5,
+    paddingBottom: 5
   },
-  starWarp: {
-    flexDirection: 'row'
+  modalTextWrap: {
+    paddingTop: 5
+  },
+  modalContent: {
+    padding: 10
+  },
+  modalLabel: {
+    color: '#00a5ca',
+    fontSize: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: '#007594'
+  },
+  modalButtonWrap: {
+    borderTopWidth: 1,
+    borderTopColor: '#e8e8e8',
+    paddingTop: 5
+  },
+  modalButton: {
+    color: '#00a5ca',
+    fontSize: 16,
+    textAlign: 'center',
+    padding: 10,
+    borderWidth: 1,
+    borderColor: '#007594'
+  },
+  titleWrap: {
+    backgroundColor: '#fff',
+    marginTop: 5,
+    padding: 5,
+    borderLeftWidth: 3,
+    borderLeftColor: '#007594',
+    borderBottomWidth: 1,
+    borderBottomColor: '#ddd'
+  },
+  titleText: {
+    fontSize: 18,
+    color: '#00a5ca'
+  },
+  companyText: {
+    color: '#666',
+    fontSize: 12
+  },
+  detailWrap: {
+    padding: 5,
+    paddingLeft: 10,
+    backgroundColor: '#fff'
+  },
+  detailText: {
+    color: '#333'
   },
   itemWrap: {
     marginTop: 5,
     padding: 10,
     backgroundColor: '#fff'
   },
-  text: {
-    color: '#999'
+  starWarp: {
+    flexDirection: 'row'
   },
   textWrap: {
     padding: 10,
@@ -284,13 +325,36 @@ const styles = StyleSheet.create({
     borderColor: '#ccc'
   },
   timeWrap: {
-    paddingTop: 10
+    paddingTop: 5
   },
   time: {
     color: '#999'
   },
+  text: {
+    fontSize: 12
+  },
+  labelText: {
+    fontSize: 12,
+    color: '#007cca',
+  },
+  mainTextColor: {
+    color: '#007cca',
+  },
   ebutton: {
     paddingLeft: 5
+  },
+  buttonWrap: {
+    flexDirection: 'row',
+  },
+  evaluateWrap: {
+    backgroundColor: '#ddd',
+    padding: 10
+  },
+  titleRowWrap: {
+    flexDirection: 'row',
+    borderBottomWidth: 1,
+    paddingBottom: 5,
+    borderBottomColor: '#007cca'
   }
 })
 

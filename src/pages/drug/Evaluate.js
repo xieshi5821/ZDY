@@ -92,7 +92,7 @@ class Evaluate extends Component {
       this.setState({visible: false})
       Toast.show('提交评论成功')
       this.context.routes.pop()
-      drug.handleGetEvaluateList()
+      drug.querySearch('evaluate')
     }, () => {
       this.setState({visible: false})
     })
