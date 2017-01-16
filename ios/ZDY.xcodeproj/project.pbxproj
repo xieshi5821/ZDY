@@ -19,7 +19,6 @@
 		139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139FDEF41B06529B00C62182 /* libRCTWebSocket.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
-		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
@@ -30,6 +29,9 @@
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		9977EBF162F94F19A29AD6CE /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F7C7D6EEDA22468D82650543 /* FontAwesome.ttf */; };
 		C91B0BFA1DD8777300DEB5EE /* iconfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C91B0BF91DD8777300DEB5EE /* iconfont.ttf */; };
+		C95E35F81E2BAB34003E05ED /* icon144x144.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C95E35F71E2BAB34003E05ED /* icon144x144.jpg */; };
+		C95E360D1E2BABB8003E05ED /* start_bg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C95E360C1E2BABB8003E05ED /* start_bg.jpg */; };
+		C95E360F1E2BADBD003E05ED /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C95E360E1E2BADBD003E05ED /* Images.xcassets */; };
 		C97B08571DEC4FA70084AE2A /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C97B084E1DEC4FA70084AE2A /* Entypo.ttf */; };
 		C97B08581DEC4FA70084AE2A /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C97B084F1DEC4FA70084AE2A /* EvilIcons.ttf */; };
 		C97B08591DEC4FA70084AE2A /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C97B08501DEC4FA70084AE2A /* FontAwesome.ttf */; };
@@ -39,6 +41,8 @@
 		C97B085D1DEC4FA70084AE2A /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C97B08541DEC4FA70084AE2A /* Octicons.ttf */; };
 		C97B085E1DEC4FA70084AE2A /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C97B08551DEC4FA70084AE2A /* SimpleLineIcons.ttf */; };
 		C97B085F1DEC4FA70084AE2A /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C97B08561DEC4FA70084AE2A /* Zocial.ttf */; };
+		C985E02A1E2B664C00E0BAD4 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = C985E0291E2B664C00E0BAD4 /* assets */; };
+		C9E7A6DD1E2B90F700661022 /* index.ios.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = C9E7A6DC1E2B90F700661022 /* index.ios.jsbundle */; };
 		D5F7B975DA164941A1E3522E /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96A9DAA0B81940B3B3DCB7CC /* Foundation.ttf */; };
 		ED0F277F325043B0B268F120 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 15B09CBA43574B12AE7D50F8 /* MaterialIcons.ttf */; };
 		F0E11E13C4A14C54B89D6E33 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9BD34CCD543E42B1A5C8B7F5 /* EvilIcons.ttf */; };
@@ -205,7 +209,6 @@
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ZDY/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = ZDY/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ZDY/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ZDY/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ZDY/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
@@ -223,6 +226,9 @@
 		AF184A0315FA4902BE5B62F3 /* libRNVectorIcons.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNVectorIcons.a; sourceTree = "<group>"; };
 		C05A8EC2175D4C8C933280D7 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		C91B0BF91DD8777300DEB5EE /* iconfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = iconfont.ttf; path = ../assets/fonts/iconfont.ttf; sourceTree = "<group>"; };
+		C95E35F71E2BAB34003E05ED /* icon144x144.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = icon144x144.jpg; path = ../../../Desktop/icon144x144.jpg; sourceTree = "<group>"; };
+		C95E360C1E2BABB8003E05ED /* start_bg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = start_bg.jpg; path = ../../../Desktop/start_bg.jpg; sourceTree = "<group>"; };
+		C95E360E1E2BADBD003E05ED /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ZDY/Images.xcassets; sourceTree = "<group>"; };
 		C97B084E1DEC4FA70084AE2A /* Entypo.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		C97B084F1DEC4FA70084AE2A /* EvilIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		C97B08501DEC4FA70084AE2A /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
@@ -232,6 +238,8 @@
 		C97B08541DEC4FA70084AE2A /* Octicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		C97B08551DEC4FA70084AE2A /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		C97B08561DEC4FA70084AE2A /* Zocial.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
+		C985E0291E2B664C00E0BAD4 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = assets; path = ../../assets; sourceTree = "<group>"; };
+		C9E7A6DC1E2B90F700661022 /* index.ios.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = index.ios.jsbundle; path = ../index.ios.jsbundle; sourceTree = "<group>"; };
 		F7C7D6EEDA22468D82650543 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		FECB2A2120C24923A35BA721 /* libRNDeviceInfo.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNDeviceInfo.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -347,23 +355,27 @@
 		13B07FAE1A68108700A75B9A /* ZDY */ = {
 			isa = PBXGroup;
 			children = (
+				C95E360C1E2BABB8003E05ED /* start_bg.jpg */,
+				C95E35F71E2BAB34003E05ED /* icon144x144.jpg */,
+				C9E7A6DC1E2B90F700661022 /* index.ios.jsbundle */,
+				C985E0291E2B664C00E0BAD4 /* assets */,
 				C97B084E1DEC4FA70084AE2A /* Entypo.ttf */,
-				C97B084F1DEC4FA70084AE2A /* EvilIcons.ttf */,
 				C97B08501DEC4FA70084AE2A /* FontAwesome.ttf */,
 				C97B08511DEC4FA70084AE2A /* Foundation.ttf */,
 				C97B08521DEC4FA70084AE2A /* Ionicons.ttf */,
 				C97B08531DEC4FA70084AE2A /* MaterialIcons.ttf */,
+				C97B084F1DEC4FA70084AE2A /* EvilIcons.ttf */,
 				C97B08541DEC4FA70084AE2A /* Octicons.ttf */,
-				C97B08551DEC4FA70084AE2A /* SimpleLineIcons.ttf */,
 				C97B08561DEC4FA70084AE2A /* Zocial.ttf */,
+				C97B08551DEC4FA70084AE2A /* SimpleLineIcons.ttf */,
 				C91B0BF91DD8777300DEB5EE /* iconfont.ttf */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
-				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				C95E360E1E2BADBD003E05ED /* Images.xcassets */,
 			);
 			name = ZDY;
 			sourceTree = "<group>";
@@ -518,7 +530,11 @@
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
+						DevelopmentTeam = HB5R2N3PF5;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
+					};
+					13B07F861A680F5B00A75B9A = {
+						DevelopmentTeam = HB5R2N3PF5;
 					};
 				};
 			};
@@ -739,10 +755,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				C97B085A1DEC4FA70084AE2A /* Foundation.ttf in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				C91B0BFA1DD8777300DEB5EE /* iconfont.ttf in Resources */,
+				C95E360F1E2BADBD003E05ED /* Images.xcassets in Resources */,
 				C97B085B1DEC4FA70084AE2A /* Ionicons.ttf in Resources */,
 				C97B08581DEC4FA70084AE2A /* EvilIcons.ttf in Resources */,
 				36555D63FE96412DA6FE771D /* Entypo.ttf in Resources */,
@@ -752,14 +768,18 @@
 				C97B08571DEC4FA70084AE2A /* Entypo.ttf in Resources */,
 				1318D5B475074B1888602A2E /* Ionicons.ttf in Resources */,
 				ED0F277F325043B0B268F120 /* MaterialIcons.ttf in Resources */,
+				C9E7A6DD1E2B90F700661022 /* index.ios.jsbundle in Resources */,
 				C97B085F1DEC4FA70084AE2A /* Zocial.ttf in Resources */,
 				C97B08591DEC4FA70084AE2A /* FontAwesome.ttf in Resources */,
 				C97B085C1DEC4FA70084AE2A /* MaterialIcons.ttf in Resources */,
+				C95E35F81E2BAB34003E05ED /* icon144x144.jpg in Resources */,
+				C95E360D1E2BABB8003E05ED /* start_bg.jpg in Resources */,
 				2700773BFD5B4F02A8E49B6E /* Octicons.ttf in Resources */,
 				C97B085D1DEC4FA70084AE2A /* Octicons.ttf in Resources */,
 				C97B085E1DEC4FA70084AE2A /* SimpleLineIcons.ttf in Resources */,
 				7DBBB8E149BE4F699E32FF7B /* SimpleLineIcons.ttf in Resources */,
 				FD0A8084F2DA484BB8A32293 /* Zocial.ttf in Resources */,
+				C985E02A1E2B664C00E0BAD4 /* assets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -866,8 +886,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
+				DEVELOPMENT_TEAM = HB5R2N3PF5;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
@@ -876,13 +899,16 @@
 					"$(SRCROOT)/../node_modules/react-native-device-info/RNDeviceInfo",
 				);
 				INFOPLIST_FILE = ZDY/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
 				PRODUCT_NAME = ZDY;
+				SDKROOT = iphoneos10.2;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -891,7 +917,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = HB5R2N3PF5;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
@@ -900,13 +929,16 @@
 					"$(SRCROOT)/../node_modules/react-native-device-info/RNDeviceInfo",
 				);
 				INFOPLIST_FILE = ZDY/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
 				PRODUCT_NAME = ZDY;
+				SDKROOT = iphoneos10.2;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -928,8 +960,10 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = HB5R2N3PF5;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -955,7 +989,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = iphoneos;
+				SDKROOT = iphoneos10.2;
 			};
 			name = Debug;
 		};
@@ -976,8 +1010,10 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				DEVELOPMENT_TEAM = HB5R2N3PF5;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -996,7 +1032,7 @@
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				SDKROOT = iphoneos;
+				SDKROOT = iphoneos10.2;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

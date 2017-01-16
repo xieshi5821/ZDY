@@ -246,7 +246,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#ddd',
   },
   modalTitle: {
-    fontSize: 18,
+    fontSize: 20,
     color: '#00a5ca',
     textAlign: 'center'
   },
@@ -307,6 +307,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff'
   },
   detailText: {
+    paddingTop: 5,
     color: '#333'
   },
   itemWrap: {

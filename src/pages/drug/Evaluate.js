@@ -62,8 +62,11 @@ class Evaluate extends Component {
 
   handleChangeCheck(index) {
     const tags = Object.assign([], this.state.evaluateTags)
+    tags.forEach(tag => {
+      tag.checked = false
+    })
     const tag = tags[index]
-    tag.checked = !tag.checked
+    tag.checked = true
     this.setState({evaluateTags: tags})
   }
 
