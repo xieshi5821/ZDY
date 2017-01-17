@@ -91440,10 +91440,11 @@ width:widht}});exports.default=
 
 Welcome);
 }, "ZDY/src/pages/Welcome.js");
-__d(782 /* ZDY/src/api/request.js */, function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.callFeedbackAdd=exports.callFirendList=exports.callCollectCancel=exports.callCollectList=exports.callCollectAdd=exports.callRecommendFilter=exports.callRecommendSubmit=exports.callProductList=exports.callAboutUs=exports.callEvaluateList=exports.callEvaluateAdd=exports.callEvaluatePage=exports.callRecommendList=exports.callMedicinalDetail=exports.callSearchList=exports.callSearchHome=exports.callRecommendHome=exports.callRegister=exports.fillUrl=exports.API_URL=undefined;var _reactNative=require(44 /* react-native */);
+__d(782 /* ZDY/src/api/request.js */, function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.callRegister=exports.callFeedbackAdd=exports.callFirendList=exports.callCollectCancel=exports.callCollectList=exports.callCollectAdd=exports.callRecommendFilter=exports.callRecommendSubmit=exports.callProductList=exports.callAboutUs=exports.callEvaluateList=exports.callEvaluateAdd=exports.callEvaluatePage=exports.callRecommendList=exports.callMedicinalDetail=exports.callSearchList=exports.callSearchHome=exports.callRecommendHome=exports.fillUrl=exports.API_URL=undefined;var _reactNative=require(44 /* react-native */);
 var _reactNativeRootToast=require(783 /* react-native-root-toast */);var _reactNativeRootToast2=babelHelpers.interopRequireDefault(_reactNativeRootToast);
 var _reactNativeDeviceInfo=require(788 /* react-native-device-info */);var _reactNativeDeviceInfo2=babelHelpers.interopRequireDefault(_reactNativeDeviceInfo);
 var uniqueId=_reactNativeDeviceInfo2.default.getUniqueID().toUpperCase();
+
 var API_URL=exports.API_URL='http://119.29.97.107:8080';
 var PID='pid';
 var fillUrl=exports.fillUrl=function fillUrl(){var url=arguments.length>0&&arguments[0]!==undefined?arguments[0]:'';
@@ -91482,28 +91483,6 @@ throw new Error(errorMsg);
 _reactNativeRootToast2.default.show(String(err));
 reject(err);
 });
-});
-};
-
-var callRegister=exports.callRegister=function callRegister(){
-return new Promise(function(resolve,reject){
-if(pid){
-resolve();
-}else{
-_reactNative.AsyncStorage.getItem(PID,function(error,text){
-if(text===null){
-ajax('/api/center/login',{unique:uniqueId}).then(function(_ref2){var token=_ref2.token;
-pid=token;
-_reactNative.AsyncStorage.setItem(PID,pid,function(){
-resolve();
-});
-});
-}else{
-pid=text;
-resolve();
-}
-});
-}
 });
 };
 
@@ -91573,6 +91552,28 @@ return ajax('/api/center/friend/link/list');
 
 var callFeedbackAdd=exports.callFeedbackAdd=function callFeedbackAdd(params){
 return ajax('/api/center/feedback/add',params);
+};
+
+var callRegister=exports.callRegister=function callRegister(){
+return new Promise(function(resolve,reject){
+if(pid){
+resolve();
+}else{
+_reactNative.AsyncStorage.getItem(PID,function(error,text){
+if(text===null){
+ajax('/api/center/login',{unique:uniqueId}).then(function(_ref2){var token=_ref2.token;
+pid=token;
+_reactNative.AsyncStorage.setItem(PID,pid,function(){
+resolve();
+});
+});
+}else{
+pid=text;
+resolve();
+}
+});
+}
+});
 };
 }, "ZDY/src/api/request.js");
 __d(783 /* react-native-root-toast/index.js */, function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _Toast=require(784 /* ./lib/Toast */);

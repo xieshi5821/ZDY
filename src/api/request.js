@@ -2,6 +2,7 @@ import {AsyncStorage} from 'react-native'
 import Toast from 'react-native-root-toast'
 import DeviceInfo from 'react-native-device-info'
 const uniqueId = DeviceInfo.getUniqueID().toUpperCase()
+
 export const API_URL = 'http://119.29.97.107:8080'
 const PID = 'pid'
 export const fillUrl = (url = '') => {
@@ -40,28 +41,6 @@ const ajax = (url, params = {}) => {
         Toast.show(String(err))
         reject(err)
       })
-  })
-}
-
-export const callRegister = () => {
-  return new Promise((resolve, reject) => {
-    if (pid) {
-      resolve()
-    } else {
-      AsyncStorage.getItem(PID, (error, text) => {
-        if (text === null) {
-          ajax('/api/center/login', {unique: uniqueId}).then(({token}) => {
-            pid = token
-            AsyncStorage.setItem(PID, pid, () => {
-              resolve()
-            })
-          })
-        } else {
-          pid = text
-          resolve()
-        }
-      })
-    }
   })
 }
 
@@ -131,4 +110,26 @@ export const callFirendList = () => {
 
 export const callFeedbackAdd = (params) => {
   return ajax('/api/center/feedback/add', params)
+}
+
+export const callRegister = () => {
+  return new Promise((resolve, reject) => {
+    if (pid) {
+      resolve()
+    } else {
+      AsyncStorage.getItem(PID, (error, text) => {
+        if (text === null) {
+          ajax('/api/center/login', {unique: uniqueId}).then(({token}) => {
+            pid = token
+            AsyncStorage.setItem(PID, pid, () => {
+              resolve()
+            })
+          })
+        } else {
+          pid = text
+          resolve()
+        }
+      })
+    }
+  })
 }

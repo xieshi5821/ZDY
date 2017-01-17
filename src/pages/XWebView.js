@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import {StyleSheet, View, Text, ScrollView, WebView} from 'react-native'
 import {connect} from 'react-redux'
-import Spinner from 'react-native-loading-spinner-overlay'
 
 export let xWebView = null
 
@@ -9,9 +8,6 @@ class XWebView extends Component {
 
   constructor(props) {
     super(props)
-    this.state = {
-      visible: true
-    }
     xWebView = this
   }
 
@@ -19,16 +15,19 @@ class XWebView extends Component {
     return this.props.uriName
   }
 
-  handleLoadEnd() {
-    this.setState({visible: false})
+  componentWillMount() {
+    console.log('m')
+  }
+
+  componentWillUnmount() {
+    console.log('un')
   }
 
   render() {
     const {uri} = this.props
     return (
       <View style={styles.container}>
-        <Spinner visible={this.state.visible} color="black"/>
-        <WebView style={styles.webView} scalesPageToFit={true} source={{uri}} onLoadEnd={this.handleLoadEnd.bind(this)}></WebView>
+        <WebView style={styles.webView} scalesPageToFit={true} source={{uri}}></WebView>
       </View>
     )
   }
