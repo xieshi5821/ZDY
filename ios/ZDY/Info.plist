@@ -4,8 +4,7 @@
 <dict>
 	<key>CFBundleIconFiles</key>
 	<array>
-		<string>icon144x144.jpg</string>
-		<string>icon144x144.jpg</string>
+		<string>icon144x144.png</string>
 	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
