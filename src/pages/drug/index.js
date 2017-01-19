@@ -104,21 +104,25 @@ class Drug extends Component {
         <ScrollView>
           <View style={styles.modalTitleWrap}><Text style={styles.modalTitle}>温馨提示</Text></View>
           <View style={styles.modalContent}>
-            <View style={styles.modalGroupWrap}>
-              <View style={styles.modalLabelWrap}><Text style={styles.modalLabel}>用药禁忌</Text></View>
-              <View style={styles.modalTextWrap}><Text style={styles.modalText}>{medicinal.medicinalContraindication || '无'}</Text></View>
-            </View>
-            <View style={styles.modalGroupWrap}>
-              <View style={styles.modalLabelWrap}><Text style={styles.modalLabel}>配伍禁忌</Text></View>
-              <View style={styles.modalTextWrap}><Text style={styles.modalText}>{medicinal.medicinalincompatibility || '无'}</Text></View>
-            </View>
-            <View style={styles.modalGroupWrap}>
-              <TouchableOpacity style={styles.modalButtonWrap} onPress={this.hideModal.bind(this)}>
-                <Text style={styles.modalButton}>我知道了</Text>
-              </TouchableOpacity>
-            </View>
+            {medicinal.medicinalContraindication ? (
+              <View style={styles.modalGroupWrap}>
+                <View style={styles.modalLabelWrap}><Text style={styles.modalLabel}>用药禁忌</Text></View>
+                <View style={styles.modalTextWrap}><Text style={styles.modalText}>{medicinal.medicinalContraindication}</Text></View>
+              </View>
+            ) : null}
+            {medicinal.medicinalincompatibility ? (
+              <View style={styles.modalGroupWrap}>
+                <View style={styles.modalLabelWrap}><Text style={styles.modalLabel}>配伍禁忌</Text></View>
+                <View style={styles.modalTextWrap}><Text style={styles.modalText}>{medicinal.medicinalincompatibility}</Text></View>
+              </View>
+            ) : null}
           </View>
         </ScrollView>
+        <View style={styles.modalGroupWrap}>
+          <TouchableOpacity style={styles.modalButtonWrap} onPress={this.hideModal.bind(this)}>
+            <Text style={styles.modalButton}>我知道了</Text>
+          </TouchableOpacity>
+        </View>
       </Modal>
     )
   }
