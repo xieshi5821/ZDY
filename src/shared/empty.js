@@ -22,10 +22,9 @@ export default class Empty extends Component {
 
   render(){
     const {center, msg} = this.props
-    console.log(center, msg)
     return (
       <View style={[styles.container, center ? styles.center : '']}>
-        <Text style={styles.text}>{msg}</Text>
+        <View style={styles.textWrap}><Text style={styles.text}>{msg}</Text></View>
       </View>
     )
   }
@@ -34,13 +33,16 @@ const {height}=Dimensions.get('window')
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
-    flex: 1
+    left: 0,
+    right: 0
   },
   center: {
     top: height / 2 - 50
   },
-  text: {
+  textWrap: {
     flex: 1,
+  },
+  text: {
     textAlign: 'center',
     fontSize: 18,
     color: '#999'
