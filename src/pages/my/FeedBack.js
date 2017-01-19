@@ -61,14 +61,14 @@ class FeedBack extends Component {
       <View style={styles.container}>
         <View>
           <View>
-            <TextInput multiline placeholder="为了更好地为您提供服务，请详细输入您的问题，谢谢！" maxLength={500} style={styles.input} onChangeText={this.handleChangeInput.bind(this)} value={content}></TextInput>
+            <TextInput multiline underlineColorAndroid='transparent' placeholder="为了更好地为您提供服务，请详细输入您的问题，谢谢！" maxLength={500} style={styles.input} onChangeText={this.handleChangeInput.bind(this)} value={content}></TextInput>
           </View>
           <View>
             <Text style={styles.count}>{count}</Text>
           </View>
         </View>
         <View>
-          <TextInput placeholder="请输入您的手机号／邮箱／QQ号" style={styles.contactInput} onChangeText={this.handleChangeContact.bind(this)} value={contact}></TextInput>
+          <TextInput underlineColorAndroid='transparent' placeholder="请输入您的手机号／邮箱／QQ号" style={styles.contactInput} onChangeText={this.handleChangeContact.bind(this)} value={contact}></TextInput>
         </View>
         <TouchableOpacity style={[commonStyles.submitContainer, styles.button]}>
           <Text style={commonStyles.submit} onPress={this.handleSubmit.bind(this)}>提交您的信息</Text>

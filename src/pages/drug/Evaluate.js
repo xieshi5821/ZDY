@@ -133,7 +133,7 @@ class Evaluate extends Component {
         </View>
         <View style={styles.inputContainer}>
           <View>
-            <TextInput multiline placeholder="请填写您对本药品的使用感受" maxLength={500} style={styles.input} onChangeText={this.handleChangeInput.bind(this)} value={content}></TextInput>
+            <TextInput multiline placeholder="请填写您对本药品的使用感受" underlineColorAndroid='transparent' maxLength={500} style={styles.input} onChangeText={this.handleChangeInput.bind(this)} value={content}></TextInput>
           </View>
           <View>
             <Text style={styles.count}>{count}</Text>

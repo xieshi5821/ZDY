@@ -159,7 +159,7 @@ class Search extends Component {
         <Spinner visible={this.state.visible} color="black"/>
         <View style={styles.inputForm}>
           <View>
-            <TextInput multiline placeholder={this.props.placeholder} style={styles.input} onChangeText={this.handleChangeInput.bind(this)} value={this.props.inputText}></TextInput>
+            <TextInput multiline placeholder={this.props.placeholder} underlineColorAndroid='transparent' style={styles.input} onChangeText={this.handleChangeInput.bind(this)} value={this.props.inputText}></TextInput>
           </View>
           <View>
             {check}
