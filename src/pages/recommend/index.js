@@ -102,7 +102,7 @@ class Recommend extends Component {
     return (
       <View style={commonStyles.flex}>
         <TouchableOpacity onPress={this.handleClickBanner.bind(this, banner)} activeOpacity={1}>
-          <Image resizeMode="contain" style={styles.imagePage} source={{uri: url}}/>
+          <Image resizeMode="stretch" style={styles.imagePage} source={{uri: url}}/>
         </TouchableOpacity>
       </View>
     )

@@ -16,21 +16,13 @@ class Welcome extends Component {
     this.state = {
       show: false,
       dataSource: null,
-      list: [
-        {
-          url: '../../assets/images/step1.jpg',
-          end: false
-        },
-        {
-          url: '../../assets/images/step2.jpg',
-          end: true
-        }
-      ]
+      list: ['step1', 'step2', 'step3']
     }
   }
 
   componentWillMount() {
     AsyncStorage.getItem(WELCOME, (error, text) => {
+      // text = false
       if (text === 'true') {
         this.context.routes.tabbar()
       } else {
@@ -50,19 +42,17 @@ class Welcome extends Component {
     })
   }
 
-  renderPage(banner, pageID) {
-    let {url, end} = banner
-    url = fillUrl(banner.url)
-    return (
-      <View style={styles.pageWrap}>
-        {end
-          ? (<TouchableOpacity onPress={this.handleClickBanner.bind(this, banner)} activeOpacity={1}>
-              <Image resizeMode="contain" style={styles.imagePage} source={require('../../assets/images/step1.jpg')}/>
-            </TouchableOpacity>)
-          : (<Image resizeMode="contain" style={styles.imagePage} source={require('../../assets/images/step2.jpg')}/>)
-        }
-      </View>
-    )
+  renderPage(step, pageID) {
+    switch (step) {
+      case 'step1':
+        return (<Image resizeMode="stretch" style={styles.imagePage} source={require('../../assets/images/step/step1.jpg')}/>)
+      case 'step2':
+        return (<Image resizeMode="stretch" style={styles.imagePage} source={require('../../assets/images/step/step2.jpg')}/>)
+      case 'step3':
+        return (<TouchableOpacity onPress={this.handleClickBanner.bind(this)} activeOpacity={1}>
+            <Image resizeMode="stretch" style={styles.imagePage} source={require('../../assets/images/step/step3.jpg')}/>
+          </TouchableOpacity>)
+    }
   }
 
   render() {
