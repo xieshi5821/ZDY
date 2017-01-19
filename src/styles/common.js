@@ -43,5 +43,8 @@ export default styles = StyleSheet.create({
   },
   flex: {
     flex: 1
+  },
+  textCenter: {
+    textAlign: 'center'
   }
 })

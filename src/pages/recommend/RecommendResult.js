@@ -7,9 +7,9 @@ import Empty from '../../shared/empty'
 import Spinner from 'react-native-loading-spinner-overlay'
 import commonStyles from '../../styles/common'
 import { CheckBox } from 'react-native-elements'
-import {receiveSubmitWords, receiveResultList, toggleRecommendCheck, resetResultList} from '../../actions/recommendResult'
+import {receiveSubmitWords, receiveResultList, toggleRecommendCheck, resetResultList, showMore} from '../../actions/recommendResult'
 import {updateSource, updateQueryId, updateMedicinalName} from '../../actions/drug'
-
+import Icon from 'react-native-vector-icons/FontAwesome'
 export let recommendResult = null
 class RecommendResult extends Component {
   static contextTypes = {
@@ -93,8 +93,12 @@ class RecommendResult extends Component {
     })
   }
 
+  handleCollspae() {
+    this.props.dispatch(showMore())
+  }
+
   renderRecommedWords() {
-    const {recommedWords} = this.props
+    const {recommedWords, more} = this.props
     const checkGroup = []
     let index = 0
     let addEmpty = 3 - recommedWords.length % 3
@@ -104,6 +108,9 @@ class RecommendResult extends Component {
       })
     }
     recommedWords.forEach((word, i) => {
+      if (!more && i >= 3) {
+        return false
+      }
       if (i && i % 3 == 0) {
         index ++
       }
@@ -116,6 +123,9 @@ class RecommendResult extends Component {
         </View>
       )
     })
+    if (!more) {
+      checkGroup.push(<View style={commonStyles.flex}><Text style={commonStyles.textCenter} onPress={this.handleCollspae.bind(this)}><Icon name='sort-desc' size={22} color="#999"/></Text></View>)
+    }
     return checkGroup.map((group, i) => (<View key={i} style={styles.checkWrap}>{group}</View>))
   }
 
@@ -124,15 +134,15 @@ class RecommendResult extends Component {
       <View>
         {rowData.seq === 0 ? (<View style={commonStyles.tr}>
           <View style={commonStyles.td}><Text style={commonStyles.rowTitle}>药名</Text></View>
-          <View style={commonStyles.td}><Text style={commonStyles.rowTitle}>是否医保</Text></View>
+          <View style={commonStyles.td}><Text style={[commonStyles.rowTitle, styles.sfyb]}>是否医保</Text></View>
           <View style={commonStyles.td}><Text style={commonStyles.rowTitle}>用药禁忌</Text></View>
-          <View style={commonStyles.td}><Text style={commonStyles.rowTitle}>推荐系数</Text></View>
+          <View style={commonStyles.td}><Text style={[commonStyles.rowTitle, styles.tjxs]}>推荐系数</Text></View>
         </View>) : null}
         <TouchableOpacity key={rowData.medicinalId} onPress={this.handleDetail.bind(this, rowData.medicinalId, rowData.medicinalName)} style={[commonStyles.tr, commonStyles.contentTr]}>
           <View style={commonStyles.td}><Text numberOfLines={1} style={[commonStyles.rowTitle, commonStyles.contentRowTitle, commonStyles.ym]}>{rowData.medicinalName}</Text></View>
           <View style={commonStyles.td}><Text numberOfLines={1} style={[commonStyles.rowTitle, commonStyles.contentRowTitle]}>{rowData.medicinalIsInsurance}</Text></View>
           <View style={commonStyles.td}><Text numberOfLines={1} style={[commonStyles.rowTitle, commonStyles.contentRowTitle]}>{rowData.medicinalContraindication}</Text></View>
-          <View style={commonStyles.td}><Text numberOfLines={1} style={[commonStyles.rowTitle, commonStyles.contentRowTitle]}>{rowData.medicinalRecommedKpi}</Text></View>
+          <View style={commonStyles.td}><Text numberOfLines={1} style={[commonStyles.rowTitle, commonStyles.contentRowTitle, styles.tjxs]}>{rowData.medicinalRecommedKpi}</Text></View>
         </TouchableOpacity>
       </View>
     )
@@ -219,6 +229,12 @@ const styles = StyleSheet.create({
   },
   checkText: {
     fontSize: 14
+  },
+  sfyb: {
+    width: 60
+  },
+  tjxs: {
+    width: 60
   }
 })
 
@@ -231,5 +247,6 @@ export default connect(store => ({
   submitWords: store.recommendResult.submitWords,
   recommedWords: store.recommendResult.recommedWords,
   star: store.recommendResult.star,
-  medicinalIsInsurance: store.recommendResult.medicinalIsInsurance
+  medicinalIsInsurance: store.recommendResult.medicinalIsInsurance,
+  more: store.recommendResult.more
 }))(RecommendResult)
