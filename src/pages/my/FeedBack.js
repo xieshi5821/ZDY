@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
   },
   contactInput: {
     marginTop: 10,
-    height: 30,
+    height: 35,
     borderColor: '#ccc',
     borderWidth: .5,
     backgroundColor: '#fafafa'

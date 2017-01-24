@@ -18,8 +18,8 @@ export default search = (state = initialState, action) => {
       return {...state, page: action.page}
     case recommendResultTypes.RESET_RESULT_LIST:
       return {...state, resultList: [], page: 1, hasMore: true}
-    case recommendResultTypes.SHOW_MORE:
-      return {...state, more: true}
+    case recommendResultTypes.TOGGLE_MORE:
+      return {...state, more: !state.more}
     case recommendResultTypes.TOGGLE_RECOMMEND_CHECK:
       const recommedWords = Object.assign([], state.recommedWords)
       const word = recommedWords[action.index]

@@ -1,5 +1,5 @@
 import React from 'react'
-import {StyleSheet} from 'react-native'
+import {StyleSheet, Platform} from 'react-native'
 import {connect} from 'react-redux'
 import {View} from 'react-native'
 import {Router, Scene, Reducer } from 'react-native-router-flux'
@@ -81,7 +81,8 @@ export default function configRoutes() {
     </RouterWithRedux>
   </View>)
 }
-
+// 安卓与ios高度不一致问题
+const navHeight = Platform.OS === 'ios' ? 60 : 50
 const styles = StyleSheet.create({
   appContainer: {
     flex: 1
@@ -91,6 +92,7 @@ const styles = StyleSheet.create({
   },
   navigationBarStyle: {
     backgroundColor: '#00a5ca',
+    height: navHeight
   },
   titleStyle: {
     color: '#fff'
@@ -101,7 +103,7 @@ const styles = StyleSheet.create({
     borderTopWidth: .5
   },
   sceneContentStyle: {
-    paddingTop: 64,
+    paddingTop: navHeight,
     paddingBottom: 50,
     backgroundColor: '#f0f1f4'
   },
