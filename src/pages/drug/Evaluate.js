@@ -215,7 +215,8 @@ const styles = StyleSheet.create({
     borderWidth: .5,
     padding: 5,
     fontSize: 16,
-    backgroundColor: '#fafafa'
+    backgroundColor: '#fafafa',
+    textAlignVertical: 'top'
   },
   count: {
     position: 'absolute',

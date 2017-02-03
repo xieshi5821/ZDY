@@ -89,14 +89,16 @@ const styles = StyleSheet.create({
     borderWidth: .5,
     padding: 5,
     fontSize: 16,
-    backgroundColor: '#fafafa'
+    backgroundColor: '#fafafa',
+    textAlignVertical: 'top'
   },
   contactInput: {
     marginTop: 10,
-    height: 35,
+    height: 50,
     borderColor: '#ccc',
     borderWidth: .5,
-    backgroundColor: '#fafafa'
+    backgroundColor: '#fafafa',
+    textAlignVertical: 'center'
   },
   count: {
     position: 'absolute',

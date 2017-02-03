@@ -72,9 +72,9 @@ const styles = StyleSheet.create({
     paddingRight: 10,
   },
   imageWrap: {
-    borderWidth: 1,
-    borderColor: '#f44',
-    borderStyle: 'dashed'
+    // borderWidth: .5,
+    // borderColor: '#ddd',
+    // borderStyle: 'dashed'
   },
   image: {
     height: 80,

@@ -162,6 +162,7 @@ const styles = StyleSheet.create({
   input: {
     height: 50,
     borderColor: '#ccc',
+    textAlignVertical: 'top',
     borderWidth: .5,
     flex: 1,
     padding: 5,

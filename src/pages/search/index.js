@@ -131,7 +131,7 @@ class Search extends Component {
       }
       checkGroup[index]['push'](
         <TouchableOpacity key={i} style={commonStyles.flex}>
-          <CheckBox title={range.rangeName} center checked={range.checked} onPress={this.handleCheck.bind(this, i)} containerStyle={styles.check}/>
+          <CheckBox title={range.rangeName} center checked={range.checked} onPress={this.handleCheck.bind(this, i)} containerStyle={styles.check} textStyle={styles.checkText}/>
         </TouchableOpacity>
       )
     })
@@ -195,7 +195,8 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
     borderWidth: .5,
     padding: 5,
-    fontSize: 16
+    fontSize: 16,
+    textAlignVertical: 'top'
   },
   checkGroupContainer: {
     flexDirection: 'row',
@@ -219,6 +220,10 @@ const styles = StyleSheet.create({
   hisItemText: {
     fontSize: 16,
     color: '#00a5ca'
+  },
+  checkText: {
+    fontSize: 14,
+    marginLeft: 5
   }
 })
 
