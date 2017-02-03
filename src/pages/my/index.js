@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
   },
   link: {
     textAlign: 'left',
-    fontSize: 18,
+    fontSize: 16,
     lineHeight: 25,
     paddingLeft: 10,
     color: '#333'
