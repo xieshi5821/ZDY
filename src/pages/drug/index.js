@@ -100,7 +100,7 @@ class Drug extends Component {
   renderModal() {
     const {medicinal} = this.props
     return (
-      <Modal style={styles.modal} backdrop={false} position={"top"} ref={"modal"}>
+      <Modal style={styles.modal} backdrop={true} position={"top"} ref={"modal"}>
         <ScrollView>
           <View style={styles.modalTitleWrap}><Text style={styles.modalTitle}>温馨提示</Text></View>
           <View style={styles.modalContent}>
@@ -142,6 +142,14 @@ class Drug extends Component {
           <View><Text style={styles.companyText}>北京三九药业有限公司</Text></View>
         </View>
         <View style={styles.detailWrap}>
+          <View><Text style={styles.titleText}>成份</Text></View>
+          <View><Text style={styles.detailText}>{'无'}</Text></View>
+        </View>
+        <View style={styles.detailWrap}>
+          <View><Text style={styles.titleText}>性状</Text></View>
+          <View><Text style={styles.detailText}>{'无'}</Text></View>
+        </View>
+        <View style={styles.detailWrap}>
           <View><Text style={styles.titleText}>功能主治</Text></View>
           <View><Text style={styles.detailText}>{medicinal.medicinalFunction || '无'}</Text></View>
         </View>
@@ -154,7 +162,7 @@ class Drug extends Component {
           <View><Text style={styles.detailText}>{medicinal.medicinalUsage || '无'}</Text></View>
         </View>
         <View style={styles.detailWrap}>
-          <View><Text style={styles.titleText}>不良反映</Text></View>
+          <View><Text style={styles.titleText}>不良反应</Text></View>
           <View><Text style={styles.detailText}>{medicinal.medicinalAdverseReactions || '无'}</Text></View>
         </View>
         <View style={styles.detailWrap}>
@@ -164,6 +172,34 @@ class Drug extends Component {
         <View style={styles.detailWrap}>
           <View><Text style={styles.titleText}>注意事项</Text></View>
           <View><Text style={styles.detailText}>{medicinal.medicinalAttentions || '无'}</Text></View>
+        </View>
+        <View style={styles.detailWrap}>
+          <View><Text style={styles.titleText}>药物相互作用</Text></View>
+          <View><Text style={styles.detailText}>{'无'}</Text></View>
+        </View>
+        <View style={styles.detailWrap}>
+          <View><Text style={styles.titleText}>贮藏</Text></View>
+          <View><Text style={styles.detailText}>{'无'}</Text></View>
+        </View>
+        <View style={styles.detailWrap}>
+          <View><Text style={styles.titleText}>包装</Text></View>
+          <View><Text style={styles.detailText}>{'无'}</Text></View>
+        </View>
+        <View style={styles.detailWrap}>
+          <View><Text style={styles.titleText}>有效期</Text></View>
+          <View><Text style={styles.detailText}>{'无'}</Text></View>
+        </View>
+        <View style={styles.detailWrap}>
+          <View><Text style={styles.titleText}>执行标准</Text></View>
+          <View><Text style={styles.detailText}>{'无'}</Text></View>
+        </View>
+        <View style={styles.detailWrap}>
+          <View><Text style={styles.titleText}>批准文号</Text></View>
+          <View><Text style={styles.detailText}>{'无'}</Text></View>
+        </View>
+        <View style={styles.detailWrap}>
+          <View><Text style={styles.titleText}>说明书修订日期</Text></View>
+          <View><Text style={styles.detailText}>{'无'}</Text></View>
         </View>
       </View>
     )

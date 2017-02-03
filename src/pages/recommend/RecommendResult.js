@@ -7,7 +7,7 @@ import Empty from '../../shared/empty'
 import Spinner from 'react-native-loading-spinner-overlay'
 import commonStyles from '../../styles/common'
 import { CheckBox } from 'react-native-elements'
-import {receiveSubmitWords, receiveResultList, toggleRecommendCheck, resetResultList, showMore} from '../../actions/recommendResult'
+import {receiveSubmitWords, receiveResultList, toggleRecommendCheck, resetResultList, toggleMore} from '../../actions/recommendResult'
 import {updateSource, updateQueryId, updateMedicinalName} from '../../actions/drug'
 import Icon from 'react-native-vector-icons/FontAwesome'
 export let recommendResult = null
@@ -93,20 +93,14 @@ class RecommendResult extends Component {
     })
   }
 
-  handleCollspae() {
-    this.props.dispatch(showMore())
+  handleToggleMore() {
+    this.props.dispatch(toggleMore())
   }
 
   renderRecommedWords() {
     const {recommedWords, more} = this.props
     const checkGroup = []
     let index = 0
-    let addEmpty = 3 - recommedWords.length % 3
-    while (addEmpty --) {
-      recommedWords.push({
-        empty: true
-      })
-    }
     recommedWords.forEach((word, i) => {
       if (!more && i >= 3) {
         return false
@@ -123,8 +117,14 @@ class RecommendResult extends Component {
         </View>
       )
     })
-    if (!more) {
-      checkGroup.push(<View style={commonStyles.flex}><Text style={commonStyles.textCenter} onPress={this.handleCollspae.bind(this)}><Icon name='sort-desc' size={22} color="#999"/></Text></View>)
+    if (checkGroup[index].length < 3) {
+      const addNumber = 3 - checkGroup[index].length
+      while (addNumber --) {
+        checkGroup[index]['push'](<View key={'a_' + addNumber} style={commonStyles.flex}></View>)
+      }
+    }
+    if (recommedWords.length > 3) {
+      checkGroup.push(<View style={commonStyles.flex}><Text style={commonStyles.textCenter} onPress={this.handleToggleMore.bind(this)}><Icon name={more ? 'chevron-up' : 'chevron-down'} size={22} color="#999"/></Text></View>)
     }
     return checkGroup.map((group, i) => (<View key={i} style={styles.checkWrap}>{group}</View>))
   }

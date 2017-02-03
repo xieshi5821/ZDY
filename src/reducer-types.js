@@ -28,7 +28,7 @@ export const recommendResultTypes = createModuleReducer('recommendResultTypes', 
   'TOGGLE_STAR_CHECK',
   'TOGGLE_RECOMMEND_CHECK',
   'UPDATE_PAGE',
-  'SHOW_MORE'
+  'TOGGLE_MORE'
 ])
 
 // 搜索首页
