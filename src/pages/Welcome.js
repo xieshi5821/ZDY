@@ -5,11 +5,7 @@ import {fillUrl} from '../api/request'
 import ViewPager from 'react-native-viewpager'
 
 const WELCOME = 'welcome'
-class Welcome extends Component {
-
-  static contextTypes = {
-    routes: PropTypes.object.isRequired
-  }
+export default class Welcome extends Component {
 
   constructor(props) {
     super(props)
@@ -22,9 +18,8 @@ class Welcome extends Component {
 
   componentWillMount() {
     AsyncStorage.getItem(WELCOME, (error, text) => {
-      // text = false
       if (text === 'true') {
-        this.context.routes.tabbar()
+        this.props.onFinish()
       } else {
         const {list} = this.state
         this.setState({
@@ -38,7 +33,7 @@ class Welcome extends Component {
 
   handleClickBanner() {
     AsyncStorage.setItem(WELCOME, 'true', () => {
-      this.context.routes.tabbar()
+      this.props.onFinish()
     })
   }
 
@@ -81,7 +76,3 @@ const styles = StyleSheet.create({
     width: widht
   }
 })
-
-export default connect(store => ({
-
-}))(Welcome)
