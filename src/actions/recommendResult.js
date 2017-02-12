@@ -43,7 +43,3 @@ export const toggleRecommendCheck = (index) => (dispatch) => {
 export const updatePage = (page) => (dispatch) => {
   dispatch({type: recommendResultTypes.UPDATE_PAGE, page})
 }
-
-export const toggleMore = () => (dispatch) => {
-  dispatch({type: recommendResultTypes.TOGGLE_MORE})
-}

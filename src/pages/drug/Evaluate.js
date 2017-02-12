@@ -80,25 +80,25 @@ class Evaluate extends Component {
 
   handleSubmit() {
     const {star, content, evaluateTags} = this.state
-    if (!content.length) {
-      Alert.alert('提示', '请输入您的使用感受')
-      return
+    const tags = evaluateTags.filter(evaluate => evaluate.checked).map(evaluate => evaluate.tagid).join(',')
+    if (content.length || tags) {
+      this.setState({visible: true})
+      callEvaluateAdd({
+        medicinalId: this.props.queryId,
+        evaluateStar: star,
+        evaluateContent: content,
+        evaluateTags: tags
+      }).then(() => {
+        this.setState({visible: false})
+        Toast.show('提交评论成功')
+        this.context.routes.pop()
+        drug.querySearch('evaluate')
+      }, () => {
+        this.setState({visible: false})
+      })
+    } else {
+      Alert.alert('提示', '请输入或选择您的使用感受')
     }
-    const tags = evaluateTags.map(evaluate => evaluate.tagid).join(',')
-    this.setState({visible: true})
-    callEvaluateAdd({
-      medicinalId: this.props.queryId,
-      evaluateStar: star,
-      evaluateContent: content,
-      evaluateTags: tags
-    }).then(() => {
-      this.setState({visible: false})
-      Toast.show('提交评论成功')
-      this.context.routes.pop()
-      drug.querySearch('evaluate')
-    }, () => {
-      this.setState({visible: false})
-    })
   }
 
   render() {

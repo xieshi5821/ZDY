@@ -195,8 +195,9 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
     borderWidth: .5,
     padding: 5,
-    fontSize: 16,
-    textAlignVertical: 'top'
+    fontSize: 18,
+    textAlignVertical: 'top',
+    fontWeight: 'bold'
   },
   checkGroupContainer: {
     flexDirection: 'row',

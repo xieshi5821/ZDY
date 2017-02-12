@@ -160,24 +160,25 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   input: {
-    height: 50,
+    height: 65,
     borderColor: '#ccc',
     textAlignVertical: 'top',
     borderWidth: .5,
     flex: 1,
     padding: 5,
-    fontSize: 16
+    fontSize: 18,
+    fontWeight: 'bold'
   },
   voiceContainer: {
-    width: 50,
+    width: 65,
     marginLeft: 10,
     marginBottom: 10
   },
   voice: {
     fontFamily: 'iconfont',
     color: '#58d1d8',
-    fontSize: 50,
-    lineHeight: 50
+    fontSize: 65,
+    lineHeight: 65
   },
   noticeDesc: {
     padding: 10,

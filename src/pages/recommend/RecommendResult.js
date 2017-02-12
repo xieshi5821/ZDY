@@ -7,7 +7,7 @@ import Empty from '../../shared/empty'
 import Spinner from 'react-native-loading-spinner-overlay'
 import commonStyles from '../../styles/common'
 import { CheckBox } from 'react-native-elements'
-import {receiveSubmitWords, receiveResultList, toggleRecommendCheck, resetResultList, toggleMore} from '../../actions/recommendResult'
+import {receiveSubmitWords, receiveResultList, toggleRecommendCheck, resetResultList} from '../../actions/recommendResult'
 import {updateSource, updateQueryId, updateMedicinalName} from '../../actions/drug'
 import Icon from 'react-native-vector-icons/FontAwesome'
 export let recommendResult = null
@@ -21,7 +21,8 @@ class RecommendResult extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      dataSource: null
+      dataSource: null,
+      more: false
     }
     recommendResult = this
   }
@@ -94,11 +95,15 @@ class RecommendResult extends Component {
   }
 
   handleToggleMore() {
-    this.props.dispatch(toggleMore())
+    this.setState({
+      more: !this.state.more
+    })
+    this.renderDataSource()
   }
 
   renderRecommedWords() {
-    const {recommedWords, more} = this.props
+    const {recommedWords} = this.props
+    const {more} = this.state
     const checkGroup = []
     let index = 0
     recommedWords.forEach((word, i) => {
@@ -130,14 +135,46 @@ class RecommendResult extends Component {
   }
 
   renderRow(rowData) {
-    return (
-      <View>
-        {rowData.seq === 0 ? (<View style={commonStyles.tr}>
+    const {more} = this.props
+    let header = null
+    let tableRr = null
+    if (rowData.seq === 0) {
+      const submitWords = this.renderSubmitWords()
+      const recommedWords = this.renderRecommedWords()
+      header = (
+        <View>
+          <View style={styles.inputWrap}>
+            <View style={styles.inputLabelWrap}><Text style={styles.inputLabel}>已输入信息:</Text></View>
+            <View style={styles.submitWordsWrap}>
+              {submitWords}
+            </View>
+          </View>
+          <View style={styles.blockHeader}>
+            <Text style={styles.blockTitle}>请选择您可能有的其他症状</Text>
+          </View>
+          <View>
+            <ScrollView>
+              {recommedWords}
+            </ScrollView>
+          </View>
+          <View style={styles.blockHeader}>
+            <Text style={styles.blockTitle}>推荐结果</Text>
+          </View>
+        </View>
+      )
+      tableRr = (
+        <View style={commonStyles.tr}>
           <View style={commonStyles.td}><Text style={commonStyles.rowTitle}>药名</Text></View>
           <View style={commonStyles.td}><Text style={[commonStyles.rowTitle, styles.sfyb]}>是否医保</Text></View>
           <View style={commonStyles.td}><Text style={commonStyles.rowTitle}>用药禁忌</Text></View>
           <View style={commonStyles.td}><Text style={[commonStyles.rowTitle, styles.tjxs]}>推荐系数</Text></View>
-        </View>) : null}
+        </View>
+      )
+    }
+    return (
+      <View>
+        {header}
+        {tableRr}
         <TouchableOpacity key={rowData.medicinalId} onPress={this.handleDetail.bind(this, rowData.medicinalId, rowData.medicinalName)} style={[commonStyles.tr, commonStyles.contentTr]}>
           <View style={commonStyles.td}><Text numberOfLines={1} style={[commonStyles.rowTitle, commonStyles.contentRowTitle, commonStyles.ym]}>{rowData.medicinalName}</Text></View>
           <View style={commonStyles.td}><Text numberOfLines={1} style={[commonStyles.rowTitle, commonStyles.contentRowTitle]}>{rowData.medicinalIsInsurance}</Text></View>
@@ -155,34 +192,13 @@ class RecommendResult extends Component {
   render() {
     const {dataSource} = this.state
     const {page, hasMore} = this.props
-    const submitWords = this.renderSubmitWords()
-    const recommedWords = this.renderRecommedWords()
     let list = dataSource ? <SwRefreshListView dataSource={dataSource} ref="listView" isShowLoadMore={hasMore} loadingTitle="加载中..." renderRow={this.renderRow.bind(this)} onLoadMore={this.onLoadMore.bind(this)}/> : null
     if (list === null && page === 2) {
-      list = <Empty center={false}/>
+      list = <Empty center={true}/>
     }
     return (
       <View style={styles.warp}>
-        <View style={styles.inputWrap}>
-          <View style={styles.inputLabelWrap}><Text style={styles.inputLabel}>已输入信息:</Text></View>
-          <View style={styles.submitWordsWrap}>
-            {submitWords}
-          </View>
-        </View>
-        <View style={styles.blockHeader}>
-          <Text style={styles.blockTitle}>请选择您可能有的其他症状</Text>
-        </View>
-        <View>
-          <ScrollView>
-            {recommedWords}
-          </ScrollView>
-        </View>
-        <View style={styles.blockHeader}>
-          <Text style={styles.blockTitle}>推荐结果</Text>
-        </View>
-        <View>
           {list}
-        </View>
       </View>
     )
   }
@@ -247,6 +263,5 @@ export default connect(store => ({
   submitWords: store.recommendResult.submitWords,
   recommedWords: store.recommendResult.recommedWords,
   star: store.recommendResult.star,
-  medicinalIsInsurance: store.recommendResult.medicinalIsInsurance,
-  more: store.recommendResult.more
+  medicinalIsInsurance: store.recommendResult.medicinalIsInsurance
 }))(RecommendResult)
