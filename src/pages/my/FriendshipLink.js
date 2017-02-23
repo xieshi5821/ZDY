@@ -7,7 +7,7 @@ import {updateUri, updateUriName} from '../../actions/xWebView'
 
 class FriendshipLink extends Component {
   static contextTypes = {
-    routes: PropTypes.object.isRequired,
+    routes: PropTypes.object.isRequired
   }
   constructor(props) {
     super(props)

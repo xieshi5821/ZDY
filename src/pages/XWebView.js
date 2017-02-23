@@ -15,19 +15,18 @@ class XWebView extends Component {
     return this.props.uriName
   }
 
-  componentWillMount() {
-    console.log('m')
-  }
-
-  componentWillUnmount() {
-    console.log('un')
+  componentDidMount() {
+    // console.log(this.refs.webView)
   }
 
   render() {
     const {uri} = this.props
     return (
       <View style={styles.container}>
-        <WebView style={styles.webView} scalesPageToFit={true} source={{uri}}></WebView>
+        <WebView ref="webView" style={styles.webView} scalesPageToFit={true} source={{uri}}
+          javaScriptEnabled={true}
+          domStorageEnabled={true}
+          decelerationRate="normal"></WebView>
       </View>
     )
   }

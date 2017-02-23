@@ -22,7 +22,7 @@ export default class App extends Component {
       this.setState({
         isSplashScreen: false
       })
-    }, 2000)
+    }, 2500)
   }
 
   handleFinishGuideScreen() {

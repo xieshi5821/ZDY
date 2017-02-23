@@ -3,8 +3,14 @@ import {connect} from 'react-redux'
 import {StyleSheet, View, Text, ScrollView, TouchableOpacity, Image} from 'react-native'
 import {callProductList, fillUrl} from '../../api/request'
 import Spinner from 'react-native-loading-spinner-overlay'
+import {updateUri, updateUriName} from '../../actions/xWebView'
 
 class Product extends Component {
+
+  static contextTypes = {
+    routes: PropTypes.object.isRequired
+  }
+
   constructor(props) {
     super(props)
     this.state = {
@@ -27,11 +33,17 @@ class Product extends Component {
     })
   }
 
+  handleClickLink({descVisitUrl, descTitle = ''}) {
+    this.props.dispatch(updateUriName(descTitle))
+    this.props.dispatch(updateUri(descVisitUrl))
+    this.context.routes.myWebView()
+  }
+
   renderList() {
     const {productlist} = this.state
     return productlist.map(product => {
       return (
-        <View key={product.descId} style={styles.group}>
+        <TouchableOpacity key={product.descId} style={styles.group} onPress={this.handleClickLink.bind(this, product)}>
           <View style={styles.labelWrap}>
             <Text style={styles.labelText}>{product.descTitle}</Text>
           </View>
@@ -43,7 +55,7 @@ class Product extends Component {
               </View>
             </View>
           </View>
-        </View>
+        </TouchableOpacity>
       )
     })
   }

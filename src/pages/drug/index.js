@@ -9,7 +9,6 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import {formatFullDate} from '../../libs/date'
 import {favorites} from '../my/Favorites'
 import commonStyles from '../../styles/common'
-
 export let drug = null
 class Drug extends Component {
   static contextTypes = {
@@ -19,14 +18,17 @@ class Drug extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      visible: true,
-      showModal: true
+      visible: true
     }
     drug = this
   }
 
   componentWillMount() {
     this.querySearch()
+  }
+
+  componentWillUnmount() {
+    this.props.dispatch(updateMedicinal({}))
   }
 
   getDrugTitle() {
@@ -42,6 +44,11 @@ class Drug extends Component {
       }
     }
     return title
+  }
+
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return this.props.medicinal !== nextProps.medicinal || this.state.visible !== nextState.visible
   }
 
   handleCollect() {
@@ -92,9 +99,6 @@ class Drug extends Component {
 
   hideModal() {
     this.refs.modal.close()
-    this.setState({
-      showModal: false
-    })
   }
 
   renderModal() {
@@ -129,25 +133,32 @@ class Drug extends Component {
 
   renderDetail() {
     const {medicinal} = this.props
-    if (medicinal.medicinalContraindication || medicinal.medicinalincompatibility) {
+    // console.log('渲染', medicinal.medicinalContraindication, medicinal.medicinalincompatibility)
       // 存在用药禁忌或者配伍禁忌，显示modal框
+    if (medicinal.medicinalContraindication || medicinal.medicinalincompatibility) {
       setTimeout(() => {
+        // console.log(medicinal.medicinalincompatibility ? medicinal.medicinalincompatibility.length : 'n')
         this.refs.modal && this.refs.modal.open()
-      }, 100)
+      })
     }
+
     return (
       <View>
         <View style={styles.titleWrap}>
           <View><Text style={styles.titleText}>{medicinal.medicinalName}</Text></View>
-          <View><Text style={styles.companyText}>北京三九药业有限公司</Text></View>
+          <TouchableOpacity><Text style={styles.companyText}>{medicinal.medicinalManufacturingEnterprise || '无'}</Text></TouchableOpacity>
+        </View>
+        <View style={styles.detailWrap}>
+          <View><Text style={styles.titleText}>品牌</Text></View>
+          <View><Text style={styles.detailText}>{medicinal.medicinalBrand || '无'}</Text></View>
         </View>
         <View style={styles.detailWrap}>
           <View><Text style={styles.titleText}>成份</Text></View>
-          <View><Text style={styles.detailText}>{'无'}</Text></View>
+          <View><Text style={styles.detailText}>{medicinal.medicinalIngredients || '无'}</Text></View>
         </View>
         <View style={styles.detailWrap}>
           <View><Text style={styles.titleText}>性状</Text></View>
-          <View><Text style={styles.detailText}>{'无'}</Text></View>
+          <View><Text style={styles.detailText}>{medicinal.medicinalCharacter || '无'}</Text></View>
         </View>
         <View style={styles.detailWrap}>
           <View><Text style={styles.titleText}>功能主治</Text></View>
@@ -170,36 +181,40 @@ class Drug extends Component {
           <View><Text style={styles.detailText}>{medicinal.medicinalContraindication || '无'}</Text></View>
         </View>
         <View style={styles.detailWrap}>
+          <View><Text style={styles.titleText}>配伍禁忌</Text></View>
+          <View><Text style={styles.detailText}>{medicinal.medicinalincompatibility || '无'}</Text></View>
+        </View>
+        <View style={styles.detailWrap}>
           <View><Text style={styles.titleText}>注意事项</Text></View>
           <View><Text style={styles.detailText}>{medicinal.medicinalAttentions || '无'}</Text></View>
         </View>
         <View style={styles.detailWrap}>
           <View><Text style={styles.titleText}>药物相互作用</Text></View>
-          <View><Text style={styles.detailText}>{'无'}</Text></View>
+          <View><Text style={styles.detailText}>{medicinal.medicinalInteract || '无'}</Text></View>
         </View>
         <View style={styles.detailWrap}>
           <View><Text style={styles.titleText}>贮藏</Text></View>
-          <View><Text style={styles.detailText}>{'无'}</Text></View>
+          <View><Text style={styles.detailText}>{medicinal.medicinalStorage || '无'}</Text></View>
         </View>
         <View style={styles.detailWrap}>
           <View><Text style={styles.titleText}>包装</Text></View>
-          <View><Text style={styles.detailText}>{'无'}</Text></View>
+          <View><Text style={styles.detailText}>{medicinal.medicinalPackage || '无'}</Text></View>
         </View>
         <View style={styles.detailWrap}>
           <View><Text style={styles.titleText}>有效期</Text></View>
-          <View><Text style={styles.detailText}>{'无'}</Text></View>
+          <View><Text style={styles.detailText}>{medicinal.medicinalValidity || '无'}</Text></View>
         </View>
         <View style={styles.detailWrap}>
           <View><Text style={styles.titleText}>执行标准</Text></View>
-          <View><Text style={styles.detailText}>{'无'}</Text></View>
+          <View><Text style={styles.detailText}>{medicinal.medicinalOperativeNorm || '无'}</Text></View>
         </View>
         <View style={styles.detailWrap}>
           <View><Text style={styles.titleText}>批准文号</Text></View>
-          <View><Text style={styles.detailText}>{'无'}</Text></View>
+          <View><Text style={styles.detailText}>{medicinal.medicinalLicenseNumber || '无'}</Text></View>
         </View>
         <View style={styles.detailWrap}>
-          <View><Text style={styles.titleText}>说明书修订日期</Text></View>
-          <View><Text style={styles.detailText}>{'无'}</Text></View>
+          <View><Text style={styles.titleText}>企业地址</Text></View>
+          <View><Text style={styles.detailText}>{medicinal.medicinalEnterpriseAddress || '无'}</Text></View>
         </View>
       </View>
     )
@@ -221,7 +236,7 @@ class Drug extends Component {
   }
 
   renderEvaluateList() {
-    const {evaluateList} = this.props
+    const {evaluateList, medicinal} = this.props
     const list = evaluateList.map((evaluate, index) => {
       let stars = []
       let star = parseInt(evaluate.evaluateStar)
@@ -253,7 +268,6 @@ class Drug extends Component {
   }
 
   render() {
-    const {showModal} = this.state
     const modal = this.renderModal()
     const detail = this.renderDetail()
     const evaluateList = this.renderEvaluateList()
@@ -262,7 +276,7 @@ class Drug extends Component {
         <Spinner visible={this.state.visible} color="black"/>
         {detail}
         {evaluateList}
-        {showModal ? modal : null}
+        {modal}
       </ScrollView>
     );
   }
