@@ -5,11 +5,15 @@ import Spinner from 'react-native-loading-spinner-overlay'
 import Modal from 'react-native-modalbox'
 import {callMedicinalDetail, callEvaluateList, callCollectAdd, callCollectCancel} from '../../api/request'
 import {updateMedicinal, receiveEvaluateList} from '../../actions/drug'
+import {updateHighlight} from '../../actions/highlight'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import {formatFullDate} from '../../libs/date'
 import {favorites} from '../my/Favorites'
 import commonStyles from '../../styles/common'
 export let drug = null
+
+const hasHighlightRe = /.*<highlight>.*<\/highlight>.*/
+
 class Drug extends Component {
   static contextTypes = {
     routes: PropTypes.object.isRequired
@@ -142,6 +146,8 @@ class Drug extends Component {
       })
     }
 
+    const keyWords = medicinal.medicinalKeyWordsResult || {}
+    const keyWordsHaveValue = !!Object.keys(keyWords).length
     return (
       <View>
         <View style={styles.titleWrap}>
@@ -150,74 +156,128 @@ class Drug extends Component {
         </View>
         <View style={styles.detailWrap}>
           <View><Text style={styles.titleText}>品牌</Text></View>
-          <View><Text style={styles.detailText}>{medicinal.medicinalBrand || '无'}</Text></View>
+          <View><Text style={styles.detailText}>{this.renderRealValue(keyWords, keyWordsHaveValue, medicinal, 'medicinalBrand')}</Text></View>
         </View>
         <View style={styles.detailWrap}>
           <View><Text style={styles.titleText}>成份</Text></View>
-          <View><Text style={styles.detailText}>{medicinal.medicinalIngredients || '无'}</Text></View>
+          <View><Text style={styles.detailText}>{this.renderRealValue(keyWords, keyWordsHaveValue, medicinal, 'medicinalIngredients')}</Text></View>
         </View>
         <View style={styles.detailWrap}>
           <View><Text style={styles.titleText}>性状</Text></View>
-          <View><Text style={styles.detailText}>{medicinal.medicinalCharacter || '无'}</Text></View>
+          <View><Text style={styles.detailText}>{this.renderRealValue(keyWords, keyWordsHaveValue, medicinal, 'medicinalCharacter')}</Text></View>
         </View>
         <View style={styles.detailWrap}>
           <View><Text style={styles.titleText}>功能主治</Text></View>
-          <View><Text style={styles.detailText}>{medicinal.medicinalFunction || '无'}</Text></View>
+          <View><Text style={styles.detailText}>{this.renderRealValue(keyWords, keyWordsHaveValue, medicinal, 'medicinalFunction')}</Text></View>
         </View>
         <View style={styles.detailWrap}>
           <View><Text style={styles.titleText}>规格</Text></View>
-          <View><Text style={styles.detailText}>{medicinal.medicinalSpecification || '无'}</Text></View>
+          <View><Text style={styles.detailText}>{this.renderRealValue(keyWords, keyWordsHaveValue, medicinal, 'medicinalSpecification')}</Text></View>
         </View>
         <View style={styles.detailWrap}>
           <View><Text style={styles.titleText}>用法用量</Text></View>
-          <View><Text style={styles.detailText}>{medicinal.medicinalUsage || '无'}</Text></View>
+          <View><Text style={styles.detailText}>{this.renderRealValue(keyWords, keyWordsHaveValue, medicinal, 'medicinalUsage')}</Text></View>
         </View>
         <View style={styles.detailWrap}>
           <View><Text style={styles.titleText}>不良反应</Text></View>
-          <View><Text style={styles.detailText}>{medicinal.medicinalAdverseReactions || '无'}</Text></View>
+          <View><Text style={styles.detailText}>{this.renderRealValue(keyWords, keyWordsHaveValue, medicinal, 'medicinalAdverseReactions')}</Text></View>
         </View>
         <View style={styles.detailWrap}>
           <View><Text style={styles.titleText}>禁忌</Text></View>
-          <View><Text style={styles.detailText}>{medicinal.medicinalContraindication || '无'}</Text></View>
+          <View><Text style={styles.detailText}>{this.renderRealValue(keyWords, keyWordsHaveValue, medicinal, 'medicinalContraindication')}</Text></View>
         </View>
         <View style={styles.detailWrap}>
           <View><Text style={styles.titleText}>配伍禁忌</Text></View>
-          <View><Text style={styles.detailText}>{medicinal.medicinalincompatibility || '无'}</Text></View>
+          <View><Text style={styles.detailText}>{this.renderRealValue(keyWords, keyWordsHaveValue, medicinal, 'medicinalincompatibility')}</Text></View>
         </View>
         <View style={styles.detailWrap}>
           <View><Text style={styles.titleText}>注意事项</Text></View>
-          <View><Text style={styles.detailText}>{medicinal.medicinalAttentions || '无'}</Text></View>
+          <View><Text style={styles.detailText}>{this.renderRealValue(keyWords, keyWordsHaveValue, medicinal, 'medicinalAttentions')}</Text></View>
         </View>
         <View style={styles.detailWrap}>
           <View><Text style={styles.titleText}>药物相互作用</Text></View>
-          <View><Text style={styles.detailText}>{medicinal.medicinalInteract || '无'}</Text></View>
+          <View><Text style={styles.detailText}>{this.renderRealValue(keyWords, keyWordsHaveValue, medicinal, 'medicinalInteract')}</Text></View>
         </View>
         <View style={styles.detailWrap}>
           <View><Text style={styles.titleText}>贮藏</Text></View>
-          <View><Text style={styles.detailText}>{medicinal.medicinalStorage || '无'}</Text></View>
+          <View><Text style={styles.detailText}>{this.renderRealValue(keyWords, keyWordsHaveValue, medicinal, 'medicinalStorage')}</Text></View>
         </View>
         <View style={styles.detailWrap}>
           <View><Text style={styles.titleText}>包装</Text></View>
-          <View><Text style={styles.detailText}>{medicinal.medicinalPackage || '无'}</Text></View>
+          <View><Text style={styles.detailText}>{this.renderRealValue(keyWords, keyWordsHaveValue, medicinal, 'medicinalPackage')}</Text></View>
         </View>
         <View style={styles.detailWrap}>
           <View><Text style={styles.titleText}>有效期</Text></View>
-          <View><Text style={styles.detailText}>{medicinal.medicinalValidity || '无'}</Text></View>
+          <View><Text style={styles.detailText}>{this.renderRealValue(keyWords, keyWordsHaveValue, medicinal, 'medicinalValidity')}</Text></View>
         </View>
         <View style={styles.detailWrap}>
           <View><Text style={styles.titleText}>执行标准</Text></View>
-          <View><Text style={styles.detailText}>{medicinal.medicinalOperativeNorm || '无'}</Text></View>
+          <View><Text style={styles.detailText}>{this.renderRealValue(keyWords, keyWordsHaveValue, medicinal, 'medicinalOperativeNorm')}</Text></View>
         </View>
         <View style={styles.detailWrap}>
           <View><Text style={styles.titleText}>批准文号</Text></View>
-          <View><Text style={styles.detailText}>{medicinal.medicinalLicenseNumber || '无'}</Text></View>
+          <View><Text style={styles.detailText}>{this.renderRealValue(keyWords, keyWordsHaveValue, medicinal, 'medicinalLicenseNumber')}</Text></View>
         </View>
         <View style={styles.detailWrap}>
           <View><Text style={styles.titleText}>企业地址</Text></View>
-          <View><Text style={styles.detailText}>{medicinal.medicinalEnterpriseAddress || '无'}</Text></View>
+          <View><Text style={styles.detailText}>{this.renderRealValue(keyWords, keyWordsHaveValue, medicinal, 'medicinalEnterpriseAddress')}</Text></View>
         </View>
       </View>
     )
+  }
+
+  renderRealValue(keyWords, keyWordsHaveValue, obj, key) {
+    const objValue = String(obj[key] || '')
+    if (keyWordsHaveValue && objValue.length && hasHighlightRe.test(objValue)) {
+      return this.spreadValues(keyWords, key, objValue)
+    }
+    return objValue || '无'
+  }
+
+  spreadValues(keyWords, key, objValue) {
+    const values = []
+    let startIndex = -1
+    while ((startIndex = objValue.indexOf('<highlight>')) !== -1) {
+      const unMatchValue = objValue.substring(0, startIndex)
+      objValue = objValue.substring(startIndex + 11, objValue.length)
+      unMatchValue && unMatchValue.length && values.push({
+        value: unMatchValue,
+        match: false
+      })
+      const endIndex = objValue.indexOf('</highlight>')
+      const matchValue = objValue.substring(0, endIndex)
+      objValue = objValue.substring(endIndex + 12, objValue.length)
+      matchValue && matchValue.length && values.push({
+        value: matchValue,
+        match: true
+      })
+    }
+    objValue && objValue.length && values.push({
+      value: objValue,
+      match: false
+    })
+    return values.length > 1 ? values.map(({value, match}, index) => {
+      if (match) {
+        return (<Text onPress={this.openHighlightDetail.bind(this, keyWords, value)} style={styles.highlight} key={key + '_highlight_' + index}>{value}</Text>)
+      }
+      return (<Text key={key + '_highlight_' + index}>{value}</Text>)
+    }) : '无'
+  }
+
+  openHighlightDetail(keyWords = {}, text = '') {
+    this.props.dispatch(updateHighlight(text, keyWords[text]))
+    const {source} = this.props
+    switch (source) {
+      case 'recommend':
+        this.context.routes.recommendHighlight()
+        break
+      case 'search':
+        this.context.routes.searchHighlight()
+        break
+      case 'my':
+        this.context.routes.myHighlight()
+        break
+    }
   }
 
   handleEvaluate() {
@@ -410,6 +470,9 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     paddingBottom: 5,
     borderBottomColor: '#007cca'
+  },
+  highlight: {
+    color: '#f33'
   }
 })
 

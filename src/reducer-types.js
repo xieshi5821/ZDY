@@ -59,6 +59,11 @@ export const drugTypes = createModuleReducer('drugTypes', [
   'RECEIVE_EVALUATE_LIST'
 ])
 
+// 高亮主页
+export const highlightTypes = createModuleReducer('highlightTypes', [
+  'UPDATE_HIGHLIGHT'
+])
+
 // webview
 export const xWebViewTypes = createModuleReducer('xWebViewTypes', [
   'UPDATE_URI',
