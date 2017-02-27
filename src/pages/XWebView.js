@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {StyleSheet, View, Text, ScrollView, WebView} from 'react-native'
 import {connect} from 'react-redux'
+import {updateUri, updateUriName} from '../actions/xWebView'
 
 export let xWebView = null
 
@@ -15,8 +16,9 @@ class XWebView extends Component {
     return this.props.uriName
   }
 
-  componentDidMount() {
-    // console.log(this.refs.webView)
+  componentWillUnmount() {
+    this.props.dispatch(updateUriName(''))
+    this.props.dispatch(updateUri(''))
   }
 
   render() {
