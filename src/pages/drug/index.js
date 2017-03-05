@@ -136,9 +136,10 @@ class Drug extends Component {
   }
 
   renderDetail() {
-    const {medicinal} = this.props
-    // console.log('渲染', medicinal.medicinalContraindication, medicinal.medicinalincompatibility)
-      // 存在用药禁忌或者配伍禁忌，显示modal框
+    const medicinal = Object.assign({}, this.props.medicinal)
+    medicinal.medicinalContraindication = medicinal.medicinalContraindication && medicinal.medicinalContraindication === '尚不明确' ? '' : medicinal.medicinalContraindication
+    medicinal.medicinalincompatibility = medicinal.medicinalincompatibility && medicinal.medicinalincompatibility === '尚不明确' ? '' : medicinal.medicinalincompatibility
+    // 存在用药禁忌或者配伍禁忌，显示modal框
     if (medicinal.medicinalContraindication || medicinal.medicinalincompatibility) {
       setTimeout(() => {
         // console.log(medicinal.medicinalincompatibility ? medicinal.medicinalincompatibility.length : 'n')

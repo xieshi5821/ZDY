@@ -23,7 +23,8 @@ class Highlight extends Component {
   }
 
   render() {
-    const {text} = this.props
+    let {text} = this.props
+    text = '        ' + text
     return (
       <ScrollView style={styles.container}>
         <View style={styles.textWrap}>
@@ -41,11 +42,12 @@ const styles = StyleSheet.create({
   textWrap: {
     marginTop: 5,
     backgroundColor: '#fff',
-    padding: 5
+    padding: 10
   },
   text: {
-    fontSize: 14,
-    color: '#333'
+    fontSize: 16,
+    lineHeight: 24,
+    color: '#444'
   }
 })
 
