@@ -116,7 +116,9 @@ class Search extends Component {
   }
 
   handleCheck(index) {
-    this.props.dispatch(toggleCheck(index))
+    requestAnimationFrame(() => {
+      this.props.dispatch(toggleCheck(index))
+    })
   }
 
   renderCheck() {

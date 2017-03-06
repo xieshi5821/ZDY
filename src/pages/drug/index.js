@@ -78,6 +78,7 @@ class Drug extends Component {
       Promise.all([callMedicinalDetail({medicinalId: queryId}), callEvaluateList({medicinalId: queryId, rows: 200})]).then(values => {
         this.props.dispatch(updateMedicinal(values[0]['medicinal']))
         this.props.dispatch(receiveEvaluateList(values[1]['evaluatelist']))
+        console.log(values[1]['evaluatelist'])
         this.context.routes.refresh()
         this.setState({visible: false})
       }, () => {
@@ -137,8 +138,8 @@ class Drug extends Component {
 
   renderDetail() {
     const medicinal = Object.assign({}, this.props.medicinal)
-    medicinal.medicinalContraindication = medicinal.medicinalContraindication && medicinal.medicinalContraindication === '尚不明确' ? '' : medicinal.medicinalContraindication
-    medicinal.medicinalincompatibility = medicinal.medicinalincompatibility && medicinal.medicinalincompatibility === '尚不明确' ? '' : medicinal.medicinalincompatibility
+    medicinal.medicinalContraindication = medicinal.medicinalContraindication && medicinal.medicinalContraindication.startsWith('尚不明确') ? '' : medicinal.medicinalContraindication
+    medicinal.medicinalincompatibility = medicinal.medicinalincompatibility && medicinal.medicinalincompatibility.startsWith('尚不明确') ? '' : medicinal.medicinalincompatibility
     // 存在用药禁忌或者配伍禁忌，显示modal框
     if (medicinal.medicinalContraindication || medicinal.medicinalincompatibility) {
       setTimeout(() => {

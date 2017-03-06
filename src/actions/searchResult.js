@@ -27,3 +27,13 @@ export const resetFilter = (index) => (dispatch) => {
 export const toggleStarCheck = (level) => (dispatch) => {
   dispatch({type: searchResultTypes.TOGGLE_STAR_CHECK, level})
 }
+
+export default {
+  resetResultList,
+  receiveResultList,
+  receiveContraindicationWords,
+  toggleContraindicationCheck,
+  toggleMedicinalIsInsuranceCheck,
+  resetFilter,
+  toggleStarCheck
+}

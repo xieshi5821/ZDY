@@ -1,5 +1,5 @@
 import {connect} from 'react-redux'
-import {callRegister, callRecommendHome, callRecommendSubmit, fillUrl} from '../../api/request'
+import {callRegister, callRecommendHome, callRecommendSubmit, fillUrl, callSearchList} from '../../api/request'
 import {Alert, StyleSheet, View, Text, ScrollView, Image, TouchableOpacity, TextInput, Dimensions} from 'react-native'
 import {updateInputText, receiveBannerList, receivePlaceholder, receiveExplainList} from '../../actions/recommend'
 import {updateUri, updateUriName} from '../../actions/xWebView'
@@ -8,6 +8,7 @@ import React, {Component, PropTypes} from 'react'
 import Spinner from 'react-native-loading-spinner-overlay'
 import ViewPager from 'react-native-viewpager'
 import {receiveResultList, receiveContraindicationWords, resetResultList, resetFilter, receiveSubmitWords, receiveRecommedWords, updatePage} from '../../actions/recommendResult'
+import searchResult from '../../actions/searchResult'
 import Toast from 'react-native-root-toast'
 
 class Recommend extends Component {
@@ -70,7 +71,26 @@ class Recommend extends Component {
     this.props.dispatch(resetResultList())
     this.props.dispatch(resetFilter())
 
-    callRecommendSubmit({text: inputText}).then(({recommedWords, contraindicationWrods, submitWords, resultlist}) => {
+    callRecommendSubmit({text: inputText}).then(({search = false, recommedWords, contraindicationWrods, submitWords, resultlist}) => {
+      if (search) {
+        // console.log(searchResult)
+        callSearchList({text: inputText, rangeField: '', rows: 20, page: 1}).then(({contraindicationWrods, resultlist}) => {
+          this.props.dispatch(searchResult.receiveResultList(resultlist))
+          this.props.dispatch(searchResult.receiveContraindicationWords(contraindicationWrods.map(contraindication => {
+            return {
+              name: contraindication,
+              checked: false
+            }
+          })))
+          this.context.routes.searchResult()
+          this.setState({visible: false})
+        }, () => {
+          this.setState({visible: false})
+        })
+        this.setState({visible: false})
+        this.context.routes.searchResult()
+        return
+      }
       this.props.dispatch(receiveRecommedWords(recommedWords.map(recommed => {
         return {
           name: recommed,

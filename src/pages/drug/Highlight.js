@@ -14,6 +14,10 @@ class Highlight extends Component {
     highlight = this
   }
 
+  shouldComponentUpdate() {
+    return false
+  }
+
   componentWillUnmount() {
     this.props.dispatch(updateHighlight('', ''))
   }
