@@ -78,7 +78,7 @@ class Drug extends Component {
       Promise.all([callMedicinalDetail({medicinalId: queryId}), callEvaluateList({medicinalId: queryId, rows: 200})]).then(values => {
         this.props.dispatch(updateMedicinal(values[0]['medicinal']))
         this.props.dispatch(receiveEvaluateList(values[1]['evaluatelist']))
-        console.log(values[1]['evaluatelist'])
+        // console.log(values[1]['evaluatelist'])
         this.context.routes.refresh()
         this.setState({visible: false})
       }, () => {
@@ -108,6 +108,8 @@ class Drug extends Component {
 
   renderModal() {
     const {medicinal} = this.props
+    const keyWords = medicinal.medicinalKeyWordsResult || {}
+    const keyWordsHaveValue = !!Object.keys(keyWords).length
     return (
       <Modal style={styles.modal} backdrop={true} position={"top"} ref={"modal"}>
         <ScrollView>
@@ -116,13 +118,13 @@ class Drug extends Component {
             {medicinal.medicinalContraindication ? (
               <View style={styles.modalGroupWrap}>
                 <View style={styles.modalLabelWrap}><Text style={styles.modalLabel}>用药禁忌</Text></View>
-                <View style={styles.modalTextWrap}><Text style={styles.modalText}>{medicinal.medicinalContraindication}</Text></View>
+                <View style={styles.modalTextWrap}><Text style={styles.modalText}>{this.renderRealValue(keyWords, keyWordsHaveValue, medicinal, 'medicinalContraindication')}</Text></View>
               </View>
             ) : null}
             {medicinal.medicinalincompatibility ? (
               <View style={styles.modalGroupWrap}>
                 <View style={styles.modalLabelWrap}><Text style={styles.modalLabel}>配伍禁忌</Text></View>
-                <View style={styles.modalTextWrap}><Text style={styles.modalText}>{medicinal.medicinalincompatibility}</Text></View>
+                <View style={styles.modalTextWrap}><Text style={styles.modalText}>{this.renderRealValue(keyWords, keyWordsHaveValue, medicinal, 'medicinalincompatibility')}</Text></View>
               </View>
             ) : null}
           </View>

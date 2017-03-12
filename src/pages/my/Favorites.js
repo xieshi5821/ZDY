@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, ListView, TouchableOpacity } from 'react-native'
-import { SwRefreshListView } from 'react-native-swRefresh'
+import { SwRefreshListView } from '../../libs/SwRefresh'
 import {callCollectList} from '../../api/request'
 import {connect} from 'react-redux'
 import {receiveResultList} from '../../actions/favorites'

@@ -10,6 +10,7 @@ import ViewPager from 'react-native-viewpager'
 import {receiveResultList, receiveContraindicationWords, resetResultList, resetFilter, receiveSubmitWords, receiveRecommedWords, updatePage} from '../../actions/recommendResult'
 import searchResult from '../../actions/searchResult'
 import Toast from 'react-native-root-toast'
+import { BaiduVoise, SpeechRecognizer} from 'react-native-voise'
 
 class Recommend extends Component {
 
@@ -113,8 +114,11 @@ class Recommend extends Component {
     })
   }
 
-  handleVoice() {
-    Toast.show('正在调试中...')
+  onReceive(results) {
+    if (results && results.length) {
+      const result = results[0]
+      this.handleChangeInput(result)
+    }
   }
 
   renderPage(banner, pageID) {
@@ -145,9 +149,16 @@ class Recommend extends Component {
         <View style={styles.inputForm}>
           <View style={styles.inputContainer}>
             <TextInput underlineColorAndroid='transparent' multiline placeholder={this.props.placeholder} style={styles.input} onChangeText={this.handleChangeInput.bind(this)} value={this.props.inputText}></TextInput>
-            <TouchableOpacity onPress={this.handleVoice.bind(this)} style={styles.voiceContainer}>
-              <Text style={styles.voice}>&#xe512;</Text>
-            </TouchableOpacity>
+            <BaiduVoise
+              ref={'BaiduVoise'}
+              style={styles.voiceContainer}
+              dialog_theme={16777217}
+              prop={10052}
+              api_key={'rAichc9jomN60TdGtjqevFwc'}
+              secret_key={'ff2efe4bd37d7c6b0c2da9aedb5a2bd5'}
+              onReceive={this.onReceive.bind(this)}>
+                <Text style={styles.voice}>&#xe512;</Text>
+            </BaiduVoise>
           </View>
           <TouchableOpacity style={commonStyles.submitContainer}>
             <Text style={commonStyles.submit} onPress={this.handleSubmit.bind(this)}>提交您的信息</Text>
