@@ -34,9 +34,10 @@ class SearchResult extends Component {
     this.setState({dataSource: resultList.length ? this._dataSource.cloneWithRows(resultList) : null})
   }
 
-  querySearch() {
+  querySearch(reset = true) {
     return new Promise((resolve, reject) => {
-      const {rows, page, inputText, rangeList, star, medicinalIsInsurance, medicinalContraindication, contraindicationWords} = this.props
+      let {rows, page, inputText, rangeList, star, medicinalIsInsurance, medicinalContraindication, contraindicationWords} = this.props
+      page = reset ? 1 : page
       const rangeFields = []
       rangeList.forEach(({checked, rangeField}) => {
         if (checked && rangeFields.indexOf(rangeField) === -1) {
@@ -96,7 +97,7 @@ class SearchResult extends Component {
   }
 
   onLoadMore(end){
-    this.querySearch().then(() => end())
+    this.querySearch(false).then(() => end())
   }
 
   render(){

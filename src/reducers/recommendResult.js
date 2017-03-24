@@ -1,6 +1,6 @@
 import { recommendResultTypes } from '../reducer-types'
 const initialState = {
-  rows: 20,
+  rows: 10,
   page: 1,
   resultList: [],
   hasMore: true,
@@ -8,7 +8,8 @@ const initialState = {
   star: [],
   medicinalIsInsurance: [],
   submitWords: [],
-  recommedWords: []
+  recommedWords: [],
+  recommedWordPaths: []
 }
 
 export default search = (state = initialState, action) => {
@@ -19,9 +20,19 @@ export default search = (state = initialState, action) => {
       return {...state, resultList: [], page: 1, hasMore: true}
     case recommendResultTypes.TOGGLE_RECOMMEND_CHECK:
       const recommedWords = Object.assign([], state.recommedWords)
+      const recommedWordPaths = Object.assign([], state.recommedWordsPath)
       const word = recommedWords[action.index]
-      word.checked = !word.checked
-      return {...state, recommedWords}
+      if (word.checked) {
+        const searchIndex = recommedWordPaths.indexOf(action.index)
+        if (searchIndex !== -1) {
+          recommedWordPaths.splice(searchIndex, 1)
+        }
+        word.checked = false
+      } else {
+        recommedWordPaths.push(action.index)
+        word.checked = true
+      }
+      return {...state, recommedWords, recommedWordPaths}
     case recommendResultTypes.RECEIVE_RESULT_LIST:
       const {gridModel, page, total} = action.resultList
       const resultList = Object.assign([], state.resultList)

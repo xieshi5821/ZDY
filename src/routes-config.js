@@ -13,7 +13,6 @@ import Search from './pages/search/'
 import SearchResult, {searchResult} from './pages/search/SearchResult'
 import SearchResultFilter from './pages/search/SearchResultFilter'
 import Durg, {drug} from './pages/drug/'
-import Highlight, {highlight} from './pages/drug/Highlight'
 
 import Evaluate from './pages/drug/Evaluate'
 import My from './pages/my/'
@@ -38,10 +37,6 @@ const getCollectTitle = () => {
   return drug ? drug.getCollectTitle() : ''
 }
 
-const getHighlightTitle = () => {
-  return highlight ? highlight.getHighlightTitle() : ''
-}
-
 const getWebViewTitle = () => {
   return xWebView ? xWebView.getWebViewTitle() : ''
 }
@@ -55,10 +50,9 @@ export default function configRoutes() {
         <Scene key="tabbar" tabs={true} duration={0} tabBarIconContainerStyle={styles.tabBarIconContainerStyle} >
             <Scene key="recommend" title="找对药" icon={TabIcon}>
               <Scene key="recommendPage" initial={true} component={Recommend} title="找对药" sceneStyle={styles.sceneContentStyle}/>
-              <Scene key="recommendResult" component={RecommendResult} backTitle="智能推荐" backButtonTextStyle={styles.backButtonTextStyle} rightButtonImage={require('../assets/images/filter.png')} onRight={() => recommendResult.context.routes.recommendResultFilter()} hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
+              <Scene key="recommendResult" onBack={() => recommendResult.goBack()} component={RecommendResult} backTitle="智能推荐" backButtonTextStyle={styles.backButtonTextStyle} rightButtonImage={require('../assets/images/filter.png')} onRight={() => recommendResult.context.routes.recommendResultFilter()} hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
               <Scene key="recommendResultFilter" component={RecommendResultFilter} title="筛选" hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
               <Scene key="recommendDurg" component={Durg} getTitle={getDrugTitle} getRightTitle={getCollectTitle} onRight={() => drug.handleCollect()} rightButtonTextStyle={styles.titleStyle} hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
-              <Scene key="recommendHighlight" component={Highlight} getTitle={getHighlightTitle} hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
               <Scene key="recommendEvaluate" component={Evaluate} title="药品点评" hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
               <Scene key="recommendWebView" component={XWebView} getTitle={getWebViewTitle} hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
             </Scene>
@@ -67,7 +61,6 @@ export default function configRoutes() {
               <Scene key="searchResult" component={SearchResult} backTitle="检索" backButtonTextStyle={styles.backButtonTextStyle} rightButtonImage={require('../assets/images/filter.png')} onRight={() => searchResult.context.routes.searchResultFilter()} hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
               <Scene key="searchResultFilter" component={SearchResultFilter} title="筛选" hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
               <Scene key="searchDurg" component={Durg} getTitle={getDrugTitle} getRightTitle={getCollectTitle} onRight={() => drug.handleCollect()} rightButtonTextStyle={styles.titleStyle} hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
-              <Scene key="searchHighlight" component={Highlight} getTitle={getHighlightTitle} hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
               <Scene key="searchEvaluate" component={Evaluate} title="药品点评" direction="vertical" hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
           </Scene>
             <Scene key="my" icon={TabIcon} title="我的">
@@ -78,7 +71,6 @@ export default function configRoutes() {
               <Scene key="myFriendshipLink" component={FriendshipLink} title="友情链接" hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
               <Scene key="myProduct" component={Product} title="产品推荐" hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
               <Scene key="myDurg" component={Durg} getTitle={getDrugTitle} getRightTitle={getCollectTitle} onRight={() => drug.handleCollect()} rightButtonTextStyle={styles.titleStyle} hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
-              <Scene key="myHighlight" component={Highlight} getTitle={getHighlightTitle} hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
               <Scene key="myEvaluate" component={Evaluate} title="药品点评" direction="vertical" hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
               <Scene key="myWebView" component={XWebView} getTitle={getWebViewTitle} hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
             </Scene>

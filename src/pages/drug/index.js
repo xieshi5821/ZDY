@@ -5,7 +5,6 @@ import Spinner from 'react-native-loading-spinner-overlay'
 import Modal from 'react-native-modalbox'
 import {callMedicinalDetail, callEvaluateList, callCollectAdd, callCollectCancel} from '../../api/request'
 import {updateMedicinal, receiveEvaluateList} from '../../actions/drug'
-import {updateHighlight} from '../../actions/highlight'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import {formatFullDate} from '../../libs/date'
 import {favorites} from '../my/Favorites'
@@ -22,7 +21,9 @@ class Drug extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      visible: true
+      visible: true,
+      xTitle: '',
+      xContent: ''
     }
     drug = this
   }
@@ -52,7 +53,7 @@ class Drug extends Component {
 
 
   shouldComponentUpdate(nextProps, nextState) {
-    return this.props.medicinal !== nextProps.medicinal || this.state.visible !== nextState.visible
+    return this.props.medicinal !== nextProps.medicinal || this.state.visible !== nextState.visible || this.state.xTitle !== nextState.xTitle
   }
 
   handleCollect() {
@@ -104,6 +105,7 @@ class Drug extends Component {
 
   hideModal() {
     this.refs.modal.close()
+    this.refs.xmodal.close()
   }
 
   renderModal() {
@@ -127,6 +129,25 @@ class Drug extends Component {
                 <View style={styles.modalTextWrap}><Text style={styles.modalText}>{this.renderRealValue(keyWords, keyWordsHaveValue, medicinal, 'medicinalincompatibility')}</Text></View>
               </View>
             ) : null}
+          </View>
+        </ScrollView>
+        <View style={styles.modalGroupWrap}>
+          <TouchableOpacity style={styles.modalButtonWrap} onPress={this.hideModal.bind(this)}>
+            <Text style={styles.modalButton}>我知道了</Text>
+          </TouchableOpacity>
+        </View>
+      </Modal>
+    )
+  }
+
+  renderXModal() {
+    const {xTitle, xContent} = this.state
+    return (
+      <Modal style={styles.xmodal} backdrop={true} position={"top"} ref={"xmodal"}>
+        <ScrollView>
+          <View style={styles.modalTitleWrap}><Text style={styles.modalTitle}>{xTitle}</Text></View>
+          <View style={styles.modalContent}>
+            <Text>{xContent}</Text>
           </View>
         </ScrollView>
         <View style={styles.modalGroupWrap}>
@@ -269,19 +290,11 @@ class Drug extends Component {
   }
 
   openHighlightDetail(keyWords = {}, text = '') {
-    this.props.dispatch(updateHighlight(text, keyWords[text]))
-    const {source} = this.props
-    switch (source) {
-      case 'recommend':
-        this.context.routes.recommendHighlight()
-        break
-      case 'search':
-        this.context.routes.searchHighlight()
-        break
-      case 'my':
-        this.context.routes.myHighlight()
-        break
-    }
+    this.setState({
+      xTitle: text,
+      xContent: keyWords[text]
+    })
+    this.refs.xmodal && this.refs.xmodal.open()
   }
 
   handleEvaluate() {
@@ -333,6 +346,7 @@ class Drug extends Component {
 
   render() {
     const modal = this.renderModal()
+    const xmodal = this.renderXModal()
     const detail = this.renderDetail()
     const evaluateList = this.renderEvaluateList()
     return (
@@ -341,6 +355,7 @@ class Drug extends Component {
         {detail}
         {evaluateList}
         {modal}
+        {xmodal}
       </ScrollView>
     );
   }
@@ -354,6 +369,15 @@ const styles = StyleSheet.create({
     height: height * .4,
     width: width * .85,
     marginTop: height * .15,
+    borderRadius: 4,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    backgroundColor: '#fff'
+  },
+  xmodal: {
+    height: height * .6,
+    width: width * .85,
+    marginTop: height * .1,
     borderRadius: 4,
     borderWidth: 1,
     borderColor: '#ccc',

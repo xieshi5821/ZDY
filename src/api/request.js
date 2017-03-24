@@ -31,6 +31,7 @@ const ajax = (url, params = {}) => {
         body: toQueryString(params)
       }).then(resp => resp.json()).then(({errorCode = '100', errorMsg, data}) => {
         // console.log(params, errorCode, errorMsg, data)
+        // console.log(url, 'token='+ pid, params, data)
         if (errorCode === '100') {
           resolve(data || {})
         } else {
@@ -109,6 +110,10 @@ export const callFirendList = () => {
 
 export const callFeedbackAdd = (params) => {
   return ajax('/api/center/feedback/add', params)
+}
+
+export const callEvaHistory = () => {
+  return ajax('/api/evaluate/medicinal/history')
 }
 
 export const callRegister = () => {

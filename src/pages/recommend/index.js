@@ -1,5 +1,5 @@
 import {connect} from 'react-redux'
-import {callRegister, callRecommendHome, callRecommendSubmit, fillUrl, callSearchList} from '../../api/request'
+import {callRegister, callRecommendHome, callRecommendSubmit, fillUrl, callSearchList, callEvaHistory, callEvaluateAdd} from '../../api/request'
 import {Alert, StyleSheet, View, Text, ScrollView, Image, TouchableOpacity, TextInput, Dimensions} from 'react-native'
 import {updateInputText, receiveBannerList, receivePlaceholder, receiveExplainList} from '../../actions/recommend'
 import {updateUri, updateUriName} from '../../actions/xWebView'
@@ -11,6 +11,9 @@ import {receiveResultList, receiveContraindicationWords, resetResultList, resetF
 import searchResult from '../../actions/searchResult'
 import Toast from 'react-native-root-toast'
 import { BaiduVoise, SpeechRecognizer} from 'react-native-voise'
+import Modal from 'react-native-modalbox'
+import { CheckBox } from 'react-native-elements'
+import Icon from 'react-native-vector-icons/FontAwesome'
 
 class Recommend extends Component {
 
@@ -23,19 +26,34 @@ class Recommend extends Component {
     super(props)
     this.state = {
       visible: true,
-      dataSource: null
+      dataSource: null,
+      his: [],
+      star: 5,
+      starName: '非常满意'
     }
   }
-
   componentWillMount() {
     callRegister().then(() => {
-      callRecommendHome().then(({homeBannerlist, homeExplainlist, homePlaceholder}) => {
-        this.props.dispatch(receiveBannerList(homeBannerlist))
-        this.props.dispatch(receivePlaceholder(homePlaceholder))
-        this.props.dispatch(receiveExplainList(homeExplainlist))
+      Promise.all([callRecommendHome(), callEvaHistory()]).then(([home, his]) => {
+        this.props.dispatch(receiveBannerList(home.homeBannerlist))
+        this.props.dispatch(receivePlaceholder(home.homePlaceholder))
+        this.props.dispatch(receiveExplainList(home.homeExplainlist))
+        // console.log(his)
+        if (his && his.historyList && his.historyList.length) {
+          this.setState({
+            his: his.historyList.map(item => {
+              item.checked = false
+              return item
+            })
+          })
+          setTimeout(() => {
+            this.refs.modal && this.refs.modal.open()
+          })
+        }
         this.setState({visible: false})
       }, () => {
         this.setState({visible: false})
+
       })
     }, () => {
       this.setState({visible: false})
@@ -74,7 +92,6 @@ class Recommend extends Component {
 
     callRecommendSubmit({text: inputText}).then(({search = false, recommedWords, contraindicationWrods, submitWords, resultlist}) => {
       if (search) {
-        // console.log(searchResult)
         callSearchList({text: inputText, rangeField: '', rows: 20, page: 1}).then(({contraindicationWrods, resultlist}) => {
           this.props.dispatch(searchResult.receiveResultList(resultlist))
           this.props.dispatch(searchResult.receiveContraindicationWords(contraindicationWrods.map(contraindication => {
@@ -136,10 +153,110 @@ class Recommend extends Component {
     return this.props.explainList.map(((explain, index) => (<View key={index}><Text style={styles.noticeText}>{explain}</Text></View>)))
   }
 
+  handeCloseModal() {
+    const {his, star, starName} = this.state
+    const ok = his.some(({checked}) => checked)
+    if (!ok) {
+      Toast.show('请选择药品')
+      return
+    }
+    const medicinalIds = his.map(({medicinalId}) => medicinalId).join(',')
+
+    callEvaluateAdd({
+      medicinalId: medicinalIds,
+      evaluateStar: star,
+      evaluateContent: starName
+    }).then(() => {
+      Toast.show('感谢您的评论！')
+    }, () => {})
+    this.refs.modal.close()
+  }
+
+  handleCheck(i) {
+    const {his} = this.state
+    this.setState({
+      his: his.map((item, index) => {
+        if (index === i) {
+          item.checked = !item.checked
+        }
+        return item
+      })
+    })
+  }
+
+  handleClickStar(star) {
+    let starName = ''
+    switch (star) {
+      case 1:
+        starName = '很不满意'
+        break;
+      case 2:
+        starName = '不满意'
+        break;
+      case 3:
+        starName = '一般'
+        break;
+      case 4:
+        starName = '比较满意'
+        break;
+      case 5:
+        starName = '非常满意'
+        break;
+    }
+    this.setState({star, starName})
+  }
+
+  renderModal() {
+    const {his, star, starName} = this.state
+    const checkboxs = his.map((item, i) => (<CheckBox key={item.medicinalId} onPress={this.handleCheck.bind(this, i)} checked={item.checked} title={item.medicinalName} containerStyle={styles.check} textStyle={styles.checkText}/>))
+    return (
+      <Modal style={styles.modal} backdrop={false} position={"top"} ref={"modal"}>
+        <ScrollView>
+          <View style={styles.modalContent}>
+            <View style={styles.headerWrap}>
+              <View style={commonStyles.flex}>
+                <Text>您是否选择了推荐药品：</Text>
+              </View>
+              <TouchableOpacity onPress={this.handeCloseModal.bind(this)} style={styles.closeModal}>
+                <Text>关闭</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.durgList}>
+              {checkboxs}
+            </View>
+          </View>
+          <View style={styles.formWrap}>
+            <View style={styles.labelWrap}>
+              <Text style={styles.lx}>疗效</Text>
+            </View>
+            <View style={styles.starWrap}>
+              <TouchableOpacity onPress={this.handleClickStar.bind(this, 1)}><Icon name="star" size={26} color={star >= 1 ? '#f93' : "#ccc"}/></TouchableOpacity>
+              <TouchableOpacity onPress={this.handleClickStar.bind(this, 2)}><Icon name="star" size={26} color={star >= 2 ? '#f93' : "#ccc"}/></TouchableOpacity>
+              <TouchableOpacity onPress={this.handleClickStar.bind(this, 3)}><Icon name="star" size={26} color={star >= 3 ? '#f93' : "#ccc"}/></TouchableOpacity>
+              <TouchableOpacity onPress={this.handleClickStar.bind(this, 4)}><Icon name="star" size={26} color={star >= 4 ? '#f93' : "#ccc"}/></TouchableOpacity>
+              <TouchableOpacity onPress={this.handleClickStar.bind(this, 5)}><Icon name="star" size={26} color={star >= 5 ? '#f93' : "#ccc"}/></TouchableOpacity>
+            </View>
+          </View>
+          <View style={styles.starNameWrap}>
+            <Text style={styles.dj}>{starName}</Text>
+          </View>
+        </ScrollView>
+        <View style={styles.modalGroupWrap}>
+          <View>
+            <TouchableOpacity style={styles.modalButtonWrap} onPress={this.handeCloseModal.bind(this)}>
+              <Text style={styles.modalButton}>提交</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+    )
+  }
+
   render() {
     const {visible, dataSource} = this.state
     const pager = dataSource ? (<ViewPager dataSource={this.state.dataSource} renderPage={this.renderPage.bind(this)} autoPlay/>): null
     const explains = this.rederNoticeDesc()
+    const modal = this.renderModal()
     return (
       <ScrollView>
         <Spinner visible={this.state.visible} color="black"/>
@@ -168,11 +285,12 @@ class Recommend extends Component {
           <View><Text style={styles.noticeText}>使用说明：</Text></View>
           {explains}
         </View>
+        {modal}
       </ScrollView>
     )
   }
 }
-const width = Dimensions.get('window').width
+const {height, width} = Dimensions.get('window')
 const styles = StyleSheet.create({
   pagerContainer: {
     height: 160
@@ -218,6 +336,87 @@ const styles = StyleSheet.create({
     color: '#666',
     fontSize: 16,
     lineHeight: 24
+  },
+  modal: {
+    height: height * .55,
+    width: width * .85,
+    marginTop: height * .15,
+    borderRadius: 4,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    backgroundColor: '#fff'
+  },
+  modalGroupWrap: {
+    padding: 5
+  },
+  modalLabelWrap: {
+    borderBottomWidth: 1,
+    borderBottomColor: '#e8e8e8',
+    paddingTop: 5,
+    paddingBottom: 5
+  },
+  modalTextWrap: {
+    paddingTop: 5
+  },
+  modalContent: {
+    padding: 10
+  },
+  modalLabel: {
+    color: '#00a5ca',
+    fontSize: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: '#007594'
+  },
+  modalButtonWrap: {
+    borderTopWidth: 1,
+    borderTopColor: '#e8e8e8',
+    paddingTop: 5
+  },
+  modalButton: {
+    color: '#00a5ca',
+    fontSize: 16,
+    textAlign: 'center',
+    padding: 10,
+    borderWidth: 1,
+    borderColor: '#007594'
+  },
+  check: {
+    backgroundColor: 'transparent',
+    borderWidth: 0,
+    padding: 0,
+    margin: 0
+  },
+  checkText: {
+    fontSize: 14,
+    marginLeft: 5
+  },
+  formWrap: {
+    flex: 1,
+    paddingLeft: 10,
+    paddingTop: 5,
+    paddingBottom: 5
+  },
+  labelWrap: {
+    height: 30,
+  },
+  starWrap: {
+    flexDirection: 'row'
+  },
+  starNameWrap: {
+    width: 80,
+    paddingLeft: 5
+  },
+  dj: {
+    color: '#999'
+  },
+  durgList: {
+    paddingTop: 5
+  },
+  headerWrap: {
+    flexDirection: 'row'
+  },
+  closeModal: {
+    width: 30
   }
 })
 

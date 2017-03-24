@@ -7,7 +7,7 @@ import Empty from '../../shared/empty'
 import Spinner from 'react-native-loading-spinner-overlay'
 import commonStyles from '../../styles/common'
 import { CheckBox } from 'react-native-elements'
-import {receiveSubmitWords, receiveResultList, toggleRecommendCheck, resetResultList} from '../../actions/recommendResult'
+import {receiveSubmitWords, receiveResultList, toggleRecommendCheck, resetResultList, updatePage} from '../../actions/recommendResult'
 import {updateSource, updateQueryId, updateMedicinalName} from '../../actions/drug'
 import Icon from 'react-native-vector-icons/FontAwesome'
 export let recommendResult = null
@@ -28,6 +28,19 @@ class RecommendResult extends Component {
   }
   componentWillMount() {
     this.renderDataSource()
+  }
+
+  goBack() {
+    const {recommedWordPaths} = this.props
+    // console.log(recommedWordPaths)
+    // console.log(recommedWordPaths)
+    if (recommedWordPaths.length) {
+      const lastIndex = recommedWordPaths[recommedWordPaths.length - 1]
+      // console.log(lastIndex)
+      this.handleCheckRecommedWord(lastIndex)
+    } else {
+      this.context.routes.pop()
+    }
   }
   renderDataSource() {
     const {resultList} = this.props
@@ -50,9 +63,10 @@ class RecommendResult extends Component {
     this.context.routes.recommendDurg()
   }
 
-  querySearch() {
+  querySearch(reset = true) {
     return new Promise((resolve, reject) => {
-      const {rows, page, star, submitWords, recommedWords, medicinalIsInsurance, medicinalContraindication, contraindicationWords} = this.props
+      let {rows, page, star, submitWords, recommedWords, medicinalIsInsurance, medicinalContraindication, contraindicationWords} = this.props
+      page = reset ? 1 : page
       const words = []
       contraindicationWords.forEach(({checked, name}) => {
         if (checked && words.indexOf(name) === -1) {
@@ -76,12 +90,14 @@ class RecommendResult extends Component {
     const submitWords = Object.assign([], this.props.submitWords).filter(submit => submit !== word)
     this.props.dispatch(receiveSubmitWords(submitWords))
     this.props.dispatch(resetResultList())
+    this.props.dispatch(updatePage(1))
     this.querySearch()
   }
 
   handleCheckRecommedWord(index) {
     this.props.dispatch(toggleRecommendCheck(index))
     this.props.dispatch(resetResultList())
+    this.props.dispatch(updatePage(1))
     this.querySearch()
   }
 
@@ -186,7 +202,7 @@ class RecommendResult extends Component {
   }
 
   onLoadMore(end){
-    this.querySearch().then(() => end())
+    this.querySearch(false).then(() => end())
   }
 
   render() {
@@ -262,6 +278,7 @@ export default connect(store => ({
   contraindicationWords: store.recommendResult.contraindicationWords,
   submitWords: store.recommendResult.submitWords,
   recommedWords: store.recommendResult.recommedWords,
+  recommedWordPaths: store.recommendResult.recommedWordPaths,
   star: store.recommendResult.star,
   medicinalIsInsurance: store.recommendResult.medicinalIsInsurance
 }))(RecommendResult)
