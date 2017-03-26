@@ -172,6 +172,10 @@ class Recommend extends Component {
     this.refs.modal.close()
   }
 
+  handeOnlyCloseModal() {
+    this.refs.modal.close()
+  }
+
   handleCheck(i) {
     const {his} = this.state
     this.setState({
@@ -217,7 +221,7 @@ class Recommend extends Component {
               <View style={commonStyles.flex}>
                 <Text>您是否选择了推荐药品：</Text>
               </View>
-              <TouchableOpacity onPress={this.handeCloseModal.bind(this)} style={styles.closeModal}>
+              <TouchableOpacity onPress={this.handeOnlyCloseModal.bind(this)} style={styles.closeModal}>
                 <Text>关闭</Text>
               </TouchableOpacity>
             </View>
