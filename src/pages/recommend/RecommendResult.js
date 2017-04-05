@@ -28,15 +28,13 @@ class RecommendResult extends Component {
   }
   componentWillMount() {
     this.renderDataSource()
+    BackAndroid.addEventListener('hardwareBackPress', this.onBackAndroid);
   }
 
   goBack() {
     const {recommedWordPaths} = this.props
-    // console.log(recommedWordPaths)
-    // console.log(recommedWordPaths)
     if (recommedWordPaths.length) {
       const lastIndex = recommedWordPaths[recommedWordPaths.length - 1]
-      // console.log(lastIndex)
       this.handleCheckRecommedWord(lastIndex)
     } else {
       this.context.routes.pop()
@@ -87,11 +85,16 @@ class RecommendResult extends Component {
   }
 
   handleCancelSubmitWord(word) {
-    const submitWords = Object.assign([], this.props.submitWords).filter(submit => submit !== word)
-    this.props.dispatch(receiveSubmitWords(submitWords))
-    this.props.dispatch(resetResultList())
-    this.props.dispatch(updatePage(1))
-    this.querySearch()
+    const {submitWords} = this.props
+    if (submitWords.length === 1) {
+      this.context.routes.pop()
+    } else {
+      const submitWords = Object.assign([], this.props.submitWords).filter(submit => submit !== word)
+      this.props.dispatch(receiveSubmitWords(submitWords))
+      this.props.dispatch(resetResultList())
+      this.props.dispatch(updatePage(1))
+      this.querySearch()
+    }
   }
 
   handleCheckRecommedWord(index) {

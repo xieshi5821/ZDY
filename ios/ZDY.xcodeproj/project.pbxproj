@@ -19,7 +19,6 @@
 		139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139105C11AF99BAD00B5F7CC /* libRCTSettings.a */; };
 		139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139FDEF41B06529B00C62182 /* libRCTWebSocket.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
-		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
@@ -41,6 +40,34 @@
 		C97B085D1DEC4FA70084AE2A /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C97B08541DEC4FA70084AE2A /* Octicons.ttf */; };
 		C97B085E1DEC4FA70084AE2A /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C97B08551DEC4FA70084AE2A /* SimpleLineIcons.ttf */; };
 		C97B085F1DEC4FA70084AE2A /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C97B08561DEC4FA70084AE2A /* Zocial.ttf */; };
+		C9D980C91E93675400805FCD /* BDVoiceEventSend.m in Sources */ = {isa = PBXBuildFile; fileRef = C9D9808E1E93675400805FCD /* BDVoiceEventSend.m */; };
+		C9D980CA1E93675400805FCD /* BDVoiceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9D980901E93675400805FCD /* BDVoiceVC.m */; };
+		C9D980CB1E93675400805FCD /* BDVRSConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = C9D980931E93675400805FCD /* BDVRSConfig.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C9D980CC1E93675400805FCD /* CADebugMacros.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9D980961E93675400805FCD /* CADebugMacros.cpp */; };
+		C9D980CD1E93675400805FCD /* CAStreamBasicDescription.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9D980991E93675400805FCD /* CAStreamBasicDescription.cpp */; };
+		C9D980CE1E93675400805FCD /* CAXException.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9D9809B1E93675400805FCD /* CAXException.cpp */; };
+		C9D980CF1E93675400805FCD /* libBDVoiceRecognitionClient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C9D980A81E93675400805FCD /* libBDVoiceRecognitionClient.a */; };
+		C9D980D01E93675400805FCD /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C9D980AB1E93675400805FCD /* TTTAttributedLabel.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C9D980E01E93675400805FCD /* BDVRPickerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9D980C11E93675400805FCD /* BDVRPickerTableViewCell.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C9D980E11E93675400805FCD /* BDVRClientUIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C9D980C41E93675400805FCD /* BDVRClientUIManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C9D980E21E93675400805FCD /* BDVRCustomRecognitonViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = C9D980C61E93675400805FCD /* BDVRCustomRecognitonViewController.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C9D980E31E93675400805FCD /* VRClientParsor.m in Sources */ = {isa = PBXBuildFile; fileRef = C9D980C81E93675400805FCD /* VRClientParsor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C9D980F91E93678C00805FCD /* BDVoiceRecognitionClientResources in Resources */ = {isa = PBXBuildFile; fileRef = C9D980F81E93678C00805FCD /* BDVoiceRecognitionClientResources */; };
+		C9D980FD1E9367BA00805FCD /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9D980FB1E9367BA00805FCD /* CoreTelephony.framework */; };
+		C9D980FE1E9367BA00805FCD /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9D980FC1E9367BA00805FCD /* CoreText.framework */; };
+		C9D981001E9367C900805FCD /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9D980FF1E9367C900805FCD /* GLKit.framework */; };
+		C9D981021E9367D000805FCD /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9D981011E9367D000805FCD /* QuartzCore.framework */; };
+		C9D981041E9367DE00805FCD /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9D981031E9367DE00805FCD /* OpenGLES.framework */; };
+		C9D981061E9367EF00805FCD /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9D981051E9367EF00805FCD /* AudioToolbox.framework */; };
+		C9D981081E9367FA00805FCD /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9D981071E9367FA00805FCD /* AVFoundation.framework */; };
+		C9D9810A1E93680300805FCD /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9D981091E93680300805FCD /* CFNetwork.framework */; };
+		C9D9810C1E93680C00805FCD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9D9810B1E93680C00805FCD /* Foundation.framework */; };
+		C9D9810E1E93681C00805FCD /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9D9810D1E93681C00805FCD /* MobileCoreServices.framework */; };
+		C9D981101E93682400805FCD /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9D9810F1E93682400805FCD /* Security.framework */; };
+		C9D981121E93682B00805FCD /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9D981111E93682B00805FCD /* SystemConfiguration.framework */; };
+		C9D981141E93683F00805FCD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9D981131E93683F00805FCD /* UIKit.framework */; };
+		C9D981161E93685400805FCD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9D981151E93685400805FCD /* CoreGraphics.framework */; };
+		C9D981181E93685E00805FCD /* libz.1.2.5.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C9D981171E93685E00805FCD /* libz.1.2.5.tbd */; };
 		D5F7B975DA164941A1E3522E /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96A9DAA0B81940B3B3DCB7CC /* Foundation.ttf */; };
 		ED0F277F325043B0B268F120 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 15B09CBA43574B12AE7D50F8 /* MaterialIcons.ttf */; };
 		F0E11E13C4A14C54B89D6E33 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9BD34CCD543E42B1A5C8B7F5 /* EvilIcons.ttf */; };
@@ -212,7 +239,6 @@
 		13B07F961A680F5B00A75B9A /* ZDY.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZDY.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ZDY/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = ZDY/AppDelegate.m; sourceTree = "<group>"; };
-		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ZDY/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ZDY/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
@@ -243,6 +269,57 @@
 		C97B08541DEC4FA70084AE2A /* Octicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		C97B08551DEC4FA70084AE2A /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		C97B08561DEC4FA70084AE2A /* Zocial.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
+		C9D9808D1E93675400805FCD /* BDVoiceEventSend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDVoiceEventSend.h; sourceTree = "<group>"; };
+		C9D9808E1E93675400805FCD /* BDVoiceEventSend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDVoiceEventSend.m; sourceTree = "<group>"; };
+		C9D9808F1E93675400805FCD /* BDVoiceVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDVoiceVC.h; sourceTree = "<group>"; };
+		C9D980901E93675400805FCD /* BDVoiceVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDVoiceVC.m; sourceTree = "<group>"; };
+		C9D980911E93675400805FCD /* BDVRConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDVRConstants.h; sourceTree = "<group>"; };
+		C9D980921E93675400805FCD /* BDVRSConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDVRSConfig.h; sourceTree = "<group>"; };
+		C9D980931E93675400805FCD /* BDVRSConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDVRSConfig.m; sourceTree = "<group>"; };
+		C9D980961E93675400805FCD /* CADebugMacros.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CADebugMacros.cpp; sourceTree = "<group>"; };
+		C9D980971E93675400805FCD /* CADebugMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADebugMacros.h; sourceTree = "<group>"; };
+		C9D980981E93675400805FCD /* CAMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAMath.h; sourceTree = "<group>"; };
+		C9D980991E93675400805FCD /* CAStreamBasicDescription.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CAStreamBasicDescription.cpp; sourceTree = "<group>"; };
+		C9D9809A1E93675400805FCD /* CAStreamBasicDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAStreamBasicDescription.h; sourceTree = "<group>"; };
+		C9D9809B1E93675400805FCD /* CAXException.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CAXException.cpp; sourceTree = "<group>"; };
+		C9D9809C1E93675400805FCD /* CAXException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAXException.h; sourceTree = "<group>"; };
+		C9D9809E1E93675400805FCD /* BDRecognizerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDRecognizerViewController.h; sourceTree = "<group>"; };
+		C9D9809F1E93675400805FCD /* BDRecognizerViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDRecognizerViewDelegate.h; sourceTree = "<group>"; };
+		C9D980A01E93675400805FCD /* BDRecognizerViewParamsObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDRecognizerViewParamsObject.h; sourceTree = "<group>"; };
+		C9D980A11E93675400805FCD /* BDTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDTheme.h; sourceTree = "<group>"; };
+		C9D980A21E93675400805FCD /* BDVoiceRecognitionClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDVoiceRecognitionClient.h; sourceTree = "<group>"; };
+		C9D980A31E93675400805FCD /* BDVRDataUploader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDVRDataUploader.h; sourceTree = "<group>"; };
+		C9D980A41E93675400805FCD /* BDVRFileRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDVRFileRecognizer.h; sourceTree = "<group>"; };
+		C9D980A51E93675400805FCD /* BDVRLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDVRLogger.h; sourceTree = "<group>"; };
+		C9D980A61E93675400805FCD /* BDVRRawDataRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDVRRawDataRecognizer.h; sourceTree = "<group>"; };
+		C9D980A71E93675400805FCD /* BDVRUIPromptTextCustom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDVRUIPromptTextCustom.h; sourceTree = "<group>"; };
+		C9D980A81E93675400805FCD /* libBDVoiceRecognitionClient.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBDVoiceRecognitionClient.a; sourceTree = "<group>"; };
+		C9D980AA1E93675400805FCD /* TTTAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTAttributedLabel.h; sourceTree = "<group>"; };
+		C9D980AB1E93675400805FCD /* TTTAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTAttributedLabel.m; sourceTree = "<group>"; };
+		C9D980C01E93675400805FCD /* BDVRPickerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDVRPickerTableViewCell.h; sourceTree = "<group>"; };
+		C9D980C11E93675400805FCD /* BDVRPickerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDVRPickerTableViewCell.m; sourceTree = "<group>"; };
+		C9D980C31E93675400805FCD /* BDVRClientUIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDVRClientUIManager.h; sourceTree = "<group>"; };
+		C9D980C41E93675400805FCD /* BDVRClientUIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDVRClientUIManager.m; sourceTree = "<group>"; };
+		C9D980C51E93675400805FCD /* BDVRCustomRecognitonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDVRCustomRecognitonViewController.h; sourceTree = "<group>"; };
+		C9D980C61E93675400805FCD /* BDVRCustomRecognitonViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BDVRCustomRecognitonViewController.mm; sourceTree = "<group>"; };
+		C9D980C71E93675400805FCD /* VRClientParsor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VRClientParsor.h; sourceTree = "<group>"; };
+		C9D980C81E93675400805FCD /* VRClientParsor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VRClientParsor.m; sourceTree = "<group>"; };
+		C9D980F81E93678C00805FCD /* BDVoiceRecognitionClientResources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = BDVoiceRecognitionClientResources; sourceTree = "<group>"; };
+		C9D980FB1E9367BA00805FCD /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		C9D980FC1E9367BA00805FCD /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		C9D980FF1E9367C900805FCD /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		C9D981011E9367D000805FCD /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		C9D981031E9367DE00805FCD /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		C9D981051E9367EF00805FCD /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		C9D981071E9367FA00805FCD /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		C9D981091E93680300805FCD /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		C9D9810B1E93680C00805FCD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		C9D9810D1E93681C00805FCD /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		C9D9810F1E93682400805FCD /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		C9D981111E93682B00805FCD /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		C9D981131E93683F00805FCD /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		C9D981151E93685400805FCD /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		C9D981171E93685E00805FCD /* libz.1.2.5.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.2.5.tbd; path = usr/lib/libz.1.2.5.tbd; sourceTree = SDKROOT; };
 		F7C7D6EEDA22468D82650543 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		FECB2A2120C24923A35BA721 /* libRNDeviceInfo.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNDeviceInfo.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -260,6 +337,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9D981181E93685E00805FCD /* libz.1.2.5.tbd in Frameworks */,
+				C9D981161E93685400805FCD /* CoreGraphics.framework in Frameworks */,
+				C9D981141E93683F00805FCD /* UIKit.framework in Frameworks */,
+				C9D9810E1E93681C00805FCD /* MobileCoreServices.framework in Frameworks */,
+				C9D981121E93682B00805FCD /* SystemConfiguration.framework in Frameworks */,
+				C9D981101E93682400805FCD /* Security.framework in Frameworks */,
+				C9D9810C1E93680C00805FCD /* Foundation.framework in Frameworks */,
+				C9D9810A1E93680300805FCD /* CFNetwork.framework in Frameworks */,
+				C9D981081E9367FA00805FCD /* AVFoundation.framework in Frameworks */,
+				C9D981061E9367EF00805FCD /* AudioToolbox.framework in Frameworks */,
+				C9D981021E9367D000805FCD /* QuartzCore.framework in Frameworks */,
+				C9D981041E9367DE00805FCD /* OpenGLES.framework in Frameworks */,
+				C9D981001E9367C900805FCD /* GLKit.framework in Frameworks */,
+				C9D980FD1E9367BA00805FCD /* CoreTelephony.framework in Frameworks */,
+				C9D980FE1E9367BA00805FCD /* CoreText.framework in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
@@ -273,6 +365,7 @@
 				F8A9D44C064640809E30918B /* libRNVectorIcons.a in Frameworks */,
 				2DC7AA1A964C4758A576B46A /* libRNDeviceInfo.a in Frameworks */,
 				10DE853356BA4AB2B6E875F9 /* libSplashScreen.a in Frameworks */,
+				C9D980CF1E93675400805FCD /* libBDVoiceRecognitionClient.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -359,6 +452,7 @@
 		13B07FAE1A68108700A75B9A /* ZDY */ = {
 			isa = PBXGroup;
 			children = (
+				C9D9808C1E93675400805FCD /* BDYY_CLASS */,
 				C921F3F11E2F50E7000FBDD6 /* icon144x144.png */,
 				C97B084E1DEC4FA70084AE2A /* Entypo.ttf */,
 				C97B08501DEC4FA70084AE2A /* FontAwesome.ttf */,
@@ -373,7 +467,6 @@
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
-				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				C95E360E1E2BADBD003E05ED /* Images.xcassets */,
 			);
@@ -435,6 +528,7 @@
 				00E356EF1AD99517003FC87E /* ZDYTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				C7D9F536AC034A128BAD2B4D /* Resources */,
+				C9D980FA1E9367BA00805FCD /* Frameworks */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -487,6 +581,128 @@
 				C97B084C1DEC4F290084AE2A /* libRNVectorIcons.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		C9D9808C1E93675400805FCD /* BDYY_CLASS */ = {
+			isa = PBXGroup;
+			children = (
+				C9D9808D1E93675400805FCD /* BDVoiceEventSend.h */,
+				C9D9808E1E93675400805FCD /* BDVoiceEventSend.m */,
+				C9D9808F1E93675400805FCD /* BDVoiceVC.h */,
+				C9D980901E93675400805FCD /* BDVoiceVC.m */,
+				C9D980911E93675400805FCD /* BDVRConstants.h */,
+				C9D980921E93675400805FCD /* BDVRSConfig.h */,
+				C9D980931E93675400805FCD /* BDVRSConfig.m */,
+				C9D980941E93675400805FCD /* Libs */,
+				C9D980AC1E93675400805FCD /* Resources */,
+				C9D980BF1E93675400805FCD /* Views */,
+			);
+			name = BDYY_CLASS;
+			path = ZDY/BDYY_CLASS;
+			sourceTree = "<group>";
+		};
+		C9D980941E93675400805FCD /* Libs */ = {
+			isa = PBXGroup;
+			children = (
+				C9D980951E93675400805FCD /* CoreAudioUtility */,
+				C9D9809D1E93675400805FCD /* libBDVoiceRecognitionClient */,
+				C9D980A91E93675400805FCD /* TTTAttributedLabel */,
+			);
+			path = Libs;
+			sourceTree = "<group>";
+		};
+		C9D980951E93675400805FCD /* CoreAudioUtility */ = {
+			isa = PBXGroup;
+			children = (
+				C9D980961E93675400805FCD /* CADebugMacros.cpp */,
+				C9D980971E93675400805FCD /* CADebugMacros.h */,
+				C9D980981E93675400805FCD /* CAMath.h */,
+				C9D980991E93675400805FCD /* CAStreamBasicDescription.cpp */,
+				C9D9809A1E93675400805FCD /* CAStreamBasicDescription.h */,
+				C9D9809B1E93675400805FCD /* CAXException.cpp */,
+				C9D9809C1E93675400805FCD /* CAXException.h */,
+			);
+			path = CoreAudioUtility;
+			sourceTree = "<group>";
+		};
+		C9D9809D1E93675400805FCD /* libBDVoiceRecognitionClient */ = {
+			isa = PBXGroup;
+			children = (
+				C9D9809E1E93675400805FCD /* BDRecognizerViewController.h */,
+				C9D9809F1E93675400805FCD /* BDRecognizerViewDelegate.h */,
+				C9D980A01E93675400805FCD /* BDRecognizerViewParamsObject.h */,
+				C9D980A11E93675400805FCD /* BDTheme.h */,
+				C9D980A21E93675400805FCD /* BDVoiceRecognitionClient.h */,
+				C9D980A31E93675400805FCD /* BDVRDataUploader.h */,
+				C9D980A41E93675400805FCD /* BDVRFileRecognizer.h */,
+				C9D980A51E93675400805FCD /* BDVRLogger.h */,
+				C9D980A61E93675400805FCD /* BDVRRawDataRecognizer.h */,
+				C9D980A71E93675400805FCD /* BDVRUIPromptTextCustom.h */,
+				C9D980A81E93675400805FCD /* libBDVoiceRecognitionClient.a */,
+			);
+			path = libBDVoiceRecognitionClient;
+			sourceTree = "<group>";
+		};
+		C9D980A91E93675400805FCD /* TTTAttributedLabel */ = {
+			isa = PBXGroup;
+			children = (
+				C9D980AA1E93675400805FCD /* TTTAttributedLabel.h */,
+				C9D980AB1E93675400805FCD /* TTTAttributedLabel.m */,
+			);
+			path = TTTAttributedLabel;
+			sourceTree = "<group>";
+		};
+		C9D980AC1E93675400805FCD /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C9D980F81E93678C00805FCD /* BDVoiceRecognitionClientResources */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		C9D980BF1E93675400805FCD /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C9D980C01E93675400805FCD /* BDVRPickerTableViewCell.h */,
+				C9D980C11E93675400805FCD /* BDVRPickerTableViewCell.m */,
+				C9D980C21E93675400805FCD /* CustomRecognitionView */,
+				C9D980C71E93675400805FCD /* VRClientParsor.h */,
+				C9D980C81E93675400805FCD /* VRClientParsor.m */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		C9D980C21E93675400805FCD /* CustomRecognitionView */ = {
+			isa = PBXGroup;
+			children = (
+				C9D980C31E93675400805FCD /* BDVRClientUIManager.h */,
+				C9D980C41E93675400805FCD /* BDVRClientUIManager.m */,
+				C9D980C51E93675400805FCD /* BDVRCustomRecognitonViewController.h */,
+				C9D980C61E93675400805FCD /* BDVRCustomRecognitonViewController.mm */,
+			);
+			path = CustomRecognitionView;
+			sourceTree = "<group>";
+		};
+		C9D980FA1E9367BA00805FCD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C9D981171E93685E00805FCD /* libz.1.2.5.tbd */,
+				C9D981151E93685400805FCD /* CoreGraphics.framework */,
+				C9D981131E93683F00805FCD /* UIKit.framework */,
+				C9D981111E93682B00805FCD /* SystemConfiguration.framework */,
+				C9D9810F1E93682400805FCD /* Security.framework */,
+				C9D9810D1E93681C00805FCD /* MobileCoreServices.framework */,
+				C9D9810B1E93680C00805FCD /* Foundation.framework */,
+				C9D981091E93680300805FCD /* CFNetwork.framework */,
+				C9D981071E9367FA00805FCD /* AVFoundation.framework */,
+				C9D981051E9367EF00805FCD /* AudioToolbox.framework */,
+				C9D981031E9367DE00805FCD /* OpenGLES.framework */,
+				C9D981011E9367D000805FCD /* QuartzCore.framework */,
+				C9D980FF1E9367C900805FCD /* GLKit.framework */,
+				C9D980FB1E9367BA00805FCD /* CoreTelephony.framework */,
+				C9D980FC1E9367BA00805FCD /* CoreText.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -776,7 +992,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C97B085A1DEC4FA70084AE2A /* Foundation.ttf in Resources */,
-				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				C91B0BFA1DD8777300DEB5EE /* iconfont.ttf in Resources */,
 				C95E360F1E2BADBD003E05ED /* Images.xcassets in Resources */,
 				C97B085B1DEC4FA70084AE2A /* Ionicons.ttf in Resources */,
@@ -793,6 +1008,7 @@
 				C97B085C1DEC4FA70084AE2A /* MaterialIcons.ttf in Resources */,
 				C921F3F21E2F50E8000FBDD6 /* icon144x144.png in Resources */,
 				2700773BFD5B4F02A8E49B6E /* Octicons.ttf in Resources */,
+				C9D980F91E93678C00805FCD /* BDVoiceRecognitionClientResources in Resources */,
 				C97B085D1DEC4FA70084AE2A /* Octicons.ttf in Resources */,
 				C97B085E1DEC4FA70084AE2A /* SimpleLineIcons.ttf in Resources */,
 				7DBBB8E149BE4F699E32FF7B /* SimpleLineIcons.ttf in Resources */,
@@ -832,8 +1048,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9D980E31E93675400805FCD /* VRClientParsor.m in Sources */,
+				C9D980C91E93675400805FCD /* BDVoiceEventSend.m in Sources */,
+				C9D980E21E93675400805FCD /* BDVRCustomRecognitonViewController.mm in Sources */,
+				C9D980E01E93675400805FCD /* BDVRPickerTableViewCell.m in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				C9D980CB1E93675400805FCD /* BDVRSConfig.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				C9D980CE1E93675400805FCD /* CAXException.cpp in Sources */,
+				C9D980CC1E93675400805FCD /* CADebugMacros.cpp in Sources */,
+				C9D980CA1E93675400805FCD /* BDVoiceVC.m in Sources */,
+				C9D980CD1E93675400805FCD /* CAStreamBasicDescription.cpp in Sources */,
+				C9D980E11E93675400805FCD /* BDVRClientUIManager.m in Sources */,
+				C9D980D01E93675400805FCD /* TTTAttributedLabel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -846,18 +1073,6 @@
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		13B07FB11A68108700A75B9A /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				13B07FB21A68108700A75B9A /* Base */,
-			);
-			name = LaunchScreen.xib;
-			path = ZDY;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
@@ -921,6 +1136,10 @@
 				INFOPLIST_FILE = ZDY/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ZDY/BDYY_CLASS/Libs/libBDVoiceRecognitionClient",
+				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -952,6 +1171,10 @@
 				INFOPLIST_FILE = ZDY/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ZDY/BDYY_CLASS/Libs/libBDVoiceRecognitionClient",
+				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"$(inherited)",

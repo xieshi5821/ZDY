@@ -8,7 +8,7 @@ import Empty from '../../shared/empty'
 import React, { Component, PropTypes } from 'react'
 import Spinner from 'react-native-loading-spinner-overlay'
 import {updateSource, updateQueryId, updateMedicinalName} from '../../actions/drug'
-import {callCollectCancel, callCollectAdd} from '../../api/request'
+import {callCollectCancel} from '../../api/request'
 
 export let favorites = null
 class Favorites extends Component {
@@ -73,7 +73,7 @@ class Favorites extends Component {
 
   handleCancelCollect(durgId) {
     this.setState({visible: true})
-    callCollectAdd({medicinalId: durgId}).then(() => {
+    callCollectCancel({medicinalId: durgId}).then(() => {
       const resultList = this.state.resultList.filter(item => item.medicinalId !== durgId)
       this.setState({
         visible: false,

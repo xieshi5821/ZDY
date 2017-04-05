@@ -463,10 +463,10 @@ export class SwRefreshListView extends ListView{
    * 拖拽
    * @private
    */
-  _onScrollEndDrag(event,inertia){
+  _onScrollEndDrag(event, inertia){
     this._dragFlag = false
     let y = event.nativeEvent.contentOffset.y
-    let height = this.props.customRefreshView ? this.props.customRefreshViewHeight:70
+    let height = this.props.customRefreshView ? this.props.customRefreshViewHeight:0
     this._offsetY = y-height
     if (!this._isRefreshing){
       if (this.state.refresStatus == RefreshStatus.releaseToRefresh){
@@ -489,7 +489,6 @@ export class SwRefreshListView extends ListView{
         }
       }
     }else {
-
       if (y <= height) {
         this.refs.listView.scrollTo({x:0,y:0,animated:!inertia});
       }
@@ -497,12 +496,10 @@ export class SwRefreshListView extends ListView{
     if(this.props.onScrollEndDrag){
       this.props.onScrollEndDrag(event)
     }
-
-
   }
   _onScrollBeginDrag(event){
     this._dragFlag = true
-    let height = this.props.customRefreshView ? this.props.customRefreshViewHeight:70
+    let height = this.props.customRefreshView ? this.props.customRefreshViewHeight:0
     this._offsetY = event.nativeEvent.contentOffset.y - height
     if (this.props.onScrollBeginDrag){
       this.props.onScrollBeginDrag(event)
@@ -529,7 +526,7 @@ export class SwRefreshListView extends ListView{
       duration: 100,
       easing: Easing.inOut(Easing.quad)
     }).start();
-    let height = this.props.customRefreshView ? this.props.customRefreshViewHeight:70
+    let height = this.props.customRefreshView ? this.props.customRefreshViewHeight:0
     this.refs.listView.scrollTo({x:0,y:height,animated:true});
   }
 
@@ -552,7 +549,7 @@ export class SwRefreshListView extends ListView{
 const defaultHeaderStyles=StyleSheet.create({
   background:{
     alignItems:'center',
-    height:70,
+    height:0,
     justifyContent:'center',
   },
   status:{

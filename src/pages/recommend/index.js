@@ -1,6 +1,6 @@
 import {connect} from 'react-redux'
 import {callRegister, callRecommendHome, callRecommendSubmit, fillUrl, callSearchList, callEvaHistory, callEvaluateAdd} from '../../api/request'
-import {Alert, StyleSheet, View, Text, ScrollView, Image, TouchableOpacity, TextInput, Dimensions} from 'react-native'
+import {Alert, Platform, StyleSheet, View, Text, ScrollView, Image, TouchableOpacity, TextInput, Dimensions} from 'react-native'
 import {updateInputText, receiveBannerList, receivePlaceholder, receiveExplainList} from '../../actions/recommend'
 import {updateUri, updateUriName} from '../../actions/xWebView'
 import commonStyles from '../../styles/common'
@@ -10,10 +10,14 @@ import ViewPager from 'react-native-viewpager'
 import {receiveResultList, receiveContraindicationWords, resetResultList, resetFilter, receiveSubmitWords, receiveRecommedWords, updatePage} from '../../actions/recommendResult'
 import searchResult from '../../actions/searchResult'
 import Toast from 'react-native-root-toast'
-import { BaiduVoise, SpeechRecognizer} from 'react-native-voise'
 import Modal from 'react-native-modalbox'
 import { CheckBox } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome'
+
+//BEGIN RN于OC交互需要引用的JS CHENLEIJING
+import {AppRegistry, NativeModules, NativeEventEmitter} from 'react-native'
+import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
+const isIos = Platform.OS === 'ios'
 
 class Recommend extends Component {
 
@@ -31,7 +35,30 @@ class Recommend extends Component {
       star: 5,
       starName: '非常满意'
     }
+    // console.log(isIos)
   }
+
+  //BEGIN 获取OC原生的注册代理通知事件CHENLEIJING
+
+  componentDidMount(){
+      //创建自定义事件接口
+    if (isIos) {
+      this.listener = RCTDeviceEventEmitter.addListener('BD_Voice_Event', this.iseCallback.bind(this))
+    }
+  }
+  componentWillUnmount(){
+    if (isIos) {
+      this.listener.remove()
+    }
+  }
+  //接受原生传过来的数据 data={code:,result:}
+  iseCallback(data = {}) {
+    if (data && data['BDVoiceKey']) {
+      this.handleChangeInput(data['BDVoiceKey'])
+    }
+  }
+  //END CHENLEIJING
+  //END
   componentWillMount() {
     callRegister().then(() => {
       Promise.all([callRecommendHome(), callEvaHistory()]).then(([home, his]) => {
@@ -80,16 +107,15 @@ class Recommend extends Component {
   }
 
   handleSubmit() {
-    const {inputText} = this.props
+    let {inputText} = this.props
     if (!inputText.length) {
       Alert.alert('提示', '请输入您的症状')
       return
     }
 
     this.setState({visible: true})
-    this.props.dispatch(resetResultList())
-    this.props.dispatch(resetFilter())
-
+    this.props.dispatch(searchResult.resetResultList())
+    this.props.dispatch(searchResult.resetFilter())
     callRecommendSubmit({text: inputText}).then(({search = false, recommedWords, contraindicationWrods, submitWords, resultlist}) => {
       if (search) {
         callSearchList({text: inputText, rangeField: '', rows: 20, page: 1}).then(({contraindicationWrods, resultlist}) => {
@@ -136,6 +162,14 @@ class Recommend extends Component {
       const result = results[0]
       this.handleChangeInput(result)
     }
+  }
+
+  handleIosVoice() {
+    //BEGIN CHENLEIJING目前测试和原生的代码进行合并
+    var BDManager = NativeModules.BDVoiceVC
+    //第一个参数是API_KEY 第二个参数是SECRET_KEY
+    BDManager.BDCallVoice('rAichc9jomN60TdGtjqevFwc','ff2efe4bd37d7c6b0c2da9aedb5a2bd5')
+    //END CHENLEIJING
   }
 
   renderPage(banner, pageID) {
@@ -261,6 +295,24 @@ class Recommend extends Component {
     const pager = dataSource ? (<ViewPager dataSource={this.state.dataSource} renderPage={this.renderPage.bind(this)} autoPlay/>): null
     const explains = this.rederNoticeDesc()
     const modal = this.renderModal()
+    let voise = null
+    if (isIos) {
+      voise = (<TouchableOpacity onPress={this.handleIosVoice.bind(this)} style={styles.voiceContainer}>
+          <Text style={styles.voice}>&#xe512;</Text>
+      </TouchableOpacity>)
+    } else {
+      const BaiduVoise = require('react-native-voise')['BaiduVoise']
+      voise = (<BaiduVoise
+        ref={'BaiduVoise'}
+        style={styles.voiceContainer}
+        dialog_theme={16777217}
+        prop={10052}
+        api_key={'rAichc9jomN60TdGtjqevFwc'}
+        secret_key={'ff2efe4bd37d7c6b0c2da9aedb5a2bd5'}
+        onReceive={this.onReceive.bind(this)}>
+          <Text style={styles.voice}>&#xe512;</Text>
+      </BaiduVoise>)
+    }
     return (
       <ScrollView>
         <Spinner visible={this.state.visible} color="black"/>
@@ -270,16 +322,7 @@ class Recommend extends Component {
         <View style={styles.inputForm}>
           <View style={styles.inputContainer}>
             <TextInput underlineColorAndroid='transparent' multiline placeholder={this.props.placeholder} style={styles.input} onChangeText={this.handleChangeInput.bind(this)} value={this.props.inputText}></TextInput>
-            <BaiduVoise
-              ref={'BaiduVoise'}
-              style={styles.voiceContainer}
-              dialog_theme={16777217}
-              prop={10052}
-              api_key={'rAichc9jomN60TdGtjqevFwc'}
-              secret_key={'ff2efe4bd37d7c6b0c2da9aedb5a2bd5'}
-              onReceive={this.onReceive.bind(this)}>
-                <Text style={styles.voice}>&#xe512;</Text>
-            </BaiduVoise>
+            {voise}
           </View>
           <TouchableOpacity style={commonStyles.submitContainer}>
             <Text style={commonStyles.submit} onPress={this.handleSubmit.bind(this)}>提交您的信息</Text>
