@@ -28,7 +28,7 @@ class RecommendResult extends Component {
   }
   componentWillMount() {
     this.renderDataSource()
-    BackAndroid.addEventListener('hardwareBackPress', this.onBackAndroid);
+    // BackAndroid.addEventListener('hardwareBackPress', this.onBackAndroid);
   }
 
   goBack() {

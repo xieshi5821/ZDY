@@ -69,7 +69,7 @@ class Evaluate extends Component {
       const tag = tags[index]
       tag.checked = true
       this.setState({evaluateTags: tags})
-    })    
+    })
   }
 
   handleChangeInput(content) {
@@ -93,8 +93,10 @@ class Evaluate extends Component {
       }).then(() => {
         this.setState({visible: false})
         Toast.show('提交评论成功')
-        this.context.routes.pop()
-        drug.querySearch('evaluate')
+        setTimeout(() => {
+          drug.querySearch('evaluate')
+          this.context.routes.pop()
+        }, 100)
       }, () => {
         this.setState({visible: false})
       })
