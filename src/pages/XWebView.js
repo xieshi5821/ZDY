@@ -20,15 +20,20 @@ class XWebView extends Component {
     this.props.dispatch(updateUriName(''))
     this.props.dispatch(updateUri(''))
   }
-
+  /*
+  {uri ? <WebView ref="webView" style={styles.webView} scalesPageToFit={true} source={{uri}}
+    javaScriptEnabled={true}
+    domStorageEnabled={true}
+    decelerationRate="normal"></WebView> : null}
+    */
   render() {
     const {uri} = this.props
     return (
       <View style={styles.container}>
-        <WebView ref="webView" style={styles.webView} scalesPageToFit={true} source={{uri}}
+        {uri ? <WebView ref="webView" style={styles.webView} scalesPageToFit={true} source={{uri}}
           javaScriptEnabled={true}
           domStorageEnabled={true}
-          decelerationRate="normal"></WebView>
+          decelerationRate="normal"></WebView> : null}
       </View>
     )
   }

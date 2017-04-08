@@ -8,6 +8,10 @@ export const receiveResultList = (resultList) => (dispatch) => {
   dispatch({type: recommendResultTypes.RECEIVE_RESULT_LIST, resultList})
 }
 
+export const receivePureResultList = (resultList) => (dispatch) => {
+  dispatch({type: recommendResultTypes.RECEIVE_PURE_RESULT_LIST, resultList})
+}
+
 export const receiveRecommedWords = (recommedWords) => (dispatch) => {
   dispatch({type: recommendResultTypes.RECEIVE_RECOMMED_WORDS, recommedWords})
 }

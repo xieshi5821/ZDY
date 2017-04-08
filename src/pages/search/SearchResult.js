@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, ListView, TouchableOpacity } from 'react-native
 import { SwRefreshListView } from '../../libs/SwRefresh'
 import {callSearchList} from '../../api/request'
 import {connect} from 'react-redux'
-import {receiveResultList, receiveContraindicationWords} from '../../actions/searchResult'
+import {receiveResultList, receivePureResultList, receiveContraindicationWords} from '../../actions/searchResult'
 import commonStyles from '../../styles/common'
 import Empty from '../../shared/empty'
 import React, { Component, PropTypes } from 'react'
@@ -72,10 +72,20 @@ class SearchResult extends Component {
     }
   }
 
-  handleDetail(durgId, medicinalName) {
+  handleDetail(durgId, medicinalName, visit) {
     this.props.dispatch(updateSource('search'))
     this.props.dispatch(updateQueryId(durgId))
     this.props.dispatch(updateMedicinalName(medicinalName))
+    if (!visit) {
+      const resultList = this.props.resultList.map(item => {
+        if (item.medicinalId === durgId) {
+          item.visit = true
+        }
+        return item
+      })
+      this.props.dispatch(receivePureResultList(resultList))
+      this.setState({dataSource: resultList.length ? this._dataSource.cloneWithRows(resultList) : null})
+    }
     this.context.routes.searchDurg()
   }
 
@@ -87,8 +97,8 @@ class SearchResult extends Component {
           <View style={commonStyles.td}><Text style={commonStyles.rowTitle}>是否医保</Text></View>
           <View style={commonStyles.td}><Text style={commonStyles.rowTitle}>用药禁忌</Text></View>
         </View>) : null}
-        <TouchableOpacity key={rowData.medicinalId} onPress={this.handleDetail.bind(this, rowData.medicinalId, rowData.medicinalName)} style={[commonStyles.tr, commonStyles.contentTr]}>
-          <View style={commonStyles.td}><Text numberOfLines={1} style={[commonStyles.rowTitle, commonStyles.contentRowTitle, commonStyles.ym]}>{rowData.medicinalName}</Text></View>
+        <TouchableOpacity key={rowData.medicinalId} onPress={this.handleDetail.bind(this, rowData.medicinalId, rowData.medicinalName, rowData.visit)} style={[commonStyles.tr, commonStyles.contentTr]}>
+          <View style={commonStyles.td}><Text numberOfLines={1} style={[commonStyles.rowTitle, commonStyles.contentRowTitle, commonStyles.ym, rowData.visit ? commonStyles.visit : '']}>{rowData.medicinalName}</Text></View>
           <View style={commonStyles.td}><Text numberOfLines={1} style={[commonStyles.rowTitle, commonStyles.contentRowTitle]}>{rowData.medicinalIsInsurance}</Text></View>
           <View style={commonStyles.td}><Text numberOfLines={1} style={[commonStyles.rowTitle, commonStyles.contentRowTitle]}>{rowData.medicinalContraindication}</Text></View>
         </TouchableOpacity>

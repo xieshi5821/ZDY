@@ -34,6 +34,7 @@ class Drug extends Component {
 
   componentWillUnmount() {
     this.props.dispatch(updateMedicinal({}))
+    this.timer1 && clearTimeout(this.timer1)
   }
 
   getDrugTitle() {
@@ -165,8 +166,7 @@ class Drug extends Component {
     medicinal.medicinalincompatibility = medicinal.medicinalincompatibility && medicinal.medicinalincompatibility.startsWith('尚不明确') ? '' : medicinal.medicinalincompatibility
     // 存在用药禁忌或者配伍禁忌，显示modal框
     if (medicinal.medicinalContraindication || medicinal.medicinalincompatibility) {
-      setTimeout(() => {
-        // console.log(medicinal.medicinalincompatibility ? medicinal.medicinalincompatibility.length : 'n')
+      this.timer1 = setTimeout(() => {
         this.refs.modal && this.refs.modal.open()
       })
     }
@@ -500,7 +500,7 @@ const styles = StyleSheet.create({
     borderBottomColor: '#007cca'
   },
   highlight: {
-    color: '#f33'
+    textDecorationLine: 'underline'
   }
 })
 

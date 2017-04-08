@@ -7,7 +7,7 @@ import Empty from '../../shared/empty'
 import Spinner from 'react-native-loading-spinner-overlay'
 import commonStyles from '../../styles/common'
 import { CheckBox } from 'react-native-elements'
-import {receiveSubmitWords, receiveResultList, toggleRecommendCheck, resetResultList, updatePage} from '../../actions/recommendResult'
+import {receiveSubmitWords, receivePureResultList, receiveResultList, toggleRecommendCheck, resetResultList, updatePage} from '../../actions/recommendResult'
 import {updateSource, updateQueryId, updateMedicinalName} from '../../actions/drug'
 import Icon from 'react-native-vector-icons/FontAwesome'
 export let recommendResult = null
@@ -54,10 +54,20 @@ class RecommendResult extends Component {
       })
     }
   }
-  handleDetail(durgId, medicinalName) {
+  handleDetail(durgId, medicinalName, visit) {
     this.props.dispatch(updateSource('recommend'))
     this.props.dispatch(updateQueryId(durgId))
     this.props.dispatch(updateMedicinalName(medicinalName))
+    if (!visit) {
+      const resultList = this.props.resultList.map(item => {
+        if (item.medicinalId === durgId) {
+          item.visit = true
+        }
+        return item
+      })
+      this.props.dispatch(receivePureResultList(resultList))
+      this.setState({dataSource: resultList.length ? this._dataSource.cloneWithRows(resultList) : null})
+    }
     this.context.routes.recommendDurg()
   }
 
@@ -101,6 +111,16 @@ class RecommendResult extends Component {
     this.props.dispatch(toggleRecommendCheck(index))
     this.props.dispatch(resetResultList())
     this.props.dispatch(updatePage(1))
+    if (!visit) {
+      const resultList = this.props.resultList.map(item => {
+        if (item.medicinalId === durgId) {
+          item.visit = true
+        }
+        return item
+      })
+      this.props.dispatch(receivePureResultList(resultList))
+      this.setState({dataSource: resultList.length ? this._dataSource.cloneWithRows(resultList) : null})
+    }
     this.querySearch()
   }
 
@@ -194,8 +214,8 @@ class RecommendResult extends Component {
       <View>
         {header}
         {tableRr}
-        <TouchableOpacity key={rowData.medicinalId} onPress={this.handleDetail.bind(this, rowData.medicinalId, rowData.medicinalName)} style={[commonStyles.tr, commonStyles.contentTr]}>
-          <View style={commonStyles.td}><Text numberOfLines={1} style={[commonStyles.rowTitle, commonStyles.contentRowTitle, commonStyles.ym]}>{rowData.medicinalName}</Text></View>
+        <TouchableOpacity key={rowData.medicinalId} onPress={this.handleDetail.bind(this, rowData.medicinalId, rowData.medicinalName, rowData.visit)} style={[commonStyles.tr, commonStyles.contentTr]}>
+          <View style={commonStyles.td}><Text numberOfLines={1} style={[commonStyles.rowTitle, commonStyles.contentRowTitle, commonStyles.ym, rowData.visit ? commonStyles.visit : '']}>{rowData.medicinalName}</Text></View>
           <View style={commonStyles.td}><Text numberOfLines={1} style={[commonStyles.rowTitle, commonStyles.contentRowTitle]}>{rowData.medicinalIsInsurance}</Text></View>
           <View style={commonStyles.td}><Text numberOfLines={1} style={[commonStyles.rowTitle, commonStyles.contentRowTitle]}>{rowData.medicinalContraindication}</Text></View>
           <View style={commonStyles.td}><Text numberOfLines={1} style={[commonStyles.rowTitle, commonStyles.contentRowTitle, styles.tjxs]}>{rowData.medicinalRecommedKpi}</Text></View>

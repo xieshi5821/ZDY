@@ -68,13 +68,17 @@ class Search extends Component {
     })
   }
 
+  componentWillUnmount(){
+    this.timer1 && clearTimeout(this.timer1)
+  }
+
   handleChangeInput(text) {
     this.props.dispatch(updateInputText(text))
   }
 
   handleChangeInput2His(his) {
     this.props.dispatch(updateInputText(his))
-    setTimeout(() => {
+    this.timer1 = setTimeout(() => {
       this.handleSubmit()
     })
   }

@@ -41,6 +41,8 @@ export default search = (state = initialState, action) => {
         resultList.push({...res, seq: index++})
       })
       return {...state, resultList, page: parseInt(page) + 1, hasMore: parseInt(page) < parseInt(total)}
+    case recommendResultTypes.RECEIVE_PURE_RESULT_LIST:
+      return {...state, resultList: action.resultList}
     case recommendResultTypes.RECEIVE_RECOMMED_WORDS:
       return {...state, recommedWords: action.recommedWords}
     case recommendResultTypes.RECEIVE_SUBMIT_WORDS:

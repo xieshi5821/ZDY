@@ -19,6 +19,7 @@ export const recommendTypes = createModuleReducer('recommendTypes', [
 export const recommendResultTypes = createModuleReducer('recommendResultTypes', [
   'RESET_RESULT_LIST',
   'RECEIVE_RESULT_LIST',
+  'RECEIVE_PURE_RESULT_LIST',
   'RECEIVE_RECOMMED_WORDS',
   'RECEIVE_SUBMIT_WORDS',
   'RECEIVE_CONTRAINDICATION_WORDS',
@@ -43,6 +44,7 @@ export const searchTypes = createModuleReducer('searchTypes', [
 export const searchResultTypes = createModuleReducer('searchResultTypes', [
   'RESET_RESULT_LIST',
   'RECEIVE_RESULT_LIST',
+  'RECEIVE_PURE_RESULT_LIST',
   'RECEIVE_CONTRAINDICATION_WORDS',
   'TOGGLE_CONTRAINDICATION_CHECK',
   'TOGGLE_MEDICINALISINSURANCE_CHECK',

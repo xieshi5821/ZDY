@@ -50,7 +50,9 @@ class Recommend extends Component {
     if (isIos) {
       this.listener.remove()
     }
+    this.timer1 && clearTimeout(this.timer1)
   }
+
   //接受原生传过来的数据 data={code:,result:}
   iseCallback(data = {}) {
     if (data && data['BDVoiceKey']) {
@@ -73,7 +75,7 @@ class Recommend extends Component {
               return item
             })
           })
-          setTimeout(() => {
+          this.timer1 = setTimeout(() => {
             this.refs.modal && this.refs.modal.open()
           })
         }

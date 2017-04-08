@@ -46,5 +46,8 @@ export default styles = StyleSheet.create({
   },
   textCenter: {
     textAlign: 'center'
+  },
+  visit: {
+    color: '#ff7f50'
   }
 })

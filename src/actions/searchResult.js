@@ -8,6 +8,10 @@ export const receiveResultList = (resultList) => (dispatch) => {
   dispatch({type: searchResultTypes.RECEIVE_RESULT_LIST, resultList})
 }
 
+export const receivePureResultList = (resultList) => (dispatch) => {
+  dispatch({type: searchResultTypes.RECEIVE_PURE_RESULT_LIST, resultList})
+}
+
 export const receiveContraindicationWords = (contraindicationWords) => (dispatch) => {
   dispatch({type: searchResultTypes.RECEIVE_CONTRAINDICATION_WORDS, contraindicationWords})
 }

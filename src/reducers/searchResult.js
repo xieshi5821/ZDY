@@ -22,7 +22,8 @@ export default search = (state = initialState, action) => {
         resultList.push({...res, seq: index++})
       })
       return {...state, resultList, page: parseInt(page) + 1, hasMore: parseInt(page) < parseInt(total)}
-
+    case searchResultTypes.RECEIVE_PURE_RESULT_LIST:
+      return {...state, resultList: action.resultList}
     case searchResultTypes.RECEIVE_CONTRAINDICATION_WORDS:
       return {...state, contraindicationWords: action.contraindicationWords}
 

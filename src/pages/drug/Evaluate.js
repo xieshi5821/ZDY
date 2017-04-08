@@ -80,6 +80,10 @@ class Evaluate extends Component {
     })
   }
 
+  componentWillUnmount(){
+    this.timer1 && clearTimeout(this.timer1)
+  }
+
   handleSubmit() {
     const {star, content, evaluateTags} = this.state
     const tags = evaluateTags.filter(evaluate => evaluate.checked).map(evaluate => evaluate.tagid).join(',')
@@ -93,7 +97,7 @@ class Evaluate extends Component {
       }).then(() => {
         this.setState({visible: false})
         Toast.show('提交评论成功')
-        setTimeout(() => {
+        this.timer1 = setTimeout(() => {
           drug.querySearch('evaluate')
           this.context.routes.pop()
         }, 100)
