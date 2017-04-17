@@ -24,7 +24,7 @@ class Evaluate extends Component {
     }
   }
 
-  componentWillMount() {
+  componentDidMount() {
     callEvaluatePage().then(({evaluateTags}) => {
       this.setState({
         evaluateTags: evaluateTags.map(evaluate => {
@@ -162,7 +162,6 @@ class Evaluate extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 5,
     flex: 1,
   },
   bottomWrap: {

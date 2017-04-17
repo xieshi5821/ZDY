@@ -28,7 +28,7 @@ class Drug extends Component {
     drug = this
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.querySearch()
   }
 
@@ -428,7 +428,6 @@ const styles = StyleSheet.create({
   },
   titleWrap: {
     backgroundColor: '#fff',
-    marginTop: 5,
     padding: 5,
     borderLeftWidth: 3,
     borderLeftColor: '#007594',
@@ -500,7 +499,9 @@ const styles = StyleSheet.create({
     borderBottomColor: '#007cca'
   },
   highlight: {
-    textDecorationLine: 'underline'
+    textDecorationLine: 'underline',
+    color: '#007cca',
+    fontWeight: 'bold'
   }
 })
 

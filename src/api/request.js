@@ -35,8 +35,12 @@ const ajax = (url, params = {}) => {
         if (errorCode === '100') {
           resolve(data || {})
         } else {
-          throw new Error(errorMsg)
+          Toast.show(errorMsg)
+          reject(err)
         }
+        //  else {
+        //   throw new Error(errorMsg)
+        // }
       }).catch((err) => {
         Toast.show(String(err))
         reject(err)

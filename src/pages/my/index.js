@@ -62,7 +62,6 @@ class My extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 5
   },
   item: {
     flexDirection: 'row',

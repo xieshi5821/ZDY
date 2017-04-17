@@ -19,7 +19,7 @@ class Product extends Component {
     }
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.setState({visible: true})
     callProductList().then(({productlist}) => {
       this.setState({
@@ -73,10 +73,8 @@ class Product extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    // padding: 5
   },
   group: {
-    marginTop: 5,
     backgroundColor: '#fff'
   },
   labelWrap: {

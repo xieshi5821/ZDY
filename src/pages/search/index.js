@@ -52,7 +52,7 @@ class Search extends Component {
     }
   }
 
-  componentWillMount() {
+  componentDidMount() {
     callSearchHome().then(({rangelist, placeholder}) => {
       this.props.dispatch(receivePlaceholder(placeholder))
       this.props.dispatch(receiveRangeList(rangelist.map(range => {

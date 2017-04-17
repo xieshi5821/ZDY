@@ -1,6 +1,7 @@
 import { searchTypes } from '../reducer-types'
 const initialState = {
-  inputText: null,
+  // inputText: null,
+  inputText: '',
   rangeList: [],
   placeholder: '',
   hisList: []

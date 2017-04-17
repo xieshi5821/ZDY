@@ -40,6 +40,8 @@
 		C97B085D1DEC4FA70084AE2A /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C97B08541DEC4FA70084AE2A /* Octicons.ttf */; };
 		C97B085E1DEC4FA70084AE2A /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C97B08551DEC4FA70084AE2A /* SimpleLineIcons.ttf */; };
 		C97B085F1DEC4FA70084AE2A /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C97B08561DEC4FA70084AE2A /* Zocial.ttf */; };
+		C9CAEDFB1E9A5E1200B7E880 /* index.ios.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = C9CAEDF91E9A5E1200B7E880 /* index.ios.jsbundle */; };
+		C9CAEDFC1E9A5E1200B7E880 /* index.ios.jsbundle.meta in Resources */ = {isa = PBXBuildFile; fileRef = C9CAEDFA1E9A5E1200B7E880 /* index.ios.jsbundle.meta */; };
 		C9D980C91E93675400805FCD /* BDVoiceEventSend.m in Sources */ = {isa = PBXBuildFile; fileRef = C9D9808E1E93675400805FCD /* BDVoiceEventSend.m */; };
 		C9D980CA1E93675400805FCD /* BDVoiceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9D980901E93675400805FCD /* BDVoiceVC.m */; };
 		C9D980CB1E93675400805FCD /* BDVRSConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = C9D980931E93675400805FCD /* BDVRSConfig.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -269,6 +271,8 @@
 		C97B08541DEC4FA70084AE2A /* Octicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		C97B08551DEC4FA70084AE2A /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		C97B08561DEC4FA70084AE2A /* Zocial.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
+		C9CAEDF91E9A5E1200B7E880 /* index.ios.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = index.ios.jsbundle; path = ../index.ios.jsbundle; sourceTree = "<group>"; };
+		C9CAEDFA1E9A5E1200B7E880 /* index.ios.jsbundle.meta */ = {isa = PBXFileReference; lastKnownFileType = file; name = index.ios.jsbundle.meta; path = ../index.ios.jsbundle.meta; sourceTree = "<group>"; };
 		C9D9808D1E93675400805FCD /* BDVoiceEventSend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDVoiceEventSend.h; sourceTree = "<group>"; };
 		C9D9808E1E93675400805FCD /* BDVoiceEventSend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDVoiceEventSend.m; sourceTree = "<group>"; };
 		C9D9808F1E93675400805FCD /* BDVoiceVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDVoiceVC.h; sourceTree = "<group>"; };
@@ -452,6 +456,8 @@
 		13B07FAE1A68108700A75B9A /* ZDY */ = {
 			isa = PBXGroup;
 			children = (
+				C9CAEDF91E9A5E1200B7E880 /* index.ios.jsbundle */,
+				C9CAEDFA1E9A5E1200B7E880 /* index.ios.jsbundle.meta */,
 				C9D9808C1E93675400805FCD /* BDYY_CLASS */,
 				C921F3F11E2F50E7000FBDD6 /* icon144x144.png */,
 				C97B084E1DEC4FA70084AE2A /* Entypo.ttf */,
@@ -1001,8 +1007,10 @@
 				9977EBF162F94F19A29AD6CE /* FontAwesome.ttf in Resources */,
 				D5F7B975DA164941A1E3522E /* Foundation.ttf in Resources */,
 				C97B08571DEC4FA70084AE2A /* Entypo.ttf in Resources */,
+				C9CAEDFC1E9A5E1200B7E880 /* index.ios.jsbundle.meta in Resources */,
 				1318D5B475074B1888602A2E /* Ionicons.ttf in Resources */,
 				ED0F277F325043B0B268F120 /* MaterialIcons.ttf in Resources */,
+				C9CAEDFB1E9A5E1200B7E880 /* index.ios.jsbundle in Resources */,
 				C97B085F1DEC4FA70084AE2A /* Zocial.ttf in Resources */,
 				C97B08591DEC4FA70084AE2A /* FontAwesome.ttf in Resources */,
 				C97B085C1DEC4FA70084AE2A /* MaterialIcons.ttf in Resources */,

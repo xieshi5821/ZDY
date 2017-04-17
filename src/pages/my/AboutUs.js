@@ -13,7 +13,7 @@ class AboutUs extends Component {
     }
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.setState({visible: true})
     callAboutUs().then(({aboutus}) => {
       this.setState({

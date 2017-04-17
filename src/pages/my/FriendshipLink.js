@@ -17,7 +17,7 @@ class FriendshipLink extends Component {
     }
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.setState({visible: true})
     callFirendList().then(({linklist}) => {
       this.setState({

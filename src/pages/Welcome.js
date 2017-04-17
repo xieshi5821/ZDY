@@ -16,7 +16,7 @@ export default class Welcome extends Component {
     }
   }
 
-  componentWillMount() {
+  componentDidMount() {
     AsyncStorage.getItem(WELCOME, (error, text) => {
       if (text === 'true') {
         this.props.onFinish()

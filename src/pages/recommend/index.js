@@ -61,7 +61,7 @@ class Recommend extends Component {
   }
   //END CHENLEIJING
   //END
-  componentWillMount() {
+  componentDidMount() {
     callRegister().then(() => {
       Promise.all([callRecommendHome(), callEvaHistory()]).then(([home, his]) => {
         this.props.dispatch(receiveBannerList(home.homeBannerlist))

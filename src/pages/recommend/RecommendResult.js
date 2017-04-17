@@ -26,7 +26,7 @@ class RecommendResult extends Component {
     }
     recommendResult = this
   }
-  componentWillMount() {
+  componentDidMount() {
     this.renderDataSource()
     // BackAndroid.addEventListener('hardwareBackPress', this.onBackAndroid);
   }
@@ -176,12 +176,11 @@ class RecommendResult extends Component {
   renderRow(rowData) {
     const {more} = this.props
     let header = null
-    let tableRr = null
     if (rowData.seq === 0) {
       const submitWords = this.renderSubmitWords()
       const recommedWords = this.renderRecommedWords()
       header = (
-        <View>
+        <View style={styles.tblHeader}>
           <View style={styles.inputWrap}>
             <View style={styles.inputLabelWrap}><Text style={styles.inputLabel}>已输入信息:</Text></View>
             <View style={styles.submitWordsWrap}>
@@ -196,29 +195,18 @@ class RecommendResult extends Component {
               {recommedWords}
             </ScrollView>
           </View>
-          <View style={styles.blockHeader}>
-            <Text style={styles.blockTitle}>推荐结果</Text>
-          </View>
-        </View>
-      )
-      tableRr = (
-        <View style={commonStyles.tr}>
-          <View style={commonStyles.td}><Text style={commonStyles.rowTitle}>药名</Text></View>
-          <View style={commonStyles.td}><Text style={[commonStyles.rowTitle, styles.sfyb]}>是否医保</Text></View>
-          <View style={commonStyles.td}><Text style={commonStyles.rowTitle}>用药禁忌</Text></View>
-          <View style={commonStyles.td}><Text style={[commonStyles.rowTitle, styles.tjxs]}>推荐系数</Text></View>
         </View>
       )
     }
     return (
       <View>
         {header}
-        {tableRr}
-        <TouchableOpacity key={rowData.medicinalId} onPress={this.handleDetail.bind(this, rowData.medicinalId, rowData.medicinalName, rowData.visit)} style={[commonStyles.tr, commonStyles.contentTr]}>
-          <View style={commonStyles.td}><Text numberOfLines={1} style={[commonStyles.rowTitle, commonStyles.contentRowTitle, commonStyles.ym, rowData.visit ? commonStyles.visit : '']}>{rowData.medicinalName}</Text></View>
-          <View style={commonStyles.td}><Text numberOfLines={1} style={[commonStyles.rowTitle, commonStyles.contentRowTitle]}>{rowData.medicinalIsInsurance}</Text></View>
-          <View style={commonStyles.td}><Text numberOfLines={1} style={[commonStyles.rowTitle, commonStyles.contentRowTitle]}>{rowData.medicinalContraindication}</Text></View>
-          <View style={commonStyles.td}><Text numberOfLines={1} style={[commonStyles.rowTitle, commonStyles.contentRowTitle, styles.tjxs]}>{rowData.medicinalRecommedKpi}</Text></View>
+        <TouchableOpacity key={rowData.medicinalId} style={commonStyles.blockItem} onPress={this.handleDetail.bind(this, rowData.medicinalId, rowData.medicinalName, rowData.visit)}>
+          <View style={[commonStyles.blockRow, commonStyles.blockRow2]}><View style={commonStyles.blockRowT}><View style={commonStyles.cellYb}>{rowData.medicinalIsInsurance === '是' ? <Text style={commonStyles.syb}>保</Text> : <Text style={commonStyles.fyb}>非</Text>}</View><Text style={[commonStyles.cellYm, rowData.visit ? commonStyles.visit : '']}>{rowData.medicinalName}</Text></View></View>
+          <View style={commonStyles.blockRow}><Text style={commonStyles.cellGn} numberOfLines={2}>{rowData.medicinalFunction}</Text></View>
+          <View style={commonStyles.blockRow}><Text><Text style={commonStyles.cellYcTitle}>药厂：</Text><Text style={commonStyles.cellYcText}>{rowData.medicinalManufacturingEnterprise}</Text></Text></View>
+          <View style={commonStyles.blockRow}><Text><Text style={commonStyles.cellGgTitle}>规格：</Text><Text style={commonStyles.cellGgText}>{rowData.medicinalSpecification}</Text></Text></View>
+          <View style={commonStyles.blockRow}><Text style={commonStyles.cellTjxs}>推荐系数：{rowData.medicinalRecommedKpi}</Text></View>
         </TouchableOpacity>
       </View>
     )
@@ -285,11 +273,9 @@ const styles = StyleSheet.create({
   checkText: {
     fontSize: 14
   },
-  sfyb: {
-    width: 60
-  },
-  tjxs: {
-    width: 60
+  tblHeader: {
+    borderColor: '#ccc',
+    borderBottomWidth: .5
   }
 })
 
