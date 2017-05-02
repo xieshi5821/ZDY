@@ -8,8 +8,9 @@ const initialState = {
   star: [],
   medicinalIsInsurance: [],
   submitWords: [],
-  recommedWords: [],
-  recommedWordPaths: []
+  recommedWords: []
+  ,
+  // recommedWordPaths: []
 }
 
 export default search = (state = initialState, action) => {
@@ -20,27 +21,33 @@ export default search = (state = initialState, action) => {
       return {...state, resultList: [], page: 1, hasMore: true}
     case recommendResultTypes.TOGGLE_RECOMMEND_CHECK:
       const recommedWords = Object.assign([], state.recommedWords)
-      const recommedWordPaths = Object.assign([], state.recommedWordsPath)
+      // const recommedWordPaths = Object.assign([], state.recommedWordsPath)
       const word = recommedWords[action.index]
       if (word.checked) {
-        const searchIndex = recommedWordPaths.indexOf(action.index)
-        if (searchIndex !== -1) {
-          recommedWordPaths.splice(searchIndex, 1)
-        }
+        // const searchIndex = recommedWordPaths.indexOf(action.index)
+        // if (searchIndex !== -1) {
+        //   recommedWordPaths.splice(searchIndex, 1)
+        // }
         word.checked = false
       } else {
-        recommedWordPaths.push(action.index)
+        // recommedWordPaths.push(action.index)
         word.checked = true
       }
-      return {...state, recommedWords, recommedWordPaths}
+      // return {...state, recommedWords, recommedWordPaths}
+      return {...state, recommedWords}
     case recommendResultTypes.RECEIVE_RESULT_LIST:
-      const {gridModel, page, total} = action.resultList
+      let {gridModel, page, total} = action.resultList
+      page = parseInt(page)
       const resultList = Object.assign([], state.resultList)
       let index = resultList.length
       gridModel.forEach(res => {
         resultList.push({...res, seq: index++})
       })
-      return {...state, resultList, page: parseInt(page) + 1, hasMore: parseInt(page) < parseInt(total)}
+      if (page === 1 && !resultList.length) {
+        // console.log('mz')
+        resultList.push({seq: 0, empty: true})
+      }
+      return {...state, resultList, page: page + 1, hasMore: parseInt(page) < parseInt(total)}
     case recommendResultTypes.RECEIVE_PURE_RESULT_LIST:
       return {...state, resultList: action.resultList}
     case recommendResultTypes.RECEIVE_RECOMMED_WORDS:

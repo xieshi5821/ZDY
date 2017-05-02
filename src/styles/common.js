@@ -91,5 +91,14 @@ export default styles = StyleSheet.create({
   cellTjxs: {
     color: '#f90',
     fontSize: 14
+  },
+  ybjj: {
+    flex: 1,
+    flexDirection: 'row',
+    margin: 5,
+    justifyContent: 'flex-end'
+  },
+  ybjj2: {
+    flexDirection: 'row'
   }
 })

@@ -14,6 +14,9 @@ export let drug = null
 const hasHighlightRe = /.*<highlight>.*<\/highlight>.*/
 
 class Drug extends Component {
+
+  y: 0
+
   static contextTypes = {
     routes: PropTypes.object.isRequired
   }
@@ -23,7 +26,8 @@ class Drug extends Component {
     this.state = {
       visible: true,
       xTitle: '',
-      xContent: ''
+      xContent: '',
+      y: 0
     }
     drug = this
   }
@@ -54,7 +58,7 @@ class Drug extends Component {
 
 
   shouldComponentUpdate(nextProps, nextState) {
-    return this.props.medicinal !== nextProps.medicinal || this.state.visible !== nextState.visible || this.state.xTitle !== nextState.xTitle
+    return this.props.medicinal !== nextProps.medicinal || this.state.visible !== nextState.visible || this.state.xTitle !== nextState.xTitle || this.state.y !== nextState.y
   }
 
   handleCollect() {
@@ -80,7 +84,6 @@ class Drug extends Component {
       Promise.all([callMedicinalDetail({medicinalId: queryId}), callEvaluateList({medicinalId: queryId, rows: 200})]).then(values => {
         this.props.dispatch(updateMedicinal(values[0]['medicinal']))
         this.props.dispatch(receiveEvaluateList(values[1]['evaluatelist']))
-        // console.log(values[1]['evaluatelist'])
         this.context.routes.refresh()
         this.setState({visible: false})
       }, () => {
@@ -114,7 +117,7 @@ class Drug extends Component {
     const keyWords = medicinal.medicinalKeyWordsResult || {}
     const keyWordsHaveValue = !!Object.keys(keyWords).length
     return (
-      <Modal style={styles.modal} backdrop={true} position={"top"} ref={"modal"}>
+      <Modal style={[styles.modal, {marginTop: this.state.y + 80}]} backdrop={true} position={"top"} ref={"modal"}>
         <ScrollView>
           <View style={styles.modalTitleWrap}><Text style={styles.modalTitle}>温馨提示</Text></View>
           <View style={styles.modalContent}>
@@ -144,7 +147,7 @@ class Drug extends Component {
   renderXModal() {
     const {xTitle, xContent} = this.state
     return (
-      <Modal style={styles.xmodal} backdrop={true} position={"top"} ref={"xmodal"}>
+      <Modal style={[styles.xmodal, {marginTop: this.state.y + 80}]} backdrop={true} position={"top"} ref={"xmodal"}>
         <ScrollView>
           <View style={styles.modalTitleWrap}><Text style={styles.modalTitle}>{xTitle}</Text></View>
           <View style={styles.modalContent}>
@@ -292,7 +295,8 @@ class Drug extends Component {
   openHighlightDetail(keyWords = {}, text = '') {
     this.setState({
       xTitle: text,
-      xContent: keyWords[text]
+      xContent: keyWords[text],
+      y: this.y
     })
     this.refs.xmodal && this.refs.xmodal.open()
   }
@@ -344,13 +348,18 @@ class Drug extends Component {
     )
   }
 
+  sc(event) {
+    this.y = event.nativeEvent.contentOffset.y
+    // console.log(this.y)
+  }
+
   render() {
     const modal = this.renderModal()
     const xmodal = this.renderXModal()
     const detail = this.renderDetail()
     const evaluateList = this.renderEvaluateList()
     return (
-      <ScrollView style={styles.container}>
+      <ScrollView style={styles.container} onScroll={this.sc.bind(this)}>
         <Spinner visible={this.state.visible} color="black"/>
         {detail}
         {evaluateList}
@@ -368,7 +377,7 @@ const styles = StyleSheet.create({
   modal: {
     height: height * .4,
     width: width * .85,
-    marginTop: height * .15,
+    // marginTop: height * .15,
     borderRadius: 4,
     borderWidth: 1,
     borderColor: '#ccc',
@@ -377,7 +386,7 @@ const styles = StyleSheet.create({
   xmodal: {
     height: height * .6,
     width: width * .85,
-    marginTop: height * .1,
+    // marginTop: height * .1,
     borderRadius: 4,
     borderWidth: 1,
     borderColor: '#ccc',
@@ -440,7 +449,7 @@ const styles = StyleSheet.create({
   },
   companyText: {
     color: '#666',
-    fontSize: 12
+    fontSize: 13
   },
   detailWrap: {
     padding: 5,
@@ -473,10 +482,10 @@ const styles = StyleSheet.create({
     color: '#999'
   },
   text: {
-    fontSize: 12
+    fontSize: 13
   },
   labelText: {
-    fontSize: 12,
+    fontSize: 13,
     color: '#007cca',
   },
   mainTextColor: {
@@ -501,7 +510,8 @@ const styles = StyleSheet.create({
   highlight: {
     textDecorationLine: 'underline',
     color: '#007cca',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    fontSize: 14
   }
 })
 

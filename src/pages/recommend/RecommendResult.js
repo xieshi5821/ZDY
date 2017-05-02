@@ -7,7 +7,7 @@ import Empty from '../../shared/empty'
 import Spinner from 'react-native-loading-spinner-overlay'
 import commonStyles from '../../styles/common'
 import { CheckBox } from 'react-native-elements'
-import {receiveSubmitWords, receivePureResultList, receiveResultList, toggleRecommendCheck, resetResultList, updatePage} from '../../actions/recommendResult'
+import {receiveSubmitWords, receivePureResultList, receiveResultList, toggleRecommendCheck, resetResultList, updatePage, resetFilter} from '../../actions/recommendResult'
 import {updateSource, updateQueryId, updateMedicinalName} from '../../actions/drug'
 import Icon from 'react-native-vector-icons/FontAwesome'
 export let recommendResult = null
@@ -28,18 +28,22 @@ class RecommendResult extends Component {
   }
   componentDidMount() {
     this.renderDataSource()
-    // BackAndroid.addEventListener('hardwareBackPress', this.onBackAndroid);
   }
 
-  goBack() {
-    const {recommedWordPaths} = this.props
-    if (recommedWordPaths.length) {
-      const lastIndex = recommedWordPaths[recommedWordPaths.length - 1]
-      this.handleCheckRecommedWord(lastIndex)
-    } else {
-      this.context.routes.pop()
-    }
+  componentWillUnmount() {
+    this.props.dispatch(resetResultList())
+    this.props.dispatch(resetFilter())
   }
+
+  // goBack() {
+  //   const {recommedWordPaths} = this.props
+  //   if (recommedWordPaths.length) {
+  //     const lastIndex = recommedWordPaths[recommedWordPaths.length - 1]
+  //     this.handleCheckRecommedWord(lastIndex)
+  //   } else {
+  //     this.context.routes.pop()
+  //   }
+  // }
   renderDataSource() {
     const {resultList} = this.props
     this.setState({dataSource: resultList.length ? this._dataSource.cloneWithRows(resultList) : null})
@@ -111,16 +115,6 @@ class RecommendResult extends Component {
     this.props.dispatch(toggleRecommendCheck(index))
     this.props.dispatch(resetResultList())
     this.props.dispatch(updatePage(1))
-    if (!visit) {
-      const resultList = this.props.resultList.map(item => {
-        if (item.medicinalId === durgId) {
-          item.visit = true
-        }
-        return item
-      })
-      this.props.dispatch(receivePureResultList(resultList))
-      this.setState({dataSource: resultList.length ? this._dataSource.cloneWithRows(resultList) : null})
-    }
     this.querySearch()
   }
 
@@ -176,6 +170,7 @@ class RecommendResult extends Component {
   renderRow(rowData) {
     const {more} = this.props
     let header = null
+    let body = null
     if (rowData.seq === 0) {
       const submitWords = this.renderSubmitWords()
       const recommedWords = this.renderRecommedWords()
@@ -195,19 +190,34 @@ class RecommendResult extends Component {
               {recommedWords}
             </ScrollView>
           </View>
+          <View style={commonStyles.ybjj}>
+            <View style={commonStyles.ybjj2}><View style={commonStyles.cellYb}><Text style={commonStyles.syb}>保</Text></View><View><Text>医保</Text></View></View>
+            <View style={commonStyles.ybjj2}><View style={commonStyles.cellYb}><Text style={commonStyles.fyb}>非</Text></View><View><Text>非医保</Text></View></View>
+          </View>
         </View>
+
       )
     }
-    return (
-      <View>
-        {header}
+
+    if (rowData.seq === 0 && rowData.empty) {
+      body = (<Empty center={false}></Empty>)
+    } else {
+      body = (
         <TouchableOpacity key={rowData.medicinalId} style={commonStyles.blockItem} onPress={this.handleDetail.bind(this, rowData.medicinalId, rowData.medicinalName, rowData.visit)}>
           <View style={[commonStyles.blockRow, commonStyles.blockRow2]}><View style={commonStyles.blockRowT}><View style={commonStyles.cellYb}>{rowData.medicinalIsInsurance === '是' ? <Text style={commonStyles.syb}>保</Text> : <Text style={commonStyles.fyb}>非</Text>}</View><Text style={[commonStyles.cellYm, rowData.visit ? commonStyles.visit : '']}>{rowData.medicinalName}</Text></View></View>
           <View style={commonStyles.blockRow}><Text style={commonStyles.cellGn} numberOfLines={2}>{rowData.medicinalFunction}</Text></View>
           <View style={commonStyles.blockRow}><Text><Text style={commonStyles.cellYcTitle}>药厂：</Text><Text style={commonStyles.cellYcText}>{rowData.medicinalManufacturingEnterprise}</Text></Text></View>
           <View style={commonStyles.blockRow}><Text><Text style={commonStyles.cellGgTitle}>规格：</Text><Text style={commonStyles.cellGgText}>{rowData.medicinalSpecification}</Text></Text></View>
+          <View style={commonStyles.blockRow}><Text><Text style={commonStyles.cellGgTitle}>用药禁忌：</Text><Text style={commonStyles.cellGgText}>{rowData.medicinalContraindication}</Text></Text></View>
           <View style={commonStyles.blockRow}><Text style={commonStyles.cellTjxs}>推荐系数：{rowData.medicinalRecommedKpi}</Text></View>
         </TouchableOpacity>
+      )
+    }
+
+    return (
+      <View>
+        {header}
+        {body}
       </View>
     )
   }
@@ -220,9 +230,9 @@ class RecommendResult extends Component {
     const {dataSource} = this.state
     const {page, hasMore} = this.props
     let list = dataSource ? <SwRefreshListView dataSource={dataSource} ref="listView" isShowLoadMore={hasMore} loadingTitle="加载中..." renderRow={this.renderRow.bind(this)} onLoadMore={this.onLoadMore.bind(this)}/> : null
-    if (list === null && page === 2) {
-      list = <Empty center={true}/>
-    }
+    // if (list === null && page === 2) {
+    //   list = <Empty center={true}/>
+    // }
     return (
       <View style={styles.warp}>
           {list}
@@ -287,7 +297,7 @@ export default connect(store => ({
   contraindicationWords: store.recommendResult.contraindicationWords,
   submitWords: store.recommendResult.submitWords,
   recommedWords: store.recommendResult.recommedWords,
-  recommedWordPaths: store.recommendResult.recommedWordPaths,
+  // recommedWordPaths: store.recommendResult.recommedWordPaths,
   star: store.recommendResult.star,
   medicinalIsInsurance: store.recommendResult.medicinalIsInsurance
 }))(RecommendResult)

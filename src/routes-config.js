@@ -50,7 +50,7 @@ export default function configRoutes() {
         <Scene key="tabbar" tabs={true} duration={0} tabBarIconContainerStyle={styles.tabBarIconContainerStyle} >
             <Scene key="recommend" title="找对药" icon={TabIcon}>
               <Scene key="recommendPage" initial={true} component={Recommend} title="找对药" sceneStyle={styles.sceneContentStyle}/>
-              <Scene key="recommendResult" onBack={() => recommendResult.goBack()} component={RecommendResult} backTitle="智能推荐" backButtonTextStyle={styles.backButtonTextStyle} rightButtonImage={require('../assets/images/filter.png')} onRight={() => recommendResult.context.routes.recommendResultFilter()} hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
+              <Scene key="recommendResult" component={RecommendResult} backTitle="智能推荐" backButtonTextStyle={styles.backButtonTextStyle} rightButtonImage={require('../assets/images/filter.png')} onRight={() => recommendResult.context.routes.recommendResultFilter()} hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
               <Scene key="recommendResultFilter" component={RecommendResultFilter} title="筛选" hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
               <Scene key="recommendDurg" component={Durg} getTitle={getDrugTitle} getRightTitle={getCollectTitle} onRight={() => drug.handleCollect()} rightButtonTextStyle={styles.titleStyle} hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
               <Scene key="recommendEvaluate" component={Evaluate} title="药品点评" hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>

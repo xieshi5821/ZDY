@@ -32,11 +32,12 @@ export default class Empty extends Component {
 const {height}=Dimensions.get('window')
 const styles = StyleSheet.create({
   container: {
-    position: 'absolute',
-    left: 0,
-    right: 0
+
   },
   center: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
     top: height / 2 - 50
   },
   textWrap: {

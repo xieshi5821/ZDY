@@ -7,7 +7,7 @@ import commonStyles from '../../styles/common'
 import React, {Component, PropTypes} from 'react'
 import Spinner from 'react-native-loading-spinner-overlay'
 import ViewPager from 'react-native-viewpager'
-import {receiveResultList, receiveContraindicationWords, resetResultList, resetFilter, receiveSubmitWords, receiveRecommedWords, updatePage} from '../../actions/recommendResult'
+import {receiveResultList, receiveContraindicationWords, receiveSubmitWords, receiveRecommedWords, updatePage} from '../../actions/recommendResult'
 import searchResult from '../../actions/searchResult'
 import Toast from 'react-native-root-toast'
 import Modal from 'react-native-modalbox'
@@ -116,8 +116,8 @@ class Recommend extends Component {
     }
 
     this.setState({visible: true})
-    this.props.dispatch(searchResult.resetResultList())
-    this.props.dispatch(searchResult.resetFilter())
+    // this.props.dispatch(searchResult.resetResultList())
+    // this.props.dispatch(searchResult.resetFilter())
     callRecommendSubmit({text: inputText}).then(({search = false, recommedWords, contraindicationWrods, submitWords, resultlist}) => {
       if (search) {
         callSearchList({text: inputText, rangeField: '', rows: 20, page: 1}).then(({contraindicationWrods, resultlist}) => {
