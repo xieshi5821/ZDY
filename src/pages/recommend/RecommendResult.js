@@ -204,7 +204,7 @@ class RecommendResult extends Component {
     } else {
       body = (
         <TouchableOpacity key={rowData.medicinalId} style={commonStyles.blockItem} onPress={this.handleDetail.bind(this, rowData.medicinalId, rowData.medicinalName, rowData.visit)}>
-          <View style={[commonStyles.blockRow, commonStyles.blockRow2]}><View style={commonStyles.blockRowT}><View style={commonStyles.cellYb}>{rowData.medicinalIsInsurance === '是' ? <Text style={commonStyles.syb}>保</Text> : <Text style={commonStyles.fyb}>非</Text>}</View><Text style={[commonStyles.cellYm, rowData.visit ? commonStyles.visit : '']}>{rowData.medicinalName}</Text></View></View>
+          <View style={[commonStyles.blockRow, commonStyles.blockRow2]}><View style={commonStyles.blockRowT}><View style={commonStyles.cellYb}>{rowData.medicinalIsInsurance === '医保' ? <Text style={commonStyles.syb}>保</Text> : <Text style={commonStyles.fyb}>非</Text>}</View><Text style={[commonStyles.cellYm, rowData.visit ? commonStyles.visit : '']}>{rowData.medicinalName}</Text></View></View>
           <View style={commonStyles.blockRow}><Text style={commonStyles.cellGn} numberOfLines={2}>{rowData.medicinalFunction}</Text></View>
           <View style={commonStyles.blockRow}><Text><Text style={commonStyles.cellYcTitle}>药厂：</Text><Text style={commonStyles.cellYcText}>{rowData.medicinalManufacturingEnterprise}</Text></Text></View>
           <View style={commonStyles.blockRow}><Text><Text style={commonStyles.cellGgTitle}>规格：</Text><Text style={commonStyles.cellGgText}>{rowData.medicinalSpecification}</Text></Text></View>

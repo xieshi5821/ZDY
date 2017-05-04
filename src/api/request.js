@@ -2,7 +2,8 @@ import {AsyncStorage} from 'react-native'
 import Toast from 'react-native-root-toast'
 import DeviceInfo from 'react-native-device-info'
 const uniqueId = DeviceInfo.getUniqueID().toUpperCase()
-export const API_URL = 'http://otc.icecode.cc:8081'
+// export const API_URL = 'http://otc.icecode.cc:8081'
+export const API_URL = 'http://zdy.cintcm.com:8003'
 const PID = 'pid'
 export const fillUrl = (url = '') => {
   if (!url.startsWith('http://')) {

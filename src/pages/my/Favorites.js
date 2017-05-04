@@ -6,7 +6,7 @@ import {receiveResultList} from '../../actions/favorites'
 import commonStyles from '../../styles/common'
 import Empty from '../../shared/empty'
 import React, { Component, PropTypes } from 'react'
-import Spinner from 'react-native-loading-spinner-overlay'
+// import Spinner from 'react-native-loading-spinner-overlay'
 import {updateSource, updateQueryId, updateMedicinalName} from '../../actions/drug'
 import {callCollectCancel} from '../../api/request'
 
@@ -21,7 +21,7 @@ class Favorites extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      visible: false,
+      // visible: false,
       rows: 20,
       page: 1,
       resultList: [],
@@ -45,21 +45,21 @@ class Favorites extends Component {
   querySearch() {
     return new Promise((resolve, reject) => {
       const {rows, page} = this.state
-      this.setState({visible: true})
+      // this.setState({visible: true})
       callCollectList({rows, page}).then(({collectlist}) => {
         const {gridModel, page, total} = collectlist
         const resultList = Object.assign([], this.state.resultList).concat(gridModel)
         this.setState({
-          visible: false,
+          // visible: false,
           resultList,
           page: parseInt(page) + 1,
           hasMore: parseInt(page) < parseInt(total),
           dataSource: resultList.length ? this._dataSource.cloneWithRows(resultList) : null
         })
       }, () => {
-        this.setState({
-          visible: false
-        })
+        // this.setState({
+        //   visible: false
+        // })
       })
     })
   }
@@ -72,11 +72,11 @@ class Favorites extends Component {
   }
 
   handleCancelCollect(durgId) {
-    this.setState({visible: true})
+    // this.setState({visible: true})
     callCollectCancel({medicinalId: durgId}).then(() => {
       const resultList = this.state.resultList.filter(item => item.medicinalId !== durgId)
       this.setState({
-        visible: false,
+        // visible: false,
         resultList,
         dataSource: resultList.length ? this._dataSource.cloneWithRows(resultList) : null
       })
@@ -117,7 +117,6 @@ class Favorites extends Component {
     }
     return (
       <View style={styles.container}>
-        <Spinner visible={this.state.visible} color="black"/>
         {list}
       </View>
     )

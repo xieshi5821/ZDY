@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react'
 import {connect} from 'react-redux'
 import {StyleSheet, View, Text, ScrollView, TouchableOpacity, Image} from 'react-native'
 import {callProductList, fillUrl} from '../../api/request'
-import Spinner from 'react-native-loading-spinner-overlay'
+// import Spinner from 'react-native-loading-spinner-overlay'
 import {updateUri, updateUriName} from '../../actions/xWebView'
 
 class Product extends Component {
@@ -14,22 +14,22 @@ class Product extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      visible: false,
+      // visible: false,
       productlist: []
     }
   }
 
   componentDidMount() {
-    this.setState({visible: true})
+    // this.setState({visible: true})
     callProductList().then(({productlist}) => {
       this.setState({
         productlist,
-        visible: false
+        // visible: false
       })
     }, () => {
-      this.setState({
-        visible: false
-      })
+      // this.setState({
+      //   visible: false
+      // })
     })
   }
 
@@ -64,7 +64,6 @@ class Product extends Component {
     const list = this.renderList()
     return (
       <ScrollView style={styles.container}>
-        <Spinner visible={this.state.visible} color="black"/>
         {list}
       </ScrollView>
     )

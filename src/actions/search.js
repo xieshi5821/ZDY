@@ -1,6 +1,6 @@
 import { searchTypes } from '../reducer-types'
 
-export const updateInputText = (text) => (dispatch) => {
+export const updateInputTextS = (text) => (dispatch) => {
   dispatch({type: searchTypes.UPDATE_INPUT_TEXT, text})
 }
 

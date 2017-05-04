@@ -13,6 +13,7 @@ import Toast from 'react-native-root-toast'
 import Modal from 'react-native-modalbox'
 import { CheckBox } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome'
+import {updateInputTextS} from '../../actions/search'
 
 //BEGIN RN于OC交互需要引用的JS CHENLEIJING
 import {AppRegistry, NativeModules, NativeEventEmitter} from 'react-native'
@@ -116,10 +117,9 @@ class Recommend extends Component {
     }
 
     this.setState({visible: true})
-    // this.props.dispatch(searchResult.resetResultList())
-    // this.props.dispatch(searchResult.resetFilter())
     callRecommendSubmit({text: inputText}).then(({search = false, recommedWords, contraindicationWrods, submitWords, resultlist}) => {
       if (search) {
+        this.props.dispatch(updateInputTextS(inputText))
         callSearchList({text: inputText, rangeField: '', rows: 20, page: 1}).then(({contraindicationWrods, resultlist}) => {
           this.props.dispatch(searchResult.receiveResultList(resultlist))
           this.props.dispatch(searchResult.receiveContraindicationWords(contraindicationWrods.map(contraindication => {

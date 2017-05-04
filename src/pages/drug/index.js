@@ -17,6 +17,8 @@ class Drug extends Component {
 
   y: 0
 
+  firstTips: true
+
   static contextTypes = {
     routes: PropTypes.object.isRequired
   }
@@ -168,9 +170,11 @@ class Drug extends Component {
     medicinal.medicinalContraindication = medicinal.medicinalContraindication && medicinal.medicinalContraindication.startsWith('尚不明确') ? '' : medicinal.medicinalContraindication
     medicinal.medicinalincompatibility = medicinal.medicinalincompatibility && medicinal.medicinalincompatibility.startsWith('尚不明确') ? '' : medicinal.medicinalincompatibility
     // 存在用药禁忌或者配伍禁忌，显示modal框
-    if (medicinal.medicinalContraindication || medicinal.medicinalincompatibility) {
+    if (this.firstTips !== false && (medicinal.medicinalContraindication || medicinal.medicinalincompatibility)) {
       this.timer1 = setTimeout(() => {
+        // console.log(this.firstTips)
         this.refs.modal && this.refs.modal.open()
+        this.firstTips = false
       })
     }
 

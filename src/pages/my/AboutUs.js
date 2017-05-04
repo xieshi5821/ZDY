@@ -1,28 +1,28 @@
 import React, {Component, PropTypes} from 'react'
 import {connect} from 'react-redux'
 import {StyleSheet, View, Text, ScrollView, TouchableOpacity, Image} from 'react-native'
-import Spinner from 'react-native-loading-spinner-overlay'
+// import Spinner from 'react-native-loading-spinner-overlay'
 import {callAboutUs, fillUrl} from '../../api/request'
 
 class AboutUs extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      visible: false,
+      // visible: false,
       aboutus: null
     }
   }
 
   componentDidMount() {
-    this.setState({visible: true})
+    // this.setState({visible: true})
     callAboutUs().then(({aboutus}) => {
       this.setState({
         aboutus,
-        visible: false
+        // visible: false
       })
     }, () => {
       this.setState({
-        visible: false
+        // visible: false
       })
     })
   }
@@ -35,7 +35,6 @@ class AboutUs extends Component {
 
     return (
       <ScrollView style={styles.container}>
-        <Spinner visible={this.state.visible} color="black"/>
         <Image resizeMode="stretch" source={{uri: fillUrl(aboutus.descImageUrl)}} style={styles.image} />
         <View style={styles.textWrap}>
           <Text style={styles.text}>{aboutus.descContent}</Text>

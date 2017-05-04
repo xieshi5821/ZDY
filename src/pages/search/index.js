@@ -3,7 +3,7 @@ import {Alert, StyleSheet, View, Text, ScrollView, TextInput, TouchableOpacity, 
 import {callSearchHome, callSearchList} from '../../api/request'
 import {connect} from 'react-redux'
 import {receiveResultList, receiveContraindicationWords, resetResultList, resetFilter} from '../../actions/searchResult'
-import {updateInputText, receiveRangeList, receivePlaceholder, toggleCheck, updateHisList} from '../../actions/search'
+import {updateInputTextS, receiveRangeList, receivePlaceholder, toggleCheck, updateHisList} from '../../actions/search'
 import commonStyles from '../../styles/common'
 import React, {Component, PropTypes} from 'react'
 import Spinner from 'react-native-loading-spinner-overlay'
@@ -73,11 +73,11 @@ class Search extends Component {
   }
 
   handleChangeInput(text) {
-    this.props.dispatch(updateInputText(text))
+    this.props.dispatch(updateInputTextS(text))
   }
 
   handleChangeInput2His(his) {
-    this.props.dispatch(updateInputText(his))
+    this.props.dispatch(updateInputTextS(his))
     this.timer1 = setTimeout(() => {
       this.handleSubmit()
     })
