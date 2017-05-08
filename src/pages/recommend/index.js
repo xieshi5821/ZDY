@@ -40,13 +40,6 @@ class Recommend extends Component {
   }
 
   //BEGIN 获取OC原生的注册代理通知事件CHENLEIJING
-
-  componentDidMount(){
-      //创建自定义事件接口
-    if (isIos) {
-      this.listener = RCTDeviceEventEmitter.addListener('BD_Voice_Event', this.iseCallback.bind(this))
-    }
-  }
   componentWillUnmount(){
     if (isIos) {
       this.listener.remove()
@@ -55,6 +48,7 @@ class Recommend extends Component {
   }
 
   //接受原生传过来的数据 data={code:,result:}
+  //接受原生传过来的数据
   iseCallback(data = {}) {
     if (data && data['BDVoiceKey']) {
       this.handleChangeInput(data['BDVoiceKey'])
@@ -63,6 +57,10 @@ class Recommend extends Component {
   //END CHENLEIJING
   //END
   componentDidMount() {
+    //创建自定义事件接口
+    if (isIos) {
+      this.listener = RCTDeviceEventEmitter.addListener('BD_Voice_Event', this.iseCallback.bind(this))
+    }
     callRegister().then(() => {
       Promise.all([callRecommendHome(), callEvaHistory()]).then(([home, his]) => {
         this.props.dispatch(receiveBannerList(home.homeBannerlist))

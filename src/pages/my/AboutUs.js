@@ -21,9 +21,9 @@ class AboutUs extends Component {
         // visible: false
       })
     }, () => {
-      this.setState({
+      // this.setState({
         // visible: false
-      })
+      // })
     })
   }
 

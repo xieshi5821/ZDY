@@ -90908,6 +90908,7 @@ __d(772 /* ZDY/src/reducers/recommend.js */, function(global, require, module, e
 var initialState={
 bannerList:[],
 
+
 inputText:'',
 explainList:[],
 placeholder:''};exports.default=
@@ -91011,8 +91012,9 @@ contraindicationWords:[],
 star:[],
 medicinalIsInsurance:[],
 submitWords:[],
-recommedWords:[],
-recommedWordPaths:[]};exports.default=
+recommedWords:[]};exports.default=
+
+
 
 
 search=function search(){var state=arguments.length>0&&arguments[0]!==undefined?arguments[0]:initialState;var action=arguments[1];var _ret=function(){
@@ -91023,27 +91025,33 @@ case _reducerTypes.recommendResultTypes.RESET_RESULT_LIST:
 return{v:babelHelpers.extends({},state,{resultList:[],page:1,hasMore:true})};
 case _reducerTypes.recommendResultTypes.TOGGLE_RECOMMEND_CHECK:
 var recommedWords=babelHelpers.extends([],state.recommedWords);
-var recommedWordPaths=babelHelpers.extends([],state.recommedWordsPath);
+
 var word=recommedWords[action.index];
 if(word.checked){
-var searchIndex=recommedWordPaths.indexOf(action.index);
-if(searchIndex!==-1){
-recommedWordPaths.splice(searchIndex,1);
-}
+
+
+
+
 word.checked=false;
 }else{
-recommedWordPaths.push(action.index);
+
 word.checked=true;
 }
-return{v:babelHelpers.extends({},state,{recommedWords:recommedWords,recommedWordPaths:recommedWordPaths})};
+
+return{v:babelHelpers.extends({},state,{recommedWords:recommedWords})};
 case _reducerTypes.recommendResultTypes.RECEIVE_RESULT_LIST:var _action$resultList=
 action.resultList,gridModel=_action$resultList.gridModel,page=_action$resultList.page,total=_action$resultList.total;
+page=parseInt(page);
 var resultList=babelHelpers.extends([],state.resultList);
 var index=resultList.length;
 gridModel.forEach(function(res){
 resultList.push(babelHelpers.extends({},res,{seq:index++}));
 });
-return{v:babelHelpers.extends({},state,{resultList:resultList,page:parseInt(page)+1,hasMore:parseInt(page)<parseInt(total)})};
+if(page===1&&!resultList.length){
+
+resultList.push({seq:0,empty:true});
+}
+return{v:babelHelpers.extends({},state,{resultList:resultList,page:page+1,hasMore:parseInt(page)<parseInt(total)})};
 case _reducerTypes.recommendResultTypes.RECEIVE_PURE_RESULT_LIST:
 return{v:babelHelpers.extends({},state,{resultList:action.resultList})};
 case _reducerTypes.recommendResultTypes.RECEIVE_RECOMMED_WORDS:
@@ -91093,6 +91101,7 @@ return state;
 __d(775 /* ZDY/src/reducers/search.js */, function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _reducerTypes=require(773 /* ../reducer-types */);
 var initialState={
 inputText:null,
+
 rangeList:[],
 placeholder:'',
 hisList:[]};exports.default=
@@ -91298,7 +91307,7 @@ __d(780 /* ZDY/src/routes-config.js */, function(global, require, module, export
 
 
 
-configRoutes;var _react=require(12 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);var _reactNative=require(44 /* react-native */);var _reactRedux=require(660 /* react-redux */);var _reactNativeRouterFlux=require(725 /* react-native-router-flux */);var _tabIcon=require(781 /* ./shared/tabIcon */);var _tabIcon2=babelHelpers.interopRequireDefault(_tabIcon);var _recommend=require(782 /* ./pages/recommend/ */);var _recommend2=babelHelpers.interopRequireDefault(_recommend);var _RecommendResult=require(1015 /* ./pages/recommend/RecommendResult */);var _RecommendResult2=babelHelpers.interopRequireDefault(_RecommendResult);var _RecommendResultFilter=require(1023 /* ./pages/recommend/RecommendResultFilter */);var _RecommendResultFilter2=babelHelpers.interopRequireDefault(_RecommendResultFilter);var _search=require(1024 /* ./pages/search/ */);var _search2=babelHelpers.interopRequireDefault(_search);var _SearchResult=require(1026 /* ./pages/search/SearchResult */);var _SearchResult2=babelHelpers.interopRequireDefault(_SearchResult);var _SearchResultFilter=require(1027 /* ./pages/search/SearchResultFilter */);var _SearchResultFilter2=babelHelpers.interopRequireDefault(_SearchResultFilter);var _drug=require(1028 /* ./pages/drug/ */);var _drug2=babelHelpers.interopRequireDefault(_drug);var _Evaluate=require(1032 /* ./pages/drug/Evaluate */);var _Evaluate2=babelHelpers.interopRequireDefault(_Evaluate);var _my=require(1033 /* ./pages/my/ */);var _my2=babelHelpers.interopRequireDefault(_my);var _XWebView=require(1034 /* ./pages/XWebView */);var _XWebView2=babelHelpers.interopRequireDefault(_XWebView);var _AboutUs=require(1035 /* ./pages/my/AboutUs */);var _AboutUs2=babelHelpers.interopRequireDefault(_AboutUs);var _Favorites=require(1030 /* ./pages/my/Favorites */);var _Favorites2=babelHelpers.interopRequireDefault(_Favorites);var _FeedBack=require(1036 /* ./pages/my/FeedBack */);var _FeedBack2=babelHelpers.interopRequireDefault(_FeedBack);var _FriendshipLink=require(1037 /* ./pages/my/FriendshipLink */);var _FriendshipLink2=babelHelpers.interopRequireDefault(_FriendshipLink);var _Product=require(1038 /* ./pages/my/Product */);var _Product2=babelHelpers.interopRequireDefault(_Product);var reducerCreate=function reducerCreate(params){var defaultReducer=(0,_reactNativeRouterFlux.Reducer)(params);return function(state,action){return defaultReducer(state,action);};};var getDrugTitle=function getDrugTitle(){return _drug.drug?_drug.drug.getDrugTitle():'';};var getCollectTitle=function getCollectTitle(){return _drug.drug?_drug.drug.getCollectTitle():'';};var getWebViewTitle=function getWebViewTitle(){return _XWebView.xWebView?_XWebView.xWebView.getWebViewTitle():'';};var RouterWithRedux=(0,_reactRedux.connect)()(_reactNativeRouterFlux.Router);function configRoutes(){
+configRoutes;var _react=require(12 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);var _reactNative=require(44 /* react-native */);var _reactRedux=require(660 /* react-redux */);var _reactNativeRouterFlux=require(725 /* react-native-router-flux */);var _tabIcon=require(781 /* ./shared/tabIcon */);var _tabIcon2=babelHelpers.interopRequireDefault(_tabIcon);var _recommend=require(782 /* ./pages/recommend/ */);var _recommend2=babelHelpers.interopRequireDefault(_recommend);var _RecommendResult=require(1016 /* ./pages/recommend/RecommendResult */);var _RecommendResult2=babelHelpers.interopRequireDefault(_RecommendResult);var _RecommendResultFilter=require(1024 /* ./pages/recommend/RecommendResultFilter */);var _RecommendResultFilter2=babelHelpers.interopRequireDefault(_RecommendResultFilter);var _search=require(1025 /* ./pages/search/ */);var _search2=babelHelpers.interopRequireDefault(_search);var _SearchResult=require(1026 /* ./pages/search/SearchResult */);var _SearchResult2=babelHelpers.interopRequireDefault(_SearchResult);var _SearchResultFilter=require(1027 /* ./pages/search/SearchResultFilter */);var _SearchResultFilter2=babelHelpers.interopRequireDefault(_SearchResultFilter);var _drug=require(1028 /* ./pages/drug/ */);var _drug2=babelHelpers.interopRequireDefault(_drug);var _Evaluate=require(1032 /* ./pages/drug/Evaluate */);var _Evaluate2=babelHelpers.interopRequireDefault(_Evaluate);var _my=require(1033 /* ./pages/my/ */);var _my2=babelHelpers.interopRequireDefault(_my);var _XWebView=require(1034 /* ./pages/XWebView */);var _XWebView2=babelHelpers.interopRequireDefault(_XWebView);var _AboutUs=require(1035 /* ./pages/my/AboutUs */);var _AboutUs2=babelHelpers.interopRequireDefault(_AboutUs);var _Favorites=require(1030 /* ./pages/my/Favorites */);var _Favorites2=babelHelpers.interopRequireDefault(_Favorites);var _FeedBack=require(1036 /* ./pages/my/FeedBack */);var _FeedBack2=babelHelpers.interopRequireDefault(_FeedBack);var _FriendshipLink=require(1037 /* ./pages/my/FriendshipLink */);var _FriendshipLink2=babelHelpers.interopRequireDefault(_FriendshipLink);var _Product=require(1038 /* ./pages/my/Product */);var _Product2=babelHelpers.interopRequireDefault(_Product);var reducerCreate=function reducerCreate(params){var defaultReducer=(0,_reactNativeRouterFlux.Reducer)(params);return function(state,action){return defaultReducer(state,action);};};var getDrugTitle=function getDrugTitle(){return _drug.drug?_drug.drug.getDrugTitle():'';};var getCollectTitle=function getCollectTitle(){return _drug.drug?_drug.drug.getCollectTitle():'';};var getWebViewTitle=function getWebViewTitle(){return _XWebView.xWebView?_XWebView.xWebView.getWebViewTitle():'';};var RouterWithRedux=(0,_reactRedux.connect)()(_reactNativeRouterFlux.Router);function configRoutes(){
 return(
 _react2.default.createElement(_reactNative.View,{style:styles.appContainer},
 _react2.default.createElement(RouterWithRedux,{createReducer:reducerCreate,backButtonImage:require(1039 /* ../assets/images/back_chevron.png */),sceneStyle:styles.sceneStyle,titleStyle:styles.titleStyle,navigationBarStyle:styles.navigationBarStyle},
@@ -91306,7 +91315,7 @@ _react2.default.createElement(_reactNativeRouterFlux.Scene,{key:'index'},
 _react2.default.createElement(_reactNativeRouterFlux.Scene,{key:'tabbar',tabs:true,duration:0,tabBarIconContainerStyle:styles.tabBarIconContainerStyle},
 _react2.default.createElement(_reactNativeRouterFlux.Scene,{key:'recommend',title:'\u627E\u5BF9\u836F',icon:_tabIcon2.default},
 _react2.default.createElement(_reactNativeRouterFlux.Scene,{key:'recommendPage',initial:true,component:_recommend2.default,title:'\u627E\u5BF9\u836F',sceneStyle:styles.sceneContentStyle}),
-_react2.default.createElement(_reactNativeRouterFlux.Scene,{key:'recommendResult',onBack:function onBack(){return _RecommendResult.recommendResult.goBack();},component:_RecommendResult2.default,backTitle:'\u667A\u80FD\u63A8\u8350',backButtonTextStyle:styles.backButtonTextStyle,rightButtonImage:require(1040 /* ../assets/images/filter.png */),onRight:function onRight(){return _RecommendResult.recommendResult.context.routes.recommendResultFilter();},hideTabBar:true,sceneStyle:[styles.sceneContentStyle,styles.noTabBar]}),
+_react2.default.createElement(_reactNativeRouterFlux.Scene,{key:'recommendResult',component:_RecommendResult2.default,backTitle:'\u667A\u80FD\u63A8\u8350',backButtonTextStyle:styles.backButtonTextStyle,rightButtonImage:require(1040 /* ../assets/images/filter.png */),onRight:function onRight(){return _RecommendResult.recommendResult.context.routes.recommendResultFilter();},hideTabBar:true,sceneStyle:[styles.sceneContentStyle,styles.noTabBar]}),
 _react2.default.createElement(_reactNativeRouterFlux.Scene,{key:'recommendResultFilter',component:_RecommendResultFilter2.default,title:'\u7B5B\u9009',hideTabBar:true,sceneStyle:[styles.sceneContentStyle,styles.noTabBar]}),
 _react2.default.createElement(_reactNativeRouterFlux.Scene,{key:'recommendDurg',component:_drug2.default,getTitle:getDrugTitle,getRightTitle:getCollectTitle,onRight:function onRight(){return _drug.drug.handleCollect();},rightButtonTextStyle:styles.titleStyle,hideTabBar:true,sceneStyle:[styles.sceneContentStyle,styles.noTabBar]}),
 _react2.default.createElement(_reactNativeRouterFlux.Scene,{key:'recommendEvaluate',component:_Evaluate2.default,title:'\u836F\u54C1\u70B9\u8BC4',hideTabBar:true,sceneStyle:[styles.sceneContentStyle,styles.noTabBar]}),
@@ -91428,6 +91437,7 @@ var _reactNativeRootToast=require(784 /* react-native-root-toast */);var _reactN
 var _reactNativeModalbox=require(799 /* react-native-modalbox */);var _reactNativeModalbox2=babelHelpers.interopRequireDefault(_reactNativeModalbox);
 var _reactNativeElements=require(800 /* react-native-elements */);
 var _FontAwesome=require(984 /* react-native-vector-icons/FontAwesome */);var _FontAwesome2=babelHelpers.interopRequireDefault(_FontAwesome);
+var _search=require(1011 /* ../../actions/search */);
 
 
 
@@ -91451,16 +91461,9 @@ star:5,
 starName:'非常满意'};return _this;
 
 
-}babelHelpers.createClass(Recommend,[{key:'componentDidMount',value:function componentDidMount()
+}babelHelpers.createClass(Recommend,[{key:'componentWillUnmount',value:function componentWillUnmount()
 
 
-
-{
-
-if(isIos){
-this.listener=_RCTDeviceEventEmitter2.default.addListener('BD_Voice_Event',this.iseCallback.bind(this));
-}
-}},{key:'componentWillUnmount',value:function componentWillUnmount()
 {
 if(isIos){
 this.listener.remove();
@@ -91469,14 +91472,19 @@ this.timer1&&clearTimeout(this.timer1);
 }},{key:'iseCallback',value:function iseCallback()
 
 
+
 {var data=arguments.length>0&&arguments[0]!==undefined?arguments[0]:{};
 if(data&&data['BDVoiceKey']){
 this.handleChangeInput(data['BDVoiceKey']);
 }
-}},{key:'componentWillMount',value:function componentWillMount()
+}},{key:'componentDidMount',value:function componentDidMount()
 
 
 {var _this2=this;
+
+if(isIos){
+this.listener=_RCTDeviceEventEmitter2.default.addListener('BD_Voice_Event',this.iseCallback.bind(this));
+}
 (0,_request.callRegister)().then(function(){
 Promise.all([(0,_request.callRecommendHome)(),(0,_request.callEvaHistory)()]).then(function(_ref){var _ref2=babelHelpers.slicedToArray(_ref,2),home=_ref2[0],his=_ref2[1];
 _this2.props.dispatch((0,_recommend.receiveBannerList)(home.homeBannerlist));
@@ -91531,10 +91539,9 @@ return;
 }
 
 this.setState({visible:true});
-this.props.dispatch(_searchResult2.default.resetResultList());
-this.props.dispatch(_searchResult2.default.resetFilter());
 (0,_request.callRecommendSubmit)({text:inputText}).then(function(_ref4){var _ref4$search=_ref4.search,search=_ref4$search===undefined?false:_ref4$search,recommedWords=_ref4.recommedWords,contraindicationWrods=_ref4.contraindicationWrods,submitWords=_ref4.submitWords,resultlist=_ref4.resultlist;
 if(search){
+_this3.props.dispatch((0,_search.updateInputTextS)(inputText));
 (0,_request.callSearchList)({text:inputText,rangeField:'',rows:20,page:1}).then(function(_ref5){var contraindicationWrods=_ref5.contraindicationWrods,resultlist=_ref5.resultlist;
 _this3.props.dispatch(_searchResult2.default.receiveResultList(resultlist));
 _this3.props.dispatch(_searchResult2.default.receiveContraindicationWords(contraindicationWrods.map(function(contraindication){
@@ -91718,7 +91725,7 @@ voise=_react2.default.createElement(_reactNative.TouchableOpacity,{onPress:this.
 _react2.default.createElement(_reactNative.Text,{style:styles.voice},'\uE512'));
 
 }else{
-var BaiduVoise=require(1011 /* react-native-voise */)['BaiduVoise'];
+var BaiduVoise=require(1012 /* react-native-voise */)['BaiduVoise'];
 voise=_react2.default.createElement(BaiduVoise,{
 ref:'BaiduVoise',
 style:styles.voiceContainer,
@@ -91895,7 +91902,8 @@ __d(783 /* ZDY/src/api/request.js */, function(global, require, module, exports)
 var _reactNativeRootToast=require(784 /* react-native-root-toast */);var _reactNativeRootToast2=babelHelpers.interopRequireDefault(_reactNativeRootToast);
 var _reactNativeDeviceInfo=require(789 /* react-native-device-info */);var _reactNativeDeviceInfo2=babelHelpers.interopRequireDefault(_reactNativeDeviceInfo);
 var uniqueId=_reactNativeDeviceInfo2.default.getUniqueID().toUpperCase();
-var API_URL=exports.API_URL='http://otc.icecode.cc:8081';
+
+var API_URL=exports.API_URL='http://zdy.cintcm.com:8003';
 var PID='pid';
 var fillUrl=exports.fillUrl=function fillUrl(){var url=arguments.length>0&&arguments[0]!==undefined?arguments[0]:'';
 if(!url.startsWith('http://')){
@@ -91928,8 +91936,12 @@ then(function(resp){return resp.json();}).then(function(_ref){var _ref$errorCode
 if(errorCode==='100'){
 resolve(data||{});
 }else{
-throw new Error(errorMsg);
+_reactNativeRootToast2.default.show(errorMsg);
+reject(err);
 }
+
+
+
 }).catch(function(err){
 _reactNativeRootToast2.default.show(String(err));
 reject(err);
@@ -92552,31 +92564,6 @@ tableWrap:{
 padding:5,
 backgroundColor:'#fff'},
 
-tr:{
-flexDirection:'row'},
-
-contentTr:{
-borderColor:'#ccc',
-borderTopWidth:.5},
-
-td:{
-flex:1,
-paddingTop:2,
-paddingBottom:2,
-paddingLeft:5,
-paddingRight:5,
-backgroundColor:'#fff'},
-
-rowTitle:{
-paddingTop:10,
-paddingBottom:10},
-
-ym:{
-color:'#00a5ca'},
-
-contentRowTitle:{
-color:'#999'},
-
 flex:{
 flex:1},
 
@@ -92584,7 +92571,83 @@ textCenter:{
 textAlign:'center'},
 
 visit:{
-color:'#ff7f50'}});
+color:'#ff7f50'},
+
+blockItem:{
+borderColor:'#ccc',
+borderBottomWidth:.5,
+padding:10,
+paddingLeft:0,
+backgroundColor:'#fff'},
+
+blockRow:{
+paddingRight:10,
+paddingLeft:30},
+
+blockRow2:{
+paddingLeft:0},
+
+blockRowT:{
+flexDirection:'row'},
+
+cellYb:{
+width:30,
+justifyContent:'center',
+alignItems:'center'},
+
+syb:{
+backgroundColor:'#529a33',
+borderRadius:10,
+height:20,
+width:20,
+textAlign:'center',
+color:'#fff'},
+
+fyb:{
+backgroundColor:'#f33',
+borderRadius:10,
+height:20,
+width:20,
+textAlign:'center',
+color:'#fff'},
+
+cellYm:{
+flex:1,
+color:'#00a5ca',
+fontSize:16},
+
+cellGn:{
+color:'#999',
+fontSize:14},
+
+cellYcTitle:{
+color:'#00a5ca',
+fontSize:14},
+
+cellYcText:{
+color:'#999',
+fontSize:14},
+
+cellGgTitle:{
+color:'#00a5ca',
+fontSize:14},
+
+cellGgText:{
+color:'#999',
+fontSize:14},
+
+cellTjxs:{
+color:'#f90',
+fontSize:14},
+
+ybjj:{
+flex:1,
+flexDirection:'row',
+margin:5,
+justifyContent:'flex-end'},
+
+ybjj2:{
+flexDirection:'row'}});
 }, "ZDY/src/styles/common.js");
 __d(793 /* react-native-loading-spinner-overlay/src/index.js */, function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});
 
@@ -109972,18 +110035,40 @@ style:[child.props.style,this.props.style]});
 __d(1010 /* react-native-elements/src/tabs/Tab.js */, function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _reactNativeTabNavigator=require(1002 /* react-native-tab-navigator */);var _reactNativeTabNavigator2=babelHelpers.interopRequireDefault(_reactNativeTabNavigator);exports.default=
 _reactNativeTabNavigator2.default.Item;
 }, "react-native-elements/src/tabs/Tab.js");
-__d(1011 /* react-native-voise/index.android.js */, function(global, require, module, exports) {module.exports={
-BaiduVoise:require(1012 /* ./lib/BaiduVoise */),
-SpeechRecognizer:require(1014 /* ./lib/SpeechRecognizer */)};
+__d(1011 /* ZDY/src/actions/search.js */, function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.updateHisList=exports.toggleCheck=exports.receivePlaceholder=exports.receiveRangeList=exports.updateInputTextS=undefined;var _reducerTypes=require(773 /* ../reducer-types */);
+
+var updateInputTextS=exports.updateInputTextS=function updateInputTextS(text){return function(dispatch){
+dispatch({type:_reducerTypes.searchTypes.UPDATE_INPUT_TEXT,text:text});
+};};
+
+var receiveRangeList=exports.receiveRangeList=function receiveRangeList(rangeList){return function(dispatch){
+dispatch({type:_reducerTypes.searchTypes.REVEIVE_RANGE_LIST,rangeList:rangeList});
+};};
+
+var receivePlaceholder=exports.receivePlaceholder=function receivePlaceholder(placeholder){return function(dispatch){
+dispatch({type:_reducerTypes.searchTypes.REVEIVE_PLACEHOLDER,placeholder:placeholder});
+};};
+
+var toggleCheck=exports.toggleCheck=function toggleCheck(index){return function(dispatch){
+dispatch({type:_reducerTypes.searchTypes.TOGGLE_CHECK,index:index});
+};};
+
+var updateHisList=exports.updateHisList=function updateHisList(hisList){return function(dispatch){
+dispatch({type:_reducerTypes.searchTypes.UPDATE_HIS_LIST,hisList:hisList});
+};};
+}, "ZDY/src/actions/search.js");
+__d(1012 /* react-native-voise/index.android.js */, function(global, require, module, exports) {module.exports={
+BaiduVoise:require(1013 /* ./lib/BaiduVoise */),
+SpeechRecognizer:require(1015 /* ./lib/SpeechRecognizer */)};
 }, "react-native-voise/index.android.js");
-__d(1012 /* react-native-voise/lib/BaiduVoise.js */, function(global, require, module, exports) {var _react=require(12 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
+__d(1013 /* react-native-voise/lib/BaiduVoise.js */, function(global, require, module, exports) {var _react=require(12 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
 var _reactNative=require(44 /* react-native */);var _reactNative2=babelHelpers.interopRequireDefault(_reactNative);
 
 
 
 
 
-var _Params=require(1013 /* ./Params */);var _Params2=babelHelpers.interopRequireDefault(_Params);
+var _Params=require(1014 /* ./Params */);var _Params2=babelHelpers.interopRequireDefault(_Params);
 
 var VOISE_REF='baiduVoise';
 
@@ -110066,7 +110151,7 @@ onChange:true}});
 
 module.exports=BaiduVoise;
 }, "react-native-voise/lib/BaiduVoise.js");
-__d(1013 /* react-native-voise/lib/Params.js */, function(global, require, module, exports) {var params={
+__d(1014 /* react-native-voise/lib/Params.js */, function(global, require, module, exports) {var params={
 PROP_MUSIC:10001,
 PROP_VIDEO:10002,
 PROP_APP:10003,
@@ -110102,14 +110187,14 @@ LANGUAGE_ENGLISH:"en-GB"};
 
 module.exports=params;
 }, "react-native-voise/lib/Params.js");
-__d(1014 /* react-native-voise/lib/SpeechRecognizer.js */, function(global, require, module, exports) {var _react=require(12 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
+__d(1015 /* react-native-voise/lib/SpeechRecognizer.js */, function(global, require, module, exports) {var _react=require(12 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
 var _reactNative=require(44 /* react-native */);var _reactNative2=babelHelpers.interopRequireDefault(_reactNative);
 
 
 
 
 
-var _Params=require(1013 /* ./Params */);var _Params2=babelHelpers.interopRequireDefault(_Params);
+var _Params=require(1014 /* ./Params */);var _Params2=babelHelpers.interopRequireDefault(_Params);
 
 var VOISE_REF='SpeechRecognizer';
 
@@ -110261,17 +110346,17 @@ onError:true}});
 
 module.exports=SpeechComponent;
 }, "react-native-voise/lib/SpeechRecognizer.js");
-__d(1015 /* ZDY/src/pages/recommend/RecommendResult.js */, function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.recommendResult=undefined;var _react=require(12 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
+__d(1016 /* ZDY/src/pages/recommend/RecommendResult.js */, function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.recommendResult=undefined;var _react=require(12 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
 var _reactRedux=require(660 /* react-redux */);
 var _request=require(783 /* ../../api/request */);
 var _reactNative=require(44 /* react-native */);
-var _SwRefresh=require(1016 /* ../../libs/SwRefresh */);
-var _empty=require(1021 /* ../../shared/empty */);var _empty2=babelHelpers.interopRequireDefault(_empty);
+var _SwRefresh=require(1017 /* ../../libs/SwRefresh */);
+var _empty=require(1022 /* ../../shared/empty */);var _empty2=babelHelpers.interopRequireDefault(_empty);
 var _reactNativeLoadingSpinnerOverlay=require(793 /* react-native-loading-spinner-overlay */);var _reactNativeLoadingSpinnerOverlay2=babelHelpers.interopRequireDefault(_reactNativeLoadingSpinnerOverlay);
 var _common=require(792 /* ../../styles/common */);var _common2=babelHelpers.interopRequireDefault(_common);
 var _reactNativeElements=require(800 /* react-native-elements */);
 var _recommendResult=require(797 /* ../../actions/recommendResult */);
-var _drug=require(1022 /* ../../actions/drug */);
+var _drug=require(1023 /* ../../actions/drug */);
 var _FontAwesome=require(984 /* react-native-vector-icons/FontAwesome */);var _FontAwesome2=babelHelpers.interopRequireDefault(_FontAwesome);
 var recommendResult=exports.recommendResult=null;var
 RecommendResult=function(_Component){babelHelpers.inherits(RecommendResult,_Component);
@@ -110288,21 +110373,25 @@ dataSource:null,
 more:false};
 
 exports.recommendResult=recommendResult=_this;return _this;
-}babelHelpers.createClass(RecommendResult,[{key:'componentWillMount',value:function componentWillMount()
+}babelHelpers.createClass(RecommendResult,[{key:'componentDidMount',value:function componentDidMount()
 {
 this.renderDataSource();
+}},{key:'componentWillUnmount',value:function componentWillUnmount()
 
-}},{key:'goBack',value:function goBack()
-
-{var
-recommedWordPaths=this.props.recommedWordPaths;
-if(recommedWordPaths.length){
-var lastIndex=recommedWordPaths[recommedWordPaths.length-1];
-this.handleCheckRecommedWord(lastIndex);
-}else{
-this.context.routes.pop();
-}
+{
+this.props.dispatch((0,_recommendResult.resetResultList)());
+this.props.dispatch((0,_recommendResult.resetFilter)());
 }},{key:'renderDataSource',value:function renderDataSource()
+
+
+
+
+
+
+
+
+
+
 {var
 resultList=this.props.resultList;
 this.setState({dataSource:resultList.length?this._dataSource.cloneWithRows(resultList):null});
@@ -110374,16 +110463,6 @@ index){
 this.props.dispatch((0,_recommendResult.toggleRecommendCheck)(index));
 this.props.dispatch((0,_recommendResult.resetResultList)());
 this.props.dispatch((0,_recommendResult.updatePage)(1));
-if(!visit){
-var resultList=this.props.resultList.map(function(item){
-if(item.medicinalId===durgId){
-item.visit=true;
-}
-return item;
-});
-this.props.dispatch((0,_recommendResult.receivePureResultList)(resultList));
-this.setState({dataSource:resultList.length?this._dataSource.cloneWithRows(resultList):null});
-}
 this.querySearch();
 }},{key:'renderSubmitWords',value:function renderSubmitWords()
 
@@ -110439,12 +110518,12 @@ return checkGroup.map(function(group,i){return _react2.default.createElement(_re
 rowData){var
 more=this.props.more;
 var header=null;
-var tableRr=null;
+var body=null;
 if(rowData.seq===0){
 var submitWords=this.renderSubmitWords();
 var recommedWords=this.renderRecommedWords();
 header=
-_react2.default.createElement(_reactNative.View,null,
+_react2.default.createElement(_reactNative.View,{style:styles.tblHeader},
 _react2.default.createElement(_reactNative.View,{style:styles.inputWrap},
 _react2.default.createElement(_reactNative.View,{style:styles.inputLabelWrap},_react2.default.createElement(_reactNative.Text,{style:styles.inputLabel},'\u5DF2\u8F93\u5165\u4FE1\u606F:')),
 _react2.default.createElement(_reactNative.View,{style:styles.submitWordsWrap},
@@ -110459,30 +110538,34 @@ _react2.default.createElement(_reactNative.ScrollView,null,
 recommedWords)),
 
 
-_react2.default.createElement(_reactNative.View,{style:styles.blockHeader},
-_react2.default.createElement(_reactNative.Text,{style:styles.blockTitle},'\u63A8\u8350\u7ED3\u679C')));
+_react2.default.createElement(_reactNative.View,{style:_common2.default.ybjj},
+_react2.default.createElement(_reactNative.View,{style:_common2.default.ybjj2},_react2.default.createElement(_reactNative.View,{style:_common2.default.cellYb},_react2.default.createElement(_reactNative.Text,{style:_common2.default.syb},'\u4FDD')),_react2.default.createElement(_reactNative.View,null,_react2.default.createElement(_reactNative.Text,null,'\u533B\u4FDD'))),
+_react2.default.createElement(_reactNative.View,{style:_common2.default.ybjj2},_react2.default.createElement(_reactNative.View,{style:_common2.default.cellYb},_react2.default.createElement(_reactNative.Text,{style:_common2.default.fyb},'\u975E')),_react2.default.createElement(_reactNative.View,null,_react2.default.createElement(_reactNative.Text,null,'\u975E\u533B\u4FDD')))));
 
 
-
-tableRr=
-_react2.default.createElement(_reactNative.View,{style:_common2.default.tr},
-_react2.default.createElement(_reactNative.View,{style:_common2.default.td},_react2.default.createElement(_reactNative.Text,{style:_common2.default.rowTitle},'\u836F\u540D')),
-_react2.default.createElement(_reactNative.View,{style:_common2.default.td},_react2.default.createElement(_reactNative.Text,{style:[_common2.default.rowTitle,styles.sfyb]},'\u662F\u5426\u533B\u4FDD')),
-_react2.default.createElement(_reactNative.View,{style:_common2.default.td},_react2.default.createElement(_reactNative.Text,{style:_common2.default.rowTitle},'\u7528\u836F\u7981\u5FCC')),
-_react2.default.createElement(_reactNative.View,{style:_common2.default.td},_react2.default.createElement(_reactNative.Text,{style:[_common2.default.rowTitle,styles.tjxs]},'\u63A8\u8350\u7CFB\u6570')));
 
 
 }
+
+if(rowData.seq===0&&rowData.empty){
+body=_react2.default.createElement(_empty2.default,{center:false});
+}else{
+body=
+_react2.default.createElement(_reactNative.TouchableOpacity,{key:rowData.medicinalId,style:_common2.default.blockItem,onPress:this.handleDetail.bind(this,rowData.medicinalId,rowData.medicinalName,rowData.visit)},
+_react2.default.createElement(_reactNative.View,{style:[_common2.default.blockRow,_common2.default.blockRow2]},_react2.default.createElement(_reactNative.View,{style:_common2.default.blockRowT},_react2.default.createElement(_reactNative.View,{style:_common2.default.cellYb},rowData.medicinalIsInsurance==='医保'?_react2.default.createElement(_reactNative.Text,{style:_common2.default.syb},'\u4FDD'):_react2.default.createElement(_reactNative.Text,{style:_common2.default.fyb},'\u975E')),_react2.default.createElement(_reactNative.Text,{style:[_common2.default.cellYm,rowData.visit?_common2.default.visit:'']},rowData.medicinalName))),
+_react2.default.createElement(_reactNative.View,{style:_common2.default.blockRow},_react2.default.createElement(_reactNative.Text,{style:_common2.default.cellGn,numberOfLines:2},rowData.medicinalFunction)),
+_react2.default.createElement(_reactNative.View,{style:_common2.default.blockRow},_react2.default.createElement(_reactNative.Text,null,_react2.default.createElement(_reactNative.Text,{style:_common2.default.cellYcTitle},'\u836F\u5382\uFF1A'),_react2.default.createElement(_reactNative.Text,{style:_common2.default.cellYcText},rowData.medicinalManufacturingEnterprise))),
+_react2.default.createElement(_reactNative.View,{style:_common2.default.blockRow},_react2.default.createElement(_reactNative.Text,null,_react2.default.createElement(_reactNative.Text,{style:_common2.default.cellGgTitle},'\u89C4\u683C\uFF1A'),_react2.default.createElement(_reactNative.Text,{style:_common2.default.cellGgText},rowData.medicinalSpecification))),
+_react2.default.createElement(_reactNative.View,{style:_common2.default.blockRow},_react2.default.createElement(_reactNative.Text,null,_react2.default.createElement(_reactNative.Text,{style:_common2.default.cellGgTitle},'\u7528\u836F\u7981\u5FCC\uFF1A'),_react2.default.createElement(_reactNative.Text,{style:_common2.default.cellGgText},rowData.medicinalContraindication))),
+_react2.default.createElement(_reactNative.View,{style:_common2.default.blockRow},_react2.default.createElement(_reactNative.Text,{style:_common2.default.cellTjxs},'\u63A8\u8350\u7CFB\u6570\uFF1A',rowData.medicinalRecommedKpi)));
+
+
+}
+
 return(
 _react2.default.createElement(_reactNative.View,null,
 header,
-tableRr,
-_react2.default.createElement(_reactNative.TouchableOpacity,{key:rowData.medicinalId,onPress:this.handleDetail.bind(this,rowData.medicinalId,rowData.medicinalName,rowData.visit),style:[_common2.default.tr,_common2.default.contentTr]},
-_react2.default.createElement(_reactNative.View,{style:_common2.default.td},_react2.default.createElement(_reactNative.Text,{numberOfLines:1,style:[_common2.default.rowTitle,_common2.default.contentRowTitle,_common2.default.ym,rowData.visit?_common2.default.visit:'']},rowData.medicinalName)),
-_react2.default.createElement(_reactNative.View,{style:_common2.default.td},_react2.default.createElement(_reactNative.Text,{numberOfLines:1,style:[_common2.default.rowTitle,_common2.default.contentRowTitle]},rowData.medicinalIsInsurance)),
-_react2.default.createElement(_reactNative.View,{style:_common2.default.td},_react2.default.createElement(_reactNative.Text,{numberOfLines:1,style:[_common2.default.rowTitle,_common2.default.contentRowTitle]},rowData.medicinalContraindication)),
-_react2.default.createElement(_reactNative.View,{style:_common2.default.td},_react2.default.createElement(_reactNative.Text,{numberOfLines:1,style:[_common2.default.rowTitle,_common2.default.contentRowTitle,styles.tjxs]},rowData.medicinalRecommedKpi)))));
-
+body));
 
 
 }},{key:'onLoadMore',value:function onLoadMore(
@@ -110495,9 +110578,9 @@ this.querySearch(false).then(function(){return end();});
 dataSource=this.state.dataSource;var _props2=
 this.props,page=_props2.page,hasMore=_props2.hasMore;
 var list=dataSource?_react2.default.createElement(_SwRefresh.SwRefreshListView,{dataSource:dataSource,ref:'listView',isShowLoadMore:hasMore,loadingTitle:'\u52A0\u8F7D\u4E2D...',renderRow:this.renderRow.bind(this),onLoadMore:this.onLoadMore.bind(this)}):null;
-if(list===null&&page===2){
-list=_react2.default.createElement(_empty2.default,{center:true});
-}
+
+
+
 return(
 _react2.default.createElement(_reactNative.View,{style:styles.warp},
 list));
@@ -110548,11 +110631,9 @@ padding:0},
 checkText:{
 fontSize:14},
 
-sfyb:{
-width:60},
-
-tjxs:{
-width:60}});exports.default=
+tblHeader:{
+borderColor:'#ccc',
+borderBottomWidth:.5}});exports.default=
 
 
 
@@ -110564,15 +110645,15 @@ resultList:store.recommendResult.resultList,
 contraindicationWords:store.recommendResult.contraindicationWords,
 submitWords:store.recommendResult.submitWords,
 recommedWords:store.recommendResult.recommedWords,
-recommedWordPaths:store.recommendResult.recommedWordPaths,
+
 star:store.recommendResult.star,
 medicinalIsInsurance:store.recommendResult.medicinalIsInsurance};})(
 RecommendResult);
 }, "ZDY/src/pages/recommend/RecommendResult.js");
-__d(1016 /* ZDY/src/libs/SwRefresh/index.js */, function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.LoadMoreStatus=exports.RefreshStatus=exports.SwRefreshListView=exports.SwRefreshScrollView=undefined;
+__d(1017 /* ZDY/src/libs/SwRefresh/index.js */, function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.LoadMoreStatus=exports.RefreshStatus=exports.SwRefreshListView=exports.SwRefreshScrollView=undefined;
 
 
-var _SwRefresh=require(1017 /* ./SwRefresh */);exports.
+var _SwRefresh=require(1018 /* ./SwRefresh */);exports.
 
 
 
@@ -110585,19 +110666,19 @@ SwRefreshListView=_SwRefresh.SwRefreshListView;exports.
 RefreshStatus=_SwRefresh.RefreshStatus;exports.
 LoadMoreStatus=_SwRefresh.LoadMoreStatus;
 }, "ZDY/src/libs/SwRefresh/index.js");
-__d(1017 /* ZDY/src/libs/SwRefresh/SwRefresh.ios.js */, function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.RefreshStatus=exports.SwRefreshScrollView=exports.LoadMoreStatus=exports.SwRefreshListView=undefined;
+__d(1018 /* ZDY/src/libs/SwRefresh/SwRefresh.ios.js */, function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.RefreshStatus=exports.SwRefreshScrollView=exports.LoadMoreStatus=exports.SwRefreshListView=undefined;
 
 
-var _SwRefreshScrollView=require(1018 /* ./SwRefreshScrollView */);
+var _SwRefreshScrollView=require(1019 /* ./SwRefreshScrollView */);
 
-var _SwRefreshListView=require(1020 /* ./SwRefreshListView */);exports.
+var _SwRefreshListView=require(1021 /* ./SwRefreshListView */);exports.
 
 SwRefreshListView=_SwRefreshListView.SwRefreshListView;exports.
 LoadMoreStatus=_SwRefreshListView.LoadMoreStatus;exports.
 SwRefreshScrollView=_SwRefreshScrollView.SwRefreshScrollView;exports.
 RefreshStatus=_SwRefreshScrollView.RefreshStatus;
 }, "ZDY/src/libs/SwRefresh/SwRefresh.ios.js");
-__d(1018 /* ZDY/src/libs/SwRefresh/SwRefreshScrollView.ios.js */, function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.SwRefreshScrollView=exports.RefreshStatus=exports.RefreshTitle=undefined;
+__d(1019 /* ZDY/src/libs/SwRefresh/SwRefreshScrollView.ios.js */, function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.SwRefreshScrollView=exports.RefreshStatus=exports.RefreshTitle=undefined;
 
 
 
@@ -110638,7 +110719,7 @@ var _reactNative=require(44 /* react-native */);
 
 
 
-var _Tools=require(1019 /* ./Tools */);var _Tools2=babelHelpers.interopRequireDefault(_Tools);var _Dimensions$get=_reactNative.Dimensions.get('window'),width=_Dimensions$get.width,height=_Dimensions$get.height;var dateKey='SwRefresh_date';var ArrowImage='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAABQBAMAAAD8TNiNAAAAJ1BMVEUAAACqqqplZWVnZ2doaGhqampoaGhpaWlnZ2dmZmZlZWVmZmZnZ2duD78kAAAADHRSTlMAA6CYqZOlnI+Kg/B86E+1AAAAhklEQVQ4y+2LvQ3CQAxGLSHEBSg8AAX0jECTnhFosgcjZKr8StE3VHz5EkeRMkF0rzk/P58k9rgOW78j+TE99OoeKpEbCvcPVDJ0OvsJ9bQs6Jxs26h5HCrlr9w8vi8zHphfmI0fcvO/ZXJG8wDzcvDFO2Y/AJj9ADE7gXmlxFMIyVpJ7DECzC9J2EC2ECAAAAAASUVORK5CYII=';var RefreshTitle=exports.RefreshTitle={pullToRefresh:'下拉以刷新',releaseToRefresh:'松开以刷新',refreshing:'正在刷新数据'};var RefreshStatus=exports.RefreshStatus={pullToRefresh:0,releaseToRefresh:1,refreshing:2};var
+var _Tools=require(1020 /* ./Tools */);var _Tools2=babelHelpers.interopRequireDefault(_Tools);var _Dimensions$get=_reactNative.Dimensions.get('window'),width=_Dimensions$get.width,height=_Dimensions$get.height;var dateKey='SwRefresh_date';var ArrowImage='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAABQBAMAAAD8TNiNAAAAJ1BMVEUAAACqqqplZWVnZ2doaGhqampoaGhpaWlnZ2dmZmZlZWVmZmZnZ2duD78kAAAADHRSTlMAA6CYqZOlnI+Kg/B86E+1AAAAhklEQVQ4y+2LvQ3CQAxGLSHEBSg8AAX0jECTnhFosgcjZKr8StE3VHz5EkeRMkF0rzk/P58k9rgOW78j+TE99OoeKpEbCvcPVDJ0OvsJ9bQs6Jxs26h5HCrlr9w8vi8zHphfmI0fcvO/ZXJG8wDzcvDFO2Y/AJj9ADE7gXmlxFMIyVpJ7DECzC9J2EC2ECAAAAAASUVORK5CYII=';var RefreshTitle=exports.RefreshTitle={pullToRefresh:'下拉以刷新',releaseToRefresh:'松开以刷新',refreshing:'正在刷新数据'};var RefreshStatus=exports.RefreshStatus={pullToRefresh:0,releaseToRefresh:1,refreshing:2};var
 
 
 
@@ -110977,7 +111058,7 @@ fontSize:11,
 color:'#333333',
 marginTop:5}});
 }, "ZDY/src/libs/SwRefresh/SwRefreshScrollView.ios.js");
-__d(1019 /* ZDY/src/libs/SwRefresh/Tools.js */, function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.default=
+__d(1020 /* ZDY/src/libs/SwRefresh/Tools.js */, function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.default=
 
 
 
@@ -111005,7 +111086,7 @@ if(new RegExp("("+k+")").test(fmt))fmt=fmt.replace(RegExp.$1,RegExp.$1.length==1
 return fmt;
 };
 }, "ZDY/src/libs/SwRefresh/Tools.js");
-__d(1020 /* ZDY/src/libs/SwRefresh/SwRefreshListView.ios.js */, function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.SwRefreshListView=exports.LoadMoreStatus=undefined;
+__d(1021 /* ZDY/src/libs/SwRefresh/SwRefreshListView.ios.js */, function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.SwRefreshListView=exports.LoadMoreStatus=undefined;
 
 
 var _react=require(12 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
@@ -111022,7 +111103,7 @@ var _reactNative=require(44 /* react-native */);
 
 
 
-var _SwRefreshScrollView=require(1018 /* ./SwRefreshScrollView */);
+var _SwRefreshScrollView=require(1019 /* ./SwRefreshScrollView */);
 
 
 
@@ -111288,7 +111369,7 @@ fontSize:15,
 color:'#999999',
 marginLeft:10}});
 }, "ZDY/src/libs/SwRefresh/SwRefreshListView.ios.js");
-__d(1021 /* ZDY/src/shared/empty.js */, function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(12 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
+__d(1022 /* ZDY/src/shared/empty.js */, function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(12 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
 var _reactNative=require(44 /* react-native */);var
 
 Empty=function(_Component){babelHelpers.inherits(Empty,_Component);
@@ -111321,12 +111402,13 @@ _react2.default.createElement(_reactNative.View,{style:styles.textWrap},_react2.
 
 _reactNative.Dimensions.get('window'),height=_Dimensions$get.height;
 var styles=_reactNative.StyleSheet.create({
-container:{
-position:'absolute',
-left:0,
-right:0},
+container:{},
+
 
 center:{
+position:'absolute',
+left:0,
+right:0,
 top:height/2-50},
 
 textWrap:{
@@ -111337,7 +111419,7 @@ textAlign:'center',
 fontSize:18,
 color:'#999'}});
 }, "ZDY/src/shared/empty.js");
-__d(1022 /* ZDY/src/actions/drug.js */, function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.receiveEvaluateList=exports.updateMedicinal=exports.updateMedicinalName=exports.updateSource=exports.updateQueryId=undefined;var _reducerTypes=require(773 /* ../reducer-types */);
+__d(1023 /* ZDY/src/actions/drug.js */, function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.receiveEvaluateList=exports.updateMedicinal=exports.updateMedicinalName=exports.updateSource=exports.updateQueryId=undefined;var _reducerTypes=require(773 /* ../reducer-types */);
 
 var updateQueryId=exports.updateQueryId=function updateQueryId(queryId){return function(dispatch){
 dispatch({type:_reducerTypes.drugTypes.UPDATE_QUERY_ID,queryId:queryId});
@@ -111359,7 +111441,7 @@ var receiveEvaluateList=exports.receiveEvaluateList=function receiveEvaluateList
 dispatch({type:_reducerTypes.drugTypes.RECEIVE_EVALUATE_LIST,evaluateList:evaluateList});
 };};
 }, "ZDY/src/actions/drug.js");
-__d(1023 /* ZDY/src/pages/recommend/RecommendResultFilter.js */, function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _reactNativeElements=require(800 /* react-native-elements */);
+__d(1024 /* ZDY/src/pages/recommend/RecommendResultFilter.js */, function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _reactNativeElements=require(800 /* react-native-elements */);
 var _reactRedux=require(660 /* react-redux */);
 var _reactNative=require(44 /* react-native */);
 var _common=require(792 /* ../../styles/common */);var _common2=babelHelpers.interopRequireDefault(_common);
@@ -111367,7 +111449,7 @@ var _FontAwesome=require(984 /* react-native-vector-icons/FontAwesome */);var _F
 var _react=require(12 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
 var _reactNativeLoadingSpinnerOverlay=require(793 /* react-native-loading-spinner-overlay */);var _reactNativeLoadingSpinnerOverlay2=babelHelpers.interopRequireDefault(_reactNativeLoadingSpinnerOverlay);
 var _recommendResult=require(797 /* ../../actions/recommendResult */);
-var _RecommendResult=require(1015 /* ./RecommendResult */);var
+var _RecommendResult=require(1016 /* ./RecommendResult */);var
 
 RecommendResultFilter=function(_Component){babelHelpers.inherits(RecommendResultFilter,_Component);
 
@@ -111556,12 +111638,12 @@ star:store.recommendResult.star,
 medicinalIsInsurance:store.recommendResult.medicinalIsInsurance};})(
 RecommendResultFilter);
 }, "ZDY/src/pages/recommend/RecommendResultFilter.js");
-__d(1024 /* ZDY/src/pages/search/index.js */, function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _reactNativeElements=require(800 /* react-native-elements */);
+__d(1025 /* ZDY/src/pages/search/index.js */, function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _reactNativeElements=require(800 /* react-native-elements */);
 var _reactNative=require(44 /* react-native */);
 var _request=require(783 /* ../../api/request */);
 var _reactRedux=require(660 /* react-redux */);
 var _searchResult=require(798 /* ../../actions/searchResult */);
-var _search=require(1025 /* ../../actions/search */);
+var _search=require(1011 /* ../../actions/search */);
 var _common=require(792 /* ../../styles/common */);var _common2=babelHelpers.interopRequireDefault(_common);
 var _react=require(12 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
 var _reactNativeLoadingSpinnerOverlay=require(793 /* react-native-loading-spinner-overlay */);var _reactNativeLoadingSpinnerOverlay2=babelHelpers.interopRequireDefault(_reactNativeLoadingSpinnerOverlay);
@@ -111608,7 +111690,7 @@ props));
 _this.state={
 visible:true};return _this;
 
-}babelHelpers.createClass(Search,[{key:'componentWillMount',value:function componentWillMount()
+}babelHelpers.createClass(Search,[{key:'componentDidMount',value:function componentDidMount()
 
 {var _this2=this;
 (0,_request.callSearchHome)().then(function(_ref){var rangelist=_ref.rangelist,placeholder=_ref.placeholder;
@@ -111631,11 +111713,11 @@ this.timer1&&clearTimeout(this.timer1);
 }},{key:'handleChangeInput',value:function handleChangeInput(
 
 text){
-this.props.dispatch((0,_search.updateInputText)(text));
+this.props.dispatch((0,_search.updateInputTextS)(text));
 }},{key:'handleChangeInput2His',value:function handleChangeInput2His(
 
 his){var _this3=this;
-this.props.dispatch((0,_search.updateInputText)(his));
+this.props.dispatch((0,_search.updateInputTextS)(his));
 this.timer1=setTimeout(function(){
 _this3.handleSubmit();
 });
@@ -111801,38 +111883,16 @@ rows:store.searchResult.rows,
 page:store.searchResult.page};})(
 Search);
 }, "ZDY/src/pages/search/index.js");
-__d(1025 /* ZDY/src/actions/search.js */, function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.updateHisList=exports.toggleCheck=exports.receivePlaceholder=exports.receiveRangeList=exports.updateInputText=undefined;var _reducerTypes=require(773 /* ../reducer-types */);
-
-var updateInputText=exports.updateInputText=function updateInputText(text){return function(dispatch){
-dispatch({type:_reducerTypes.searchTypes.UPDATE_INPUT_TEXT,text:text});
-};};
-
-var receiveRangeList=exports.receiveRangeList=function receiveRangeList(rangeList){return function(dispatch){
-dispatch({type:_reducerTypes.searchTypes.REVEIVE_RANGE_LIST,rangeList:rangeList});
-};};
-
-var receivePlaceholder=exports.receivePlaceholder=function receivePlaceholder(placeholder){return function(dispatch){
-dispatch({type:_reducerTypes.searchTypes.REVEIVE_PLACEHOLDER,placeholder:placeholder});
-};};
-
-var toggleCheck=exports.toggleCheck=function toggleCheck(index){return function(dispatch){
-dispatch({type:_reducerTypes.searchTypes.TOGGLE_CHECK,index:index});
-};};
-
-var updateHisList=exports.updateHisList=function updateHisList(hisList){return function(dispatch){
-dispatch({type:_reducerTypes.searchTypes.UPDATE_HIS_LIST,hisList:hisList});
-};};
-}, "ZDY/src/actions/search.js");
 __d(1026 /* ZDY/src/pages/search/SearchResult.js */, function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.searchResult=undefined;var _reactNative=require(44 /* react-native */);
-var _SwRefresh=require(1016 /* ../../libs/SwRefresh */);
+var _SwRefresh=require(1017 /* ../../libs/SwRefresh */);
 var _request=require(783 /* ../../api/request */);
 var _reactRedux=require(660 /* react-redux */);
 var _searchResult=require(798 /* ../../actions/searchResult */);
 var _common=require(792 /* ../../styles/common */);var _common2=babelHelpers.interopRequireDefault(_common);
-var _empty=require(1021 /* ../../shared/empty */);var _empty2=babelHelpers.interopRequireDefault(_empty);
+var _empty=require(1022 /* ../../shared/empty */);var _empty2=babelHelpers.interopRequireDefault(_empty);
 var _react=require(12 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
 var _reactNativeLoadingSpinnerOverlay=require(793 /* react-native-loading-spinner-overlay */);var _reactNativeLoadingSpinnerOverlay2=babelHelpers.interopRequireDefault(_reactNativeLoadingSpinnerOverlay);
-var _drug=require(1022 /* ../../actions/drug */);
+var _drug=require(1023 /* ../../actions/drug */);
 
 var searchResult=exports.searchResult=null;var
 SearchResult=function(_Component){babelHelpers.inherits(SearchResult,_Component);
@@ -111848,10 +111908,15 @@ _this.state={
 dataSource:null};
 
 exports.searchResult=searchResult=_this;return _this;
-}babelHelpers.createClass(SearchResult,[{key:'componentWillMount',value:function componentWillMount()
+}babelHelpers.createClass(SearchResult,[{key:'componentDidMount',value:function componentDidMount()
 
 {
 this.renderDataSource();
+}},{key:'componentWillUnmount',value:function componentWillUnmount()
+
+{
+this.props.dispatch((0,_searchResult.resetResultList)());
+this.props.dispatch((0,_searchResult.resetFilter)());
 }},{key:'renderDataSource',value:function renderDataSource()
 
 {var
@@ -111915,21 +111980,49 @@ this.context.routes.searchDurg();
 }},{key:'renderRow',value:function renderRow(
 
 rowData){
+var header=null;
+var body=null;
+if(rowData.seq===0){
+header=
+_react2.default.createElement(_reactNative.View,{style:styles.tblHeader},
+_react2.default.createElement(_reactNative.View,{style:_common2.default.ybjj},
+_react2.default.createElement(_reactNative.View,{style:_common2.default.ybjj2},_react2.default.createElement(_reactNative.View,{style:_common2.default.cellYb},_react2.default.createElement(_reactNative.Text,{style:_common2.default.syb},'\u4FDD')),_react2.default.createElement(_reactNative.View,null,_react2.default.createElement(_reactNative.Text,null,'\u533B\u4FDD'))),
+_react2.default.createElement(_reactNative.View,{style:_common2.default.ybjj2},_react2.default.createElement(_reactNative.View,{style:_common2.default.cellYb},_react2.default.createElement(_reactNative.Text,{style:_common2.default.fyb},'\u975E')),_react2.default.createElement(_reactNative.View,null,_react2.default.createElement(_reactNative.Text,null,'\u975E\u533B\u4FDD')))));
+
+
+
+}
+
+body=
+_react2.default.createElement(_reactNative.TouchableOpacity,{key:rowData.medicinalId,style:_common2.default.blockItem,onPress:this.handleDetail.bind(this,rowData.medicinalId,rowData.medicinalName,rowData.visit)},
+_react2.default.createElement(_reactNative.View,{style:[_common2.default.blockRow,_common2.default.blockRow2]},_react2.default.createElement(_reactNative.View,{style:_common2.default.blockRowT},_react2.default.createElement(_reactNative.View,{style:_common2.default.cellYb},rowData.medicinalIsInsurance==='医保'?_react2.default.createElement(_reactNative.Text,{style:_common2.default.syb},'\u4FDD'):_react2.default.createElement(_reactNative.Text,{style:_common2.default.fyb},'\u975E')),_react2.default.createElement(_reactNative.Text,{style:[_common2.default.cellYm,rowData.visit?_common2.default.visit:'']},rowData.medicinalName))),
+_react2.default.createElement(_reactNative.View,{style:_common2.default.blockRow},_react2.default.createElement(_reactNative.Text,{style:_common2.default.cellGn,numberOfLines:2},rowData.medicinalFunction)),
+_react2.default.createElement(_reactNative.View,{style:_common2.default.blockRow},_react2.default.createElement(_reactNative.Text,null,_react2.default.createElement(_reactNative.Text,{style:_common2.default.cellYcTitle},'\u836F\u5382\uFF1A'),_react2.default.createElement(_reactNative.Text,{style:_common2.default.cellYcText},rowData.medicinalManufacturingEnterprise))),
+_react2.default.createElement(_reactNative.View,{style:_common2.default.blockRow},_react2.default.createElement(_reactNative.Text,null,_react2.default.createElement(_reactNative.Text,{style:_common2.default.cellGgTitle},'\u89C4\u683C\uFF1A'),_react2.default.createElement(_reactNative.Text,{style:_common2.default.cellGgText},rowData.medicinalSpecification))),
+_react2.default.createElement(_reactNative.View,{style:_common2.default.blockRow},_react2.default.createElement(_reactNative.Text,null,_react2.default.createElement(_reactNative.Text,{style:_common2.default.cellGgTitle},'\u7528\u836F\u7981\u5FCC\uFF1A'),_react2.default.createElement(_reactNative.Text,{style:_common2.default.cellGgText},rowData.medicinalContraindication))));
+
+
+
 return(
 _react2.default.createElement(_reactNative.View,null,
-rowData.seq===0?_react2.default.createElement(_reactNative.View,{style:_common2.default.tr},
-_react2.default.createElement(_reactNative.View,{style:_common2.default.td},_react2.default.createElement(_reactNative.Text,{style:_common2.default.rowTitle},'\u836F\u540D')),
-_react2.default.createElement(_reactNative.View,{style:_common2.default.td},_react2.default.createElement(_reactNative.Text,{style:_common2.default.rowTitle},'\u662F\u5426\u533B\u4FDD')),
-_react2.default.createElement(_reactNative.View,{style:_common2.default.td},_react2.default.createElement(_reactNative.Text,{style:_common2.default.rowTitle},'\u7528\u836F\u7981\u5FCC'))):
-null,
-_react2.default.createElement(_reactNative.TouchableOpacity,{key:rowData.medicinalId,onPress:this.handleDetail.bind(this,rowData.medicinalId,rowData.medicinalName,rowData.visit),style:[_common2.default.tr,_common2.default.contentTr]},
-_react2.default.createElement(_reactNative.View,{style:_common2.default.td},_react2.default.createElement(_reactNative.Text,{numberOfLines:1,style:[_common2.default.rowTitle,_common2.default.contentRowTitle,_common2.default.ym,rowData.visit?_common2.default.visit:'']},rowData.medicinalName)),
-_react2.default.createElement(_reactNative.View,{style:_common2.default.td},_react2.default.createElement(_reactNative.Text,{numberOfLines:1,style:[_common2.default.rowTitle,_common2.default.contentRowTitle]},rowData.medicinalIsInsurance)),
-_react2.default.createElement(_reactNative.View,{style:_common2.default.td},_react2.default.createElement(_reactNative.Text,{numberOfLines:1,style:[_common2.default.rowTitle,_common2.default.contentRowTitle]},rowData.medicinalContraindication)))));
-
+header,
+body));
 
 
 }},{key:'onLoadMore',value:function onLoadMore(
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 end){
 this.querySearch(false).then(function(){return end();});
@@ -111951,8 +112044,12 @@ list));
 
 
 var styles=_reactNative.StyleSheet.create({
-container:{}});exports.default=
+container:{},
 
+
+tblHeader:{
+borderColor:'#ccc',
+borderBottomWidth:.5}});exports.default=
 
 
 
@@ -112173,7 +112270,7 @@ var _reactNative=require(44 /* react-native */);
 var _reactNativeLoadingSpinnerOverlay=require(793 /* react-native-loading-spinner-overlay */);var _reactNativeLoadingSpinnerOverlay2=babelHelpers.interopRequireDefault(_reactNativeLoadingSpinnerOverlay);
 var _reactNativeModalbox=require(799 /* react-native-modalbox */);var _reactNativeModalbox2=babelHelpers.interopRequireDefault(_reactNativeModalbox);
 var _request=require(783 /* ../../api/request */);
-var _drug=require(1022 /* ../../actions/drug */);
+var _drug=require(1023 /* ../../actions/drug */);
 var _FontAwesome=require(984 /* react-native-vector-icons/FontAwesome */);var _FontAwesome2=babelHelpers.interopRequireDefault(_FontAwesome);
 var _date=require(1029 /* ../../libs/date */);
 var _Favorites=require(1030 /* ../my/Favorites */);
@@ -112187,15 +112284,21 @@ Drug=function(_Component){babelHelpers.inherits(Drug,_Component);
 
 
 
+
+
+
+
+
 function Drug(props){babelHelpers.classCallCheck(this,Drug);var _this=babelHelpers.possibleConstructorReturn(this,(Drug.__proto__||Object.getPrototypeOf(Drug)).call(this,
 props));
 _this.state={
 visible:true,
 xTitle:'',
-xContent:''};
+xContent:'',
+y:0};
 
 exports.drug=drug=_this;return _this;
-}babelHelpers.createClass(Drug,[{key:'componentWillMount',value:function componentWillMount()
+}babelHelpers.createClass(Drug,[{key:'componentDidMount',value:function componentDidMount()
 
 {
 this.querySearch();
@@ -112223,7 +112326,7 @@ return title;
 
 
 nextProps,nextState){
-return this.props.medicinal!==nextProps.medicinal||this.state.visible!==nextState.visible||this.state.xTitle!==nextState.xTitle;
+return this.props.medicinal!==nextProps.medicinal||this.state.visible!==nextState.visible||this.state.xTitle!==nextState.xTitle||this.state.y!==nextState.y;
 }},{key:'handleCollect',value:function handleCollect()
 
 {var _this2=this;
@@ -112249,7 +112352,6 @@ if(type==='all'){
 Promise.all([(0,_request.callMedicinalDetail)({medicinalId:queryId}),(0,_request.callEvaluateList)({medicinalId:queryId,rows:200})]).then(function(values){
 _this3.props.dispatch((0,_drug.updateMedicinal)(values[0]['medicinal']));
 _this3.props.dispatch((0,_drug.receiveEvaluateList)(values[1]['evaluatelist']));
-
 _this3.context.routes.refresh();
 _this3.setState({visible:false});
 },function(){
@@ -112283,7 +112385,7 @@ medicinal=this.props.medicinal;
 var keyWords=medicinal.medicinalKeyWordsResult||{};
 var keyWordsHaveValue=!!Object.keys(keyWords).length;
 return(
-_react2.default.createElement(_reactNativeModalbox2.default,{style:styles.modal,backdrop:true,position:"top",ref:"modal"},
+_react2.default.createElement(_reactNativeModalbox2.default,{style:[styles.modal,{marginTop:this.state.y+80}],backdrop:true,position:"top",ref:"modal"},
 _react2.default.createElement(_reactNative.ScrollView,null,
 _react2.default.createElement(_reactNative.View,{style:styles.modalTitleWrap},_react2.default.createElement(_reactNative.Text,{style:styles.modalTitle},'\u6E29\u99A8\u63D0\u793A')),
 _react2.default.createElement(_reactNative.View,{style:styles.modalContent},
@@ -112313,7 +112415,7 @@ _react2.default.createElement(_reactNative.Text,{style:styles.modalButton},'\u62
 {var _state=
 this.state,xTitle=_state.xTitle,xContent=_state.xContent;
 return(
-_react2.default.createElement(_reactNativeModalbox2.default,{style:styles.xmodal,backdrop:true,position:"top",ref:"xmodal"},
+_react2.default.createElement(_reactNativeModalbox2.default,{style:[styles.xmodal,{marginTop:this.state.y+80}],backdrop:true,position:"top",ref:"xmodal"},
 _react2.default.createElement(_reactNative.ScrollView,null,
 _react2.default.createElement(_reactNative.View,{style:styles.modalTitleWrap},_react2.default.createElement(_reactNative.Text,{style:styles.modalTitle},xTitle)),
 _react2.default.createElement(_reactNative.View,{style:styles.modalContent},
@@ -112334,9 +112436,11 @@ var medicinal=babelHelpers.extends({},this.props.medicinal);
 medicinal.medicinalContraindication=medicinal.medicinalContraindication&&medicinal.medicinalContraindication.startsWith('尚不明确')?'':medicinal.medicinalContraindication;
 medicinal.medicinalincompatibility=medicinal.medicinalincompatibility&&medicinal.medicinalincompatibility.startsWith('尚不明确')?'':medicinal.medicinalincompatibility;
 
-if(medicinal.medicinalContraindication||medicinal.medicinalincompatibility){
+if(this.firstTips!==false&&(medicinal.medicinalContraindication||medicinal.medicinalincompatibility)){
 this.timer1=setTimeout(function(){
+
 _this4.refs.modal&&_this4.refs.modal.open();
+_this4.firstTips=false;
 });
 }
 
@@ -112461,7 +112565,8 @@ return _react2.default.createElement(_reactNative.Text,{key:key+'_highlight_'+in
 {var keyWords=arguments.length>0&&arguments[0]!==undefined?arguments[0]:{};var text=arguments.length>1&&arguments[1]!==undefined?arguments[1]:'';
 this.setState({
 xTitle:text,
-xContent:keyWords[text]});
+xContent:keyWords[text],
+y:this.y});
 
 this.refs.xmodal&&this.refs.xmodal.open();
 }},{key:'handleEvaluate',value:function handleEvaluate()
@@ -112511,6 +112616,11 @@ list)));
 
 
 
+}},{key:'sc',value:function sc(
+
+event){
+this.y=event.nativeEvent.contentOffset.y;
+
 }},{key:'render',value:function render()
 
 {
@@ -112519,7 +112629,7 @@ var xmodal=this.renderXModal();
 var detail=this.renderDetail();
 var evaluateList=this.renderEvaluateList();
 return(
-_react2.default.createElement(_reactNative.ScrollView,{style:styles.container},
+_react2.default.createElement(_reactNative.ScrollView,{style:styles.container,onScroll:this.sc.bind(this)},
 _react2.default.createElement(_reactNativeLoadingSpinnerOverlay2.default,{visible:this.state.visible,color:'black'}),
 detail,
 evaluateList,
@@ -112537,7 +112647,7 @@ container:{},
 modal:{
 height:height*.4,
 width:width*.85,
-marginTop:height*.15,
+
 borderRadius:4,
 borderWidth:1,
 borderColor:'#ccc',
@@ -112546,7 +112656,7 @@ backgroundColor:'#fff'},
 xmodal:{
 height:height*.6,
 width:width*.85,
-marginTop:height*.1,
+
 borderRadius:4,
 borderWidth:1,
 borderColor:'#ccc',
@@ -112597,7 +112707,6 @@ borderColor:'#007594'},
 
 titleWrap:{
 backgroundColor:'#fff',
-marginTop:5,
 padding:5,
 borderLeftWidth:3,
 borderLeftColor:'#007594',
@@ -112610,7 +112719,7 @@ color:'#00a5ca'},
 
 companyText:{
 color:'#666',
-fontSize:12},
+fontSize:13},
 
 detailWrap:{
 padding:5,
@@ -112643,10 +112752,10 @@ time:{
 color:'#999'},
 
 text:{
-fontSize:12},
+fontSize:13},
 
 labelText:{
-fontSize:12,
+fontSize:13,
 color:'#007cca'},
 
 mainTextColor:{
@@ -112671,7 +112780,8 @@ borderBottomColor:'#007cca'},
 highlight:{
 textDecorationLine:'underline',
 color:'#007cca',
-fontWeight:'bold'}});exports.default=
+fontWeight:'bold',
+fontSize:14}});exports.default=
 
 
 
@@ -112688,15 +112798,15 @@ return date.substr(0,4)+"-"+date.substr(4,2)+"-"+date.substr(6,2)+" "+date.subst
 };
 }, "ZDY/src/libs/date.js");
 __d(1030 /* ZDY/src/pages/my/Favorites.js */, function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.favorites=undefined;var _reactNative=require(44 /* react-native */);
-var _SwRefresh=require(1016 /* ../../libs/SwRefresh */);
+var _SwRefresh=require(1017 /* ../../libs/SwRefresh */);
 var _request=require(783 /* ../../api/request */);
 var _reactRedux=require(660 /* react-redux */);
 var _favorites=require(1031 /* ../../actions/favorites */);
 var _common=require(792 /* ../../styles/common */);var _common2=babelHelpers.interopRequireDefault(_common);
-var _empty=require(1021 /* ../../shared/empty */);var _empty2=babelHelpers.interopRequireDefault(_empty);
+var _empty=require(1022 /* ../../shared/empty */);var _empty2=babelHelpers.interopRequireDefault(_empty);
 var _react=require(12 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
-var _reactNativeLoadingSpinnerOverlay=require(793 /* react-native-loading-spinner-overlay */);var _reactNativeLoadingSpinnerOverlay2=babelHelpers.interopRequireDefault(_reactNativeLoadingSpinnerOverlay);
-var _drug=require(1022 /* ../../actions/drug */);
+
+var _drug=require(1023 /* ../../actions/drug */);
 
 
 var favorites=exports.favorites=null;var
@@ -112710,7 +112820,7 @@ Favorites=function(_Component){babelHelpers.inherits(Favorites,_Component);
 function Favorites(props){babelHelpers.classCallCheck(this,Favorites);var _this=babelHelpers.possibleConstructorReturn(this,(Favorites.__proto__||Object.getPrototypeOf(Favorites)).call(this,
 props));_this._dataSource=new _reactNative.ListView.DataSource({rowHasChanged:function rowHasChanged(row1,row2){return row1!==row2;}});
 _this.state={
-visible:false,
+
 rows:20,
 page:1,
 resultList:[],
@@ -112718,7 +112828,7 @@ hasMore:true,
 dataSource:null};
 
 exports.favorites=favorites=_this;return _this;
-}babelHelpers.createClass(Favorites,[{key:'componentWillMount',value:function componentWillMount()
+}babelHelpers.createClass(Favorites,[{key:'componentDidMount',value:function componentDidMount()
 
 {
 this.renderDataSource();
@@ -112734,20 +112844,20 @@ _this2.setState({dataSource:resultList.length?_this2._dataSource.cloneWithRows(r
 {var _this3=this;
 return new Promise(function(resolve,reject){var _state=
 _this3.state,rows=_state.rows,page=_state.page;
-_this3.setState({visible:true});
+
 (0,_request.callCollectList)({rows:rows,page:page}).then(function(_ref){var collectlist=_ref.collectlist;var
 gridModel=collectlist.gridModel,page=collectlist.page,total=collectlist.total;
 var resultList=babelHelpers.extends([],_this3.state.resultList).concat(gridModel);
 _this3.setState({
-visible:false,
+
 resultList:resultList,
 page:parseInt(page)+1,
 hasMore:parseInt(page)<parseInt(total),
 dataSource:resultList.length?_this3._dataSource.cloneWithRows(resultList):null});
 
 },function(){
-_this3.setState({
-visible:false});
+
+
 
 });
 });
@@ -112761,11 +112871,11 @@ this.context.routes.myDurg();
 }},{key:'handleCancelCollect',value:function handleCancelCollect(
 
 durgId){var _this4=this;
-this.setState({visible:true});
+
 (0,_request.callCollectCancel)({medicinalId:durgId}).then(function(){
 var resultList=_this4.state.resultList.filter(function(item){return item.medicinalId!==durgId;});
 _this4.setState({
-visible:false,
+
 resultList:resultList,
 dataSource:resultList.length?_this4._dataSource.cloneWithRows(resultList):null});
 
@@ -112806,7 +112916,6 @@ list=_react2.default.createElement(_empty2.default,null);
 }
 return(
 _react2.default.createElement(_reactNative.View,{style:styles.container},
-_react2.default.createElement(_reactNativeLoadingSpinnerOverlay2.default,{visible:this.state.visible,color:'black'}),
 list));
 
 
@@ -112814,8 +112923,7 @@ list));
 
 
 var styles=_reactNative.StyleSheet.create({
-container:{
-paddingTop:10},
+container:{},
 
 rowWrap:{
 backgroundColor:'#fff',
@@ -112889,7 +112997,7 @@ count:500,
 evaluateTags:[],
 content:''};return _this;
 
-}babelHelpers.createClass(Evaluate,[{key:'componentWillMount',value:function componentWillMount()
+}babelHelpers.createClass(Evaluate,[{key:'componentDidMount',value:function componentDidMount()
 
 {var _this2=this;
 (0,_request.callEvaluatePage)().then(function(_ref){var evaluateTags=_ref.evaluateTags;
@@ -113029,7 +113137,6 @@ _react2.default.createElement(_reactNative.Text,{style:styles.buttonText},'\u63D
 
 var styles=_reactNative.StyleSheet.create({
 container:{
-paddingTop:5,
 flex:1},
 
 bottomWrap:{
@@ -113178,8 +113285,7 @@ _react2.default.createElement(_reactNative.Text,{style:[styles.tabIcon,styles.ta
 
 
 var styles=_reactNative.StyleSheet.create({
-container:{
-padding:5},
+container:{},
 
 item:{
 flexDirection:'row',
@@ -113276,28 +113382,28 @@ XWebView);
 __d(1035 /* ZDY/src/pages/my/AboutUs.js */, function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(12 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
 var _reactRedux=require(660 /* react-redux */);
 var _reactNative=require(44 /* react-native */);
-var _reactNativeLoadingSpinnerOverlay=require(793 /* react-native-loading-spinner-overlay */);var _reactNativeLoadingSpinnerOverlay2=babelHelpers.interopRequireDefault(_reactNativeLoadingSpinnerOverlay);
+
 var _request=require(783 /* ../../api/request */);var
 
 AboutUs=function(_Component){babelHelpers.inherits(AboutUs,_Component);
 function AboutUs(props){babelHelpers.classCallCheck(this,AboutUs);var _this=babelHelpers.possibleConstructorReturn(this,(AboutUs.__proto__||Object.getPrototypeOf(AboutUs)).call(this,
 props));
 _this.state={
-visible:false,
+
 aboutus:null};return _this;
 
-}babelHelpers.createClass(AboutUs,[{key:'componentWillMount',value:function componentWillMount()
+}babelHelpers.createClass(AboutUs,[{key:'componentDidMount',value:function componentDidMount()
 
 {var _this2=this;
-this.setState({visible:true});
+
 (0,_request.callAboutUs)().then(function(_ref){var aboutus=_ref.aboutus;
 _this2.setState({
-aboutus:aboutus,
-visible:false});
+aboutus:aboutus});
+
 
 },function(){
-_this2.setState({
-visible:false});
+
+
 
 });
 }},{key:'render',value:function render()
@@ -113310,7 +113416,6 @@ return null;
 
 return(
 _react2.default.createElement(_reactNative.ScrollView,{style:styles.container},
-_react2.default.createElement(_reactNativeLoadingSpinnerOverlay2.default,{visible:this.state.visible,color:'black'}),
 _react2.default.createElement(_reactNative.Image,{resizeMode:'stretch',source:{uri:(0,_request.fillUrl)(aboutus.descImageUrl)},style:styles.image}),
 _react2.default.createElement(_reactNative.View,{style:styles.textWrap},
 _react2.default.createElement(_reactNative.Text,{style:styles.text},aboutus.descContent))));
@@ -113461,7 +113566,7 @@ __d(1037 /* ZDY/src/pages/my/FriendshipLink.js */, function(global, require, mod
 var _reactRedux=require(660 /* react-redux */);
 var _reactNative=require(44 /* react-native */);
 var _request=require(783 /* ../../api/request */);
-var _reactNativeLoadingSpinnerOverlay=require(793 /* react-native-loading-spinner-overlay */);var _reactNativeLoadingSpinnerOverlay2=babelHelpers.interopRequireDefault(_reactNativeLoadingSpinnerOverlay);
+
 var _xWebView=require(791 /* ../../actions/xWebView */);var
 
 FriendshipLink=function(_Component){babelHelpers.inherits(FriendshipLink,_Component);
@@ -113471,21 +113576,21 @@ FriendshipLink=function(_Component){babelHelpers.inherits(FriendshipLink,_Compon
 function FriendshipLink(props){babelHelpers.classCallCheck(this,FriendshipLink);var _this=babelHelpers.possibleConstructorReturn(this,(FriendshipLink.__proto__||Object.getPrototypeOf(FriendshipLink)).call(this,
 props));
 _this.state={
-visible:false,
+
 linklist:[]};return _this;
 
-}babelHelpers.createClass(FriendshipLink,[{key:'componentWillMount',value:function componentWillMount()
+}babelHelpers.createClass(FriendshipLink,[{key:'componentDidMount',value:function componentDidMount()
 
 {var _this2=this;
-this.setState({visible:true});
+
 (0,_request.callFirendList)().then(function(_ref){var linklist=_ref.linklist;
 _this2.setState({
-linklist:linklist,
-visible:false});
+linklist:linklist});
+
 
 },function(){
-_this2.setState({
-visible:false});
+
+
 
 });
 }},{key:'handleClickLink',value:function handleClickLink(_ref2)
@@ -113515,7 +113620,6 @@ _react2.default.createElement(_reactNative.Image,{resizeMode:'stretch',source:{u
 var list=this.renderList();
 return(
 _react2.default.createElement(_reactNative.ScrollView,{style:styles.container},
-_react2.default.createElement(_reactNativeLoadingSpinnerOverlay2.default,{visible:this.state.visible,color:'black'}),
 list));
 
 
@@ -113549,7 +113653,7 @@ __d(1038 /* ZDY/src/pages/my/Product.js */, function(global, require, module, ex
 var _reactRedux=require(660 /* react-redux */);
 var _reactNative=require(44 /* react-native */);
 var _request=require(783 /* ../../api/request */);
-var _reactNativeLoadingSpinnerOverlay=require(793 /* react-native-loading-spinner-overlay */);var _reactNativeLoadingSpinnerOverlay2=babelHelpers.interopRequireDefault(_reactNativeLoadingSpinnerOverlay);
+
 var _xWebView=require(791 /* ../../actions/xWebView */);var
 
 Product=function(_Component){babelHelpers.inherits(Product,_Component);
@@ -113561,21 +113665,21 @@ Product=function(_Component){babelHelpers.inherits(Product,_Component);
 function Product(props){babelHelpers.classCallCheck(this,Product);var _this=babelHelpers.possibleConstructorReturn(this,(Product.__proto__||Object.getPrototypeOf(Product)).call(this,
 props));
 _this.state={
-visible:false,
+
 productlist:[]};return _this;
 
-}babelHelpers.createClass(Product,[{key:'componentWillMount',value:function componentWillMount()
+}babelHelpers.createClass(Product,[{key:'componentDidMount',value:function componentDidMount()
 
 {var _this2=this;
-this.setState({visible:true});
+
 (0,_request.callProductList)().then(function(_ref){var productlist=_ref.productlist;
 _this2.setState({
-productlist:productlist,
-visible:false});
+productlist:productlist});
+
 
 },function(){
-_this2.setState({
-visible:false});
+
+
 
 });
 }},{key:'handleClickLink',value:function handleClickLink(_ref2)
@@ -113611,7 +113715,6 @@ _react2.default.createElement(_reactNative.Text,{style:styles.text},product.desc
 var list=this.renderList();
 return(
 _react2.default.createElement(_reactNative.ScrollView,{style:styles.container},
-_react2.default.createElement(_reactNativeLoadingSpinnerOverlay2.default,{visible:this.state.visible,color:'black'}),
 list));
 
 
@@ -113621,9 +113724,7 @@ list));
 var styles=_reactNative.StyleSheet.create({
 container:{},
 
-
 group:{
-marginTop:5,
 backgroundColor:'#fff'},
 
 labelWrap:{
@@ -113683,7 +113784,7 @@ show:false,
 dataSource:null,
 list:['step1','step2','step3']};return _this;
 
-}babelHelpers.createClass(Welcome,[{key:'componentWillMount',value:function componentWillMount()
+}babelHelpers.createClass(Welcome,[{key:'componentDidMount',value:function componentDidMount()
 
 {var _this2=this;
 _reactNative.AsyncStorage.getItem(WELCOME,function(error,text){
