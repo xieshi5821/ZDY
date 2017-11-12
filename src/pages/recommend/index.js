@@ -116,23 +116,34 @@ class Recommend extends Component {
 
     this.setState({visible: true})
     callRecommendSubmit({text: inputText}).then(({search = false, recommedWords, contraindicationWrods, submitWords, resultlist}) => {
+      // search = true
       if (search) {
-        this.props.dispatch(updateInputTextS(inputText))
-        callSearchList({text: inputText, rangeField: '', rows: 20, page: 1}).then(({contraindicationWrods, resultlist}) => {
-          this.props.dispatch(searchResult.receiveResultList(resultlist))
-          this.props.dispatch(searchResult.receiveContraindicationWords(contraindicationWrods.map(contraindication => {
-            return {
-              name: contraindication,
-              checked: false
-            }
-          })))
-          this.context.routes.searchResult()
-          this.setState({visible: false})
-        }, () => {
-          this.setState({visible: false})
-        })
-        this.setState({visible: false})
-        this.context.routes.searchResult()
+        Alert.alert('提示', '您搜索的内容超出智能推荐范畴，请您选择重新输入或使用智能检索？', [
+          {text: '智能检索', onPress: () => {
+            this.props.dispatch(updateInputTextS(inputText))
+            callSearchList({text: inputText, rangeField: '', rows: 20, page: 1}).then(({contraindicationWrods, resultlist}) => {
+              this.props.dispatch(searchResult.receiveResultList(resultlist))
+              this.props.dispatch(searchResult.receiveContraindicationWords(contraindicationWrods.map(contraindication => {
+                return {
+                  name: contraindication,
+                  checked: false
+                }
+              })))
+              this.context.routes.searchResult()
+              this.setState({visible: false})
+            }, () => {
+              this.setState({visible: false})
+            })
+            this.setState({visible: false})
+            this.context.routes.searchResult()
+          }},
+          {text: '重新输入', onPress: () => {
+            this.handleChangeInput('')
+            this.setState({visible: false})
+          }}
+        ],
+          {cancelable: false}
+        )
         return
       }
       this.props.dispatch(receiveRecommedWords(recommedWords.map(recommed => {
