@@ -77,24 +77,22 @@ class RecommendResult extends Component {
 
   querySearch(reset = true) {
     return new Promise((resolve, reject) => {
-      let {rows, page, star, submitWords, recommedWords, medicinalIsInsurance, medicinalContraindication, contraindicationWords} = this.props
+      let {rows, page, submitWords, recommedWords, medicinalIsInsurance, yyjj, inputText, diseaseWords, ypcj} = this.props
       page = reset ? 1 : page
-      const words = []
-      contraindicationWords.forEach(({checked, name}) => {
-        if (checked && words.indexOf(name) === -1) {
-          words.push(name)
-        }
-      })
 
       const symptom = recommedWords.filter(word => word.checked).map(word => word.name).concat(submitWords)
-      if (!symptom.length) {
-        Alert.alert('提示', '请选择您的症状')
-        return
-      }
-      callRecommendFilter({symptomWords: symptom.join('~~'), rows, page, evaluateStar: star.join('~~'), medicinalIsInsurance: medicinalIsInsurance.join('~~'), medicinalContraindication: words.join('~~')}).then(({resultlist}) => {
+      
+      callRecommendFilter({
+        medicinalManufacturingEnterprise: ypcj,
+        text: inputText,
+        symptomWords: symptom.join('~~'),
+        rows,
+        diseases: diseaseWords.filter(({checked}) => checked).map(({name}) => name).join('~~'),
+        medicinalIsInsurance: medicinalIsInsurance.join('~~'),
+        medicinalContraindication: yyjj}).then(({resultlist}) => {
         this.props.dispatch(receiveResultList(resultlist))
         resolve()
-      })
+      }).catch(() => resolve())
     })
   }
 
@@ -230,9 +228,6 @@ class RecommendResult extends Component {
     const {dataSource} = this.state
     const {page, hasMore} = this.props
     let list = dataSource ? <SwRefreshListView dataSource={dataSource} ref="listView" isShowLoadMore={hasMore} loadingTitle="加载中..." renderRow={this.renderRow.bind(this)} onLoadMore={this.onLoadMore.bind(this)}/> : null
-    // if (list === null && page === 2) {
-    //   list = <Empty center={true}/>
-    // }
     return (
       <View style={styles.warp}>
           {list}
@@ -294,10 +289,11 @@ export default connect(store => ({
   page: store.recommendResult.page,
   hasMore: store.recommendResult.hasMore,
   resultList: store.recommendResult.resultList,
-  contraindicationWords: store.recommendResult.contraindicationWords,
+  yyjj: store.recommendResult.yyjj,
   submitWords: store.recommendResult.submitWords,
   recommedWords: store.recommendResult.recommedWords,
-  // recommedWordPaths: store.recommendResult.recommedWordPaths,
-  star: store.recommendResult.star,
-  medicinalIsInsurance: store.recommendResult.medicinalIsInsurance
+  medicinalIsInsurance: store.recommendResult.medicinalIsInsurance,
+  diseaseWords: store.recommendResult.diseaseWords,
+  ypcj: store.recommendResult.ypcj,
+  inputText: store.recommend.inputText
 }))(RecommendResult)

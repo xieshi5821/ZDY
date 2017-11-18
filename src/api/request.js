@@ -30,20 +30,16 @@ const ajax = (url, params = {}) => {
           'token': pid
         },
         body: toQueryString(params)
-      }).then(resp => resp.json()).then(({errorCode = '100', errorMsg, data}) => {
-        // console.log(params, errorCode, errorMsg, data)
-        // console.log(url, 'token='+ pid, params, data)
+      }).then(resp => resp.json())
+      .then(({errorCode = '100', errorMsg, data}) => {
+        console.log(url, 'token='+ pid, errorMsg, errorCode, params, data)
         if (errorCode === '100') {
           resolve(data || {})
         } else {
-          Toast.show(errorMsg)
-          reject(err)
+          throw new Error(errorMsg)
         }
-        //  else {
-        //   throw new Error(errorMsg)
-        // }
-      }).catch((err) => {
-        Toast.show(String(err))
+      }).catch(err => {
+        Toast.show(err ? String(err) : '服务器内部错误')
         reject(err)
       })
   })
@@ -65,12 +61,12 @@ export const callMedicinalDetail = (params) => {
   return ajax('/api/medicinal/detail', params)
 }
 
-export const callRecommendList = (params) => {
-  return ajax('/api/recommend/submit', params)
-}
-
 export const callEvaluatePage = () => {
   return ajax('/api/evaluate/page')
+}
+
+export const callDiseaseDeatil = params => {
+  return ajax('/api/v2/recommend/disease/detail', params)
 }
 
 export const callEvaluateAdd = (params) => {
@@ -90,11 +86,11 @@ export const callProductList = () => {
 }
 
 export const callRecommendSubmit = (params) => {
-  return ajax('/api/recommend/submit', params)
+  return ajax('/api/v2/recommend/submit', params)
 }
 
 export const callRecommendFilter = (params) => {
-  return ajax('/api/recommend/filter', params)
+  return ajax('/api/v2/recommend/filter', params)
 }
 
 export const callCollectAdd = (params) => {

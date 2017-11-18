@@ -4,36 +4,41 @@ const initialState = {
   page: 1,
   resultList: [],
   hasMore: true,
-  contraindicationWords: [],
-  star: [],
   medicinalIsInsurance: [],
   submitWords: [],
-  recommedWords: []
-  ,
-  // recommedWordPaths: []
+  recommedWords: [],
+  diseaseWords: [],
+  yyjj: '',
+  ypcj: ''
 }
 
 export default search = (state = initialState, action) => {
   switch (action.type) {
+    case recommendResultTypes.RECEIVE_DISEASE_WORDS:
+      return {...state, diseaseWords: action.diseaseWords}
     case recommendResultTypes.UPDATE_PAGE:
       return {...state, page: action.page}
     case recommendResultTypes.RESET_RESULT_LIST:
       return {...state, resultList: [], page: 1, hasMore: true}
+    case recommendResultTypes.UPDATE_YPCJ:
+      return {...state, ypcj: action.ypcj}
+    case recommendResultTypes.UPDATE_YYJJ:
+      return {...state, yyjj: action.yyjj}
+    case recommendResultTypes.CHECK_JB:
+      return {...state, diseaseWords: state.diseaseWords.map(item => {
+        if (item.name === action.jbName) {
+          item.checked = !item.checked
+        }
+        return item
+      })}
     case recommendResultTypes.TOGGLE_RECOMMEND_CHECK:
       const recommedWords = Object.assign([], state.recommedWords)
-      // const recommedWordPaths = Object.assign([], state.recommedWordsPath)
       const word = recommedWords[action.index]
       if (word.checked) {
-        // const searchIndex = recommedWordPaths.indexOf(action.index)
-        // if (searchIndex !== -1) {
-        //   recommedWordPaths.splice(searchIndex, 1)
-        // }
         word.checked = false
       } else {
-        // recommedWordPaths.push(action.index)
         word.checked = true
       }
-      // return {...state, recommedWords, recommedWordPaths}
       return {...state, recommedWords}
     case recommendResultTypes.RECEIVE_RESULT_LIST:
       let {gridModel, page, total} = action.resultList
@@ -44,7 +49,6 @@ export default search = (state = initialState, action) => {
         resultList.push({...res, seq: index++})
       })
       if (page === 1 && !resultList.length) {
-        // console.log('mz')
         resultList.push({seq: 0, empty: true})
       }
       return {...state, resultList, page: page + 1, hasMore: parseInt(page) < parseInt(total)}
@@ -54,32 +58,13 @@ export default search = (state = initialState, action) => {
       return {...state, recommedWords: action.recommedWords}
     case recommendResultTypes.RECEIVE_SUBMIT_WORDS:
       return {...state, submitWords: action.submitWords}
-
-    case recommendResultTypes.RECEIVE_CONTRAINDICATION_WORDS:
-      return {...state, contraindicationWords: action.contraindicationWords}
-
-    case recommendResultTypes.TOGGLE_CONTRAINDICATION_CHECK:
-      const contraindicationWords = Object.assign([], state.contraindicationWords)
-      const contraindication = contraindicationWords[action.index]
-      contraindication.checked = !contraindication.checked
-      return {...state, contraindicationWords}
-
     case recommendResultTypes.RESET_FILTER:
-      const words = Object.assign([], state.contraindicationWords)
-      words.forEach((contraindication) => {
-        contraindication.checked = false
-      })
-      return {...state, contraindicationWords: words, star: [], medicinalIsInsurance: []}
-
-    case recommendResultTypes.TOGGLE_STAR_CHECK:
-      const star = Object.assign([], state.star)
-      const idx = star.indexOf(action.level)
-      if (idx == -1) {
-        star.push(action.level)
-      } else {
-        star.splice(idx, 1)
-      }
-      return {...state, star}
+      return {...state, medicinalIsInsurance: [], yyjj: '', ypcj: '', diseaseWords: state.diseaseWords.map(({name}) => {
+        return {
+          name,
+          checked: false
+        }
+      })}
     case recommendResultTypes.TOGGLE_MEDICINALISINSURANCE_CHECK:
       const medicinalIsInsurance = Object.assign([], state.medicinalIsInsurance)
       const idx2 = medicinalIsInsurance.indexOf(action.name)

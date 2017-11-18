@@ -34,7 +34,7 @@ class SearchResultFilter extends Component {
     searchResult.querySearch().then(() => {
       this.setState({visible: false})
       this.context.routes.pop()
-    })
+    }).catch(() => {})
   }
 
   handleContraindicationCheck(index) {

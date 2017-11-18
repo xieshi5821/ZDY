@@ -20,12 +20,8 @@ export const receiveSubmitWords = (submitWords) => (dispatch) => {
   dispatch({type: recommendResultTypes.RECEIVE_SUBMIT_WORDS, submitWords})
 }
 
-export const receiveContraindicationWords = (contraindicationWords) => (dispatch) => {
-  dispatch({type: recommendResultTypes.RECEIVE_CONTRAINDICATION_WORDS, contraindicationWords})
-}
-
-export const toggleContraindicationCheck = (index) => (dispatch) => {
-  dispatch({type: recommendResultTypes.TOGGLE_CONTRAINDICATION_CHECK, index})
+export const receiveDiseaseWords = (diseaseWords) => (dispatch) => {
+  dispatch({type: recommendResultTypes.RECEIVE_DISEASE_WORDS, diseaseWords})
 }
 
 export const toggleMedicinalIsInsuranceCheck = (name) => (dispatch) => {
@@ -36,14 +32,21 @@ export const resetFilter = (index) => (dispatch) => {
   dispatch({type: recommendResultTypes.RESET_FILTER})
 }
 
-export const toggleStarCheck = (level) => (dispatch) => {
-  dispatch({type: recommendResultTypes.TOGGLE_STAR_CHECK, level})
-}
-
 export const toggleRecommendCheck = (index) => (dispatch) => {
   dispatch({type: recommendResultTypes.TOGGLE_RECOMMEND_CHECK, index})
 }
 
 export const updatePage = (page) => (dispatch) => {
   dispatch({type: recommendResultTypes.UPDATE_PAGE, page})
+}
+
+export const updateYyjj = (yyjj) => (dispatch) => {
+  dispatch({type: recommendResultTypes.UPDATE_YYJJ, yyjj})
+}
+export const updateYpcj = (ypcj) => (dispatch) => {
+  dispatch({type: recommendResultTypes.UPDATE_YPCJ, ypcj})
+}
+
+export const updateJb = (jbName) => (dispatch) => {
+  dispatch({type: recommendResultTypes.CHECK_JB, jbName})
 }

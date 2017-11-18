@@ -36,7 +36,7 @@ const setHisList = (his) => {
       AsyncStorage.setItem(HIS, hisList.join('~~~'), () => {
         resolve()
       })
-    })
+    }).catch(() => resolve())
   })
 }
 class Search extends Component {
@@ -62,8 +62,8 @@ class Search extends Component {
       getHisList().then(hisList => {
         this.props.dispatch(updateHisList(hisList))
         this.setState({visible: false})
-      })
-    }, () => {
+      }).catch(() => {})
+    }).catch(() => {
       this.setState({visible: false})
     })
   }

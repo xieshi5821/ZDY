@@ -4,7 +4,7 @@ import {StyleSheet, View, Text, ScrollView, TouchableOpacity, Dimensions} from '
 import Spinner from 'react-native-loading-spinner-overlay'
 import Modal from 'react-native-modalbox'
 import {callMedicinalDetail, callEvaluateList, callCollectAdd, callCollectCancel} from '../../api/request'
-import {updateMedicinal, receiveEvaluateList} from '../../actions/drug'
+import {updateMedicinal, receiveEvaluateList, receiveRecommendList, updateQueryId, updateMedicinalName} from '../../actions/drug'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import {formatFullDate} from '../../libs/date'
 import {favorites} from '../my/Favorites'
@@ -68,14 +68,14 @@ class Drug extends Component {
     const {queryId, source} = this.props
     const {medicinalCollect} = this.props.medicinal
     if (medicinalCollect === '0') {
-      callCollectAdd({medicinalId: queryId}).then(() => this.querySearch('detail'))
+      callCollectAdd({medicinalId: queryId}).then(() => this.querySearch('detail')).catch(() => {})
     } else {
       callCollectCancel({medicinalId: queryId}).then(() => {
         this.querySearch('detail')
         if (source === 'my') {
           favorites.handleCancelCollect(queryId)
         }
-      })
+      }).catch(() => {})
     }
   }
 
@@ -85,25 +85,27 @@ class Drug extends Component {
     if (type === 'all') {
       Promise.all([callMedicinalDetail({medicinalId: queryId}), callEvaluateList({medicinalId: queryId, rows: 200})]).then(values => {
         this.props.dispatch(updateMedicinal(values[0]['medicinal']))
+        this.props.dispatch(receiveRecommendList(values[0]['recommendList']))
         this.props.dispatch(receiveEvaluateList(values[1]['evaluatelist']))
         this.context.routes.refresh()
         this.setState({visible: false})
-      }, () => {
+      }).catch(() => {
         this.setState({visible: false})
       })
     } else if (type === 'detail') {
-      callMedicinalDetail({medicinalId: queryId}).then(({medicinal}) => {
+      callMedicinalDetail({medicinalId: queryId}).then(({medicinal, recommendList}) => {
         this.props.dispatch(updateMedicinal(medicinal))
+        this.props.dispatch(receiveRecommendList(recommendList))
         this.context.routes.refresh()
         this.setState({visible: false})
-      }, () => {
+      }).catch(() => {
         this.setState({visible: false})
       })
     } else if (type === 'evaluate') {
       callEvaluateList({medicinalId: queryId, rows: 200}).then(({evaluatelist}) => {
         this.props.dispatch(receiveEvaluateList(evaluatelist))
         this.setState({visible: false})
-      }, () => {
+      }).catch(() => {
         this.setState({visible: false})
       })
     }
@@ -352,9 +354,38 @@ class Drug extends Component {
     )
   }
 
+  changeMId(medicinalId, medicinalName) {
+    this.props.dispatch(updateQueryId(medicinalId))
+    this.props.dispatch(updateMedicinalName(medicinalName))
+    setTimeout(() => {
+      this.querySearch()
+    })
+  }
+
+  renderYPList() {
+    const {recommendList} = this.props
+    return (
+      <View style={styles.evaluateWrap}>
+        <View style={styles.titleRowWrap}>
+          <Text style={[commonStyles.flex, styles.mainTextColor]}>药品推荐({recommendList.length})</Text>
+        </View>
+        <View style={{marginTop: 5}}>
+          {recommendList.map(({medicinalId, medicinalName}) => {
+            return (
+              <View key={medicinalId} style={{backgroundColor: '#fff', padding: 5}}>
+                <TouchableOpacity style={commonStyles.flex} onPress={this.changeMId.bind(this, medicinalId, medicinalName)}>
+                  <Text style={{textDecorationLine: 'underline', color: '#007cca'}}>{medicinalName}</Text>
+                </TouchableOpacity>
+              </View>
+            )
+          })}
+        </View>
+      </View>
+    )
+  }
+
   sc(event) {
     this.y = event.nativeEvent.contentOffset.y
-    // console.log(this.y)
   }
 
   render() {
@@ -362,11 +393,13 @@ class Drug extends Component {
     const xmodal = this.renderXModal()
     const detail = this.renderDetail()
     const evaluateList = this.renderEvaluateList()
+    const ypList = this.renderYPList()
     return (
       <ScrollView style={styles.container} onScroll={this.sc.bind(this)}>
         <Spinner visible={this.state.visible} color="black"/>
         {detail}
         {evaluateList}
+        {ypList}
         {modal}
         {xmodal}
       </ScrollView>
@@ -381,7 +414,6 @@ const styles = StyleSheet.create({
   modal: {
     height: height * .4,
     width: width * .85,
-    // marginTop: height * .15,
     borderRadius: 4,
     borderWidth: 1,
     borderColor: '#ccc',
@@ -390,7 +422,6 @@ const styles = StyleSheet.create({
   xmodal: {
     height: height * .6,
     width: width * .85,
-    // marginTop: height * .1,
     borderRadius: 4,
     borderWidth: 1,
     borderColor: '#ccc',
@@ -524,5 +555,6 @@ export default connect(store => ({
   queryId: store.drug.queryId,
   medicinalName: store.drug.medicinalName,
   medicinal: store.drug.medicinal,
-  evaluateList: store.drug.evaluateList
+  evaluateList: store.drug.evaluateList,
+  recommendList: store.drug.recommendList
 }))(Drug)

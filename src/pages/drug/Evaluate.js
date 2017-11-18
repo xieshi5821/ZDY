@@ -33,7 +33,7 @@ class Evaluate extends Component {
         })
       })
       this.setState({visible: false})
-    }, () => {
+    }).catch(() => {
       this.setState({visible: false})
     })
   }
@@ -101,7 +101,7 @@ class Evaluate extends Component {
           drug.querySearch('evaluate')
           this.context.routes.pop()
         }, 100)
-      }, () => {
+      }).catch(() => {
         this.setState({visible: false})
       })
     } else {

@@ -7,7 +7,7 @@ import commonStyles from '../../styles/common'
 import React, {Component, PropTypes} from 'react'
 import Spinner from 'react-native-loading-spinner-overlay'
 import ViewPager from 'react-native-viewpager'
-import {receiveResultList, receiveContraindicationWords, receiveSubmitWords, receiveRecommedWords, updatePage} from '../../actions/recommendResult'
+import {receiveResultList, receiveSubmitWords, receiveRecommedWords, updatePage, receiveDiseaseWords} from '../../actions/recommendResult'
 import searchResult from '../../actions/searchResult'
 import Toast from 'react-native-root-toast'
 import Modal from 'react-native-modalbox'
@@ -81,7 +81,6 @@ class Recommend extends Component {
         this.setState({visible: false})
       }, () => {
         this.setState({visible: false})
-
       })
     }, () => {
       this.setState({visible: false})
@@ -115,7 +114,7 @@ class Recommend extends Component {
     }
 
     this.setState({visible: true})
-    callRecommendSubmit({text: inputText}).then(({search = false, recommedWords, contraindicationWrods, submitWords, resultlist}) => {
+    callRecommendSubmit({text: inputText}).then(({search = false, recommedWords, diseaseWords, contraindicationWrods, submitWords, resultlist}) => {
       // search = true
       if (search) {
         Alert.alert('提示', '您搜索的内容超出智能推荐范畴，请您选择重新输入或使用智能检索？', [
@@ -123,15 +122,9 @@ class Recommend extends Component {
             this.props.dispatch(updateInputTextS(inputText))
             callSearchList({text: inputText, rangeField: '', rows: 20, page: 1}).then(({contraindicationWrods, resultlist}) => {
               this.props.dispatch(searchResult.receiveResultList(resultlist))
-              this.props.dispatch(searchResult.receiveContraindicationWords(contraindicationWrods.map(contraindication => {
-                return {
-                  name: contraindication,
-                  checked: false
-                }
-              })))
               this.context.routes.searchResult()
               this.setState({visible: false})
-            }, () => {
+            }).catch(() => {
               this.setState({visible: false})
             })
             this.setState({visible: false})
@@ -152,18 +145,24 @@ class Recommend extends Component {
           checked: false
         }
       })))
-      this.props.dispatch(receiveSubmitWords(submitWords))
-      this.props.dispatch(receiveResultList(resultlist))
-      this.props.dispatch(updatePage(2))
-      this.props.dispatch(receiveContraindicationWords(contraindicationWrods.map(contraindication => {
+      this.props.dispatch(receiveDiseaseWords(diseaseWords.map(val => {
         return {
-          name: contraindication,
+          name: val,
           checked: false
         }
       })))
+      this.props.dispatch(receiveSubmitWords(submitWords))
+      this.props.dispatch(receiveResultList(resultlist))
+      this.props.dispatch(updatePage(2))
+      // this.props.dispatch(receiveContraindicationWords(contraindicationWrods.map(contraindication => {
+      //   return {
+      //     name: contraindication,
+      //     checked: false
+      //   }
+      // })))
       this.setState({visible: false})
       this.context.routes.recommendResult()
-    }, () => {
+    }).catch(() => {
       this.setState({visible: false})
     })
   }

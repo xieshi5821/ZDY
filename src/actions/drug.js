@@ -19,3 +19,7 @@ export const updateMedicinal = (medicinal) => (dispatch) => {
 export const receiveEvaluateList = (evaluateList) => (dispatch) => {
   dispatch({type: drugTypes.RECEIVE_EVALUATE_LIST, evaluateList})
 }
+
+export const receiveRecommendList = (recommendList) => (dispatch) => {
+  dispatch({type: drugTypes.RECEIVE_RECOMMEND_LIST, recommendList})
+}

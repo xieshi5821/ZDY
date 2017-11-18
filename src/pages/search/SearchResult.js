@@ -64,7 +64,7 @@ class SearchResult extends Component {
           }
         })))
         resolve()
-      })
+      }).catch(() => resolve())
     })
   }
 
