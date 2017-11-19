@@ -117,6 +117,10 @@ export const callEvaHistory = () => {
   return ajax('/api/evaluate/medicinal/history')
 }
 
+export const callLog = (params) => {
+  return ajax('/api/collect/error', params)
+}
+
 export const callRegister = () => {
   return new Promise((resolve, reject) => {
     if (pid) {

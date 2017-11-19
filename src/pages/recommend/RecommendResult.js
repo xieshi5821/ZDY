@@ -35,15 +35,6 @@ class RecommendResult extends Component {
     this.props.dispatch(resetFilter())
   }
 
-  // goBack() {
-  //   const {recommedWordPaths} = this.props
-  //   if (recommedWordPaths.length) {
-  //     const lastIndex = recommedWordPaths[recommedWordPaths.length - 1]
-  //     this.handleCheckRecommedWord(lastIndex)
-  //   } else {
-  //     this.context.routes.pop()
-  //   }
-  // }
   renderDataSource() {
     const {resultList} = this.props
     this.setState({dataSource: resultList.length ? this._dataSource.cloneWithRows(resultList) : null})
@@ -81,10 +72,11 @@ class RecommendResult extends Component {
       page = reset ? 1 : page
 
       const symptom = recommedWords.filter(word => word.checked).map(word => word.name).concat(submitWords)
-      
+
       callRecommendFilter({
         medicinalManufacturingEnterprise: ypcj,
         text: inputText,
+        page,
         symptomWords: symptom.join('~~'),
         rows,
         diseases: diseaseWords.filter(({checked}) => checked).map(({name}) => name).join('~~'),
