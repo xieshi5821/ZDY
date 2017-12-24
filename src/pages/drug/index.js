@@ -128,13 +128,13 @@ class Drug extends Component {
             {medicinal.medicinalContraindication ? (
               <View style={styles.modalGroupWrap}>
                 <View style={styles.modalLabelWrap}><Text style={styles.modalLabel}>用药禁忌</Text></View>
-                <View style={styles.modalTextWrap}><Text style={styles.modalText}>{this.renderRealValue(keyWords, keyWordsHaveValue, medicinal, 'medicinalContraindication')}</Text></View>
+                <View style={styles.modalTextWrap}><Text style={styles.modalText}>{this.renderRealValue(keyWords, keyWordsHaveValue, medicinal, 'medicinalContraindication')}{this.renderRealValue(keyWords, keyWordsHaveValue, medicinal, 'medicinalIncompatibility')}</Text></View>
               </View>
             ) : null}
-            {medicinal.medicinalincompatibility ? (
+            {medicinal.medicinalIncompatibility ? (
               <View style={styles.modalGroupWrap}>
                 <View style={styles.modalLabelWrap}><Text style={styles.modalLabel}>配伍禁忌</Text></View>
-                <View style={styles.modalTextWrap}><Text style={styles.modalText}>{this.renderRealValue(keyWords, keyWordsHaveValue, medicinal, 'medicinalincompatibility')}</Text></View>
+                <View style={styles.modalTextWrap}><Text style={styles.modalText}>{this.renderRealValue(keyWords, keyWordsHaveValue, medicinal, 'medicinalIncompatibility')}</Text></View>
               </View>
             ) : null}
           </View>
@@ -170,9 +170,9 @@ class Drug extends Component {
   renderDetail() {
     const medicinal = Object.assign({}, this.props.medicinal)
     medicinal.medicinalContraindication = medicinal.medicinalContraindication && medicinal.medicinalContraindication.startsWith('尚不明确') ? '' : medicinal.medicinalContraindication
-    medicinal.medicinalincompatibility = medicinal.medicinalincompatibility && medicinal.medicinalincompatibility.startsWith('尚不明确') ? '' : medicinal.medicinalincompatibility
+    medicinal.medicinalIncompatibility = medicinal.medicinalIncompatibility && medicinal.medicinalIncompatibility.startsWith('尚不明确') ? '' : medicinal.medicinalIncompatibility
     // 存在用药禁忌或者配伍禁忌，显示modal框
-    if (this.firstTips !== false && (medicinal.medicinalContraindication || medicinal.medicinalincompatibility)) {
+    if (this.firstTips !== false && (medicinal.medicinalContraindication || medicinal.medicinalIncompatibility)) {
       this.timer1 = setTimeout(() => {
         // console.log(this.firstTips)
         this.refs.modal && this.refs.modal.open()
@@ -222,7 +222,7 @@ class Drug extends Component {
         </View>
         <View style={styles.detailWrap}>
           <View><Text style={styles.titleText}>配伍禁忌</Text></View>
-          <View><Text style={styles.detailText}>{this.renderRealValue(keyWords, keyWordsHaveValue, medicinal, 'medicinalincompatibility')}</Text></View>
+          <View><Text style={styles.detailText}>{this.renderRealValue(keyWords, keyWordsHaveValue, medicinal, 'medicinalIncompatibility')}</Text></View>
         </View>
         <View style={styles.detailWrap}>
           <View><Text style={styles.titleText}>注意事项</Text></View>
@@ -412,7 +412,7 @@ const styles = StyleSheet.create({
   container: {
   },
   modal: {
-    height: height * .4,
+    height: height * .5,
     width: width * .85,
     borderRadius: 4,
     borderWidth: 1,

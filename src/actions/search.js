@@ -19,3 +19,7 @@ export const toggleCheck = (index) => (dispatch) => {
 export const updateHisList = (hisList) => (dispatch) => {
   dispatch({type: searchTypes.UPDATE_HIS_LIST, hisList})
 }
+
+export const updateRangeCheckedList = (rangeList) => (dispatch) => {
+  dispatch({type: searchTypes.UPDATE_RANGE_CHECKED_LIST, rangeList})
+}

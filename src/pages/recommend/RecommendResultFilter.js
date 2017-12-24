@@ -154,7 +154,7 @@ class RecommendResultFilter extends Component {
                       <CheckBox containerStyle={styles.check} textStyle={styles.checkText} onPress={this.handleJBCheck.bind(this, name)} checked={checked}/>
                     </View>
                     <TouchableOpacity onPress={this.handleOpenDeatil.bind(this, name)} style={{flex: 1, paddingTop: 8}}>
-                      <Text style={{color: '#007cca'}}>{name}</Text>
+                      <Text style={{color: '#007cca', textDecorationLine: 'underline'}}>{name}</Text>
                     </TouchableOpacity>
                   </View>)
                 })}

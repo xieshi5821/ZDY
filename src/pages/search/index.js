@@ -3,7 +3,7 @@ import {Alert, StyleSheet, View, Text, ScrollView, TextInput, TouchableOpacity, 
 import {callSearchHome, callSearchList} from '../../api/request'
 import {connect} from 'react-redux'
 import {receiveResultList, receiveContraindicationWords, resetResultList, resetFilter} from '../../actions/searchResult'
-import {updateInputTextS, receiveRangeList, receivePlaceholder, toggleCheck, updateHisList} from '../../actions/search'
+import {updateInputTextS, receiveRangeList, receivePlaceholder, toggleCheck, updateHisList, updateRangeCheckedList} from '../../actions/search'
 import commonStyles from '../../styles/common'
 import React, {Component, PropTypes} from 'react'
 import Spinner from 'react-native-loading-spinner-overlay'
@@ -48,15 +48,16 @@ class Search extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      visible: true
+      visible: true,
+      placeholder: '请您勾选相应条件进行检索'
     }
   }
 
   componentDidMount() {
     callSearchHome().then(({rangelist, placeholder}) => {
-      this.props.dispatch(receivePlaceholder(placeholder))
+      // this.props.dispatch(receivePlaceholder(placeholder))
       this.props.dispatch(receiveRangeList(rangelist.map(range => {
-        range.checked = true
+        range.checked = false
         return range
       })))
       getHisList().then(hisList => {
@@ -85,6 +86,10 @@ class Search extends Component {
 
   handleSubmit() {
     const {inputText, rangeList, rows, page} = this.props
+    if (!rangeList.some(({checked}) => checked)) {
+      Alert.alert('提示', '请您勾选相应条件进行检索')
+      return
+    }
     if (!inputText) {
       Alert.alert('提示', '请输入搜索词')
       return
@@ -121,8 +126,60 @@ class Search extends Component {
 
   handleCheck(index) {
     requestAnimationFrame(() => {
-      this.props.dispatch(toggleCheck(index))
+      const curChecked = this.props.rangeList[index]['checked']
+      const newRangeList = this.props.rangeList.map((e, i) => {
+        if (index === 5) {
+          if (i < 5) {
+            e.checked = false
+          }
+        } else {
+          if (i === 5) {
+            e.checked = false
+          }
+        }
+        return e
+      })
+      newRangeList[index]['checked'] = !curChecked
+      this.handlePlaceholder(newRangeList, index)
+      this.props.dispatch(updateRangeCheckedList(newRangeList))
     })
+  }
+
+  handlePlaceholder(newRangeList) {
+    let count = 0
+    let index = 5
+    newRangeList.forEach(({checked}, i) => {
+      if (checked) {
+        count ++
+        index = i
+      }
+    })
+    if (count === 0) {
+      this.setState({placeholder: '请您勾选相应条件进行检索'})
+    } else if (count === 1) {
+      switch (index) {
+        case 0:
+          this.setState({placeholder: '请输入您想查找的药品名称，如清咽或清咽片'})
+          break;
+        case 1:
+          this.setState({placeholder: '请输入您想查找的功能主治，如清咽、咽痒、慢性咽炎'})
+          break;
+        case 2:
+          this.setState({placeholder: '请输入您想查找的药品成分，如麦冬、板蓝根'})
+          break;
+        case 3:
+          this.setState({placeholder: '请输入您想查找的企业名称，如同仁堂'})
+          break;
+        case 4:
+          this.setState({placeholder: '请输入您想查找的药品分类，如解表、安神、清热'})
+          break;
+        case 5:
+          this.setState({placeholder: '请您勾选相应条件进行检索'})
+          break;
+      }
+    } else {
+      this.setState({placeholder: ''})
+    }
   }
 
   renderCheck() {
@@ -165,7 +222,7 @@ class Search extends Component {
         <Spinner visible={this.state.visible} color="black"/>
         <View style={styles.inputForm}>
           <View>
-            <TextInput multiline placeholder={this.props.placeholder} underlineColorAndroid='transparent' style={styles.input} onChangeText={this.handleChangeInput.bind(this)} value={this.props.inputText}></TextInput>
+            <TextInput multiline placeholder={this.state.placeholder} underlineColorAndroid='transparent' style={styles.input} onChangeText={this.handleChangeInput.bind(this)} value={this.props.inputText}></TextInput>
           </View>
           <View>
             {check}
@@ -238,7 +295,7 @@ export default connect(store => ({
   hisList: store.search.hisList,
   inputText: store.search.inputText,
   rangeList: store.search.rangeList,
-  placeholder: store.search.placeholder,
+  // placeholder: store.search.placeholder,
   rows: store.searchResult.rows,
   page: store.searchResult.page
 }))(Search)

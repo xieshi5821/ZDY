@@ -1,8 +1,9 @@
 import {AsyncStorage} from 'react-native'
 import Toast from 'react-native-root-toast'
 import DeviceInfo from 'react-native-device-info'
+import {recordLog} from '../libs/errorHandler'
+
 const uniqueId = DeviceInfo.getUniqueID().toUpperCase()
-// export const API_URL = 'http://otc.icecode.cc:8081'
 export const API_URL = 'http://otc.icecode.cc'
 const PID = 'pid'
 export const fillUrl = (url = '') => {
@@ -20,6 +21,7 @@ const toQueryString = (params) => {
   return querys.join('&')
 }
 
+let errorCount = 0
 const ajax = (url, params = {}) => {
   return new Promise((resolve, reject) => {
     fetch(`${API_URL}${url}`, {
@@ -32,14 +34,18 @@ const ajax = (url, params = {}) => {
         body: toQueryString(params)
       }).then(resp => resp.json())
       .then(({errorCode = '100', errorMsg, data}) => {
-        console.log(url, 'token='+ pid, errorMsg, errorCode, params, data)
+        // console.log(url, 'token='+ pid, errorMsg, errorCode, params, data)
         if (errorCode === '100') {
+          errorCount = 0
           resolve(data || {})
         } else {
           throw new Error(errorMsg)
         }
       }).catch(err => {
-        Toast.show(err ? String(err) : '服务器内部错误')
+        errorCount++
+        const msg = err ? String(err) : '服务器内部错误'
+        Toast.show(msg)
+        errorCount <= 3 && recordLog(JSON.stringify({msg, url, pid, params}))
         reject(err)
       })
   })

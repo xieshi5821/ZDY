@@ -9,6 +9,8 @@ import React, { Component, PropTypes } from 'react'
 import Spinner from 'react-native-loading-spinner-overlay'
 import {updateSource, updateQueryId, updateMedicinalName} from '../../actions/drug'
 
+const hasHighlightRe = /.*<i>.*<\/i>.*/
+
 export let searchResult = null
 class SearchResult extends Component {
   static contextTypes = {
@@ -110,7 +112,7 @@ class SearchResult extends Component {
 
     body = (
       <TouchableOpacity key={rowData.medicinalId} style={commonStyles.blockItem} onPress={this.handleDetail.bind(this, rowData.medicinalId, rowData.medicinalName, rowData.visit)}>
-        <View style={[commonStyles.blockRow, commonStyles.blockRow2]}><View style={commonStyles.blockRowT}><View style={commonStyles.cellYb}>{rowData.medicinalIsInsurance === '医保' ? <Text style={commonStyles.syb}>保</Text> : <Text style={commonStyles.fyb}>非</Text>}</View><Text style={[commonStyles.cellYm, rowData.visit ? commonStyles.visit : '']}>{rowData.medicinalName}</Text></View></View>
+        <View style={[commonStyles.blockRow, commonStyles.blockRow2]}><View style={commonStyles.blockRowT}><View style={commonStyles.cellYb}>{rowData.medicinalIsInsurance === '医保' ? <Text style={commonStyles.syb}>保</Text> : <Text style={commonStyles.fyb}>非</Text>}</View><Text style={[commonStyles.cellYm, rowData.visit ? commonStyles.visit : '']}>{this.renderRealValue(rowData, 'medicinalName')}</Text></View></View>
         <View style={commonStyles.blockRow}><Text style={commonStyles.cellGn} numberOfLines={2}>{rowData.medicinalFunction}</Text></View>
         <View style={commonStyles.blockRow}><Text><Text style={commonStyles.cellYcTitle}>药厂：</Text><Text style={commonStyles.cellYcText}>{rowData.medicinalManufacturingEnterprise}</Text></Text></View>
         <View style={commonStyles.blockRow}><Text><Text style={commonStyles.cellGgTitle}>规格：</Text><Text style={commonStyles.cellGgText}>{rowData.medicinalSpecification}</Text></Text></View>
@@ -126,18 +128,43 @@ class SearchResult extends Component {
     )
   }
 
-  // renderRow(rowData) {
-  //   return (
-  //     <View>
-  //     <TouchableOpacity key={rowData.medicinalId} style={commonStyles.blockItem} onPress={this.handleDetail.bind(this, rowData.medicinalId, rowData.medicinalName, rowData.visit)}>
-  //       <View style={[commonStyles.blockRow, commonStyles.blockRow2]}><View style={commonStyles.blockRowT}><View style={commonStyles.cellYb}>{rowData.medicinalIsInsurance === '是' ? <Text style={commonStyles.syb}>保</Text> : <Text style={commonStyles.fyb}>非</Text>}</View><Text style={[commonStyles.cellYm, rowData.visit ? commonStyles.visit : '']}>{rowData.medicinalName}</Text></View></View>
-  //       <View style={commonStyles.blockRow}><Text style={commonStyles.cellGn} numberOfLines={2}>{rowData.medicinalFunction}</Text></View>
-  //       <View style={commonStyles.blockRow}><Text><Text style={commonStyles.cellYcTitle}>药厂：</Text><Text style={commonStyles.cellYcText}>{rowData.medicinalManufacturingEnterprise}</Text></Text></View>
-  //       <View style={commonStyles.blockRow}><Text><Text style={commonStyles.cellGgTitle}>规格：</Text><Text style={commonStyles.cellGgText}>{rowData.medicinalSpecification}</Text></Text></View>
-  //     </TouchableOpacity>
-  //     </View>
-  //   )
-  // }
+  renderRealValue(obj, key) {
+    const objValue = String(obj[key] || '')
+    if (objValue.length && hasHighlightRe.test(objValue)) {
+      return this.spreadValues(key, objValue)
+    }
+    return objValue || ''
+  }
+
+  spreadValues(key, objValue) {
+    const values = []
+    let startIndex = -1
+    while ((startIndex = objValue.indexOf('<i>')) !== -1) {
+      const unMatchValue = objValue.substring(0, startIndex)
+      objValue = objValue.substring(startIndex + 3, objValue.length)
+      unMatchValue && unMatchValue.length && values.push({
+        value: unMatchValue,
+        match: false
+      })
+      const endIndex = objValue.indexOf('</i>')
+      const matchValue = objValue.substring(0, endIndex)
+      objValue = objValue.substring(endIndex + 4, objValue.length)
+      matchValue && matchValue.length && values.push({
+        value: matchValue,
+        match: true
+      })
+    }
+    objValue && objValue.length && values.push({
+      value: objValue,
+      match: false
+    })
+    return values.length > 1 ? values.map(({value, match}, index) => {
+      if (match) {
+        return (<Text style={{color: '#f33'}} key={key + '_highlight_' + index}>{value}</Text>)
+      }
+      return (<Text key={key + '_highlight_' + index}>{value}</Text>)
+    }) : '无'
+  }
 
   onLoadMore(end){
     this.querySearch(false).then(() => end())
@@ -148,7 +175,7 @@ class SearchResult extends Component {
     const {page, hasMore} = this.props
     let list = dataSource ? <SwRefreshListView dataSource={dataSource} ref="listView" isShowLoadMore={hasMore} loadingTitle="加载中..." renderRow={this.renderRow.bind(this)} onLoadMore={this.onLoadMore.bind(this)}/> : null
     if (list === null && page === 2) {
-      list = <Empty/>
+      list = <Empty msg="未在您勾选的条件下找到结果，试试更换检索词或勾选条件？"/>
     }
     return (
       <View>

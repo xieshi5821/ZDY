@@ -1,6 +1,6 @@
 import { searchTypes } from '../reducer-types'
 const initialState = {
-  inputText: null,
+  inputText: '',
   // inputText: '感冒',
   rangeList: [],
   placeholder: '',
@@ -20,6 +20,10 @@ export default search = (state = initialState, action) => {
 
     case searchTypes.REVEIVE_PLACEHOLDER:
       return {...state, placeholder: action.placeholder}
+
+    case searchTypes.UPDATE_RANGE_CHECKED_LIST:
+      // console.log({...state, rangeList: action.rangeList})
+      return {...state, rangeList: action.rangeList}
 
     case searchTypes.TOGGLE_CHECK:
       const rangeList = Object.assign([], state.rangeList)

@@ -139,7 +139,7 @@ class Recommend extends Component {
         )
         return
       }
-      this.props.dispatch(receiveRecommedWords(recommedWords.map(recommed => {
+      this.props.dispatch(receiveRecommedWords(recommedWords.filter(recomed => submitWords.indexOf(recomed) === -1).map(recommed => {
         return {
           name: recommed,
           checked: false
@@ -154,12 +154,6 @@ class Recommend extends Component {
       this.props.dispatch(receiveSubmitWords(submitWords))
       this.props.dispatch(receiveResultList(resultlist))
       this.props.dispatch(updatePage(2))
-      // this.props.dispatch(receiveContraindicationWords(contraindicationWrods.map(contraindication => {
-      //   return {
-      //     name: contraindication,
-      //     checked: false
-      //   }
-      // })))
       this.setState({visible: false})
       this.context.routes.recommendResult()
     }).catch(() => {
