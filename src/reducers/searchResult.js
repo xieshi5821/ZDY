@@ -5,15 +5,19 @@ const initialState = {
   resultList: [],
   hasMore: true,
   contraindicationWords: [],
-  star: [],
-  medicinalIsInsurance: []
+  medicinalIsInsurance: [],
+  ypcj: '',
+  yyjj: ''
 }
 
 export default search = (state = initialState, action) => {
   switch (action.type) {
     case searchResultTypes.RESET_RESULT_LIST:
       return {...state, resultList: [], page: 1, hasMore: true}
-
+    case searchResultTypes.UPDATE_YPCJ:
+      return {...state, ypcj: action.ypcj}
+    case searchResultTypes.UPDATE_YYJJ:
+      return {...state, yyjj: action.yyjj}
     case searchResultTypes.RECEIVE_RESULT_LIST:
       const {gridModel, page, total} = action.resultList
       const resultList = Object.assign([], state.resultList)
@@ -38,17 +42,8 @@ export default search = (state = initialState, action) => {
       words.forEach((contraindication) => {
         contraindication.checked = false
       })
-      return {...state, contraindicationWords: words, star: [], medicinalIsInsurance: []}
+      return {...state, contraindicationWords: words, yyjj: '', ypcj: '', star: [], medicinalIsInsurance: []}
 
-    case searchResultTypes.TOGGLE_STAR_CHECK:
-      const star = Object.assign([], state.star)
-      const idx = star.indexOf(action.level)
-      if (idx == -1) {
-        star.push(action.level)
-      } else {
-        star.splice(idx, 1)
-      }
-      return {...state, star}
     case searchResultTypes.TOGGLE_MEDICINALISINSURANCE_CHECK:
       const medicinalIsInsurance = Object.assign([], state.medicinalIsInsurance)
       const idx2 = medicinalIsInsurance.indexOf(action.name)

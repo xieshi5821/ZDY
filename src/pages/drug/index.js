@@ -44,7 +44,7 @@ class Drug extends Component {
   }
 
   getDrugTitle() {
-    return this.props.medicinalName
+    return (this.props.medicinalName || '').replace(/<\/?i>/g, '')
   }
 
   getCollectTitle() {
@@ -128,7 +128,7 @@ class Drug extends Component {
             {medicinal.medicinalContraindication ? (
               <View style={styles.modalGroupWrap}>
                 <View style={styles.modalLabelWrap}><Text style={styles.modalLabel}>用药禁忌</Text></View>
-                <View style={styles.modalTextWrap}><Text style={styles.modalText}>{this.renderRealValue(keyWords, keyWordsHaveValue, medicinal, 'medicinalContraindication')}{this.renderRealValue(keyWords, keyWordsHaveValue, medicinal, 'medicinalIncompatibility')}</Text></View>
+                <View style={styles.modalTextWrap}><Text style={styles.modalText}>{this.renderRealValue(keyWords, keyWordsHaveValue, medicinal, 'medicinalContraindication')}</Text></View>
               </View>
             ) : null}
             {medicinal.medicinalIncompatibility ? (
@@ -189,8 +189,12 @@ class Drug extends Component {
           <TouchableOpacity><Text style={styles.companyText}>{medicinal.medicinalManufacturingEnterprise || '无'}</Text></TouchableOpacity>
         </View>
         <View style={styles.detailWrap}>
+          <View><Text style={styles.titleText}>汉语拼音</Text></View>
+          <View><Text style={styles.detailText}>{medicinal.hanyupy || '无'}</Text></View>
+        </View>
+        <View style={styles.detailWrap}>
           <View><Text style={styles.titleText}>品牌</Text></View>
-          <View><Text style={styles.detailText}>{this.renderRealValue(keyWords, keyWordsHaveValue, medicinal, 'medicinalBrand')}</Text></View>
+          <View><Text style={styles.detailText}>{medicinal.medicinalBrand || '无'}</Text></View>
         </View>
         <View style={styles.detailWrap}>
           <View><Text style={styles.titleText}>成份</Text></View>
@@ -206,11 +210,11 @@ class Drug extends Component {
         </View>
         <View style={styles.detailWrap}>
           <View><Text style={styles.titleText}>规格</Text></View>
-          <View><Text style={styles.detailText}>{this.renderRealValue(keyWords, keyWordsHaveValue, medicinal, 'medicinalSpecification')}</Text></View>
+          <View><Text style={styles.detailText}>{medicinal.medicinalSpecification || '无'}</Text></View>
         </View>
         <View style={styles.detailWrap}>
           <View><Text style={styles.titleText}>用法用量</Text></View>
-          <View><Text style={styles.detailText}>{this.renderRealValue(keyWords, keyWordsHaveValue, medicinal, 'medicinalUsage')}</Text></View>
+          <View><Text style={styles.detailText}>{medicinal.medicinalUsage || '无'}</Text></View>
         </View>
         <View style={styles.detailWrap}>
           <View><Text style={styles.titleText}>不良反应</Text></View>
@@ -233,28 +237,72 @@ class Drug extends Component {
           <View><Text style={styles.detailText}>{this.renderRealValue(keyWords, keyWordsHaveValue, medicinal, 'medicinalInteract')}</Text></View>
         </View>
         <View style={styles.detailWrap}>
+          <View><Text style={styles.titleText}>药物过量</Text></View>
+          <View><Text style={styles.detailText}>{medicinal.yaowugl || '无'}</Text></View>
+        </View>
+        <View style={styles.detailWrap}>
+          <View><Text style={styles.titleText}>药物毒理</Text></View>
+          <View><Text style={styles.detailText}>{medicinal.yaowudl || '无'}</Text></View>
+        </View>
+        <View style={styles.detailWrap}>
           <View><Text style={styles.titleText}>贮藏</Text></View>
-          <View><Text style={styles.detailText}>{this.renderRealValue(keyWords, keyWordsHaveValue, medicinal, 'medicinalStorage')}</Text></View>
+          <View><Text style={styles.detailText}>{medicinal.medicinalStorage || '无'}</Text></View>
         </View>
         <View style={styles.detailWrap}>
           <View><Text style={styles.titleText}>包装</Text></View>
-          <View><Text style={styles.detailText}>{this.renderRealValue(keyWords, keyWordsHaveValue, medicinal, 'medicinalPackage')}</Text></View>
+          <View><Text style={styles.detailText}>{medicinal.medicinalPackage || '无'}</Text></View>
         </View>
         <View style={styles.detailWrap}>
           <View><Text style={styles.titleText}>有效期</Text></View>
-          <View><Text style={styles.detailText}>{this.renderRealValue(keyWords, keyWordsHaveValue, medicinal, 'medicinalValidity')}</Text></View>
+          <View><Text style={styles.detailText}>{medicinal.medicinalValidity || '无'}</Text></View>
         </View>
         <View style={styles.detailWrap}>
           <View><Text style={styles.titleText}>执行标准</Text></View>
-          <View><Text style={styles.detailText}>{this.renderRealValue(keyWords, keyWordsHaveValue, medicinal, 'medicinalOperativeNorm')}</Text></View>
+          <View><Text style={styles.detailText}>{medicinal.medicinalOperativeNorm || '无'}</Text></View>
         </View>
         <View style={styles.detailWrap}>
           <View><Text style={styles.titleText}>批准文号</Text></View>
-          <View><Text style={styles.detailText}>{this.renderRealValue(keyWords, keyWordsHaveValue, medicinal, 'medicinalLicenseNumber')}</Text></View>
+          <View><Text style={styles.detailText}>{medicinal.medicinalLicenseNumber || '无'}</Text></View>
         </View>
         <View style={styles.detailWrap}>
           <View><Text style={styles.titleText}>企业地址</Text></View>
-          <View><Text style={styles.detailText}>{this.renderRealValue(keyWords, keyWordsHaveValue, medicinal, 'medicinalEnterpriseAddress')}</Text></View>
+          <View><Text style={styles.detailText}>{medicinal.medicinalEnterpriseAddress || '无'}</Text></View>
+        </View>
+        <View style={styles.detailWrap}>
+          <View><Text style={styles.titleText}>妊娠期妇女及哺乳期妇女用药</Text></View>
+          <View><Text style={styles.detailText}>{medicinal.renchenqyy || '无'}</Text></View>
+        </View>
+        <View style={styles.detailWrap}>
+          <View><Text style={styles.titleText}>儿童用药</Text></View>
+          <View><Text style={styles.detailText}>{medicinal.ertongyy || '无'}</Text></View>
+        </View>
+        <View style={styles.detailWrap}>
+          <View><Text style={styles.titleText}>老年患者用药</Text></View>
+          <View><Text style={styles.detailText}>{medicinal.laonianyy || '无'}</Text></View>
+        </View>
+        <View style={styles.detailWrap}>
+          <View><Text style={styles.titleText}>临床研究</Text></View>
+          <View><Text style={styles.detailText}>{medicinal.linchuangyy || '无'}</Text></View>
+        </View>
+        <View style={styles.detailWrap}>
+          <View><Text style={styles.titleText}>警告</Text></View>
+          <View><Text style={styles.detailText}>{medicinal.jinggao || '无'}</Text></View>
+        </View>
+        <View style={styles.detailWrap}>
+          <View><Text style={styles.titleText}>药品分类</Text></View>
+          <View><Text style={styles.detailText}>{medicinal.yaopingfl || '无'}</Text></View>
+        </View>
+        <View style={styles.detailWrap}>
+          <View><Text style={styles.titleText}>非处方分类</Text></View>
+          <View><Text style={styles.detailText}>{medicinal.feichuffl || '无'}</Text></View>
+        </View>
+        <View style={styles.detailWrap}>
+          <View><Text style={styles.titleText}>药品销量</Text></View>
+          <View><Text style={styles.detailText}>{medicinal.xiaoliang || '无'}</Text></View>
+        </View>
+        <View style={styles.detailWrap}>
+          <View><Text style={styles.titleText}>浏览次数</Text></View>
+          <View><Text style={styles.detailText}>{medicinal.liulancs || '无'}</Text></View>
         </View>
       </View>
     )
@@ -412,7 +460,7 @@ const styles = StyleSheet.create({
   container: {
   },
   modal: {
-    height: height * .5,
+    height: height * .6,
     width: width * .85,
     borderRadius: 4,
     borderWidth: 1,

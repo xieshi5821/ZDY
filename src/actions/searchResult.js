@@ -28,8 +28,12 @@ export const resetFilter = (index) => (dispatch) => {
   dispatch({type: searchResultTypes.RESET_FILTER})
 }
 
-export const toggleStarCheck = (level) => (dispatch) => {
-  dispatch({type: searchResultTypes.TOGGLE_STAR_CHECK, level})
+export const updateYpcj = (ypcj) => (dispatch) => {
+  dispatch({type: searchResultTypes.UPDATE_YPCJ, ypcj}) //medicinalManufacturingEnterprise
+}
+
+export const updateYpjj = (yyjj) => (dispatch) => {
+  dispatch({type: searchResultTypes.UPDATE_YYJJ, yyjj}) //medicinalManufacturingEnterprise
 }
 
 export default {
@@ -38,6 +42,5 @@ export default {
   receiveContraindicationWords,
   toggleContraindicationCheck,
   toggleMedicinalIsInsuranceCheck,
-  resetFilter,
-  toggleStarCheck
+  resetFilter
 }

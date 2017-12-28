@@ -50,8 +50,9 @@ export const searchResultTypes = createModuleReducer('searchResultTypes', [
   'RECEIVE_CONTRAINDICATION_WORDS',
   'TOGGLE_CONTRAINDICATION_CHECK',
   'TOGGLE_MEDICINALISINSURANCE_CHECK',
-  'RESET_FILTER',
-  'TOGGLE_STAR_CHECK'
+  'UPDATE_YYJJ',
+  'UPDATE_YPCJ',
+  'RESET_FILTER'
 ])
 
 // 药品主页

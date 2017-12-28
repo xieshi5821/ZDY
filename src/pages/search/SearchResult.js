@@ -43,7 +43,7 @@ class SearchResult extends Component {
 
   querySearch(reset = true) {
     return new Promise((resolve, reject) => {
-      let {rows, page, inputText, rangeList, star, medicinalIsInsurance, medicinalContraindication, contraindicationWords} = this.props
+      let {rows, page, inputText, rangeList, ypcj, ypjj, medicinalIsInsurance, medicinalContraindication, yyjj} = this.props
       page = reset ? 1 : page
       const rangeFields = []
       rangeList.forEach(({checked, rangeField}) => {
@@ -51,13 +51,8 @@ class SearchResult extends Component {
           rangeFields.push(rangeField)
         }
       })
-      const words = []
-      contraindicationWords.forEach(({checked, name}) => {
-        if (checked && words.indexOf(name) === -1) {
-          words.push(name)
-        }
-      })
-      callSearchList({text: inputText, rangeField: rangeFields.join('~~'), rows, page, evaluateStar: star.join('~~'), medicinalIsInsurance: medicinalIsInsurance.join('~~'), medicinalContraindication: words.join('~~')}).then(({contraindicationWrods, resultlist}) => {
+
+      callSearchList({text: inputText, rangeField: rangeFields.join('~~'), medicinalManufacturingEnterprise: ypcj, rows, page, medicinalIsInsurance: medicinalIsInsurance.join('~~'), medicinalContraindication: yyjj}).then(({contraindicationWrods, resultlist}) => {
         this.props.dispatch(receiveResultList(resultlist))
         this.props.dispatch(receiveContraindicationWords(contraindicationWrods.map(contraindication => {
           return {
@@ -202,7 +197,8 @@ export default connect(store => ({
   page: store.searchResult.page,
   hasMore: store.searchResult.hasMore,
   resultList: store.searchResult.resultList,
+  yyjj: store.searchResult.yyjj,
   contraindicationWords: store.searchResult.contraindicationWords,
-  star: store.searchResult.star,
+  ypcj: store.searchResult.ypcj,
   medicinalIsInsurance: store.searchResult.medicinalIsInsurance
 }))(SearchResult)

@@ -2,7 +2,7 @@ import { CheckBox, Button } from 'react-native-elements'
 import {connect} from 'react-redux'
 import {receiveResultList, receiveContraindicationWords} from '../../actions/searchResult'
 import {StyleSheet, View, Text, ScrollView, TextInput, TouchableOpacity} from 'react-native'
-import {toggleContraindicationCheck, toggleMedicinalIsInsuranceCheck, resetFilter, checkStar, toggleStarCheck, resetResultList} from '../../actions/searchResult'
+import {toggleContraindicationCheck, toggleMedicinalIsInsuranceCheck, resetFilter, checkStar, resetResultList, updateYpcj, updateYpjj} from '../../actions/searchResult'
 import commonStyles from '../../styles/common'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import React, {Component, PropTypes} from 'react'
@@ -41,10 +41,6 @@ class SearchResultFilter extends Component {
     this.props.dispatch(toggleContraindicationCheck(index))
   }
 
-  handleStarCheck(level) {
-    this.props.dispatch(toggleStarCheck(level))
-  }
-
   handleMedicinalIsInsuranceCheck(name) {
     this.props.dispatch(toggleMedicinalIsInsuranceCheck(name))
   }
@@ -57,9 +53,16 @@ class SearchResultFilter extends Component {
       ))
   }
 
+  handleYPJJChangeInput(value) {
+    this.props.dispatch(updateYpjj(value))
+  }
+
+  handleYPCJChangeInput(value) {
+    this.props.dispatch(updateYpcj(value))
+  }
+
   render() {
-    const contraindicationWords = this.renderContraindicationWords()
-    const {medicinalIsInsurance, star} = this.props
+    const {medicinalIsInsurance, ypcj, yyjj} = this.props
     return (
       <View style={styles.wrap}>
         <Spinner visible={this.state.visible} color="black"/>
@@ -79,29 +82,21 @@ class SearchResultFilter extends Component {
               </View>
             </View>
             <View style={styles.labelWrap}>
-              <View style={commonStyles.flex}><Text style={styles.labelText}>用户评价</Text></View>
-              <View style={commonStyles.flex}><Text style={styles.labelButton}><Icon name="caret-down" size={22} color="#ccc"/></Text></View>
-            </View>
-            <View style={styles.checkGtoupWrap}>
-              <View style={styles.checkWrap}>
-                <View style={commonStyles.flex}>
-                  <CheckBox title='5星' containerStyle={styles.check} textStyle={styles.checkText} onPress={this.handleStarCheck.bind(this, 5)} checked={star.indexOf(5) !== -1} center/>
-                </View>
-                <View style={commonStyles.flex}>
-                  <CheckBox title='4星' containerStyle={styles.check} textStyle={styles.checkText} onPress={this.handleStarCheck.bind(this, 4)} checked={star.indexOf(4) !== -1} center/>
-                </View>
-                <View style={commonStyles.flex}>
-                  <CheckBox title='3星' containerStyle={styles.check} textStyle={styles.checkText} onPress={this.handleStarCheck.bind(this, 3)} checked={star.indexOf(3) !== -1} center/>
-                </View>
-              </View>
-            </View>
-            <View style={styles.labelWrap}>
               <View style={commonStyles.flex}><Text style={styles.labelText}>用药禁忌</Text></View>
               <View style={commonStyles.flex}><Text style={styles.labelButton}><Icon name="caret-down" size={22} color="#ccc"/></Text></View>
             </View>
             <View style={styles.checkGtoupWrap}>
               <View style={styles.checkWrap}>
-                {contraindicationWords}
+                <TextInput underlineColorAndroid='transparent' style={styles.input} onChangeText={this.handleYPJJChangeInput.bind(this)} value={yyjj}></TextInput>
+              </View>
+            </View>
+            <View style={styles.labelWrap}>
+              <View style={commonStyles.flex}><Text style={styles.labelText}>药品厂家</Text></View>
+              <View style={commonStyles.flex}><Text style={styles.labelButton}><Icon name="caret-down" size={22} color="#ccc"/></Text></View>
+            </View>
+            <View style={styles.checkGtoupWrap}>
+              <View style={styles.checkWrap}>
+                <TextInput underlineColorAndroid='transparent' style={styles.input} onChangeText={this.handleYPCJChangeInput.bind(this)} value={ypcj}></TextInput>
               </View>
             </View>
           </View>
@@ -188,11 +183,18 @@ const styles = StyleSheet.create({
     left: 0,
     bottom: 0,
     right: 0,
+  },
+  input: {
+    borderColor: '#ccc',
+    borderWidth: .5,
+    flex: 1,
+    padding: 2
   }
 })
 
 export default connect(store => ({
   contraindicationWords: store.searchResult.contraindicationWords,
-  star: store.searchResult.star,
+  ypcj: store.searchResult.ypcj,
+  yyjj: store.searchResult.yyjj,
   medicinalIsInsurance: store.searchResult.medicinalIsInsurance
 }))(SearchResultFilter)
