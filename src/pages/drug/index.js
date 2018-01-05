@@ -121,7 +121,7 @@ class Drug extends Component {
     const keyWords = medicinal.medicinalKeyWordsResult || {}
     const keyWordsHaveValue = !!Object.keys(keyWords).length
     return (
-      <Modal style={[styles.modal, {marginTop: this.state.y + 80}]} backdrop={true} position={"top"} ref={"modal"}>
+      <Modal style={[styles.modal, {marginTop: this.state.y + 30}]} backdrop={true} position={"top"} ref={"modal"}>
         <ScrollView>
           <View style={styles.modalTitleWrap}><Text style={styles.modalTitle}>温馨提示</Text></View>
           <View style={styles.modalContent}>
@@ -151,7 +151,7 @@ class Drug extends Component {
   renderXModal() {
     const {xTitle, xContent} = this.state
     return (
-      <Modal style={[styles.xmodal, {marginTop: this.state.y + 80}]} backdrop={true} position={"top"} ref={"xmodal"}>
+      <Modal style={[styles.xmodal, {marginTop: this.state.y + 30}]} backdrop={true} position={"top"} ref={"xmodal"}>
         <ScrollView>
           <View style={styles.modalTitleWrap}><Text style={styles.modalTitle}>{xTitle}</Text></View>
           <View style={styles.modalContent}>
@@ -197,7 +197,7 @@ class Drug extends Component {
           <View><Text style={styles.detailText}>{medicinal.medicinalBrand || '无'}</Text></View>
         </View>
         <View style={styles.detailWrap}>
-          <View><Text style={styles.titleText}>成份</Text></View>
+          <View><Text style={styles.titleText}>药品成分</Text></View>
           <View><Text style={styles.detailText}>{this.renderRealValue(keyWords, keyWordsHaveValue, medicinal, 'medicinalIngredients')}</Text></View>
         </View>
         <View style={styles.detailWrap}>
@@ -295,14 +295,6 @@ class Drug extends Component {
         <View style={styles.detailWrap}>
           <View><Text style={styles.titleText}>非处方分类</Text></View>
           <View><Text style={styles.detailText}>{medicinal.feichuffl || '无'}</Text></View>
-        </View>
-        <View style={styles.detailWrap}>
-          <View><Text style={styles.titleText}>药品销量</Text></View>
-          <View><Text style={styles.detailText}>{medicinal.xiaoliang || '无'}</Text></View>
-        </View>
-        <View style={styles.detailWrap}>
-          <View><Text style={styles.titleText}>浏览次数</Text></View>
-          <View><Text style={styles.detailText}>{medicinal.liulancs || '无'}</Text></View>
         </View>
       </View>
     )
@@ -460,16 +452,16 @@ const styles = StyleSheet.create({
   container: {
   },
   modal: {
-    height: height * .6,
-    width: width * .85,
+    height: height * .75,
+    width: width * .9,
     borderRadius: 4,
     borderWidth: 1,
     borderColor: '#ccc',
     backgroundColor: '#fff'
   },
   xmodal: {
-    height: height * .6,
-    width: width * .85,
+    height: height * .75,
+    width: width * .9,
     borderRadius: 4,
     borderWidth: 1,
     borderColor: '#ccc',
@@ -495,6 +487,9 @@ const styles = StyleSheet.create({
   },
   modalTextWrap: {
     paddingTop: 5
+  },
+  modalText: {
+    fontSize: 13
   },
   modalContent: {
     padding: 10

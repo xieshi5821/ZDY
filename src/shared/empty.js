@@ -21,10 +21,14 @@ export default class Empty extends Component {
   }
 
   render(){
-    const {center, msg} = this.props
+    let {center, msg} = this.props
+    const view = null
+    if (typeof msg === 'string') {
+      msg = [msg]
+    }
     return (
       <View style={[styles.container, center ? styles.center : '']}>
-        <View style={styles.textWrap}><Text style={styles.text}>{msg}</Text></View>
+        {msg.map(e => <View key={e} style={styles.textWrap}><Text style={styles.text}>{e}</Text></View>)}
       </View>
     )
   }

@@ -112,7 +112,7 @@ class RecommendResult extends Component {
     const {submitWords} = this.props
     return submitWords.map(word => {
       return (
-        <CheckBox key={word} center title={word} containerStyle={styles.check} textStyle={styles.checkText} iconRight iconType='material' checkedIcon='clear' uncheckedIcon='clear' checkedColor='red' checked onPress={this.handleCancelSubmitWord.bind(this, word)}/>
+        <Text key={word} onPress={this.handleCancelSubmitWord.bind(this, word)} style={{margin: 2, padding: 2, height: 24, backgroundColor: '#fff'}}>{word}<Text style={{color: '#f33'}}> X</Text></Text>
       )
     })
   }
@@ -233,9 +233,7 @@ const styles = StyleSheet.create({
   },
   inputWrap: {
     padding: 10,
-    paddingBottom: 0,
-    flexDirection: 'row',
-    alignItems: 'center'
+    paddingBottom: 0
   },
   inputLabelWrap: {
   },

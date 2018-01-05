@@ -174,7 +174,7 @@ class Search extends Component {
           this.setState({placeholder: '请输入您想查找的药品分类，如解表、安神、清热'})
           break;
         case 5:
-          this.setState({placeholder: '请您勾选相应条件进行检索'})
+          this.setState({placeholder: ''})
           break;
       }
     } else {
