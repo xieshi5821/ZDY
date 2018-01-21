@@ -193,11 +193,15 @@ class Drug extends Component {
           <View><Text style={styles.detailText}>{medicinal.hanyupy || '无'}</Text></View>
         </View>
         <View style={styles.detailWrap}>
-          <View><Text style={styles.titleText}>品牌</Text></View>
-          <View><Text style={styles.detailText}>{medicinal.medicinalBrand || '无'}</Text></View>
+          <View><Text style={styles.titleText}>商品名称</Text></View>
+          <View><Text style={styles.detailText}>{medicinal.medicinalName || '无'}</Text></View>
         </View>
         <View style={styles.detailWrap}>
-          <View><Text style={styles.titleText}>药品成分</Text></View>
+          <View><Text style={styles.titleText}>医保类型</Text></View>
+          <View><Text style={styles.detailText}>{medicinal.feichuffl || '无'}</Text></View>
+        </View>
+        <View style={styles.detailWrap}>
+          <View><Text style={styles.titleText}>成分</Text></View>
           <View><Text style={styles.detailText}>{this.renderRealValue(keyWords, keyWordsHaveValue, medicinal, 'medicinalIngredients')}</Text></View>
         </View>
         <View style={styles.detailWrap}>
@@ -221,28 +225,12 @@ class Drug extends Component {
           <View><Text style={styles.detailText}>{this.renderRealValue(keyWords, keyWordsHaveValue, medicinal, 'medicinalAdverseReactions')}</Text></View>
         </View>
         <View style={styles.detailWrap}>
-          <View><Text style={styles.titleText}>禁忌</Text></View>
+          <View><Text style={styles.titleText}>用药禁忌</Text></View>
           <View><Text style={styles.detailText}>{this.renderRealValue(keyWords, keyWordsHaveValue, medicinal, 'medicinalContraindication')}</Text></View>
-        </View>
-        <View style={styles.detailWrap}>
-          <View><Text style={styles.titleText}>配伍禁忌</Text></View>
-          <View><Text style={styles.detailText}>{this.renderRealValue(keyWords, keyWordsHaveValue, medicinal, 'medicinalIncompatibility')}</Text></View>
         </View>
         <View style={styles.detailWrap}>
           <View><Text style={styles.titleText}>注意事项</Text></View>
           <View><Text style={styles.detailText}>{this.renderRealValue(keyWords, keyWordsHaveValue, medicinal, 'medicinalAttentions')}</Text></View>
-        </View>
-        <View style={styles.detailWrap}>
-          <View><Text style={styles.titleText}>药物相互作用</Text></View>
-          <View><Text style={styles.detailText}>{this.renderRealValue(keyWords, keyWordsHaveValue, medicinal, 'medicinalInteract')}</Text></View>
-        </View>
-        <View style={styles.detailWrap}>
-          <View><Text style={styles.titleText}>药物过量</Text></View>
-          <View><Text style={styles.detailText}>{medicinal.yaowugl || '无'}</Text></View>
-        </View>
-        <View style={styles.detailWrap}>
-          <View><Text style={styles.titleText}>药物毒理</Text></View>
-          <View><Text style={styles.detailText}>{medicinal.yaowudl || '无'}</Text></View>
         </View>
         <View style={styles.detailWrap}>
           <View><Text style={styles.titleText}>贮藏</Text></View>
@@ -255,6 +243,22 @@ class Drug extends Component {
         <View style={styles.detailWrap}>
           <View><Text style={styles.titleText}>有效期</Text></View>
           <View><Text style={styles.detailText}>{medicinal.medicinalValidity || '无'}</Text></View>
+        </View>
+        <View style={styles.detailWrap}>
+          <View><Text style={styles.titleText}>作用类别</Text></View>
+          <View><Text style={styles.detailText}>{medicinal.zuoyonglb || '无'}</Text></View>
+        </View>
+        <View style={styles.detailWrap}>
+          <View><Text style={styles.titleText}>药物相互作用</Text></View>
+          <View><Text style={styles.detailText}>{this.renderRealValue(keyWords, keyWordsHaveValue, medicinal, 'medicinalInteract')}</Text></View>
+        </View>
+        <View style={styles.detailWrap}>
+          <View><Text style={styles.titleText}>药物过量</Text></View>
+          <View><Text style={styles.detailText}>{medicinal.yaowugl || '无'}</Text></View>
+        </View>
+        <View style={styles.detailWrap}>
+          <View><Text style={styles.titleText}>药物毒理</Text></View>
+          <View><Text style={styles.detailText}>{medicinal.yaowudl || '无'}</Text></View>
         </View>
         <View style={styles.detailWrap}>
           <View><Text style={styles.titleText}>执行标准</Text></View>
@@ -292,14 +296,14 @@ class Drug extends Component {
           <View><Text style={styles.titleText}>药品分类</Text></View>
           <View><Text style={styles.detailText}>{medicinal.yaopingfl || '无'}</Text></View>
         </View>
-        <View style={styles.detailWrap}>
-          <View><Text style={styles.titleText}>非处方分类</Text></View>
-          <View><Text style={styles.detailText}>{medicinal.feichuffl || '无'}</Text></View>
-        </View>
       </View>
     )
   }
 
+  // <View style={styles.detailWrap}>
+  //   <View><Text style={styles.titleText}>非处方分类</Text></View>
+  //   <View><Text style={styles.detailText}>{medicinal.feichuffl || '无'}</Text></View>
+  // </View>
   renderRealValue(keyWords, keyWordsHaveValue, obj, key) {
     const objValue = String(obj[key] || '')
     if (keyWordsHaveValue && objValue.length && hasHighlightRe.test(objValue)) {
