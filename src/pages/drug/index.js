@@ -257,6 +257,10 @@ class Drug extends Component {
           <View><Text style={styles.detailText}>{medicinal.yaowugl || '无'}</Text></View>
         </View>
         <View style={styles.detailWrap}>
+          <View><Text style={styles.titleText}>药代动力学</Text></View>
+          <View><Text style={styles.detailText}>{medicinal.yaodaidlx || '无'}</Text></View>
+        </View>
+        <View style={styles.detailWrap}>
           <View><Text style={styles.titleText}>药物毒理</Text></View>
           <View><Text style={styles.detailText}>{medicinal.yaowudl || '无'}</Text></View>
         </View>
