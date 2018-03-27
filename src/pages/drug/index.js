@@ -134,7 +134,11 @@ class Drug extends Component {
             {medicinal.medicinalIncompatibility ? (
               <View style={styles.modalGroupWrap}>
                 <View style={styles.modalLabelWrap}><Text style={styles.modalLabel}>配伍禁忌</Text></View>
-                <View style={styles.modalTextWrap}><Text style={styles.modalText}>{this.renderRealValue(keyWords, keyWordsHaveValue, medicinal, 'medicinalIncompatibility')}</Text></View>
+                  <View style={styles.modalTextWrap}>
+                    {medicinal.medicinalIncompatibility.split('~~~').map((val, index) => {
+                      return (<View key={'ddd' + index}><Text style={styles.modalText}>{this.renderRealValue2(keyWords, keyWordsHaveValue, 'medicinalIncompatibility', '●' + val)}</Text><View><Text style={styles.modalText2}> </Text></View></View>)
+                    })}
+                  </View>
               </View>
             ) : null}
           </View>
@@ -197,6 +201,10 @@ class Drug extends Component {
           <View><Text style={styles.detailText}>{medicinal.medicinalName || '无'}</Text></View>
         </View>
         <View style={styles.detailWrap}>
+          <View><Text style={styles.titleText}>医保范围</Text></View>
+          <View><Text style={styles.detailText}>{medicinal.medicinalIsInsurance || '无'}</Text></View>
+        </View>
+        <View style={styles.detailWrap}>
           <View><Text style={styles.titleText}>医保类型</Text></View>
           <View><Text style={styles.detailText}>{medicinal.feichuffl || '无'}</Text></View>
         </View>
@@ -257,12 +265,12 @@ class Drug extends Component {
           <View><Text style={styles.detailText}>{medicinal.yaowugl || '无'}</Text></View>
         </View>
         <View style={styles.detailWrap}>
-          <View><Text style={styles.titleText}>药代动力学</Text></View>
-          <View><Text style={styles.detailText}>{medicinal.yaodaidlx || '无'}</Text></View>
-        </View>
-        <View style={styles.detailWrap}>
           <View><Text style={styles.titleText}>药物毒理</Text></View>
           <View><Text style={styles.detailText}>{medicinal.yaowudl || '无'}</Text></View>
+        </View>
+        <View style={styles.detailWrap}>
+          <View><Text style={styles.titleText}>药代动力学</Text></View>
+          <View><Text style={styles.detailText}>{medicinal.yaodaidlx || '无'}</Text></View>
         </View>
         <View style={styles.detailWrap}>
           <View><Text style={styles.titleText}>执行标准</Text></View>
@@ -304,12 +312,17 @@ class Drug extends Component {
     )
   }
 
-  // <View style={styles.detailWrap}>
-  //   <View><Text style={styles.titleText}>非处方分类</Text></View>
-  //   <View><Text style={styles.detailText}>{medicinal.feichuffl || '无'}</Text></View>
-  // </View>
   renderRealValue(keyWords, keyWordsHaveValue, obj, key) {
     const objValue = String(obj[key] || '')
+    if (keyWordsHaveValue && objValue.length && hasHighlightRe.test(objValue)) {
+      return this.spreadValues(keyWords, key, objValue)
+    }
+    return objValue || '无'
+  }
+
+  // 直接传值
+  renderRealValue2(keyWords, keyWordsHaveValue, key, objValue) {
+    console.log(objValue)
     if (keyWordsHaveValue && objValue.length && hasHighlightRe.test(objValue)) {
       return this.spreadValues(keyWords, key, objValue)
     }
@@ -498,6 +511,9 @@ const styles = StyleSheet.create({
   },
   modalText: {
     fontSize: 13
+  },
+  modalText2: {
+    height: 4
   },
   modalContent: {
     padding: 10

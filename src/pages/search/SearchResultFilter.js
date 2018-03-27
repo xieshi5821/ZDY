@@ -69,7 +69,6 @@ class SearchResultFilter extends Component {
           <View style={styles.form}>
             <View style={styles.labelWrap}>
               <View style={commonStyles.flex}><Text style={styles.labelText}>医保性质</Text></View>
-              <View style={commonStyles.flex}><Text style={styles.labelButton}><Icon name="caret-down" size={22} color="#ccc"/></Text></View>
             </View>
             <View style={styles.checkGtoupWrap}>
               <View style={styles.checkWrap}>
@@ -83,20 +82,18 @@ class SearchResultFilter extends Component {
             </View>
             <View style={styles.labelWrap}>
               <View style={commonStyles.flex}><Text style={styles.labelText}>用药禁忌</Text></View>
-              <View style={commonStyles.flex}><Text style={styles.labelButton}><Icon name="caret-down" size={22} color="#ccc"/></Text></View>
             </View>
             <View style={styles.checkGtoupWrap}>
               <View style={styles.checkWrap}>
-                <TextInput underlineColorAndroid='transparent' style={styles.input} onChangeText={this.handleYPJJChangeInput.bind(this)} value={yyjj}></TextInput>
+                <TextInput underlineColorAndroid='transparent' style={styles.input} placeholder='请输入需要排除用药的人群或疾病名称' onChangeText={this.handleYPJJChangeInput.bind(this)} value={yyjj}></TextInput>
               </View>
             </View>
             <View style={styles.labelWrap}>
               <View style={commonStyles.flex}><Text style={styles.labelText}>药品厂家</Text></View>
-              <View style={commonStyles.flex}><Text style={styles.labelButton}><Icon name="caret-down" size={22} color="#ccc"/></Text></View>
             </View>
             <View style={styles.checkGtoupWrap}>
               <View style={styles.checkWrap}>
-                <TextInput underlineColorAndroid='transparent' style={styles.input} onChangeText={this.handleYPCJChangeInput.bind(this)} value={ypcj}></TextInput>
+                <TextInput underlineColorAndroid='transparent' style={styles.input} placeholder='请输入需要查找的药品厂家名称' onChangeText={this.handleYPCJChangeInput.bind(this)} value={ypcj}></TextInput>
               </View>
             </View>
           </View>
