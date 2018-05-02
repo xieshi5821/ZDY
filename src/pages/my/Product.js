@@ -84,10 +84,11 @@ const styles = StyleSheet.create({
     borderLeftColor: '#00a5ca',
     borderLeftWidth: 2,
     padding: 5,
-    height: 30
+    height: 34
   },
   labelText: {
-    fontSize: 16,
+    fontSize: 18,
+    fontWeight: 'bold',
     color: '#007cca',
   },
   contentWrap: {

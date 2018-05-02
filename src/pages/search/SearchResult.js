@@ -92,14 +92,14 @@ class SearchResult extends Component {
   }
 
   renderRow(rowData) {
+    const {records} = this.props
     let header = null
     let body = null
     if (rowData.seq === 0) {
       header = (
         <View style={styles.tblHeader}>
           <View style={commonStyles.ybjj}>
-            <View style={commonStyles.ybjj2}><View style={commonStyles.cellYb}><Text style={commonStyles.syb}>保</Text></View><View><Text>医保</Text></View></View>
-            <View style={commonStyles.ybjj2}><View style={commonStyles.cellYb}><Text style={commonStyles.fyb}>非</Text></View><View><Text>非医保</Text></View></View>
+            <View style={commonStyles.ybjj2}><Text style={commonStyles.blockTitle2}>共有{records}款非处方中成药符合您选择的症状，为您智能推荐的顺序如下：</Text></View>
           </View>
         </View>
       )
@@ -107,7 +107,12 @@ class SearchResult extends Component {
 
     body = (
       <TouchableOpacity key={rowData.medicinalId} style={commonStyles.blockItem} onPress={this.handleDetail.bind(this, rowData.medicinalId, rowData.medicinalName, rowData.visit)}>
-        <View style={[commonStyles.blockRow, commonStyles.blockRow2]}><View style={commonStyles.blockRowT}><View style={commonStyles.cellYb}>{rowData.medicinalIsInsurance === '医保' ? <Text style={commonStyles.syb}>保</Text> : <Text style={commonStyles.fyb}>非</Text>}</View><Text style={[commonStyles.cellYm, rowData.visit ? commonStyles.visit : '']}>{this.renderRealValue(rowData, 'medicinalName')}</Text></View></View>
+        <View style={commonStyles.blockRow}>
+          <View style={commonStyles.blockRowT}>
+            <Text style={[commonStyles.cellYm, rowData.visit ? commonStyles.visit : '']}>{rowData.medicinalName}</Text>
+            {rowData.medicinalIsInsurance === '医保' ? <Text style={commonStyles.syb}>医保药</Text> : <Text style={commonStyles.fyb}>非医保</Text>}
+          </View>
+        </View>
         <View style={commonStyles.blockRow}><Text style={commonStyles.cellGn} numberOfLines={2}>{this.renderRealValue(rowData, 'medicinalFunction')}</Text></View>
         <View style={commonStyles.blockRow}><Text><Text style={commonStyles.cellYcTitle}>药厂：</Text><Text style={commonStyles.cellYcText}>{rowData.medicinalManufacturingEnterprise}</Text></Text></View>
         <View style={commonStyles.blockRow}><Text><Text style={commonStyles.cellGgTitle}>规格：</Text><Text style={commonStyles.cellGgText}>{rowData.medicinalSpecification}</Text></Text></View>
@@ -170,7 +175,7 @@ class SearchResult extends Component {
     const {page, hasMore} = this.props
     let list = dataSource ? <SwRefreshListView dataSource={dataSource} ref="listView" isShowLoadMore={hasMore} loadingTitle="加载中..." renderRow={this.renderRow.bind(this)} onLoadMore={this.onLoadMore.bind(this)}/> : null
     if (list === null && page === 2) {
-      list = <Empty msg={['未在您勾选的条件下找到结果', '试试更换检索词或勾选条件？']}/>
+      list = <Empty msg={['未在您勾选的条件下找到结果', '试试更换检索词或勾选条件？']} img={true}/>
     }
     return (
       <View>
@@ -197,6 +202,7 @@ export default connect(store => ({
   page: store.searchResult.page,
   hasMore: store.searchResult.hasMore,
   resultList: store.searchResult.resultList,
+  records: store.searchResult.records,
   yyjj: store.searchResult.yyjj,
   contraindicationWords: store.searchResult.contraindicationWords,
   ypcj: store.searchResult.ypcj,

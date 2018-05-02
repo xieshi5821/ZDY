@@ -68,7 +68,7 @@ class SearchResultFilter extends Component {
         <Spinner visible={this.state.visible} color="black"/>
           <View style={styles.form}>
             <View style={styles.labelWrap}>
-              <View style={commonStyles.flex}><Text style={styles.labelText}>医保性质</Text></View>
+              <View style={commonStyles.flex}><Text style={styles.labelText}>药物是否纳入医保</Text></View>
             </View>
             <View style={styles.checkGtoupWrap}>
               <View style={styles.checkWrap}>
@@ -76,7 +76,7 @@ class SearchResultFilter extends Component {
                   <CheckBox title='医保' containerStyle={styles.check} textStyle={styles.checkText} onPress={this.handleMedicinalIsInsuranceCheck.bind(this, '医保')} checked={medicinalIsInsurance.indexOf('医保') !== -1}  center/>
                 </View>
                 <View style={commonStyles.flex}>
-                  <CheckBox title='非医保' containerStyle={styles.check} textStyle={styles.checkText} onPress={this.handleMedicinalIsInsuranceCheck.bind(this, '非医保')} checked={medicinalIsInsurance.indexOf('非医保') !== -1}  center/>
+                  <CheckBox title='自费' containerStyle={styles.check} textStyle={styles.checkText} onPress={this.handleMedicinalIsInsuranceCheck.bind(this, '非医保')} checked={medicinalIsInsurance.indexOf('非医保') !== -1}  center/>
                 </View>
               </View>
             </View>

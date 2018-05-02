@@ -111,7 +111,7 @@ class RecommendResultFilter extends Component {
         <Spinner visible={this.state.visible} color="black"/>
           <ScrollView style={styles.form}>
             <View style={styles.labelWrap}>
-              <View style={commonStyles.flex}><Text style={styles.labelText}>医保性质</Text></View>
+              <View style={commonStyles.flex}><Text style={styles.labelText}>药物是否纳入医保</Text></View>
             </View>
             <View style={styles.checkGtoupWrap}>
               <View style={styles.checkWrap}>
@@ -119,7 +119,7 @@ class RecommendResultFilter extends Component {
                   <CheckBox title='医保' containerStyle={styles.check} textStyle={styles.checkText} onPress={this.handleMedicinalIsInsuranceCheck.bind(this, '医保')} checked={medicinalIsInsurance.indexOf('医保') !== -1}  center/>
                 </View>
                 <View style={commonStyles.flex}>
-                  <CheckBox title='非医保' containerStyle={styles.check} textStyle={styles.checkText} onPress={this.handleMedicinalIsInsuranceCheck.bind(this, '非医保')} checked={medicinalIsInsurance.indexOf('非医保') !== -1}  center/>
+                  <CheckBox title='自费' containerStyle={styles.check} textStyle={styles.checkText} onPress={this.handleMedicinalIsInsuranceCheck.bind(this, '非医保')} checked={medicinalIsInsurance.indexOf('非医保') !== -1}  center/>
                 </View>
               </View>
             </View>
@@ -140,7 +140,7 @@ class RecommendResultFilter extends Component {
               </View>
             </View>
             <View style={styles.labelWrap}>
-              <View style={commonStyles.flex}><Text style={styles.labelText}>疾病名称</Text></View>
+              <View style={commonStyles.flex}><Text style={styles.labelText}>或许您知道得了什么病?</Text></View>
             </View>
             <View style={styles.checkGtoupWrap}>
                 {diseaseWords.map(({name, checked}, i) => {

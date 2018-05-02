@@ -48,17 +48,17 @@ export default function configRoutes() {
       <RouterWithRedux createReducer={reducerCreate} backButtonImage={require('../assets/images/back_chevron.png')} sceneStyle={styles.sceneStyle} titleStyle={styles.titleStyle} navigationBarStyle={styles.navigationBarStyle}>
       <Scene key="index">
         <Scene key="tabbar" tabs={true} duration={0} tabBarIconContainerStyle={styles.tabBarIconContainerStyle} >
-            <Scene key="recommend" title="智能推荐" icon={TabIcon}>
-              <Scene key="recommendPage" initial={true} component={Recommend} title="智能推荐" sceneStyle={styles.sceneContentStyle}/>
-              <Scene key="recommendResult" component={RecommendResult} backTitle="智能推荐" backButtonTextStyle={styles.backButtonTextStyle} rightButtonImage={require('../assets/images/filter.png')} onRight={() => recommendResult.context.routes.recommendResultFilter()} hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
+            <Scene key="recommend" title="推荐药" icon={TabIcon}>
+              <Scene key="recommendPage" initial={true} component={Recommend} title="推荐药" sceneStyle={styles.sceneContentStyle}/>
+              <Scene key="recommendResult" component={RecommendResult} backTitle="推荐药" backButtonTextStyle={styles.buttonTextStyle} rightButtonTextStyle={styles.buttonTextStyle} rightTitle="筛选" onRight={() => recommendResult.context.routes.recommendResultFilter()} hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
               <Scene key="recommendResultFilter" component={RecommendResultFilter} title="筛选" hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
               <Scene key="recommendDurg" component={Durg} getTitle={getDrugTitle} getRightTitle={getCollectTitle} onRight={() => drug.handleCollect()} rightButtonTextStyle={styles.titleStyle} hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
               <Scene key="recommendEvaluate" component={Evaluate} title="药品点评" hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
               <Scene key="recommendWebView" component={XWebView} getTitle={getWebViewTitle} hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
             </Scene>
-            <Scene key="search" icon={TabIcon} title="智能检索">
-              <Scene key="searchPage" component={Search} title="智能检索" sceneStyle={styles.sceneContentStyle}/>
-              <Scene key="searchResult" component={SearchResult} backTitle="智能检索" backButtonTextStyle={styles.backButtonTextStyle} rightButtonImage={require('../assets/images/filter.png')} onRight={() => searchResult.context.routes.searchResultFilter()} hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
+            <Scene key="search" icon={TabIcon} title="查找药">
+              <Scene key="searchPage" component={Search} title="查找药" sceneStyle={styles.sceneContentStyle}/>
+              <Scene key="searchResult" component={SearchResult} backTitle="查找药" backButtonTextStyle={styles.buttonTextStyle} rightButtonTextStyle={styles.buttonTextStyle} rightTitle="筛选" onRight={() => searchResult.context.routes.searchResultFilter()} hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
               <Scene key="searchResultFilter" component={SearchResultFilter} title="筛选" hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
               <Scene key="searchDurg" component={Durg} getTitle={getDrugTitle} getRightTitle={getCollectTitle} onRight={() => drug.handleCollect()} rightButtonTextStyle={styles.titleStyle} hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
               <Scene key="searchEvaluate" component={Evaluate} title="药品点评" direction="vertical" hideTabBar={true} sceneStyle={[styles.sceneContentStyle, styles.noTabBar]}/>
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
   noTabBar: {
     paddingBottom: 0
   },
-  backButtonTextStyle: {
+  buttonTextStyle: {
     color: '#fff'
   }
 })

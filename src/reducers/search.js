@@ -1,7 +1,7 @@
 import { searchTypes } from '../reducer-types'
 const initialState = {
-  inputText: '',
-  // inputText: '人参归脾丸',
+  // inputText: '',
+  inputText: '感冒',
   rangeList: [],
   placeholder: '',
   hisList: []

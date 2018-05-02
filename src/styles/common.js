@@ -25,46 +25,40 @@ export default styles = StyleSheet.create({
   visit: {
     color: '#ff7f50'
   },
+  blockTitle2: {
+    fontSize: 12,
+    color: '#00accf'
+  },
   blockItem: {
     borderColor: '#ccc',
     borderBottomWidth: .5,
-    padding: 10,
+    padding: 5,
     paddingLeft: 0,
     backgroundColor: '#fff'
   },
   blockRow: {
     paddingRight: 10,
-    paddingLeft: 30
-  },
-  blockRow2: {
-    paddingLeft: 0
+    paddingLeft: 10
   },
   blockRowT: {
     flexDirection: 'row'
   },
-  cellYb: {
-    width: 30,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   syb: {
     backgroundColor: '#529a33',
-    borderRadius: 10,
-    height: 20,
-    width: 20,
-    textAlign: 'center',
-    color: '#fff'
+    color: '#fff',
+    fontSize: 14,
+    paddingLeft: 1,
+    paddingRight: 1
   },
   fyb: {
     backgroundColor: '#f33',
-    borderRadius: 10,
-    height: 20,
-    width: 20,
-    textAlign: 'center',
-    color: '#fff'
+    color: '#fff',
+    fontSize: 14,
+    paddingLeft: 1,
+    paddingRight: 1
   },
   cellYm: {
-    flex: 1,
+    paddingRight: 5,
     color: '#00a5ca',
     fontSize: 16
   },
@@ -96,7 +90,6 @@ export default styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     margin: 5,
-    justifyContent: 'flex-end'
   },
   ybjj2: {
     flexDirection: 'row'

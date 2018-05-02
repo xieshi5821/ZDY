@@ -110,9 +110,9 @@ class RecommendResult extends Component {
 
   renderSubmitWords() {
     const {submitWords} = this.props
-    return submitWords.map(word => {
+    return submitWords.map((word) => {
       return (
-        <Text key={word} onPress={this.handleCancelSubmitWord.bind(this, word)} style={{margin: 2, padding: 2, height: 24, backgroundColor: '#fff'}}>{word}<Text style={{color: '#f33'}}> X</Text></Text>
+        <Text key={word + 's'} onPress={this.handleCancelSubmitWord.bind(this, word)} style={{margin: 2, padding: 2, height: 24, backgroundColor: '#fff'}}>{word}<Text style={{color: '#f33'}}> X</Text></Text>
       )
     })
   }
@@ -140,12 +140,12 @@ class RecommendResult extends Component {
         checkGroup[index] = []
       }
       checkGroup[index]['push'](
-        <View key={i} style={commonStyles.flex}>
+        <View key={i + 'r'} style={commonStyles.flex}>
           {word.empty ? null : (<CheckBox title={word.name} containerStyle={styles.check} textStyle={styles.checkText} checked={word.checked} left onPress={this.handleCheckRecommedWord.bind(this, i)}/>)}
         </View>
       )
     })
-    if (checkGroup[index].length < 3) {
+    if (checkGroup[index] && checkGroup[index].length < 3) {
       const addNumber = 3 - checkGroup[index].length
       while (addNumber --) {
         checkGroup[index]['push'](<View key={'a_' + addNumber} style={commonStyles.flex}></View>)
@@ -154,11 +154,11 @@ class RecommendResult extends Component {
     if (recommedWords.length > 3) {
       checkGroup.push(<View style={commonStyles.flex}><Text style={commonStyles.textCenter} onPress={this.handleToggleMore.bind(this)}><Icon name={more ? 'chevron-up' : 'chevron-down'} size={22} color="#999"/></Text></View>)
     }
-    return checkGroup.map((group, i) => (<View key={i} style={styles.checkWrap}>{group}</View>))
+    return checkGroup.map((group, i) => (<View key={i + 'c'} style={styles.checkWrap}>{group}</View>))
   }
 
   renderRow(rowData) {
-    const {more} = this.props
+    const {more, records} = this.props
     let header = null
     let body = null
     if (rowData.seq === 0) {
@@ -173,7 +173,12 @@ class RecommendResult extends Component {
             </View>
           </View>
           <View style={styles.blockHeader}>
-            <Text style={styles.blockTitle}>请选择您可能有的其他症状</Text>
+            <View>
+              <Text style={styles.blockTitle}>或许您还伴有其它不适？请在下面标记</Text>
+            </View>
+            <View>
+              <Text style={commonStyles.blockTitle2}>如果您还有明显的不适未在选择之列，记得返回首页与其它主要症状一起输入,推荐结果更准确哦~</Text>
+            </View>
           </View>
           <View>
             <ScrollView>
@@ -181,8 +186,7 @@ class RecommendResult extends Component {
             </ScrollView>
           </View>
           <View style={commonStyles.ybjj}>
-            <View style={commonStyles.ybjj2}><View style={commonStyles.cellYb}><Text style={commonStyles.syb}>保</Text></View><View><Text>医保</Text></View></View>
-            <View style={commonStyles.ybjj2}><View style={commonStyles.cellYb}><Text style={commonStyles.fyb}>非</Text></View><View><Text>非医保</Text></View></View>
+            <View style={commonStyles.ybjj2}><Text style={styles.blockTitle2}>共有{records}款非处方中成药符合您选择的症状，为您智能推荐的顺序如下：</Text></View>
           </View>
         </View>
 
@@ -194,7 +198,12 @@ class RecommendResult extends Component {
     } else {
       body = (
         <TouchableOpacity key={rowData.medicinalId} style={commonStyles.blockItem} onPress={this.handleDetail.bind(this, rowData.medicinalId, rowData.medicinalName, rowData.visit)}>
-          <View style={[commonStyles.blockRow, commonStyles.blockRow2]}><View style={commonStyles.blockRowT}><View style={commonStyles.cellYb}>{rowData.medicinalIsInsurance === '医保' ? <Text style={commonStyles.syb}>保</Text> : <Text style={commonStyles.fyb}>非</Text>}</View><Text style={[commonStyles.cellYm, rowData.visit ? commonStyles.visit : '']}>{rowData.medicinalName}</Text></View></View>
+          <View style={commonStyles.blockRow}>
+            <View style={commonStyles.blockRowT}>
+              <Text style={[commonStyles.cellYm, rowData.visit ? commonStyles.visit : '']}>{rowData.medicinalName}</Text>
+              {rowData.medicinalIsInsurance === '医保' ? <Text style={commonStyles.syb}>医保药</Text> : <Text style={commonStyles.fyb}>非医保</Text>}
+            </View>
+          </View>
           <View style={commonStyles.blockRow}><Text style={commonStyles.cellGn} numberOfLines={2}>{rowData.medicinalFunction}</Text></View>
           <View style={commonStyles.blockRow}><Text><Text style={commonStyles.cellYcTitle}>药厂：</Text><Text style={commonStyles.cellYcText}>{rowData.medicinalManufacturingEnterprise}</Text></Text></View>
           <View style={commonStyles.blockRow}><Text><Text style={commonStyles.cellGgTitle}>规格：</Text><Text style={commonStyles.cellGgText}>{rowData.medicinalSpecification}</Text></Text></View>
@@ -279,6 +288,7 @@ export default connect(store => ({
   page: store.recommendResult.page,
   hasMore: store.recommendResult.hasMore,
   resultList: store.recommendResult.resultList,
+  records: store.recommendResult.records,
   yyjj: store.recommendResult.yyjj,
   submitWords: store.recommendResult.submitWords,
   recommedWords: store.recommendResult.recommedWords,

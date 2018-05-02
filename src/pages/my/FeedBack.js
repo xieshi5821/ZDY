@@ -41,12 +41,8 @@ class FeedBack extends Component {
       Alert.alert('提示', '请输入您的问题')
       return
     }
-    if (!contact.length) {
-      Alert.alert('提示', '请输入您的联系方式')
-      return
-    }
     this.setState({visible: true})
-    callFeedbackAdd({feedbackContent: content, feedbackConcact: contact}).then(() => {
+    callFeedbackAdd({feedbackContent: content, feedbackConcact: contact || ''}).then(() => {
       this.setState({visible: false})
       Toast.show('提交反馈成功')
       this.context.routes.pop()

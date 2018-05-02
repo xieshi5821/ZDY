@@ -1,8 +1,8 @@
 import { recommendTypes } from '../reducer-types'
 const initialState = {
   bannerList: [],
-  // inputText: '解郁安神颗粒',
-  inputText: '',
+  inputText: '感冒、咳嗽、咽痛、头痛',
+  // inputText: '',
   explainList: [],
   placeholder: ''
 }

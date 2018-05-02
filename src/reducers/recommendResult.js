@@ -9,7 +9,8 @@ const initialState = {
   recommedWords: [],
   diseaseWords: [],
   yyjj: '',
-  ypcj: ''
+  ypcj: '',
+  records: 0
 }
 
 export default search = (state = initialState, action) => {
@@ -19,7 +20,7 @@ export default search = (state = initialState, action) => {
     case recommendResultTypes.UPDATE_PAGE:
       return {...state, page: action.page}
     case recommendResultTypes.RESET_RESULT_LIST:
-      return {...state, resultList: [], page: 1, hasMore: true}
+      return {...state, resultList: [], page: 1, records: 0, hasMore: true}
     case recommendResultTypes.UPDATE_YPCJ:
       return {...state, ypcj: action.ypcj}
     case recommendResultTypes.UPDATE_YYJJ:
@@ -41,7 +42,7 @@ export default search = (state = initialState, action) => {
       }
       return {...state, recommedWords}
     case recommendResultTypes.RECEIVE_RESULT_LIST:
-      let {gridModel, page, total} = action.resultList
+      let {gridModel, page, total, records} = action.resultList
       page = parseInt(page)
       const resultList = Object.assign([], state.resultList)
       let index = resultList.length
@@ -51,7 +52,7 @@ export default search = (state = initialState, action) => {
       if (page === 1 && !resultList.length) {
         resultList.push({seq: 0, empty: true})
       }
-      return {...state, resultList, page: page + 1, hasMore: parseInt(page) < parseInt(total)}
+      return {...state, resultList, page: page + 1, hasMore: parseInt(page) < parseInt(total), records}
     case recommendResultTypes.RECEIVE_PURE_RESULT_LIST:
       return {...state, resultList: action.resultList}
     case recommendResultTypes.RECEIVE_RECOMMED_WORDS:

@@ -189,24 +189,11 @@ class Drug extends Component {
     return (
       <View>
         <View style={styles.titleWrap}>
-          <View><Text style={styles.titleText}>{medicinal.medicinalName}</Text></View>
-          <TouchableOpacity><Text style={styles.companyText}>{medicinal.medicinalManufacturingEnterprise || '无'}</Text></TouchableOpacity>
-        </View>
-        <View style={styles.detailWrap}>
-          <View><Text style={styles.titleText}>汉语拼音</Text></View>
-          <View><Text style={styles.detailText}>{medicinal.hanyupy || '无'}</Text></View>
-        </View>
-        <View style={styles.detailWrap}>
-          <View><Text style={styles.titleText}>商品名称</Text></View>
-          <View><Text style={styles.detailText}>{medicinal.medicinalName || '无'}</Text></View>
-        </View>
-        <View style={styles.detailWrap}>
-          <View><Text style={styles.titleText}>医保范围</Text></View>
-          <View><Text style={styles.detailText}>{medicinal.medicinalIsInsurance || '无'}</Text></View>
-        </View>
-        <View style={styles.detailWrap}>
-          <View><Text style={styles.titleText}>医保类型</Text></View>
-          <View><Text style={styles.detailText}>{medicinal.feichuffl || '无'}</Text></View>
+          <View style={commonStyles.blockRowT}>
+            <Text style={styles.titleText}>{medicinal.medicinalName}{medicinal.hanyupy ? <Text style={styles.hanyupy}>({medicinal.hanyupy})</Text> : ''}</Text>
+            {medicinal.medicinalIsInsurance === '医保' ? <Text style={commonStyles.syb}>医保药</Text> : <Text style={commonStyles.fyb}>非医保</Text>}
+          </View>
+          <View><Text style={styles.companyText}>{medicinal.medicinalManufacturingEnterprise || '无'}</Text></View>
         </View>
         <View style={styles.detailWrap}>
           <View><Text style={styles.titleText}>成分</Text></View>
@@ -303,10 +290,6 @@ class Drug extends Component {
         <View style={styles.detailWrap}>
           <View><Text style={styles.titleText}>警告</Text></View>
           <View><Text style={styles.detailText}>{medicinal.jinggao || '无'}</Text></View>
-        </View>
-        <View style={styles.detailWrap}>
-          <View><Text style={styles.titleText}>药品分类</Text></View>
-          <View><Text style={styles.detailText}>{medicinal.yaopingfl || '无'}</Text></View>
         </View>
       </View>
     )
@@ -546,7 +529,12 @@ const styles = StyleSheet.create({
     borderBottomColor: '#ddd'
   },
   titleText: {
-    fontSize: 18,
+    fontSize: 16,
+    color: '#00a5ca',
+    paddingRight: 5
+  },
+  hanyupy: {
+    fontSize: 14,
     color: '#00a5ca'
   },
   companyText: {

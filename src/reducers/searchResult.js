@@ -7,25 +7,26 @@ const initialState = {
   contraindicationWords: [],
   medicinalIsInsurance: [],
   ypcj: '',
-  yyjj: ''
+  yyjj: '',
+  records: 0
 }
 
 export default search = (state = initialState, action) => {
   switch (action.type) {
     case searchResultTypes.RESET_RESULT_LIST:
-      return {...state, resultList: [], page: 1, hasMore: true}
+      return {...state, resultList: [], page: 1, hasMore: true, records: 0}
     case searchResultTypes.UPDATE_YPCJ:
       return {...state, ypcj: action.ypcj}
     case searchResultTypes.UPDATE_YYJJ:
       return {...state, yyjj: action.yyjj}
     case searchResultTypes.RECEIVE_RESULT_LIST:
-      const {gridModel, page, total} = action.resultList
+      const {gridModel, page, total, records} = action.resultList
       const resultList = Object.assign([], state.resultList)
       let index = resultList.length
       gridModel.forEach(res => {
         resultList.push({...res, seq: index++})
       })
-      return {...state, resultList, page: parseInt(page) + 1, hasMore: parseInt(page) < parseInt(total)}
+      return {...state, resultList, page: parseInt(page) + 1, hasMore: parseInt(page) < parseInt(total), records}
     case searchResultTypes.RECEIVE_PURE_RESULT_LIST:
       return {...state, resultList: action.resultList}
     case searchResultTypes.RECEIVE_CONTRAINDICATION_WORDS:

@@ -85,14 +85,16 @@ class Search extends Component {
   }
 
   handleSubmit() {
-    const {inputText, rangeList, rows, page} = this.props
-    if (!rangeList.some(({checked}) => checked)) {
-      Alert.alert('提示', '请您勾选相应条件进行检索')
-      return
-    }
+    let {inputText, rangeList, rows, page} = this.props
     if (!inputText) {
       Alert.alert('提示', '请输入搜索词')
       return
+    }
+    if (!rangeList.some(({checked}) => checked)) {
+      rangeList = rangeList.map(e => {
+        return {...e}
+      })
+      rangeList[rangeList.length - 1]['checked'] = true
     }
     this.setState({visible: true})
     this.props.dispatch(resetResultList())
@@ -128,15 +130,7 @@ class Search extends Component {
     requestAnimationFrame(() => {
       const curChecked = this.props.rangeList[index]['checked']
       const newRangeList = this.props.rangeList.map((e, i) => {
-        if (index === 5) {
-          if (i < 5) {
-            e.checked = false
-          }
-        } else {
-          if (i === 5) {
-            e.checked = false
-          }
-        }
+        e.checked = false
         return e
       })
       newRangeList[index]['checked'] = !curChecked
@@ -214,6 +208,22 @@ class Search extends Component {
     })
   }
 
+  clsHis() {
+    const {hisList} = this.props
+    if (hisList && hisList.length) {
+      Alert.alert('提示', '您确定清空检索历史吗？', [
+        {text: '确定', onPress: () => {
+          AsyncStorage.setItem(HIS, '', () => {
+            this.props.dispatch(updateHisList([]))
+          });
+        }},
+        {text: '取消', onPress: () => {}}
+      ],
+        {cancelable: false}
+      )
+    }
+  }
+
   render() {
     const check = this.renderCheck()
     const hisList = this.renderHisList()
@@ -235,8 +245,8 @@ class Search extends Component {
         </View>
         <View style={styles.hisContainer}>
           <View>
-            <TouchableOpacity>
-              <Text style={styles.hisTitle}>检索历史</Text>
+            <TouchableOpacity onPress={this.clsHis.bind(this)}>
+              <Text style={styles.hisTitle}>检索历史<Text style={styles.clsTitle}>(清除历史)</Text></Text>
             </TouchableOpacity>
           </View>
           {hisList}
@@ -288,6 +298,10 @@ const styles = StyleSheet.create({
   checkText: {
     fontSize: 14,
     marginLeft: 5
+  },
+  clsTitle: {
+    fontSize: 14,
+    color: '#08955f'
   }
 })
 

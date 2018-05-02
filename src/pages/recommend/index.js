@@ -257,7 +257,7 @@ class Recommend extends Component {
           <View style={styles.modalContent}>
             <View style={styles.headerWrap}>
               <View style={commonStyles.flex}>
-                <Text>您是否选择了推荐药品：</Text>
+                <Text>您选用上一次推荐的中成药了吗?</Text>
               </View>
               <TouchableOpacity onPress={this.handeOnlyCloseModal.bind(this)} style={styles.closeModal}>
                 <Text>关闭</Text>
@@ -269,7 +269,7 @@ class Recommend extends Component {
           </View>
           <View style={styles.formWrap}>
             <View style={styles.labelWrap}>
-              <Text style={styles.lx}>疗效</Text>
+              <Text style={styles.lx}>您觉得效果如何?</Text>
             </View>
             <View style={styles.starWrap}>
               <TouchableOpacity onPress={this.handleClickStar.bind(this, 1)}><Icon name="star" size={26} color={star >= 1 ? '#f93' : "#ccc"}/></TouchableOpacity>
