@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react'
 import {connect} from 'react-redux'
 import {callRecommendFilter} from '../../api/request'
-import { Alert, StyleSheet, Text, View, Dimensions, ListView, TouchableOpacity, ScrollView } from 'react-native'
+import { Alert, StyleSheet, Text, View, Dimensions, ListView, TouchableOpacity, ScrollView, Image } from 'react-native'
 import { SwRefreshListView } from '../../libs/SwRefresh'
 import Empty from '../../shared/empty'
 import Spinner from 'react-native-loading-spinner-overlay'
@@ -186,7 +186,7 @@ class RecommendResult extends Component {
             </ScrollView>
           </View>
           <View style={commonStyles.ybjj}>
-            <View style={commonStyles.ybjj2}><Text style={styles.blockTitle2}>共有{records}款非处方中成药符合您选择的症状，为您智能推荐的顺序如下：</Text></View>
+            <View style={commonStyles.ybjj2}><Text style={styles.blockTitle2}>共有<Text style={{color: '#f33'}}>{records}款</Text>非处方中成药符合您选择的症状，为您智能推荐的顺序如下：</Text></View>
           </View>
         </View>
 
@@ -194,14 +194,23 @@ class RecommendResult extends Component {
     }
 
     if (rowData.seq === 0 && rowData.empty) {
-      body = (<Empty center={false}></Empty>)
+      body = (<Empty center={false} img></Empty>)
     } else {
       body = (
         <TouchableOpacity key={rowData.medicinalId} style={commonStyles.blockItem} onPress={this.handleDetail.bind(this, rowData.medicinalId, rowData.medicinalName, rowData.visit)}>
           <View style={commonStyles.blockRow}>
             <View style={commonStyles.blockRowT}>
               <Text style={[commonStyles.cellYm, rowData.visit ? commonStyles.visit : '']}>{rowData.medicinalName}</Text>
-              {rowData.medicinalIsInsurance === '医保' ? <Text style={commonStyles.syb}>医保药</Text> : <Text style={commonStyles.fyb}>非医保</Text>}
+              {rowData.medicinalIsInsurance === '医保'
+                ? (<View style={[commonStyles.tagC, {top: -8}]}>
+                    <Text style={commonStyles.tagN}>医保药</Text>
+                    <Image resizeMode="contain" style={commonStyles.tagImage} source={require('../../../assets/images/yby.png')}/>
+                  </View>)
+                : (<View style={[commonStyles.tagC, {top: -8}]}>
+                    <Text style={commonStyles.tagN}>非医保</Text>
+                    <Image resizeMode="contain" style={commonStyles.tagImage} source={require('../../../assets/images/fyb.png')}/>
+                  </View>)
+              }
             </View>
           </View>
           <View style={commonStyles.blockRow}><Text style={commonStyles.cellGn} numberOfLines={2}>{rowData.medicinalFunction}</Text></View>

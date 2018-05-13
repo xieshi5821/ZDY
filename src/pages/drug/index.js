@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react'
 import {connect} from 'react-redux'
-import {StyleSheet, View, Text, ScrollView, TouchableOpacity, Dimensions} from 'react-native'
+import {StyleSheet, View, Text, ScrollView, TouchableOpacity, Dimensions, Image} from 'react-native'
 import Spinner from 'react-native-loading-spinner-overlay'
 import Modal from 'react-native-modalbox'
 import {callMedicinalDetail, callEvaluateList, callCollectAdd, callCollectCancel} from '../../api/request'
@@ -191,7 +191,16 @@ class Drug extends Component {
         <View style={styles.titleWrap}>
           <View style={commonStyles.blockRowT}>
             <Text style={styles.titleText}>{medicinal.medicinalName}{medicinal.hanyupy ? <Text style={styles.hanyupy}>({medicinal.hanyupy})</Text> : ''}</Text>
-            {medicinal.medicinalIsInsurance === '医保' ? <Text style={commonStyles.syb}>医保药</Text> : <Text style={commonStyles.fyb}>非医保</Text>}
+            {medicinal.medicinalIsInsurance === '医保'
+              ? (<View style={[commonStyles.tagC, {right: 0}]}>
+                  <Text style={commonStyles.tagN}>医保药</Text>
+                  <Image resizeMode="contain" style={commonStyles.tagImage} source={require('../../../assets/images/yby.png')}/>
+                </View>)
+              : (<View style={[commonStyles.tagC, {right: 0}]}>
+                  <Text style={commonStyles.tagN}>非医保</Text>
+                  <Image resizeMode="contain" style={commonStyles.tagImage} source={require('../../../assets/images/fyb.png')}/>
+                </View>)
+            }
           </View>
           <View><Text style={styles.companyText}>{medicinal.medicinalManufacturingEnterprise || '无'}</Text></View>
         </View>
@@ -252,7 +261,7 @@ class Drug extends Component {
           <View><Text style={styles.detailText}>{medicinal.yaowugl || '无'}</Text></View>
         </View>
         <View style={styles.detailWrap}>
-          <View><Text style={styles.titleText}>药物毒理</Text></View>
+          <View><Text style={styles.titleText}>药理毒理</Text></View>
           <View><Text style={styles.detailText}>{medicinal.yaowudl || '无'}</Text></View>
         </View>
         <View style={styles.detailWrap}>
@@ -305,7 +314,7 @@ class Drug extends Component {
 
   // 直接传值
   renderRealValue2(keyWords, keyWordsHaveValue, key, objValue) {
-    console.log(objValue)
+    // console.log(objValue)
     if (keyWordsHaveValue && objValue.length && hasHighlightRe.test(objValue)) {
       return this.spreadValues(keyWords, key, objValue)
     }
@@ -401,6 +410,7 @@ class Drug extends Component {
   changeMId(medicinalId, medicinalName) {
     this.props.dispatch(updateQueryId(medicinalId))
     this.props.dispatch(updateMedicinalName(medicinalName))
+    this.refs.main.scrollTo({x: 0, y: 0, animated: false})
     setTimeout(() => {
       this.querySearch()
     })
@@ -439,7 +449,7 @@ class Drug extends Component {
     const evaluateList = this.renderEvaluateList()
     const ypList = this.renderYPList()
     return (
-      <ScrollView style={styles.container} onScroll={this.sc.bind(this)}>
+      <ScrollView ref="main" style={styles.container} onScroll={this.sc.bind(this)}>
         <Spinner visible={this.state.visible} color="black"/>
         {detail}
         {evaluateList}

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, ListView, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, ListView, TouchableOpacity, Image } from 'react-native'
 import { SwRefreshListView } from '../../libs/SwRefresh'
 import {callSearchList} from '../../api/request'
 import {connect} from 'react-redux'
@@ -99,7 +99,7 @@ class SearchResult extends Component {
       header = (
         <View style={styles.tblHeader}>
           <View style={commonStyles.ybjj}>
-            <View style={commonStyles.ybjj2}><Text style={commonStyles.blockTitle2}>共有{records}款非处方中成药符合您选择的症状，为您智能推荐的顺序如下：</Text></View>
+            <View style={commonStyles.ybjj2}><Text style={commonStyles.blockTitle2}>共有<Text style={{color: '#f33'}}>{records}款</Text>非处方中成药符合您选择的症状，为您智能推荐的顺序如下：</Text></View>
           </View>
         </View>
       )
@@ -110,7 +110,16 @@ class SearchResult extends Component {
         <View style={commonStyles.blockRow}>
           <View style={commonStyles.blockRowT}>
             <Text style={[commonStyles.cellYm, rowData.visit ? commonStyles.visit : '']}>{rowData.medicinalName}</Text>
-            {rowData.medicinalIsInsurance === '医保' ? <Text style={commonStyles.syb}>医保药</Text> : <Text style={commonStyles.fyb}>非医保</Text>}
+            {rowData.medicinalIsInsurance === '医保'
+              ? (<View style={[commonStyles.tagC, {top: -8}]}>
+                  <Text style={commonStyles.tagN}>医保药</Text>
+                  <Image resizeMode="contain" style={commonStyles.tagImage} source={require('../../../assets/images/yby.png')}/>
+                </View>)
+              : (<View style={[commonStyles.tagC, {top: -8}]}>
+                  <Text style={commonStyles.tagN}>非医保</Text>
+                  <Image resizeMode="contain" style={commonStyles.tagImage} source={require('../../../assets/images/fyb.png')}/>
+                </View>)
+            }
           </View>
         </View>
         <View style={commonStyles.blockRow}><Text style={commonStyles.cellGn} numberOfLines={2}>{this.renderRealValue(rowData, 'medicinalFunction')}</Text></View>

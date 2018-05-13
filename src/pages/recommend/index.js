@@ -117,8 +117,8 @@ class Recommend extends Component {
     callRecommendSubmit({text: inputText}).then(({search = false, recommedWords, diseaseWords, contraindicationWrods, submitWords, resultlist}) => {
       // search = true
       if (search) {
-        Alert.alert('提示', '您搜索的内容超出智能推荐范畴，请您选择重新输入或使用智能检索？', [
-          {text: '智能检索', onPress: () => {
+        Alert.alert('提示', '您搜索的内容超出“推荐药”范畴，请您选择重新输入或使用查找药功能？', [
+          {text: '查找药', onPress: () => {
             this.props.dispatch(updateInputTextS(inputText))
             callSearchList({text: inputText, rangeField: '', rows: 20, page: 1}).then(({contraindicationWrods, resultlist}) => {
               this.props.dispatch(searchResult.receiveResultList(resultlist))

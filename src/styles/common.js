@@ -6,6 +6,21 @@ export default styles = StyleSheet.create({
     borderWidth: .5,
     backgroundColor: '#edf9fc'
   },
+  tagC: {
+    position: 'absolute',
+    top: -2
+  },
+  tagN: {
+    position: 'absolute',
+    zIndex: 1,
+    color: '#666',
+    fontSize: 10,
+    top: 12,
+    left: 24
+  },
+  tagImage: {
+    height: 34
+  },
   submit: {
     textAlign: 'center',
     fontSize: 20,

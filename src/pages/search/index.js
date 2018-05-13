@@ -197,15 +197,9 @@ class Search extends Component {
 
   renderHisList() {
     const {hisList} = this.props
-    return hisList.map((his, index) => {
-      return (
-        <View key={index} style={styles.hisItem}>
-          <TouchableOpacity onPress={this.handleChangeInput2His.bind(this, his)}>
-            <Text style={styles.hisItemText}>{his}</Text>
-          </TouchableOpacity>
-        </View>
-      )
-    })
+    return (<View style={styles.hisItem}>
+      {hisList.map((his, index) => <Text onPress={this.handleChangeInput2His.bind(this, his)} key={'his' + index} style={styles.hisItemText}>{his}</Text>)}
+      </View>)
   }
 
   clsHis() {
@@ -289,11 +283,19 @@ const styles = StyleSheet.create({
   },
   hisItem: {
     paddingTop: 10,
-    paddingBottom: 10
+    flexDirection: 'row',
+    flexWrap: 'wrap'
   },
   hisItemText: {
-    fontSize: 16,
-    color: '#00a5ca'
+    fontSize: 14,
+    color: '#00a5ca',
+    height: 18,
+    lineHeight: 18,
+    padding: 1,
+    marginRight: 10,
+    marginBottom: 8,
+    borderColor: '#ccc',
+    borderWidth: .5
   },
   checkText: {
     fontSize: 14,

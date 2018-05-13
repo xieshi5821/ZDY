@@ -34,7 +34,7 @@ const ajax = (url, params = {}) => {
         body: toQueryString(params)
       }).then(resp => resp.json())
       .then(({errorCode = '100', errorMsg, data}) => {
-        console.log(url, 'token='+ pid, errorMsg, errorCode, params, data)
+        // console.log(url, 'token='+ pid, errorMsg, errorCode, params, data)
         if (errorCode === '100') {
           errorCount = 0
           resolve(data || {})

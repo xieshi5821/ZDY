@@ -41,13 +41,14 @@ const styles = StyleSheet.create({
 
   },
   image: {
-    width: width
+    width: width,
+    height: 150
   },
   center: {
     position: 'absolute',
     left: 0,
     right: 0,
-    top: height / 2 - 100
+    top: height / 2 - 130
   },
   textWrap: {
     flex: 1
