@@ -99,7 +99,7 @@ class SearchResult extends Component {
       header = (
         <View style={styles.tblHeader}>
           <View style={commonStyles.ybjj}>
-            <View style={commonStyles.ybjj2}><Text style={commonStyles.blockTitle2}>共有<Text style={{color: '#f33'}}>{records}款</Text>非处方中成药符合您选择的症状，为您智能推荐的顺序如下：</Text></View>
+            <View style={commonStyles.ybjj2}><Text style={commonStyles.blockTitle2}>共有<Text style={{color: '#f33'}}>{records}款</Text>非处方中成药符合您输入的条件：</Text></View>
           </View>
         </View>
       )
