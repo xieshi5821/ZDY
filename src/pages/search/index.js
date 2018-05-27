@@ -271,7 +271,8 @@ const styles = StyleSheet.create({
   },
   check: {
     backgroundColor: 'transparent',
-    borderWidth: 0
+    borderWidth: 0,
+
   },
   hisContainer: {
     padding: 10,
@@ -298,8 +299,8 @@ const styles = StyleSheet.create({
     borderWidth: .5
   },
   checkText: {
-    fontSize: 14,
-    marginLeft: 5
+    fontSize: 13,
+    marginLeft: 2
   },
   clsTitle: {
     fontSize: 14,

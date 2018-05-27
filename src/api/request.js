@@ -4,7 +4,8 @@ import DeviceInfo from 'react-native-device-info'
 import {recordLog} from '../libs/errorHandler'
 
 const uniqueId = DeviceInfo.getUniqueID().toUpperCase()
-export const API_URL = 'http://otc.icecode.cc'
+export const API_URL = 'http://sjzx-kshzj-zhdy-1.cintcm.ac.cn:8080'
+// export const API_URL = 'http://otc.icecode.cc'
 const PID = 'pid'
 export const fillUrl = (url = '') => {
   if (!url.startsWith('http://')) {

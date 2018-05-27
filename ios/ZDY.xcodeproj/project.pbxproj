@@ -535,6 +535,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				C7D9F536AC034A128BAD2B4D /* Resources */,
 				C9D980FA1E9367BA00805FCD /* Frameworks */,
+				C9DBE52920BA30930072285E /* Recovered References */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -711,6 +712,16 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		C9DBE52920BA30930072285E /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				AF184A0315FA4902BE5B62F3 /* libRNVectorIcons.a */,
+				FECB2A2120C24923A35BA721 /* libRNDeviceInfo.a */,
+				C2F7E60B73154CE588F7AD21 /* libSplashScreen.a */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -766,7 +777,7 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = HB5R2N3PF5;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -1130,8 +1141,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: yuanbai li (HB5R2N3PF5)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: yuanbai li (HB5R2N3PF5)";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = HB5R2N3PF5;
@@ -1158,8 +1170,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = zhaoduiyao;
 				PRODUCT_NAME = ZDY;
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "196de3e8-4d88-4ef5-956e-0cd13ce03836";
+				PROVISIONING_PROFILE_SPECIFIER = zhaoduiyao.appstore;
 				SDKROOT = iphoneos10.2;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1170,8 +1182,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: yuanbai li (HB5R2N3PF5)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: yuanbai li (HB5R2N3PF5)";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = HB5R2N3PF5;
 				HEADER_SEARCH_PATHS = (
@@ -1197,8 +1210,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = zhaoduiyao;
 				PRODUCT_NAME = ZDY;
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "196de3e8-4d88-4ef5-956e-0cd13ce03836";
+				PROVISIONING_PROFILE_SPECIFIER = zhaoduiyao.appstore;
 				SDKROOT = iphoneos10.2;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1221,8 +1234,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: yuanbai li (HB5R2N3PF5)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: yuanbai li (HB5R2N3PF5)";
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = HB5R2N3PF5;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1272,8 +1285,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: yuanbai li (HB5R2N3PF5)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: yuanbai li (HB5R2N3PF5)";
 				COPY_PHASE_STRIP = YES;
 				DEVELOPMENT_TEAM = HB5R2N3PF5;
 				ENABLE_NS_ASSERTIONS = NO;

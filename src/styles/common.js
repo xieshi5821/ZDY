@@ -16,7 +16,8 @@ export default styles = StyleSheet.create({
     color: '#666',
     fontSize: 10,
     top: 12,
-    left: 24
+    left: 24,
+    backgroundColor: 'transparent'
   },
   tagImage: {
     height: 34
