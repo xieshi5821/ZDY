@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flex: 1,
     borderBottomColor: '#ccc',
-    borderBottomWidth: .5,
+    borderBottomWidth: 1,
     paddingTop: 10,
   },
   labelText: {
@@ -182,8 +182,9 @@ const styles = StyleSheet.create({
     right: 0,
   },
   input: {
+    height: 30,
     borderColor: '#ccc',
-    borderWidth: .5,
+    borderWidth: 1,
     flex: 1,
     padding: 2
   }

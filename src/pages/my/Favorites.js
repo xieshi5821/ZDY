@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
   rowWrap: {
     backgroundColor: '#fff',
     borderBottomColor: '#ccc',
-    borderBottomWidth: .5,
+    borderBottomWidth: 1,
   },
   titleWrap: {
     flexDirection: 'row',

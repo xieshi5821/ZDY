@@ -265,7 +265,7 @@ const styles = StyleSheet.create({
   blockHeader: {
     marginTop: 10,
     borderBottomColor: '#ccc',
-    borderBottomWidth: .5,
+    borderBottomWidth: 1,
     borderLeftWidth: 3,
     borderLeftColor: '#00accf',
     backgroundColor: '#fff',
@@ -288,7 +288,7 @@ const styles = StyleSheet.create({
   },
   tblHeader: {
     borderColor: '#ccc',
-    borderBottomWidth: .5
+    borderBottomWidth: 1
   }
 })
 

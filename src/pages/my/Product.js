@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react'
 import {connect} from 'react-redux'
-import {StyleSheet, View, Text, ScrollView, TouchableOpacity, Image} from 'react-native'
+import {StyleSheet, View, Text, ScrollView, TouchableOpacity, Image, Linking} from 'react-native'
 import {callProductList, fillUrl} from '../../api/request'
 // import Spinner from 'react-native-loading-spinner-overlay'
 import {updateUri, updateUriName} from '../../actions/xWebView'
@@ -14,22 +14,17 @@ class Product extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      // visible: false,
       productlist: []
     }
   }
 
   componentDidMount() {
-    // this.setState({visible: true})
     callProductList().then(({productlist}) => {
       this.setState({
         productlist,
-        // visible: false
       })
     }, () => {
-      // this.setState({
-      //   visible: false
-      // })
+      
     })
   }
 
@@ -39,23 +34,40 @@ class Product extends Component {
     this.context.routes.myWebView()
   }
 
+  handleOpenLink(url) {
+    Linking.canOpenURL(url).then(supported => {
+      if (!supported) {
+        console.log('Can\'t handle url: ' + url);
+      } else {
+        return Linking.openURL(url);
+      }
+    }).catch(err => console.error('An error occurred', err));
+  }
+
   renderList() {
     const {productlist} = this.state
     return productlist.map(product => {
+      let downloadLink = ''
+      if (product.descTitle === '方剂识别助手') {
+        downloadLink = 'http://zhongerp.com/public/tcm-fangjiapp-download.jsp'
+      } else if (product.descTitle === '抗菌中药检索助手') {
+        downloadLink = 'http://sjzx-kshzj-kjzhyjs-1.cintcm.ac.cn:8080/searchTool'
+      }
       return (
-        <TouchableOpacity key={product.descId} style={styles.group} onPress={this.handleClickLink.bind(this, product)}>
+        <View key={product.descId} style={styles.group}>
           <View style={styles.labelWrap}>
             <Text style={styles.labelText}>{product.descTitle}</Text>
           </View>
           <View style={styles.contentWrap}>
             <View style={styles.contentText}>
-              <Image resizeMode="stretch" source={{uri: fillUrl(product.descImageUrl)}} style={styles.image} />
-              <View style={styles.textWrap}>
-                <Text style={styles.text}>{product.descContent}</Text>
-              </View>
+              <TouchableOpacity onPress={this.handleClickLink.bind(this, product)}>
+                <Image resizeMode="stretch" source={{uri: fillUrl(product.descImageUrl)}} style={styles.image} />
+              </TouchableOpacity>
+              {product.descContent ? (<View style={styles.textWrap}><Text style={styles.text}>{product.descContent}</Text></View>) : null}
             </View>
+            {downloadLink ? <View style={styles.downloadWrap}><TouchableOpacity onPress={this.handleOpenLink.bind(this, downloadLink)}><Text style={styles.donloadLink}>APP下载</Text></TouchableOpacity></View> : null}
           </View>
-        </TouchableOpacity>
+        </View>
       )
     })
   }
@@ -72,6 +84,7 @@ class Product extends Component {
 
 const styles = StyleSheet.create({
   container: {
+
   },
   group: {
     backgroundColor: '#fff'
@@ -108,6 +121,15 @@ const styles = StyleSheet.create({
   image: {
     height: 320
   },
+  downloadWrap: {
+    alignItems: 'center',
+    marginBottom: 15
+  },
+  donloadLink: {
+    color: '#007cca',
+    borderBottomWidth: 1,
+    borderBottomColor: '#007cca'
+  }
 })
 
 export default connect(store => ({

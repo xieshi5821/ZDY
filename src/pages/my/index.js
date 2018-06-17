@@ -31,9 +31,9 @@ class My extends Component {
     return (
       <View style={styles.container}>
         <TouchableOpacity onPress={this.handleClick.bind(this, 'Favorites')} style={[styles.item, styles.noBorder]}>
-            <Text style={[styles.tabIcon, {color: '#58d1d8'}]}>&#xe50f;</Text>
-            <Text style={[styles.link]}>我的收藏</Text>
-            <Text style={[styles.tabIcon, styles.tabArrow]}>&#xe50c;</Text>
+          <Text style={[styles.tabIcon, {color: '#58d1d8'}]}>&#xe50f;</Text>
+          <Text style={[styles.link]}>我的收藏</Text>
+          <Text style={[styles.tabIcon, styles.tabArrow]}>&#xe50c;</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={this.handleClick.bind(this, 'FriendshipLink')} style={styles.item}>
           <Text style={[styles.tabIcon, {color: '#75cbdb'}]}>&#xe50e;</Text>
@@ -62,12 +62,15 @@ class My extends Component {
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: '#fff'
   },
   item: {
     flexDirection: 'row',
     padding: 10,
+    marginBottom: 10,
+    paddingBottom: 0,
     borderColor: '#eee',
-    borderTopWidth: .5,
+    borderTopWidth: 1,
     backgroundColor: '#fff'
   },
   noBorder: {

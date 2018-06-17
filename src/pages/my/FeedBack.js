@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
   input: {
     height: 100,
     borderColor: '#ccc',
-    borderWidth: .5,
+    borderWidth: 1,
     padding: 5,
     fontSize: 16,
     backgroundColor: '#fafafa',
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     height: 50,
     borderColor: '#ccc',
-    borderWidth: .5,
+    borderWidth: 1,
     backgroundColor: '#fafafa',
     textAlignVertical: 'center'
   },

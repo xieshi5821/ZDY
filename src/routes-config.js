@@ -83,10 +83,11 @@ export default function configRoutes() {
 const navHeight = Platform.OS === 'ios' ? 60 : 50
 const styles = StyleSheet.create({
   appContainer: {
-    flex: 1
+    flex: 1,
+    backgroundColor: '#eff1f4',
   },
   sceneStyle: {
-    backgroundColor: '#eff1f4'
+    backgroundColor: '#eff1f4',
   },
   navigationBarStyle: {
     backgroundColor: '#00a5ca',
@@ -98,7 +99,8 @@ const styles = StyleSheet.create({
   tabBarIconContainerStyle: {
     backgroundColor:'#f5f5f5',
     borderColor: '#ccc',
-    borderTopWidth: .5
+    borderTopWidth: 1,
+    height: 70
   },
   sceneContentStyle: {
     paddingTop: navHeight,

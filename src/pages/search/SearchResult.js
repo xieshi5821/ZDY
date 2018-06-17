@@ -200,7 +200,7 @@ const styles = StyleSheet.create({
   },
   tblHeader: {
     borderColor: '#ccc',
-    borderBottomWidth: .5
+    borderBottomWidth: 1
   }
 })
 

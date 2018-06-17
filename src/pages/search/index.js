@@ -1,5 +1,5 @@
 import { CheckBox } from 'react-native-elements'
-import {Alert, StyleSheet, View, Text, ScrollView, TextInput, TouchableOpacity, AsyncStorage} from 'react-native'
+import {Alert, Platform, StyleSheet, View, Text, ScrollView, TextInput, TouchableOpacity, AsyncStorage} from 'react-native'
 import {callSearchHome, callSearchList} from '../../api/request'
 import {connect} from 'react-redux'
 import {receiveResultList, receiveContraindicationWords, resetResultList, resetFilter} from '../../actions/searchResult'
@@ -7,6 +7,7 @@ import {updateInputTextS, receiveRangeList, receivePlaceholder, toggleCheck, upd
 import commonStyles from '../../styles/common'
 import React, {Component, PropTypes} from 'react'
 import Spinner from 'react-native-loading-spinner-overlay'
+const isIos = Platform.OS === 'ios'
 
 const HIS = 'his'
 const getHisList = () => {
@@ -260,11 +261,12 @@ const styles = StyleSheet.create({
   input: {
     height: 100,
     borderColor: '#ccc',
-    borderWidth: .5,
+    borderWidth: 1,
     padding: 5,
     fontSize: 18,
     textAlignVertical: 'top',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    backgroundColor: '#fff'
   },
   checkGroupContainer: {
     flexDirection: 'row',
@@ -296,7 +298,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
     marginBottom: 8,
     borderColor: '#ccc',
-    borderWidth: .5
+    borderWidth: 1
   },
   checkText: {
     fontSize: 13,

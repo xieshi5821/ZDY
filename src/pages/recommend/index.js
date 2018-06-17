@@ -19,7 +19,6 @@ import {updateInputTextS} from '../../actions/search'
 import {AppRegistry, NativeModules, NativeEventEmitter} from 'react-native'
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 const isIos = Platform.OS === 'ios'
-
 class Recommend extends Component {
 
   static contextTypes = {
@@ -333,7 +332,7 @@ class Recommend extends Component {
           </TouchableOpacity>
         </View>
         <View style={styles.noticeDesc}>
-          <View><Text style={styles.noticeText}>使用说明：</Text></View>
+          <View><Text style={styles.noticeText}>使用说明1：</Text></View>
           {explains}
         </View>
         {modal}
@@ -359,15 +358,19 @@ const styles = StyleSheet.create({
   inputContainer: {
     flexDirection: 'row',
   },
+  inputWrap: {
+
+  },
   input: {
     height: 65,
     borderColor: '#ccc',
     textAlignVertical: 'top',
-    borderWidth: .5,
+    borderWidth: 1,
     flex: 1,
     padding: 5,
     fontSize: 18,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    backgroundColor: '#fff'
   },
   voiceContainer: {
     width: 65,
